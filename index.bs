@@ -1,0 +1,17 @@
+<pre class='metadata'>
+Title: ARIA-AT Automation
+Shortname: aria-at-automation
+Level: 1
+Status: CG-DRAFT
+Group: WICG
+Repository: WICG/aria-at-automation
+URL: http://example.com/url-this-spec-will-live-at
+Editor: Simon Pieters, Bocoup https://bocoup.com, simon@bocoup.com
+!Tests: <a href=https://github.com/w3c/web-platform-tests/tree/master/aria-at-automation>web-platform-tests aria-at-automation/</a> (<a href=https://github.com/w3c/web-platform-tests/labels/aria-at-automation>ongoing work</a>)
+Abstract: A short description of your spec, one or two sentences.
+</pre>
+
+Introduction {#intro}
+=====================
+
+See https://github.com/tabatkins/bikeshed to get started.
