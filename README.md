@@ -111,9 +111,9 @@ The required functionality could be built into an existing WebDriver server (e.g
 We advise against proceeding in this direction because while we are interested in testing multiple browsers, integrating with multiple browsers directly (instead of building "on top" of multiple browsers) will increase the development effort required to achieve that goal. Further, none of the participants in this effort have the expertise necessary to rapidly implement a solution so tightly-coupled to the existing technology.
 
 
-### Fake key presses and intercept spoken output
+### Simulate OS-level key presses and intercept spoken output
 
-At the OS-level (as opposed to the browser-level, as in WebDriver), fake key presses to give actions for the screen reader and browser. Also at the OS-level, install a custom voice that intercepts the spoken output, and make that text available to the test runner so that it can compare actual output with expected output.
+At the OS-level (as opposed to the browser-level, as in WebDriver), simulate key presses to give actions for the screen reader and browser. Also at the OS-level, install a custom voice that intercepts the spoken output, and make that text available to the test runner so that it can compare actual output with expected output.
 
 This is what we’re experimenting with currently at Bocoup. We believe this is a reasonable starting point because it allows us to start testing without changes to screen readers, but it’s not the ideal long-term solution because there are some limitations.
 
