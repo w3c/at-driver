@@ -22,6 +22,8 @@ We review the needs of the ARIA-AT project’s automated tests through the lens 
 ## Goals
 
 * Automate testing of screen reader + web browser combinations.
+    * Ability to start and quit the screen reader.
+    * Ability to start and quit the web browser.
     * Ability to change settings in the screen reader in a robust way.
     * Ability to access the spoken output of the screen reader.
     * Ability to access the internal state of the screen reader, e.g. virtual focus position, mode (interaction mode vs. reading mode).
@@ -57,7 +59,7 @@ The WebDriver protocol already provides this feature through [its "Delete Sessio
 
 ### Configure screen reader
 
-ARIA-AT tests will need to set initial conditions for the screen reader under test, e.g. the "mode" in which it should start.
+ARIA-AT tests will need to set initial conditions for the screen reader under test, e.g. instructing the screen reader to convey mode changes in speech instead of via sound files.
 
 The WebDriver protocol already provides a mechanism for altering characteristics of the testing session via [its "Capabilities" mechanism](https://w3c.github.io/webdriver/#capabilities), but screen reader settings are not included in the set of capabilities.
 
@@ -117,12 +119,12 @@ At the OS-level (as opposed to the browser-level, as in WebDriver), fake key pre
 
 This is what we’re experimenting with currently at Bocoup. We believe this is a reasonable starting point because it allows us to start testing without changes to screen readers, but it’s not the ideal long-term solution because there are some limitations.
 
-Pros:
+#### Pros
 
 * Not blocked on screen readers implementing a new API to start testing.
 * It should be possible to access everything that users can access (with a keyboard).
 
-Cons:
+#### Cons
 
 * Changing screen reader settings in this way is likely not going to be robust.
 * No access to screen readers’ internal state.
