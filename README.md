@@ -68,8 +68,7 @@ The WebDriver protocol already provides a mechanism for altering characteristics
 
 ARIA-AT tests will need to simulate keyboard key presses which can be received by a screen reader.
 
-Although the WebDriver protocol already provides [a command named "Element Send Keys"](https://w3c.github.io/webdriver/#element-send-keys), two details make that command unsuitable for the purposes of ARIA-AT automation. The first is technical: the command operates by simulating input within the web browser instance, so the operating system and screen reader cannot observe it. The second detail is conceptual: keys pressed by a screen reader users are not necessarily directed at any particular element, so the WebDriver command's required element reference would be superfluous in many cases.
-
+Although the WebDriver protocol already provides two commands for simulating key presses (["Element Send Keys"](https://w3c.github.io/webdriver/#element-send-keys) and ["Perform Actions"](https://w3c.github.io/webdriver/#dfn-perform-actions)), those commands are unsuitable for the purposes of ARIA-AT automation because they operate by simulating input within the web browser instance. The operating system and screen reader cannot observe keyboard interaction simulated using these commands.
 
 ### Inspect screen reader internal state
 
