@@ -236,13 +236,13 @@
     }
   ],
   "variables": {
-    "autounattend": "./answer_files/10/Autounattend.xml",
+    "autounattend": "",
     "disk_size": "61440",
     "disk_type_id": "1",
     "memory": "2048",
     "headless": "false",
-    "iso_checksum": "sha256:69efac1df9ec8066341d8c9b62297ddece0e6b805533fdb6dd66bc8034fba27a",
-    "iso_url": "https://software-download.microsoft.com/download/sg/444969d5-f34g-4e03-ac9d-1f9786c69161/19044.1288.211006-0501.21h2_release_svc_refresh_CLIENTENTERPRISEEVAL_OEMRET_x64FRE_en-us.iso",
+    "iso_checksum": "sha256:7F6538F0EB33C30F0A5CBBF2F39973D4C8DEA0D64F69BD18E406012F17A8234F",
+    "iso_url": "./Win10_21H2_English_x64.iso",
     "restart_timeout": "5m",
     "vhv_enable": "false",
     "virtio_win_iso": "~/virtio-win.iso",

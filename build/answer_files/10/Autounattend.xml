@@ -85,22 +85,8 @@
                 <AcceptEula>true</AcceptEula>
                 <FullName>Vagrant</FullName>
                 <Organization>Vagrant</Organization>
-
-                <!--
-                    NOTE: If you are re-configuring this for use of a retail key
-                    and using a retail ISO, you need to adjust the <ProductKey> block
-                    below to look like this:
-
-                    <ProductKey>
-                        <Key>W269N-WFGWX-YVC9B-4J6C9-T83GX</Key>
-                        <WillShowUI>Never</WillShowUI>
-                    </ProductKey>
-
-                    Notice the addition of the `<Key>` element.
-                -->
-
-                <!-- Product Key from https://www.microsoft.com/en-us/evalcenter/evaluate-windows-10-enterprise -->
-                <ProductKey>2FMYP-QCY43-QR9VK-WTVCK
+                <ProductKey>
+                    <Key>WINDOWS_PRODUCT_KEY</Key>
                     <WillShowUI>Never</WillShowUI>
                 </ProductKey>
             </UserData>
@@ -115,7 +101,7 @@
                     <InstallFrom>
                         <MetaData wcm:action="add">
                             <Key>/IMAGE/NAME</Key>
-                            <Value>Windows 10 Enterprise Evaluation</Value>
+                            <Value>Windows 10 Pro</Value>
                         </MetaData>
                     </InstallFrom>
                 </OSImage>
