@@ -37,4 +37,4 @@ trap cleanup EXIT
 
 packer build \
   --var autounattend=${temporary_auto_unattend_file} \
-  windows_10.json
+  windows_10.pkr.hcl
