@@ -1,8 +1,3 @@
-variable "autounattend" {
-  type    = string
-  default = ""
-}
-
 variable "disk_size" {
   type    = string
   default = "61440"
@@ -60,7 +55,7 @@ source "virtualbox-iso" "generic" {
   cpus                 = 2
   disk_size            = "${var.disk_size}"
   floppy_files         = [
-    "${var.autounattend}",
+    "./answer_files/10/Autounattend.xml",
     "./floppy/WindowsPowershell.lnk",
     "./floppy/PinTo10.exe",
     "./scripts/fixnetwork.ps1",
@@ -84,6 +79,7 @@ source "virtualbox-iso" "generic" {
 }
 
 build {
+  name = "generic"
   sources = ["source.virtualbox-iso.generic"]
 
   provisioner "windows-shell" {

@@ -84,6 +84,15 @@ function Install-MsiFile([string]$name) {
 
 mkdir -Force downloads | Out-Null
 
+$python_url = "https://www.python.org/ftp/python/${python_version}/python-${python_version}-amd64.exe"
+$python_dest = "downloads/install-python-${python_version}.exe"
+
+#log 'Downloading Python'
+#Start-BitsTransfer -Source $python_url -Destination $python_dest
+
+#log 'Installing Python'
+#Install-ExeFile $python_dest '/quiet'
+
 $nodejs_url = "https://nodejs.org/dist/v${nodejs_version}/node-v${nodejs_version}-x64.msi"
 $nodejs_dest = "downloads/install-nodejs-${nodejs_version}.msi"
 

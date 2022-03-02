@@ -86,7 +86,14 @@
                 <FullName>Vagrant</FullName>
                 <Organization>Vagrant</Organization>
                 <ProductKey>
-                    <Key>WINDOWS_PRODUCT_KEY</Key>
+                    <!--
+                        The following key is known to be invalid. It is
+                        provided here only as a means to satisfy the unattended
+                        installation process. Subsequent provisioning logic
+                        will inject a valid key as provided by the script's
+                        operator.
+                    -->
+                    <Key>W269N-WFGWX-YVC9B-4J6C9-T83GX</Key>
                     <WillShowUI>Never</WillShowUI>
                 </ProductKey>
             </UserData>
