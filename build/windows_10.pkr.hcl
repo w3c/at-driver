@@ -54,7 +54,7 @@ variable "winrm_timeout" {
 }
 
 source "virtualbox-iso" "generic" {
-  boot_command         = ""
+  boot_command         = []
   boot_wait            = "6m"
   communicator         = "winrm"
   cpus                 = 2
