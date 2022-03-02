@@ -36,7 +36,5 @@ function cleanup {
 trap cleanup EXIT
 
 packer build \
-  --except=vagrant \
-  --only=virtualbox-iso \
   --var autounattend=${temporary_auto_unattend_file} \
   windows_10.json
