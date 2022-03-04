@@ -11,6 +11,16 @@ source "virtualbox-ovf" "customized" {
   communicator = "winrm"
   winrm_username = "vagrant"
   winrm_password = "vagrant"
+
+  # The "automation voice" requires access to a valid audio device.
+  #
+  # Parameter documentation:
+  # https://docs.oracle.com/en/virtualization/virtualbox/6.0/user/vboxmanage-modifyvm.html
+  vboxmanage = [
+    ["modifyvm", "{{.Name}}", "--audio", "pulse"],
+    ["modifyvm", "{{.Name}}", "--audiocontroller", "hda"],
+    ["modifyvm", "{{.Name}}", "--audioout", "on"],
+  ]
 }
 
 build {
