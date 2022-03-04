@@ -71,6 +71,17 @@ Start-BitsTransfer -Source $git_url -Destination $git_dest
 log 'Installing Git'
 Install-ExeFile $git_dest '/verysilent'
 
+$vc_runtime_url = 'https://aka.ms/vs/16/release/vc_redist.x86.exe'
+$vc_runtime_dest = "${downloads}\install-vc-runtime.exe"
+
+log 'Downloading Visual C++ runtime'
+
+Start-BitsTransfer -Source $vc_runtime_url -Destination $vc_runtime_dest
+
+log 'Installing Visual C++ runtime'
+
+Install-ExeFile $vc_runtime_dest '/quiet'
+
 rm -r $downloads
 
 log 'Done'
