@@ -4,14 +4,88 @@ Shortname: aria-at-automation
 Level: 1
 Status: CG-DRAFT
 Group: ARIA-AT CG
-Repository: bocoup/aria-at-automation
-URL: https://bocoup.github.io/aria-at-automation/
+Repository: w3c/aria-at-automation
+URL: https://w3c.github.io/aria-at-automation/
 Editor: Simon Pieters, Bocoup https://bocoup.com, simon@bocoup.com
 !Tests: <a href=https://github.com/w3c/web-platform-tests/tree/master/aria-at-automation>web-platform-tests aria-at-automation/</a> (<a href=https://github.com/w3c/web-platform-tests/labels/aria-at-automation>ongoing work</a>)
-Abstract: A short description of your spec, one or two sentences.
+Abstract: A short description of your spec, one or two sentences. (TODO)
 </pre>
 
 Introduction {#intro}
 =====================
 
-See https://github.com/tabatkins/bikeshed to get started.
+AT Driver defines a protocol for introspection and remote control of assistive technology software, using a bidirectional communication channel.
+
+Explainer {#explainer}
+======================
+
+Specify a protocol using WebSocket that maximally reuses concepts and conventions from WebDriver BiDi.
+
+A connection has two endpoints: remote and local. The remote end can control and read from the screen reader, which can either be implemented as a standalone application or be implemented as part of the AT software. The local end is what the test interfaces with, usually in the form of language-specific libraries providing an API.
+
+(For WebDriver, you still need to use HTTP to request the "webSocketUrl" capability, and then establish the WebSocket connection. Here we want the WebSocket connection to be the initial and only connection.)
+
+A connection can have 0 or more sessions. Each session corresponds to an instance of an AT. We may limit the maximum number of sessions per AT to 1 initially.
+
+Commands are grouped into modules. The modules could be: Sessions, Settings, Actions.
+
+Message transport is provided using the WebSocket protocol.
+
+The protocol is defined using a Concise Data Definition Language (CDDL) definition. The serialization is JSON.
+
+Example
+-------
+
+First, the local end would establish a WebSocket connection.
+
+The local end then creates a session by sending
+
+```
+{"method":"session.new","params":{...}}
+```
+
+The local end can then send commands to change settings or send key press actions for that session.
+
+When the screen reader speaks, the remote end will send a message to the local end with the spoken text.
+
+Infrastructure {#infra}
+=======================
+
+This specification uses the same terms as in WebDriver BiDi, but the remote end is assistive technology software instead of a web browser. Some terms are redefined herein. Contrary to WebDriver, this specification does not use HTTP, only WebSocket.
+
+Issue: need to define this properly.
+
+Interface {#interface}
+======================
+
+Issue: https://w3c.github.io/webdriver/#interface exposes to the page JS that webdriver is active. Do we need to expose that atdriver is active?
+
+Sessions {#sessions}
+====================
+
+A <dfn>session</dfn> represents the connection between a [=local end=] and a specific [=remote end=].
+
+Commands {#commands}
+====================
+
+Issue: Sessions https://w3c.github.io/webdriver-bidi/#module-session-commands
+
+Settings {#settings}
+--------------------
+
+Issue: TODO enunciate capital letters, enunciate punctuation
+
+Actions {#actions}
+------------------
+
+Issue: TODO
+
+Events {#events}
+================
+
+Issue: TODO
+
+Security {#security}
+====================
+
+Issue: TODO
