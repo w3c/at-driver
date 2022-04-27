@@ -19,11 +19,11 @@ AT Driver defines a protocol for introspection and remote control of assistive t
 Explainer {#explainer}
 ======================
 
-Specify a protocol using WebSocket that maximally reuses concepts and conventions from WebDriver BiDi.
+Specify a protocol using WebSocket that maximally reuses concepts and conventions from [WebDriver BiDi](https://w3c.github.io/webdriver-bidi/).
 
 A connection has two endpoints: remote and local. The remote end can control and read from the screen reader, which can either be implemented as a standalone application or be implemented as part of the AT software. The local end is what the test interfaces with, usually in the form of language-specific libraries providing an API.
 
-(For WebDriver, you still need to use HTTP to request the "webSocketUrl" capability, and then establish the WebSocket connection. Here we want the WebSocket connection to be the initial and only connection.)
+There should only be the WebSocket form of communication -- as in [BiDi-only sessions for WebDriver BiDi](https://w3c.github.io/webdriver-bidi/#supports-bidi-only-sessions).
 
 A connection can have 0 or more sessions. Each session corresponds to an instance of an AT. We may limit the maximum number of sessions per AT to 1 initially.
 
@@ -44,9 +44,9 @@ The local end then creates a session by sending
 {"method":"session.new","params":{...}}
 ```
 
-The local end can then send commands to change settings or send key press actions for that session.
+The local end can then send commands to change settings or send key press actions for that session. The local end assigns a command id (which is included in the message). The remote end sends a message back with the result and the command id, so the local end knows which command the message applies to.
 
-When the screen reader speaks, the remote end will send a message to the local end with the spoken text.
+When the screen reader speaks, the remote end will send a message as to the local end with the spoken text. This could be in the form of an event, which is not tied to any particular command.
 
 Infrastructure {#infra}
 =======================
@@ -82,6 +82,11 @@ Issue: TODO
 
 Events {#events}
 ================
+
+Issue: TODO
+
+Privacy {#privacy}
+==================
 
 Issue: TODO
 
