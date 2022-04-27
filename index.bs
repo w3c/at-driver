@@ -2,7 +2,7 @@
 Title: ARIA-AT Automation
 Shortname: aria-at-automation
 Level: 1
-Status: CG-DRAFT
+Status: w3c/CG-DRAFT
 Group: ARIA-AT CG
 Repository: w3c/aria-at-automation
 URL: https://w3c.github.io/aria-at-automation/
@@ -25,7 +25,7 @@ A connection has two endpoints: remote and local. The remote end can control and
 
 There should only be the WebSocket form of communication -- as in [BiDi-only sessions for WebDriver BiDi](https://w3c.github.io/webdriver-bidi/#supports-bidi-only-sessions).
 
-A connection can have 0 or more sessions. Each session corresponds to an instance of an AT. We may limit the maximum number of sessions per AT to 1 initially.
+A connection can have 0 or more [=sessions=]. Each session corresponds to an instance of an AT. We may limit the maximum number of sessions per AT to 1 initially.
 
 Commands are grouped into modules. The modules could be: Sessions, Settings, Actions.
 
@@ -33,8 +33,8 @@ Message transport is provided using the WebSocket protocol.
 
 The protocol is defined using a Concise Data Definition Language (CDDL) definition. The serialization is JSON.
 
-Example
--------
+Example {#explainer-example}
+----------------------------
 
 First, the local end would establish a WebSocket connection.
 
@@ -59,6 +59,16 @@ Interface {#interface}
 ======================
 
 Issue: https://w3c.github.io/webdriver/#interface exposes to the page JS that webdriver is active. Do we need to expose that atdriver is active?
+
+Nodes {#nodes}
+==============
+
+The AT Driver protocol consists of communication between:
+
+: <dfn>local end</dfn>
+:: The local end represents the client side of the protocol, which is usually in the form of language-specific libraries providing an API on top of the AT Driver protocol. This specification does not place any restrictions on the details of those libraries above the level of the wire protocol.
+: <dfn>remote end</dfn>
+:: The remote end hosts the server side of the protocol. The remote end is responsible for driving and listening to the assistive technology and sending information to the local end as defined in this specification.
 
 Sessions {#sessions}
 ====================
@@ -88,9 +98,25 @@ Issue: TODO
 Privacy {#privacy}
 ==================
 
-Issue: TODO
+It is advisable that [=remote ends=] create a new profile when creating a new session. This prevents potentially sensitive session data from being accessible to new sessions, ensuring both privacy and preventing state from bleeding through to the next session.
 
 Security {#security}
 ====================
 
-Issue: TODO
+An assistive technology can rely on a command-line flag or a configuration option to test whether to enable AT Driver, or alternatively make the assistive technology initiate or confirm the connection through a privileged content document or control widget, in case the assistive technology does not directly implement the WebSocket endpoints.
+
+It is strongly suggested that assistive technology require users to take explicit action to enable AT Driver, and that AT Driver remains disabled in publicly consumed versions of the assistive technology.
+
+To prevent arbitrary machines on the network from connecting and creating sessions, it is suggested that only connections from loopback devices are allowed by default.
+
+The remote end can include a configuration option to limit the accepted IP range allowed to connect and make requests. The default setting for this might be to limit connections to the IPv4 localhost CIDR range 127.0.0.0/8 and the IPv6 localhost address ::1. [[RFC4632]]
+
+It is also suggested that assistive technologies make an effort to indicate that a session that is under control of AT Driver. The indication should be accessible also for non-visual users. For example, this can be done through an OS-level notification or alert dialog.
+
+Issue: TODO sandbox (limit availability to information that apps usually can't access, e.g. login screen).
+
+Issue: TODO no HID level simulated keypresses.
+
+Issue: TODO exclude access to any security-sensitive settings.
+
+Issue: TODO exclude access to any security-sensitive commands.
