@@ -70,30 +70,149 @@ The AT Driver protocol consists of communication between:
 : <dfn>remote end</dfn>
 :: The remote end hosts the server side of the protocol. The remote end is responsible for driving and listening to the assistive technology and sending information to the local end as defined in this specification.
 
-Sessions {#sessions}
+Protocol {#protocol}
 ====================
+
+This section defines the basic concepts of the AT Driver protocol. These terms are distinct from their representation at the [=transport=] layer.
+
+The protocol is defined using a CDDL definition. For the convenience of implementors two seperate CDDL definitions are defined; the <dfn>remote end definition</dfn> which defines the format of messages produced on the [=local end=] and consumed on the [=remote end=], and the <dfn>local end definition</dfn> which defines the format of messages produced on the [=remote end=] and consumed on the [=local end=].
+
+
+Definition {#protocol-definition}
+---------------------------------
+
+Issue: https://w3c.github.io/webdriver-bidi/#protocol-definition
+
+
+Session {#protocol-session}
+---------------------------
 
 A <dfn>session</dfn> represents the connection between a [=local end=] and a specific [=remote end=].
 
-Commands {#commands}
-====================
+Modules {#protocol-modules}
+---------------------------
 
-Issue: Sessions https://w3c.github.io/webdriver-bidi/#module-session-commands
+The AT Driver protocol is organized into modules.
 
-Settings {#settings}
---------------------
+Each <dfn>module</dfn> represents a collection of related [=commands=] and [=events=] pertaining to a certain aspect of the assistive technology.
+
+Each module has a <dfn>module name</dfn> which is a string. The [=command name=] and [=event name=] for commands and events adefined in the module start with the [=module name=] followed by a period "`.`".
+
+Modules which contain [=commands=] define [=remote end definition=] fragments.
+
+Commands {#protocol-commands}
+-----------------------------
+
+A <dfn>command</dfn> is an asynchronous operation, requested by the [=local end=] and run on the [=remote end=], resulting in either a result or an error being returned to the [=local end=]. Multiple commands can run at the same time, and commands can potentially be long-running. As a consequence, commands can finish out-of-order.
+
+Each [=command=] is defined by:
+
+* A <dfn>command type</dfn> which is defined by a [=remote end definition=] fragment containing a group. Each such group has two fields:
+  * `method` which is a string literal in the form `[module name].[method name]`. This is the <dfn>command name</dfn>.
+  * `params` which defines a mapping containing data that to be passed into the command. The populated value of this map is the <dfn>command parameters</dfn>.
+* A <dfn>result type</dfn>, which is defined by the [=local end definition=] fragment.
+* A set of [=remote end steps=] which define the actions to take for a command given a [=session=] and [=command parameters=] and return an instance of the command [=return type=].
+
+A command that cna run without an active session is a <dfn>static command</dfn>. Commands are not static commands unless stated in their definition.
+
+When commands are sent from the [=local end=] they have a command id. This is an identifier used by the [=local end=] to identify the response from a particular command. From the point of view of the [=remote end=] this identifier is opaque and cannot be used internally to identify the command.
+
+Events {#protocol-events}
+-------------------------
+
+An <dfn>event</dfn> is a notification, sent by the [=remote end=] to the [=local end=], signaling that something of interest has occurred oin the [=remote end=].
+
+* An <dfn>event type</dfn> is defined by a [=local end definition=] fragment containing a group. Each such group has two fields:
+  * `method` which is a string literal of the form `[module name].[event name]`. This is the <dfn>event name</dfn>.
+  * `params` which defins a mapping containing event data. The populated value of this map is the <dfn>event parameters</dfn>.
+* A <dfn>remote end event trigger</dfn> which defines when the event is triggered and steps to construct the [=event type=] data.
+
+Transport {#transport}
+======================
+
+Message transport is provided using the WebSocket protocol. [[!RFC6455]]
+
+Issue: TODO <dfn>start listening for a WebSocket connection</dfn>;
+<dfn>handle an incoming message</dfn>;
+<dfn>emit an event</dfn>;
+<dfn>respond with an error</dfn>
+<dfn>handle a connection closing</dfn>
+
+Establinshing a Connection {#transport-establishing}
+----------------------------------------------------
+
+The URL to the WebSocket server is communicated out-of-band. When an implementation is ready to accept requests to start an AT Driver session, it must:
+
+1. [=Start listening for a WebSocket connection=] given null.
+
+Common Data Types {#data-types}
+===============================
+
+TODO https://w3c.github.io/webdriver-bidi/#data-types
+
+Modules {#modules}
+==================
+
+The session Module {#module-session}
+------------------------------------
+
+### Definition ### {#module-session-definition}
+
+The [=remote end definition=] and [=local end definition=] are the same as the <a href="https://w3c.github.io/webdriver-bidi/#module-session-definition">WebDriver BiDi session Module's definition</a>.
+
+### Types ### {#module-session-types}
+
+#### The session.CapabilitiesRequest Type #### {#module-session-CapabilitiesRequest}
+
+[=Remote end definition=] and [=local end definition=]:
+
+```
+Capabilities = {
+  ?atName: text,
+  ?atVersion: text,
+  ?platformName: text,
+  *text => any
+};
+```
+
+The `CapabilitiesRequest` type represents capabilities requested for a session.
+
+### Commands ###{#module-session-commands}
+
+#### The session.new Command #### {#module-session-new}
+
+The <dfn>session.new</dfn> command allows creating a new [=session=]. This is a [=static command=].
+
+<dl>
+  <dt>Command Type
+  <dd>The command type definition is the same as the WebDriver BiDi session.new command's definition.
+  <dt>Return Type
+  <dd>
+
+```
+SessionNewResult = {
+  sessionId: text,
+  capabilities: {
+    atName: text,
+    atVersion: text,
+    platformName: text,
+    *text => any
+  }
+}
+```
+
+</dl>
+
+The [=remote end steps=] given |session| and |command parameters| are:
+
+1. ... process capabilities, create a session, generate a session id
+2. Let |body| be a new map matching the `SessionNewResult` production, with the `sessionId` field set to |session|’s [=session ID=], and the `capabilities` field set to |capabilities|.
+3. Return [=success=] with data |body|.
+
+The settings Module {#module-settings}
+--------------------------------------
 
 Issue: TODO enunciate capital letters, enunciate punctuation
-
-Actions {#actions}
-------------------
-
-Issue: TODO
-
-Events {#events}
-================
-
-Issue: TODO
 
 Privacy {#privacy}
 ==================
