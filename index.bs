@@ -9,6 +9,7 @@ URL: https://w3c.github.io/aria-at-automation/
 Editor: Simon Pieters, Bocoup https://bocoup.com, simon@bocoup.com
 !Tests: <a href=https://github.com/w3c/web-platform-tests/tree/master/aria-at-automation>web-platform-tests aria-at-automation/</a> (<a href=https://github.com/w3c/web-platform-tests/labels/aria-at-automation>ongoing work</a>)
 Abstract: A short description of your spec, one or two sentences. (TODO)
+Markup Shorthands: markdown yes
 </pre>
 
 Introduction {#intro}
@@ -185,21 +186,35 @@ The <dfn>session.new</dfn> command allows creating a new [=session=]. This is a 
 
 <dl>
   <dt>Command Type
-  <dd>The command type definition is the same as the WebDriver BiDi session.new command's definition.
+  <dd>
+
+  ```
+  SessionNewCommand = {
+    method: "session.new",
+    params: {capabilities: CapabilitiesRequestParameters},
+  }
+
+  CapabilitiesRequestParameters = {
+    ?alwaysMatch: CapabilitiesRequest,
+  }
+  ```
+
+  Note: `firstMatch` is not included currently to reduce complexity.
+
   <dt>Return Type
   <dd>
 
-```
-SessionNewResult = {
-  sessionId: text,
-  capabilities: {
-    atName: text,
-    atVersion: text,
-    platformName: text,
-    *text => any
+  ```
+  SessionNewResult = {
+    sessionId: text,
+    capabilities: {
+      atName: text,
+      atVersion: text,
+      platformName: text,
+      *text => any
+    }
   }
-}
-```
+  ```
 
 </dl>
 
