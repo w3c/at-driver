@@ -114,18 +114,18 @@ Each [=command=] is defined by:
 * A <dfn>result type</dfn>, which is defined by the [=local end definition=] fragment.
 * A set of [=remote end steps=] which define the actions to take for a command given a [=session=] and [=command parameters=] and return an instance of the command [=return type=].
 
-A command that cna run without an active session is a <dfn>static command</dfn>. Commands are not static commands unless stated in their definition.
+A command that can run without an active session is a <dfn>static command</dfn>. Commands are not static commands unless stated in their definition.
 
 When commands are sent from the [=local end=] they have a command id. This is an identifier used by the [=local end=] to identify the response from a particular command. From the point of view of the [=remote end=] this identifier is opaque and cannot be used internally to identify the command.
 
 Events {#protocol-events}
 -------------------------
 
-An <dfn>event</dfn> is a notification, sent by the [=remote end=] to the [=local end=], signaling that something of interest has occurred oin the [=remote end=].
+An <dfn>event</dfn> is a notification, sent by the [=remote end=] to the [=local end=], signaling that something of interest has occurred on the [=remote end=].
 
 * An <dfn>event type</dfn> is defined by a [=local end definition=] fragment containing a group. Each such group has two fields:
   * `method` which is a string literal of the form `[module name].[event name]`. This is the <dfn>event name</dfn>.
-  * `params` which defins a mapping containing event data. The populated value of this map is the <dfn>event parameters</dfn>.
+  * `params` which defines a mapping containing event data. The populated value of this map is the <dfn>event parameters</dfn>.
 * A <dfn>remote end event trigger</dfn> which defines when the event is triggered and steps to construct the [=event type=] data.
 
 Transport {#transport}
