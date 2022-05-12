@@ -28,6 +28,8 @@ There should only be the WebSocket form of communication -- as in [BiDi-only ses
 
 A connection can have 0 or more [=sessions=]. Each session corresponds to an instance of an AT. We may limit the maximum number of sessions per AT to 1 initially.
 
+When a remote end supports multiple sessions, it does not necessarily mean that there will be multiple ATs running at the same time in the same instance of an OS. Some ATs might not be able to function properly if there are other ATs running at the same time. The AT Driver [=session=] concept can still be used by having the remote end run in a separate environment and each AT is run in its own OS instance (for example in a virtual machine), and the remote end proxies messages in some fasion.
+
 Commands are grouped into modules. The modules could be: Sessions, Settings, Actions.
 
 Message transport is provided using the WebSocket protocol.
