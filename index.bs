@@ -12,6 +12,10 @@ Abstract: A short description of your spec, one or two sentences. (TODO)
 Markup Shorthands: markdown yes
 </pre>
 
+<pre class='link-defaults'>
+spec:infra; type:dfn; for:/; text:set
+</pre>
+
 Introduction {#intro}
 =====================
 
@@ -54,9 +58,11 @@ When the screen reader speaks, the remote end will send a message as to the loca
 Infrastructure {#infra}
 =======================
 
-This specification uses the same terms as in WebDriver BiDi, but the remote end is assistive technology software instead of a web browser. Some terms are redefined herein. Contrary to WebDriver, this specification does not use HTTP, only WebSocket.
+This specification depends on the Infra Standard. [[!INFRA]]
 
-Issue: need to define this properly.
+Network protocol messages are defined using CDDL. [[!RFC8610]]
+
+A <dfn lt="UUID">Universally Unique Identifier (UUID)</dfn> is a 128 bits long URN that requires no central registration process. <dfn>Generating a UUID</dfn> means <i>Creating a UUID From Truly Random or Pseudo-Random Numbers</i>, and converting it to the string representation. [[!RFC4122]]
 
 Nodes {#nodes}
 ==============
@@ -71,7 +77,7 @@ The AT Driver protocol consists of communication between:
 Protocol {#protocol}
 ====================
 
-This section defines the basic concepts of the AT Driver protocol. These terms are distinct from their representation at the [=transport=] layer.
+This section defines the basic concepts of the AT Driver protocol. These terms are distinct from their representation at the transport layer.
 
 The protocol is defined using a CDDL definition. For the convenience of implementors two seperate CDDL definitions are defined; the <dfn>remote end definition</dfn> which defines the format of messages produced on the [=local end=] and consumed on the [=remote end=], and the <dfn>local end definition</dfn> which defines the format of messages produced on the [=remote end=] and consumed on the [=local end=].
 
@@ -79,13 +85,72 @@ The protocol is defined using a CDDL definition. For the convenience of implemen
 Definition {#protocol-definition}
 ---------------------------------
 
-Issue: https://w3c.github.io/webdriver-bidi/#protocol-definition
+This section gives the initial contents of the remote end definition and local end definition. These are augmented by the definition fragments defined in the remainder of the specification.
 
+Remote end definition
+
+```
+Command = {
+  id: uint,
+  CommandData,
+  *text => any,
+}
+
+CommandData = (
+  SessionCommand
+)
+
+EmptyParams = { *text }
+```
+
+Local end definition
+
+```
+Message = (
+  CommandResponse //
+  ErrorResponse //
+  Event
+)
+
+CommandResponse = {
+  id: uint,
+  result: ResultData,
+  *text => any
+}
+
+ErrorResponse = {
+  id: uint / null,
+  error: "unknown error" / "unknown command" / "invalid argument",
+  message: text,
+  ?stacktrace: text,
+  *text => any
+}
+
+ResultData = (
+  EmptyResult //
+  SessionResult
+)
+
+EmptyResult = {}
+
+Event = {
+  EventData,
+  *text => any
+}
+
+EventData = (
+  ATEvent
+)
+```
 
 Session {#protocol-session}
 ---------------------------
 
 A <dfn>session</dfn> represents the connection between a [=local end=] and a specific [=remote end=].
+
+A [=remote end=] has an associated list of <dfn for="remote end">active sessions</dfn>, which is a list of all [=sessions=] that are currently started. A remote end has at most one [=active session=] at a given time.
+
+A [=session=] has an associated <dfn for="session">session ID</dfn> (a string representation of a [=UUID=]) used to uniquely identify this session. Unless stated otherwise it is null.
 
 Modules {#protocol-modules}
 ---------------------------
@@ -98,10 +163,12 @@ Each module has a <dfn>module name</dfn> which is a string. The [=command name=]
 
 Modules which contain [=commands=] define [=remote end definition=] fragments.
 
+An implementation may define <dfn>extension modules</dfn>. These must have a module name that contains a single colon "`:`" character. The part before the colon is the prefix; this is typically the same for all extension modules specific to a given implementation and should be unique for a given implementation. Such modules extend the [=local end definition=] and [=remote end definition=] providing additional groups as choices for the defined [=commands=] and [=events=].
+
 Commands {#protocol-commands}
 -----------------------------
 
-A <dfn>command</dfn> is an asynchronous operation, requested by the [=local end=] and run on the [=remote end=], resulting in either a result or an error being returned to the [=local end=]. Multiple commands can run at the same time, and commands can potentially be long-running. As a consequence, commands can finish out-of-order.
+A <dfn>command</dfn> is an asynchronous operation, requested by the [=local end=] and run on the [=remote end=], resulting in either a <dfn for="command">success</dfn> or an <dfn for="command">error</dfn> being returned to the [=local end=]. Multiple commands can run at the same time, and commands can potentially be long-running. As a consequence, commands can finish out-of-order.
 
 Each [=command=] is defined by:
 
@@ -109,11 +176,13 @@ Each [=command=] is defined by:
   * `method` which is a string literal in the form `[module name].[method name]`. This is the <dfn>command name</dfn>.
   * `params` which defines a mapping containing data that to be passed into the command. The populated value of this map is the <dfn>command parameters</dfn>.
 * A <dfn>result type</dfn>, which is defined by the [=local end definition=] fragment.
-* A set of [=remote end steps=] which define the actions to take for a command given a [=session=] and [=command parameters=] and return an instance of the command [=return type=].
+* A set of <dfn>remote end steps</dfn> which define the actions to take for a command given a [=session=] and [=command parameters=] and return an instance of the command [=return type=].
 
 A command that can run without an active session is a <dfn>static command</dfn>. Commands are not static commands unless stated in their definition.
 
 When commands are sent from the [=local end=] they have a command id. This is an identifier used by the [=local end=] to identify the response from a particular command. From the point of view of the [=remote end=] this identifier is opaque and cannot be used internally to identify the command.
+
+The <dfn>set of all command names</dfn> is a [=set=] containing all the defined [=command names=], including any belonging to [=extension modules=].
 
 Events {#protocol-events}
 -------------------------
@@ -125,28 +194,137 @@ An <dfn>event</dfn> is a notification, sent by the [=remote end=] to the [=local
   * `params` which defines a mapping containing event data. The populated value of this map is the <dfn>event parameters</dfn>.
 * A <dfn>remote end event trigger</dfn> which defines when the event is triggered and steps to construct the [=event type=] data.
 
+Errors {#protocol-errors}
+-------------------------
+
+The following table lists each <dfn>error code</dfn>, its associated JSON `error` code, and a non-normative description of the error.
+
+<table>
+  <caption>Error codes</caption>
+  <tr>
+    <th>Error code
+    <th>JSON error code
+    <th>Description
+  <tr>
+    <td><dfn for="error code">invalid argument</dfn>
+    <td>`invalid argument`
+    <td>The arguments passed to a [=command=] are either invalid or malformed.
+  <tr>
+    <td><dfn for="error code">invalid session id</dfn>
+    <td>`invalid session id`
+    <td>The [=session=] either does not exist or it's not active.
+  <tr>
+    <td><dfn for="error code">unknown command</dfn>
+    <td>`unknown command`
+    <td>A [=command=] could not be executed because the [=remote end=] is not aware of it.
+</table>
+
 Transport {#transport}
 ======================
 
 Message transport is provided using the WebSocket protocol. [[!RFC6455]]
 
-Issue: TODO <dfn>start listening for a WebSocket connection</dfn>;
-<dfn>handle an incoming message</dfn>;
-<dfn>emit an event</dfn>;
-<dfn>respond with an error</dfn>
-<dfn>handle a connection closing</dfn>
+A <dfn>WebSocket listener</dfn> is a network endpoint that is able to accept incoming WebSocket connections.
+
+A [=WebSocket listener=] has a <dfn for="WebSocket listener">host</dfn>,
+a <dfn for="WebSocket listener">port</dfn>,
+and a <dfn for="WebSocket listener">secure flag</dfn>.
+
+When a [=WebSocket listener=] |listener| is created, a [=remote end=] must start to listen for WebSocket connections on the host and port given by |listener|'s host and port. If |listener|'s [=secure flag=] is set, then connections established from |listener| must be TLS encrypted.
+
+A [=remote end=] has a [=set=] of [=WebSocket listeners=] <dfn for="remote end">active listeners</dfn>, which is initially empty.
+
+A [=remote end=] has a [=set=] of <dfn for="remote end">WebSocket connections not associated with a session</dfn>, which is initially empty.
+
+A <dfn>WebSocket connection</dfn> is a network connection that follows the requirements of the WebSocket protocol. [[!RFC6455]]
+
+A [=session=] has a [=set=] of <dfn for="session">session WebSocket connections</dfn> whose elements are [=WebSocket connections=]. This is initially empty.
+
+A [=session=] |session| is <dfn for="session">associated with connection</dfn> |connection| if |session|'s [=session WebSocket connections=] contains |connection|.
+
+Note: Each [=WebSocket connection=] is associated with at most one [=session=].
+
+When a client [establishes a WebSocket connection](https://tools.ietf.org/html/rfc6455#section-4.1) |connection| by connecting to one of the set of [=active listeners=] |listener|, the implementation must proceed according to the [WebSocket server-side requirements](https://tools.ietf.org/html/rfc6455#section-4.2), with the following steps run when deciding whether to accept the incoming connection:
+
+1. Let |resource name| be the resource name from [reading the client's opening handshake](https://tools.ietf.org/html/rfc6455#section-4.2.1). If |resource name| is not "`/session`", then stop running these steps and act as if the requested service is not available.
+2. Run any other [=implementation-defined=] steps to decide if the connection should be accepted, and if it is not stop running these steps and act as if the requested service is not available.
+3. Add the connection to the set of [=WebSocket connections not associated with a session=].
+
+When a [WebSocket message has been received](https://tools.ietf.org/html/rfc6455#section-6.2) for a [=WebSocket connection=] |connection| with type |type| and data |data|, a [=remote end=] must [=handle an incoming message=] given |connection|, |type| and |data|.
+
+When the [WebSocket closing handshake is started](https://tools.ietf.org/html/rfc6455#section-7.1.3) or when the [WebSocket connection is closed](https://tools.ietf.org/html/rfc6455#section-7.1.4) for a [=WebSocket connection=] |connection|, a [=remote end=] must [=handle a connection closing=] given |connection|.
+
+Note: Both conditions are needed because it is possible for a WebSocket connection to be closed without a closing handshake.
+
+To <dfn>start listening for a WebSocket connection</dfn>:
+
+1. Let |listener| be a new [=WebSocket listener=] with [=implementation-defined=] <a for="WebSocket listener">host</a>, <a for="WebSocket listener">port</a>, and <a for="WebSocket listener">secure flag</a>.
+2. <a for="set">Append</a> |listener| to the [=remote end=]'s [=active listeners=].
+3. Return |listener|.
+
+Note: a future iteration of this specification may allow multiple connections, to support [intermediary nodes like in WebDriver](https://w3c.github.io/webdriver/#dfn-intermediary-nodes).
+
+To <dfn>handle an incoming message</dfn> given a [=WebSocket connection=] |connection|, type |type| and data |data|:
+
+1. If |type| is not [text](https://tools.ietf.org/html/rfc6455#section-5.2), [=respond with an error=] given |connection|, null, and [=invalid argument=], and finally return.
+2. [=Assert=]: |data| is a [=scalar value string=], because the [WebSocket handling errors in UTF-8-encoded data=](https://tools.ietf.org/html/rfc6455#section-8.1) would already have [failed the WebSocket connection](https://tools.ietf.org/html/rfc6455#section-7.1.7) otherwise.
+3. If there is a [=session=] [=associated with connection=] |connection|, let |session| be that session. Otherwise if |connection| is in the set of [=WebSocket connections not associated with a session=], let |session| be null. Otherwise, return.
+4. Let |parsed| be the result of [=parsing JSON into Infra values=] given |data|. If this throws an exception, then [=respond with an error=] given |connection|, null, and [=invalid argument=], and finally return.
+5. Match parsed against the [=remote end definition=]. If this results in a match:
+    1. Let |matched| be the map representing the matched data.
+    2. [=Assert=]: |matched| <a for=map>contains</a> "`id`", "`method`", and "`params`".
+    3. Let |command id| be |matched|["`id`"].
+    4. Let |method| be |matched|["`method`"].
+        1. Let |command| be the command with [=command name=] |method|.
+        2. If |session| is null and |command| is not a [=static command=], then [=respond with an error=] given |connection|, |command id|, and [=invalid session id=], and return.
+        3. Run the following steps [=in parallel=]:
+            1. Let |result| be the result of running the [=remote end steps=] for |command| given |session| and [=command parameters=] |matched|["`params`"].
+            2. If |result| is an <a for=command>error</a>, then [=respond with an error=] given |connection|, |command id|, and |result|'s [=error code=], and finally return.
+            3. Let |value| be |result|'s data.
+            4. [=Assert=]: |value| matches the definition for the [=result type=] corresponding to the command with [=command name=] |method|.
+            5. If |method| is "`session.new`", let [=session=] be the entry in the list of [=active sessions=] whose [=session ID=] is equal to the "`sessionId`" property of |value|, let |session|'s [=WebSocket connection=] be |connection|, and remove |connection| from the set of [=WebSocket connections not associated with a session=].
+            6. Let |response| be a new map matching the `CommandResponse` production in the [=local end definition=] with the `id` field set to |command id| and the `value` field set to |value|.
+            7. Let |serialized| be the result of [=serialize an infra value to JSON bytes=] given |response|.
+            8. [Send a WebSocket message](https://tools.ietf.org/html/rfc6455#section-6.1) comprised of |serialized| over |connection|.
+6. Otherwise:
+    1. Let |command id| be null.
+    2. If |parsed| is a [=map=] and |parsed|["`id`"] <a for=map>exists</a> and is an integer greater than or equal to zero, set |command id| to that integer.
+    3. Let |error code| be [=invalid argument=].
+    4. If |parsed| is a [=map=] and |parsed|["`method`"] <a for=map>exists</a> and is a string, but |parsed|["`method`"] is not in the [=set of all command names=], set |error code| to [=unknown command=].
+    5. [=Respond with an error=] given |connection|, |command id|, and |error code|.
+
+To <dfn>emit an event</dfn> given |session|, and |body|:
+
+  1. [=Assert=]: |body| has <a for=map>size</a> 2 and <a for=map>contains</a> "`method`" and "`params`".
+  2. Let |connection| be |session|'s [=WebSocket connection=].
+  3. If |connection| is null, return.
+  4. Let |serialized| be the result of [=serialize an infra value to JSON bytes=] given |body|.
+  5. [Send a WebSocket message](https://tools.ietf.org/html/rfc6455#section-6.1) comprised of |serialized| over |connection|.
+
+To <dfn>respond with an error</dfn> given a [=WebSocket connection=] |connection|, |command id|, and |error code|:
+
+  1. Let |error data| be a new [=map=] matching the `ErrorResponse` production in the [=local end definition=], with the `id` field set to |command id|, the `error` field set to |error code|, the `message` field set to an [=implementation-defined=] string containing a human-readable definition of the error that occurred and the `stacktrace` field optionally set to an [=implementation-defined=] string containing a stack trace report of the active stack frames at the time when the error occurred.
+  2. Let |response| be the result of [=serialize an infra value to JSON bytes=] given |error data|.
+      Note: command id can be null, in which case the id field will also be set to null, not omitted from response.
+  3. [Send a WebSocket message](https://tools.ietf.org/html/rfc6455#section-6.1) comprised of |response| over |connection|.
+
+To <dfn>handle a connection closing</dfn> given a [=WebSocket connection=] |connection|:
+
+  1. If there is a [=session=] [=associated with connection=] |connection|:
+      1. Let |session| be the [=session=] [=associated with connection=] |connection|.
+      2. Remove |connection| from |session|'s [=session WebSocket connections=].
+  2. Otherwise, if the set of [=WebSocket connections not associated with a session=] contains |connection|, remove |connection| from that set.
+
+Issue: As in WebDriver BiDi, this does not end any session. Not sure if we want to allow reconnecting to the same session, or implicitly end the session.
+
 
 Establinshing a Connection {#transport-establishing}
 ----------------------------------------------------
 
 The URL to the WebSocket server is communicated out-of-band. When an implementation is ready to accept requests to start an AT Driver session, it must:
 
-1. [=Start listening for a WebSocket connection=] given null.
+1. [=Start listening for a WebSocket connection=].
 
-Common Data Types {#data-types}
-===============================
-
-TODO https://w3c.github.io/webdriver-bidi/#data-types
 
 Modules {#modules}
 ==================
@@ -218,13 +396,13 @@ The <dfn>session.new</dfn> command allows creating a new [=session=]. This is a 
 The [=remote end steps=] given |session| and |command parameters| are:
 
 1. ... process capabilities, create a session, generate a session id
-2. Let |body| be a new map matching the `SessionNewResult` production, with the `sessionId` field set to |session|’s [=session ID=], and the `capabilities` field set to |capabilities|.
+2. Let |body| be a new map matching the `SessionNewResult` production, with the `sessionId` field set to |session|'s [=session ID=], and the `capabilities` field set to |capabilities|.
 3. Return [=success=] with data |body|.
 
 The settings Module {#module-settings}
 --------------------------------------
 
-Issue: TODO enunciate capital letters, enunciate punctuation
+Issue: TODO any setting, excluding security-sensitive settings, for each AT.
 
 Privacy {#privacy}
 ==================
