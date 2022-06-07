@@ -120,7 +120,7 @@ CommandResponse = {
 
 ErrorResponse = {
   id: uint / null,
-  error: "unknown error" / "unknown command" / "invalid argument",
+  error: "unknown error" / "unknown command" / "invalid argument" / "session not created",
   message: text,
   ?stacktrace: text,
   *text => any
@@ -143,6 +143,25 @@ EventData = (
 )
 ```
 
+Capabilities {#protocol-capabilities}
+-------------------------------------
+
+<dfn>Capabilities</dfn> are used to communicate the features supported by a given implementation. The [=local end=] may use capabilities to define which features it requires the [=remote end=] to satisfy when creating a new [=session=]. Likewise, the [=remote end=] uses capabilities to describe the full feature set for a [=session=].
+
+The following table of <dfn>standard capabilities</dfn> enumerates the capabilities each implementation must support. An implementation may define additional extension capabilities.
+
+[=Remote ends=] may introduce <dfn>extension capabilities</dfn> that are extra capabilities used to provide configuration or fulfill other vendor-specific needs. Extension capabilities' key must contain a "`:`" (colon) character, denoting an implementation specific namespace. The value can be arbitrary JSON types.
+
+To <dfn>process capabilities</dfn> with argument |parameters|, the [=remote end=] must:
+
+1. Let |capabilities request| be |parameters|["`capabilities`"] if it <a for=map>exists</a>, else null.
+    1. If |capabilities request| is not a [=map=], return an [=error=] with error code [=invalid argument=].
+2. Let |required capabilities| be |capabilities request|["`alwaysMatch`"] if it <a for=map>exists</a>, else null.
+    1. Let |required capabilities| be the result of [=trying=] to [=validate capabilities=] given |required capabilities|.
+3. TODO, check any other capabilities. See https://w3c.github.io/webdriver/#dfn-capabilities-processing
+
+To <dfn>validate capabilities</dfn> given |required capabilities|: TODO, see https://w3c.github.io/webdriver/#dfn-validate-capabilities
+
 Session {#protocol-session}
 ---------------------------
 
@@ -151,6 +170,8 @@ A <dfn>session</dfn> represents the connection between a [=local end=] and a spe
 A [=remote end=] has an associated list of <dfn for="remote end">active sessions</dfn>, which is a list of all [=sessions=] that are currently started. A remote end has at most one [=active session=] at a given time.
 
 A [=session=] has an associated <dfn for="session">session ID</dfn> (a string representation of a [=UUID=]) used to uniquely identify this session. Unless stated otherwise it is null.
+
+To <dfn>create a session</dfn>, TODO, see https://w3c.github.io/webdriver/#dfn-new-sessions
 
 Modules {#protocol-modules}
 ---------------------------
@@ -217,6 +238,10 @@ The following table lists each <dfn>error code</dfn>, its associated JSON `error
     <td><dfn for="error code">unknown command</dfn>
     <td>`unknown command`
     <td>A [=command=] could not be executed because the [=remote end=] is not aware of it.
+  <tr>
+    <td><dfn for="error code">session not created</dfn>
+    <td>`session not created`
+    <td>A new [=session=] could not be created.
 </table>
 
 Transport {#transport}
@@ -395,9 +420,12 @@ The <dfn>session.new</dfn> command allows creating a new [=session=]. This is a 
 
 The [=remote end steps=] given |session| and |command parameters| are:
 
-1. ... process capabilities, create a session, generate a session id
-2. Let |body| be a new map matching the `SessionNewResult` production, with the `sessionId` field set to |session|'s [=session ID=], and the `capabilities` field set to |capabilities|.
-3. Return [=success=] with data |body|.
+1. If |session| is not null, return an <a for="command">error</a> with error code [=session not created=].
+2. If the implementation is unable to start a new session for any reason, return an <a for="command">error</a> with error code [=session not created=].
+3. Let |capabilities| be the result of [=trying=] to [=process capabilities=] with |command parameters|.
+4. Let |session| be the result of [=trying=] to [=create a session=] with |capabilities|.
+5. Let |body| be a new [=map=] matching the `SessionNewResult` production, with the `sessionId` field set to |session|'s [=session ID=], and the `capabilities` field set to |capabilities|.
+6. Return [=success=] with data |body|.
 
 The settings Module {#module-settings}
 --------------------------------------
