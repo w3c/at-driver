@@ -318,7 +318,7 @@ To <dfn>handle a connection closing</dfn> given a [=WebSocket connection=] |conn
 Issue: As in WebDriver BiDi, this does not end any session. Not sure if we want to allow reconnecting to the same session, or implicitly end the session.
 
 
-Establinshing a Connection {#transport-establishing}
+Establishing a Connection {#transport-establishing}
 ----------------------------------------------------
 
 The URL to the WebSocket server is communicated out-of-band. When an implementation is ready to accept requests to start an AT Driver session, it must:
