@@ -58,11 +58,6 @@ This specification uses the same terms as in WebDriver BiDi, but the remote end 
 
 Issue: need to define this properly.
 
-Interface {#interface}
-======================
-
-Issue: https://w3c.github.io/webdriver/#interface exposes to the page JS that webdriver is active. Do we need to expose that atdriver is active?
-
 Nodes {#nodes}
 ==============
 
