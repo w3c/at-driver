@@ -176,17 +176,17 @@ The following table of <dfn>standard capabilities</dfn> enumerates the capabilit
     <th>Description
   <tr>
     <td><dfn for="standard capabilities">AT name</dfn>
-    <td>`atName`
+    <td>"`atName`"
     <td>[=string=]
     <td>Identifies the assistive technology.
   <tr>
     <td><dfn for="standard capabilities">AT version</dfn>
-    <td>`atVersion`
+    <td>"`atVersion`"
     <td>[=string=]
     <td>Identifies the version of the assistive technology.
   <tr>
     <td><dfn for="standard capabilities">Platform</dfn>
-    <td>`atName`
+    <td>"`atName`"
     <td>[=string=]
     <td>Identifies the operating system of the [=remote end=].
 </table>
@@ -204,21 +204,21 @@ To <dfn>process capabilities</dfn> with argument |parameters|, the [=remote end=
 To <dfn>match capabilities</dfn> given |requested capabilities|, the [=remote end=] must:
 
 1. Let |matched capabilities| be a [=map=] with the following entries:
-    : `atName`
+    : "`atName`"
     :: [=ASCII lowercase=] name of the assistive technology as a [=string=].
-    : `atVersion`
+    : "`atVersion`"
     :: The assistive technology version, as a [=string=].
-    : `platformName`
+    : "`platformName`"
     :: [=ASCII lowercase=] name of the current platform as a [=string=].
 2. Optionally add [=extension capabilities=] as entries to |matched capabilities|.
 3. [=map/For each=] |key| → |value| of |requested capabilities|:
     1. Let |match value| be |value|.
     2. Switch on |key|:
-        : `atName`
+        : "`atName`"
         :: If |value| is not equal to |matched capabilities|["`atName`"], then return [=success=] with data null.
-        : `atVersion`
+        : "`atVersion`"
         :: Compare |value| to |matched capabilities|["`browserVersion`"] using an [=implementation-defined=] comparison algorithm. The comparison is to accept a value that places constraints on the version using the "`<`", "`<=`", "`>`", and "`>=`" operators.
-        : `platform`
+        : "`platform`"
         :: If |value| is not equal to |matched capabilities|["`platform`"], then return [=success=] with data null.
         : Otherwise
         :: If |key| is the key of an [=extension capability=], set |match value| to the result of [=trying=] implementation-specific steps to match on |key| with |value|. If the match is not successful, return [=success=] with data null.
