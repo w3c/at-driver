@@ -16,6 +16,14 @@ Markup Shorthands: markdown yes
 spec:infra; type:dfn; for:/; text:set
 </pre>
 
+<style>
+table { border-collapse: collapse; border-style: hidden hidden none hidden; }
+table thead, table tbody { border-bottom: solid; }
+table tbody th { text-align: left; }
+table tbody th:first-child { border-left: solid; }
+table td, table th { border-left: solid; border-right: solid; border-bottom: solid thin; vertical-align: top; padding: 0.2em; }
+</style>
+
 Introduction {#intro}
 =====================
 
