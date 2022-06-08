@@ -64,6 +64,15 @@ Network protocol messages are defined using CDDL. [[!RFC8610]]
 
 A <dfn lt="UUID">Universally Unique Identifier (UUID)</dfn> is a 128 bits long URN that requires no central registration process. <dfn>Generating a UUID</dfn> means <i>Creating a UUID From Truly Random or Pseudo-Random Numbers</i>, and converting it to the string representation. [[!RFC4122]]
 
+Where algorithms that return values are fallible, they are written in terms of returning either <dfn>success</dfn> or <dfn>error</dfn>. A [=success=] value has an associated data field which encapsulates the value returned, whereas an [=error=] response has an associated [=error code=].
+
+When calling a fallible algorithm, the construct "Let |result| be the result of <dfn>trying</dfn> to call |algorithm|" is equivalent to:
+
+1. Let |temp| be the result of calling |algorithm|.
+2. If |temp| is an [=error=], then return |temp|. Otherwise, let |result| be |temp|'s data field.
+
+Note: This means that errors are propagated upwards when using "trying".
+
 Nodes {#nodes}
 ==============
 
@@ -148,19 +157,66 @@ Capabilities {#protocol-capabilities}
 
 <dfn>Capabilities</dfn> are used to communicate the features supported by a given implementation. The [=local end=] may use capabilities to define which features it requires the [=remote end=] to satisfy when creating a new [=session=]. Likewise, the [=remote end=] uses capabilities to describe the full feature set for a [=session=].
 
-The following table of <dfn>standard capabilities</dfn> enumerates the capabilities each implementation must support. An implementation may define additional extension capabilities.
+The following table of <dfn>standard capabilities</dfn> enumerates the capabilities each implementation must support.
+
+<table>
+  <caption>Standard capabilities</caption>
+  <tr>
+    <th>Capability
+    <th>Key
+    <th>Value type
+    <th>Description
+  <tr>
+    <td><dfn for="standard capabilities">AT name</dfn>
+    <td>`atName`
+    <td>[=string=]
+    <td>Identifies the assistive technology.
+  <tr>
+    <td><dfn for="standard capabilities">AT version</dfn>
+    <td>`atVersion`
+    <td>[=string=]
+    <td>Identifies the version of the assistive technology.
+  <tr>
+    <td><dfn for="standard capabilities">Platform</dfn>
+    <td>`atName`
+    <td>[=string=]
+    <td>Identifies the operating system of the [=remote end=].
+</table>
 
 [=Remote ends=] may introduce <dfn>extension capabilities</dfn> that are extra capabilities used to provide configuration or fulfill other vendor-specific needs. Extension capabilities' key must contain a "`:`" (colon) character, denoting an implementation specific namespace. The value can be arbitrary JSON types.
 
 To <dfn>process capabilities</dfn> with argument |parameters|, the [=remote end=] must:
 
 1. Let |capabilities request| be |parameters|["`capabilities`"] if it <a for=map>exists</a>, else null.
-    1. If |capabilities request| is not a [=map=], return an [=error=] with error code [=invalid argument=].
 2. Let |required capabilities| be |capabilities request|["`alwaysMatch`"] if it <a for=map>exists</a>, else null.
-    1. Let |required capabilities| be the result of [=trying=] to [=validate capabilities=] given |required capabilities|.
-3. TODO, check any other capabilities. See https://w3c.github.io/webdriver/#dfn-capabilities-processing
+3. Let |matched capabilities| be the result of [=trying=] to [=match capabilities=] given |required capabilities|.
+4. If |matched capabilities| is not null, then return [=success=] with data |matched capabilities|.
+5. Return [=success=] with data null.
 
-To <dfn>validate capabilities</dfn> given |required capabilities|: TODO, see https://w3c.github.io/webdriver/#dfn-validate-capabilities
+To <dfn>match capabilities</dfn> given |requested capabilities|, the [=remote end=] must:
+
+1. Let |matched capabilities| be a [=map=] with the following entries:
+    : `atName`
+    :: [=ASCII lowercase=] name of the assistive technology as a [=string=].
+    : `atVersion`
+    :: The assistive technology version, as a [=string=].
+    : `platformName`
+    :: [=ASCII lowercase=] name of the current platform as a [=string=].
+2. Optionally add [=extension capabilities=] as entries to |matched capabilities|.
+3. [=map/For each=] |key| → |value| of |requested capabilities|:
+    1. Let |match value| be |value|.
+    2. Switch on |key|:
+        : `atName`
+        :: If |value| is not equal to |matched capabilities|["`atName`"], then return [=success=] with data null.
+        : `atVersion`
+        :: Compare |value| to |matched capabilities|["`browserVersion`"] using an [=implementation-defined=] comparison algorithm. The comparison is to accept a value that places constraints on the version using the "`<`", "`<=`", "`>`", and "`>=`" operators.
+        : `platform`
+        :: If |value| is not equal to |matched capabilities|["`platform`"], then return [=success=] with data null.
+        : Otherwise
+        :: If |key| is the key of an [=extension capability=], set |match value| to the result of [=trying=] implementation-specific steps to match on |key| with |value|. If the match is not successful, return [=success=] with data null.
+    3. [=map/Set=] |matched capabilities|[|key|] to |match value|.
+4. Return [=success=] with data |matched capabilities|.
+
 
 Session {#protocol-session}
 ---------------------------
@@ -189,13 +245,13 @@ An implementation may define <dfn>extension modules</dfn>. These must have a mod
 Commands {#protocol-commands}
 -----------------------------
 
-A <dfn>command</dfn> is an asynchronous operation, requested by the [=local end=] and run on the [=remote end=], resulting in either a <dfn for="command">success</dfn> or an <dfn for="command">error</dfn> being returned to the [=local end=]. Multiple commands can run at the same time, and commands can potentially be long-running. As a consequence, commands can finish out-of-order.
+A <dfn>command</dfn> is an asynchronous operation, requested by the [=local end=] and run on the [=remote end=], resulting in either a [=success=] or an [=error=] being returned to the [=local end=]. Multiple commands can run at the same time, and commands can potentially be long-running. As a consequence, commands can finish out-of-order.
 
 Each [=command=] is defined by:
 
 * A <dfn>command type</dfn> which is defined by a [=remote end definition=] fragment containing a group. Each such group has two fields:
-  * `method` which is a string literal in the form `[module name].[method name]`. This is the <dfn>command name</dfn>.
-  * `params` which defines a mapping containing data that to be passed into the command. The populated value of this map is the <dfn>command parameters</dfn>.
+    * `method` which is a string literal in the form `[module name].[method name]`. This is the <dfn>command name</dfn>.
+    * `params` which defines a mapping containing data that to be passed into the command. The populated value of this map is the <dfn>command parameters</dfn>.
 * A <dfn>result type</dfn>, which is defined by the [=local end definition=] fragment.
 * A set of <dfn>remote end steps</dfn> which define the actions to take for a command given a [=session=] and [=command parameters=] and return an instance of the command [=return type=].
 
@@ -211,8 +267,8 @@ Events {#protocol-events}
 An <dfn>event</dfn> is a notification, sent by the [=remote end=] to the [=local end=], signaling that something of interest has occurred on the [=remote end=].
 
 * An <dfn>event type</dfn> is defined by a [=local end definition=] fragment containing a group. Each such group has two fields:
-  * `method` which is a string literal of the form `[module name].[event name]`. This is the <dfn>event name</dfn>.
-  * `params` which defines a mapping containing event data. The populated value of this map is the <dfn>event parameters</dfn>.
+    * `method` which is a string literal of the form `[module name].[event name]`. This is the <dfn>event name</dfn>.
+    * `params` which defines a mapping containing event data. The populated value of this map is the <dfn>event parameters</dfn>.
 * A <dfn>remote end event trigger</dfn> which defines when the event is triggered and steps to construct the [=event type=] data.
 
 Errors {#protocol-errors}
@@ -368,7 +424,7 @@ The [=remote end definition=] and [=local end definition=] are the same as the <
 [=Remote end definition=] and [=local end definition=]:
 
 ```
-Capabilities = {
+CapabilitiesRequest = {
   ?atName: text,
   ?atVersion: text,
   ?platformName: text,
