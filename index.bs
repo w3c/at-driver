@@ -235,7 +235,6 @@ A [=remote end=] has an associated list of <dfn for="remote end">active sessions
 
 A [=session=] has an associated <dfn for="session">session ID</dfn> (a string representation of a [=UUID=]) used to uniquely identify this session. Unless stated otherwise it is null.
 
-To <dfn>create a session</dfn>, TODO, see https://w3c.github.io/webdriver/#dfn-new-sessions
 
 Modules {#protocol-modules}
 ---------------------------
@@ -485,11 +484,16 @@ The <dfn>session.new</dfn> command allows creating a new [=session=]. This is a 
 The [=remote end steps=] given |session| and |command parameters| are:
 
 1. If |session| is not null, return an <a for="command">error</a> with error code [=session not created=].
-2. If the implementation is unable to start a new session for any reason, return an <a for="command">error</a> with error code [=session not created=].
-3. Let |capabilities| be the result of [=trying=] to [=process capabilities=] with |command parameters|.
-4. Let |session| be the result of [=trying=] to [=create a session=] with |capabilities|.
-5. Let |body| be a new [=map=] matching the `SessionNewResult` production, with the `sessionId` field set to |session|'s [=session ID=], and the `capabilities` field set to |capabilities|.
-6. Return [=success=] with data |body|.
+2. If the list of [=active sessions=] is not empty, then return [=error=] with error code [=session not created=].
+3. If the implementation is unable to start a new session for any reason, return an <a for="command">error</a> with error code [=session not created=].
+4. Let |capabilities| be the result of [=trying=] to [=process capabilities=] with |command parameters|.
+5. If |capabilities| is null, return [=error=] with error code [=session not created=].
+6. Let |session id| be the result of [=generating a UUID=].
+7. Let |session| be a new [=session=] with the [=session ID=] of |session id|.
+8. Append |session| to [=active sessions=].
+9. Start an instance of the appropriate assistive technology, given |capabilities|.
+10. Let |body| be a new [=map=] matching the `SessionNewResult` production, with the `sessionId` field set to |session|'s [=session ID=], and the `capabilities` field set to |capabilities|.
+11. Return [=success=] with data |body|.
 
 The settings Module {#module-settings}
 --------------------------------------
