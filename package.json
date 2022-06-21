@@ -1,0 +1,9 @@
+{
+  "type": "module",
+  "scripts": {
+    "extract-schemas": "node scripts/extract-schemas.js"
+  },
+  "devDependencies": {
+    "cddl": "^0.2.1"
+  }
+}

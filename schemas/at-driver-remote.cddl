@@ -1,0 +1,30 @@
+Command = {
+  id: uint,
+  CommandData,
+  *text => any,
+}
+
+CommandData = (
+  SessionCommand
+)
+
+EmptyParams = { *text }
+
+SessionCommand = (SessionStatusCommand //
+                  SessionSubscribeCommand)
+
+CapabilitiesRequest = {
+  ?atName: text,
+  ?atVersion: text,
+  ?platformName: text,
+  *text => any
+}
+
+SessionNewCommand = {
+  method: "session.new",
+  params: {capabilities: CapabilitiesRequestParameters},
+}
+
+CapabilitiesRequestParameters = {
+  ?alwaysMatch: CapabilitiesRequest,
+}

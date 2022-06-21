@@ -55,7 +55,7 @@ First, the local end would establish a WebSocket connection.
 
 The local end then creates a session by sending
 
-```
+```json
 {"method":"session.new","params":{...}}
 ```
 
@@ -104,9 +104,9 @@ Definition {#protocol-definition}
 
 This section gives the initial contents of the remote end definition and local end definition. These are augmented by the definition fragments defined in the remainder of the specification.
 
-Remote end definition
+[=Remote end definition=]
 
-```
+<pre class="cddl remote">
 Command = {
   id: uint,
   CommandData,
@@ -118,11 +118,11 @@ CommandData = (
 )
 
 EmptyParams = { *text }
-```
+</pre>
 
-Local end definition
+[=Local end definition=]:
 
-```
+<pre class="cddl local">
 Message = (
   CommandResponse //
   ErrorResponse //
@@ -158,7 +158,7 @@ Event = {
 EventData = (
   ATEvent
 )
-```
+</pre>
 
 Capabilities {#protocol-capabilities}
 -------------------------------------
@@ -422,7 +422,18 @@ The session Module {#module-session}
 
 ### Definition ### {#module-session-definition}
 
-The [=remote end definition=] and [=local end definition=] are the same as the <a href="https://w3c.github.io/webdriver-bidi/#module-session-definition">WebDriver BiDi session Module's definition</a>.
+[=Remote end definition=]:
+
+<pre class="cddl remote">
+SessionCommand = (SessionStatusCommand //
+                  SessionSubscribeCommand)
+</pre>
+
+[=Local end definition=]
+
+<pre class="cddl local">
+SessionResult = (StatusResult)
+</pre>
 
 ### Types ### {#module-session-types}
 
@@ -430,14 +441,14 @@ The [=remote end definition=] and [=local end definition=] are the same as the <
 
 [=Remote end definition=] and [=local end definition=]:
 
-```
+<pre class="cddl remote local">
 CapabilitiesRequest = {
   ?atName: text,
   ?atVersion: text,
   ?platformName: text,
   *text => any
-};
-```
+}
+</pre>
 
 The `CapabilitiesRequest` type represents capabilities requested for a session.
 
@@ -451,7 +462,7 @@ The <dfn>session.new</dfn> command allows creating a new [=session=]. This is a 
   <dt>Command Type
   <dd>
 
-  ```
+  <pre class="cddl remote">
   SessionNewCommand = {
     method: "session.new",
     params: {capabilities: CapabilitiesRequestParameters},
@@ -460,14 +471,14 @@ The <dfn>session.new</dfn> command allows creating a new [=session=]. This is a 
   CapabilitiesRequestParameters = {
     ?alwaysMatch: CapabilitiesRequest,
   }
-  ```
+  </pre>
 
   Note: `firstMatch` is not included currently to reduce complexity.
 
   <dt>Return Type
   <dd>
 
-  ```
+  <pre class="cddl local">
   SessionNewResult = {
     sessionId: text,
     capabilities: {
@@ -477,7 +488,7 @@ The <dfn>session.new</dfn> command allows creating a new [=session=]. This is a 
       *text => any
     }
   }
-  ```
+  </pre>
 
 </dl>
 
@@ -525,3 +536,13 @@ Issue: TODO no HID level simulated keypresses.
 Issue: TODO exclude access to any security-sensitive settings.
 
 Issue: TODO exclude access to any security-sensitive commands.
+
+Appendix A: Schemas {#schemas}
+==============================
+
+The [=remote end definition=] and [=local end definition=] are available as non-normative CDDL schemas:
+
+- [at-driver-remote.cddl](schemas/at-driver-remote.cddl)
+- [at-driver-local.cddl](schemas/at-driver-local.cddl)
+
+JSON Schema versions are not yet available.
