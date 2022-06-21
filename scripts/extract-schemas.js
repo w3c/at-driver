@@ -33,12 +33,14 @@ function cddlToJSONSchema(input) {
 const source = await fs.readFile('index.bs', { encoding: 'utf8' });
 const localCddlArr = [];
 const remoteCddlArr = [];
-let matches = [...source.matchAll(/^([ \t]*)<pre class=['"]cddl((?: [a-zA-Z0-9_-]+)+)?['"]>([\s\S]*?)<\/pre>/gm)];
+let matches = [...source.matchAll(/^([ \t]*)<pre class=['"]cddl((?: [a-zA-Z0-9_-]+)+)['"]>([\s\S]*?)<\/pre>/gm)];
 for (const match of matches) {
   let indentation = match[1];
   let isRemote = match[2].indexOf(' remote') > -1;
   let isLocal = match[2].indexOf(' local') > -1;
-  assert(isLocal || isRemote, 'is local or remote (or both)');
+  if (!isRemote && !isLocal) {
+    continue;
+  }
   let cddlBlock = match[3].trim();
   if (indentation.length > 0) {
     let indentationRegexp = new RegExp(`^${match[1]}`);
@@ -55,7 +57,7 @@ for (const match of matches) {
   if (isRemote) {
     remoteCddlArr.push(cddlBlock);
   }
-};
+}
 
 const localCddl = localCddlArr.join('\n\n') + '\n';
 const remoteCddl = remoteCddlArr.join('\n\n') + '\n';
