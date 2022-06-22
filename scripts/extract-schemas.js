@@ -19,12 +19,12 @@ function cddlToJSONSchema(input) {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "TODO",
     "$defs": {},
-    "properties": {},
-    "title": "JSON schema for AT Driver",
-    "type": "object",
   };
   for (const obj of cddlAst) {
-    console.log(obj); // TODO
+    console.log(JSON.stringify(obj, null, 2)); // TODO
+    // For Command, need to copy over 'id' to all schemas in CommandData,
+    // since JSON Schema can't add to schemas together, and we don't
+    // want to allow any additional properties.
   }
 }
 

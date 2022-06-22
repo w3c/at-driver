@@ -117,7 +117,7 @@ CommandData = (
   SessionCommand
 )
 
-EmptyParams = { *text }
+EmptyParams = { *text => any }
 </pre>
 
 [=Local end definition=]:
@@ -158,6 +158,8 @@ Event = {
 EventData = (
   ATEvent
 )
+
+ATEvent = {}
 </pre>
 
 Capabilities {#protocol-capabilities}
@@ -425,14 +427,13 @@ The session Module {#module-session}
 [=Remote end definition=]:
 
 <pre class="cddl remote">
-SessionCommand = (SessionStatusCommand //
-                  SessionSubscribeCommand)
+SessionCommand = (SessionNewCommand)
 </pre>
 
 [=Local end definition=]
 
 <pre class="cddl local">
-SessionResult = (StatusResult)
+SessionResult = (SessionNewResult)
 </pre>
 
 ### Types ### {#module-session-types}
@@ -540,9 +541,9 @@ Issue: TODO exclude access to any security-sensitive commands.
 Appendix A: Schemas {#schemas}
 ==============================
 
-The [=remote end definition=] and [=local end definition=] are available as non-normative CDDL schemas:
+The [=remote end definition=] and [=local end definition=] are available as non-normative CDDL and JSON Schema schemas:
 
 - [at-driver-remote.cddl](schemas/at-driver-remote.cddl)
 - [at-driver-local.cddl](schemas/at-driver-local.cddl)
-
-JSON Schema versions are not yet available.
+- [at-driver-remote.json](schemas/at-driver-remote.json)
+- [at-driver-local.json](schemas/at-driver-local.json)

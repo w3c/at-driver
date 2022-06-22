@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "TODO",
+  "$defs": {
+    "Message": {
+      "oneOf": [
+        { "$ref": "#/$defs/CommandResponse" },
+        { "$ref": "#/$defs/ErrorResponse" },
+        { "$ref": "#/$defs/Event" }
+      ]
+    },
+    "CommandResponse": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "number" },
+        "result": { "$ref": "#/$defs/ResultData" }
+      },
+      "required": ["id", "result"]
+    },
+    "ErrorResponse": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "number" },
+        "error": { "enum": [ "unknown error", "unknown command", "invalid argument", "session not created" ] },
+        "message": { "type": "string" },
+        "stacktrace": { "type": "string" },
+      },
+      "required": ["id", "error", "message"]
+    },
+    "ResultData": {
+      "oneOf": [
+        { "$ref": "#/$defs/EmptyResult" },
+        { "$ref": "#/$defs/SessionResult" }
+      ]
+    },
+    "EmptyResult": {
+      "type": "object",
+      "additionalProperties": false
+    },
+    "Event": {
+      "type": "object",
+      "allOf": [
+        { "$ref": "#/$defs/EventData" },
+        {}
+      ]
+    },
+    "EventData": {
+      "oneOf": [
+        { "$ref": "#/$defs/ATEvent" }
+      ]
+    },
+    "ATEvent": {
+      "type": "object",
+      "additionalProperties": false
+    },
+    "SessionResult": {
+      "oneOf": [
+        { "$ref": "#/$defs/SessionNewResult" }
+      ]
+    },
+    "CapabilitiesRequest": {
+      "type": "object",
+      "properties": {
+        "atName": { "type": "string" },
+        "atVersion": { "type": "string" },
+        "platformName": { "type": "string" }
+      }
+    },
+    "SessionNewResult": {
+      "type": "object",
+      "properties": {
+        "sessionId": { "type": "string" },
+        "capabilities": {
+          "type": "object",
+          "properties": {
+            "atName": { "type": "string" },
+            "atVersion": { "type": "string" },
+            "platformName": { "type": "string" }
+          },
+          "required": [ "atName", "atVersion", "platformName" ]
+        }
+      },
+      "required": ["sessionId", "capabilities"],
+      "additionalProperties": false
+    }
+  },
+  "$ref": "#/$defs/Message"
+}

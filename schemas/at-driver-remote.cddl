@@ -8,10 +8,9 @@ CommandData = (
   SessionCommand
 )
 
-EmptyParams = { *text }
+EmptyParams = { *text => any }
 
-SessionCommand = (SessionStatusCommand //
-                  SessionSubscribeCommand)
+SessionCommand = (SessionNewCommand)
 
 CapabilitiesRequest = {
   ?atName: text,
