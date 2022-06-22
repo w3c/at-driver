@@ -3,7 +3,14 @@
   "$id": "TODO",
   "$defs": {
     "Command": {
-      "oneOf": [
+      "allOf": [
+        {
+          "type": "object",
+          "properties": {
+            "id": { "type": "number" }
+          },
+          "required": ["id"]
+        },
         { "$ref": "#/$defs/CommandData" }
       ]
     },
@@ -29,7 +36,6 @@
     "SessionNewCommand": {
       "type": "object",
       "properties": {
-        "id": { "type": "number" },
         "method": { "enum": [ "session.new" ] },
         "params": {
           "type": "object",
@@ -40,8 +46,7 @@
           "additionalProperties": false
         }
       },
-      "required": ["id", "method", "params"],
-      "additionalProperties": false
+      "required": ["method", "params"]
     },
     "CapabilitiesRequestParameters": {
       "type": "object",

@@ -22,9 +22,9 @@ function cddlToJSONSchema(input) {
   };
   for (const obj of cddlAst) {
     console.log(JSON.stringify(obj, null, 2)); // TODO
-    // For Command, need to copy over 'id' to all schemas in CommandData,
-    // since JSON Schema can't add to schemas together, and we don't
-    // want to allow any additional properties.
+    // For SessionNewCommand, need to not set additionalProperties: false
+    // since Command allows additional properties, all schemas in Command's allOf
+    // need to also allow additional properties (otherwise 'id' will be invalid).
   }
 }
 
