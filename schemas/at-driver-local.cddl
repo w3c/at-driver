@@ -31,10 +31,8 @@ Event = {
 }
 
 EventData = (
-  ATEvent
+  InteractionEvent
 )
-
-ATEvent = {}
 
 SessionResult = (SessionNewResult)
 
@@ -53,4 +51,16 @@ SessionNewResult = {
     platformName: text,
     *text => any
   }
+}
+
+InteractionEvent = (InteractionCapturedOutputEvent)
+
+InteractionCapturedOutputParameters = {
+  data: text,
+  *text => any
+}
+
+InteractionCapturedOutputEvent = {
+  method: "interaction.capturedOutput",
+  params: InteractionCapuredOutputParameters
 }
