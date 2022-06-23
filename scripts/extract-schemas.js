@@ -36,8 +36,8 @@ const remoteCddlArr = [];
 let matches = [...source.matchAll(/^([ \t]*)<pre class=['"]cddl((?: [a-zA-Z0-9_-]+)+)['"]>([\s\S]*?)<\/pre>/gm)];
 for (const match of matches) {
   let indentation = match[1];
-  let isRemote = match[2].indexOf(' remote') > -1;
-  let isLocal = match[2].indexOf(' local') > -1;
+  let isRemote = match[2].indexOf(' remote-cddl') > -1;
+  let isLocal = match[2].indexOf(' local-cddl') > -1;
   if (!isRemote && !isLocal) {
     continue;
   }

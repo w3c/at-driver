@@ -106,7 +106,7 @@ This section gives the initial contents of the remote end definition and local e
 
 [=Remote end definition=]
 
-<pre class="cddl remote">
+<pre class="cddl remote-cddl">
 Command = {
   id: uint,
   CommandData,
@@ -122,7 +122,7 @@ EmptyParams = { *text => any }
 
 [=Local end definition=]:
 
-<pre class="cddl local">
+<pre class="cddl local-cddl">
 Message = (
   CommandResponse //
   ErrorResponse //
@@ -426,13 +426,13 @@ The session Module {#module-session}
 
 [=Remote end definition=]:
 
-<pre class="cddl remote">
+<pre class="cddl remote-cddl">
 SessionCommand = (SessionNewCommand)
 </pre>
 
 [=Local end definition=]
 
-<pre class="cddl local">
+<pre class="cddl local-cddl">
 SessionResult = (SessionNewResult)
 </pre>
 
@@ -442,7 +442,7 @@ SessionResult = (SessionNewResult)
 
 [=Remote end definition=] and [=local end definition=]:
 
-<pre class="cddl remote local">
+<pre class="cddl remote-cddl local-cddl">
 CapabilitiesRequest = {
   ?atName: text,
   ?atVersion: text,
@@ -463,7 +463,7 @@ The <dfn>session.new</dfn> command allows creating a new [=session=]. This is a 
   <dt>Command Type
   <dd>
 
-  <pre class="cddl remote">
+  <pre class="cddl remote-cddl">
   SessionNewCommand = {
     method: "session.new",
     params: {capabilities: CapabilitiesRequestParameters},
@@ -479,7 +479,7 @@ The <dfn>session.new</dfn> command allows creating a new [=session=]. This is a 
   <dt>Return Type
   <dd>
 
-  <pre class="cddl local">
+  <pre class="cddl local-cddl">
   SessionNewResult = {
     sessionId: text,
     capabilities: {
