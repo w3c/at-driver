@@ -534,7 +534,40 @@ InteractionCapturedOutputParameters = {
 
 ### Commands ### {#module-interaction-commands}
 
-None.
+#### The interaction.sendKeys Command #### {#module-interaction-keydown}
+
+The <dfn>interaction.sendKeys</dfn> command simulates typing on a keyboard.
+
+Note: This is intended to be similar to WebDriver's <a href="https://w3c.github.io/webdriver/#element-send-keys">Element Send Keys</a>. [[WEBDRIVER]]
+
+<dl>
+  <dt>Command Type
+  <dd>
+
+  <pre class="cddl remote-cddl">
+  InteractionSendKeysCommand = {
+    method: "interaction.sendKeys",
+    params: InteractionSendKeysParameters
+  }
+
+  InteractionSendKeysParameters = {
+    "text" => text,
+    *text => any
+  }
+  </pre>
+
+  <dt>Return Type
+  <dd>
+
+  <pre class="cddl">
+  EmptyResult
+  </pre>
+
+</dl>
+
+The [=remote end steps=] given |session| and |command parameters| are:
+
+1. ...
 
 ### Events ### {#module-interaction-events}
 
@@ -559,6 +592,76 @@ When the assistive technology would send some text |data| (a string, without spe
 2. Let |params| be a [=map=] matching the `InteractionCapturedOutputParameters` production with the `data` field set to |data|.
 3. Let |body| be a [=map=] matching the `InteractionCapturedOutputEvent` production with the `params` field set to |params|.
 4. [=Emit an event=] with |session| and |body|.
+
+The actions Module {#module-actions}
+------------------------------------
+
+### Definition ### {#module-actions-definition}
+
+[=Local end definition=]:
+
+<pre class="cddl local-cddl">
+
+</pre>
+
+### Types ### {#module-actions-types}
+
+<pre class="cddl local-cddl">
+
+</pre>
+
+### Commands ### {#module-actions-commands}
+
+#### The actions.perform Command #### {#module-actions-perform}
+
+The <dfn>actions.perform</dfn> command simulates user intput actions such as key down and key up on a keyboard.
+
+Note: This is intended to be similar to WebDriver's <a href="https://w3c.github.io/webdriver/#perform-actions">Perform Actions</a>. [[WEBDRIVER]]
+
+<dl>
+  <dt>Command Type
+  <dd>
+
+  <pre class="cddl remote-cddl">
+  ActionsPerformActions = {
+    method: "actions.perform",
+    params: ActionsPerformActionsParameters
+  }
+
+  ActionsPerformActionsParameters = [1* {
+    type: "key",
+    id: text,
+    actions: ActionItems,
+    *text => any
+  }]
+
+  ActionItems = [1* {
+    type: "keyUp" / "keyDown",
+    value: text,
+    *text => any
+  }]
+  </pre>
+
+  Issue: do we need "pause" as a type in `ActionItems`? See WebDriver's <a href="https://w3c.github.io/webdriver/#dfn-process-a-pause-action">process a pause action</a>.
+
+  <dt>Return Type
+  <dd>
+
+  <pre class="cddl">
+  EmptyResult
+  </pre>
+
+</dl>
+
+The [=remote end steps=] given |session| and |command parameters| are:
+
+1. ...
+
+Issue: Do we also need a "release" command like WebDriver's <a href="https://w3c.github.io/webdriver/#release-actions">Release Actions</a>?
+
+### Events ### {#module-actions-events}
+
+None.
 
 Privacy {#privacy}
 ==================
