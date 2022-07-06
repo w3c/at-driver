@@ -86,7 +86,7 @@ A <dfn lt="UUID">Universally Unique Identifier (UUID)</dfn> is a 128 bits long U
 
 Where algorithms that return values are fallible, they are written in terms of returning either <dfn>success</dfn> or <dfn>error</dfn>. A [=success=] value has an associated data field which encapsulates the value returned, whereas an [=error=] response has an associated [=error code=].
 
-When calling a fallible algorithm, the construct "Let |result| be the result of <dfn>trying</dfn> to call |algorithm|" is equivalent to:
+When calling a fallible algorithm, the construct "Let |result| be the result of <dfn lt="try|trying">trying</dfn> to call |algorithm|" is equivalent to:
 
 1. Let |temp| be the result of calling |algorithm|.
 2. If |temp| is an [=error=], then return |temp|. Otherwise, let |result| be |temp|'s data field.
@@ -200,7 +200,7 @@ The following table of <dfn>standard capabilities</dfn> enumerates the capabilit
     <td>Identifies the version of the assistive technology.
   <tr>
     <td><dfn for="standard capabilities">Platform</dfn>
-    <td>"`atName`"
+    <td>"`platformName`"
     <td>[=string=]
     <td>Identifies the operating system of the [=remote end=].
 </table>
@@ -319,7 +319,21 @@ The following table lists each <dfn>error code</dfn>, its associated JSON `error
     <td><dfn for="error code">session not created</dfn>
     <td>`session not created`
     <td>A new [=session=] could not be created.
+  <tr>
+    <td><dfn for="error code">invalid OS focus state</dfn>
+    <td>`invalid OS focus state`
+    <td>The application that currently has OS focus is not one of the expected applications.
 </table>
+
+Security checks {#security-checks}
+----------------------------------
+
+In order to mitigate security risks when using this API, there are some security checks for certain commands.
+
+To <dfn>check that one of the expected applications has focus</dfn>:
+
+1. If the application that currently has OS focus (and so could act on simulated key presses from this API) is not one of the expected applications, then return an <a>error</a> with <a>error code</a> <a for="error code">invalid OS focus state</a>. Which applications are expected is <a>implementation-defined</a>.
+2. Return <a>success</a> with data null.
 
 Transport {#transport}
 ======================
@@ -689,7 +703,41 @@ InteractionCapturedOutputParameters = {
 
 ### Commands ### {#module-interaction-commands}
 
-None.
+#### The interaction.sendKeys Command #### {#module-interaction-keydown}
+
+The <dfn>interaction.sendKeys</dfn> command simulates typing on a keyboard.
+
+Note: This is intended to be similar to WebDriver's <a href="https://w3c.github.io/webdriver/#element-send-keys">Element Send Keys</a>. [[WEBDRIVER]]
+
+<dl>
+  <dt>Command Type
+  <dd>
+
+  <pre class="cddl remote-cddl">
+  InteractionSendKeysCommand = {
+    method: "interaction.sendKeys",
+    params: InteractionSendKeysParameters
+  }
+
+  InteractionSendKeysParameters = {
+    "text" => text,
+    *text => any
+  }
+  </pre>
+
+  <dt>Return Type
+  <dd>
+
+  <pre class="cddl">
+  EmptyResult
+  </pre>
+
+</dl>
+
+The [=remote end steps=] given |session| and |command parameters| are:
+
+1. [=Try=] to [=check that one of the expected applications has focus=].
+2. ...
 
 ### Events ### {#module-interaction-events}
 
@@ -714,6 +762,77 @@ When the assistive technology would send some text |data| (a string, without spe
 2. Let |params| be a [=map=] matching the `InteractionCapturedOutputParameters` production with the `data` field set to |data|.
 3. Let |body| be a [=map=] matching the `InteractionCapturedOutputEvent` production with the `params` field set to |params|.
 4. [=Emit an event=] with |session| and |body|.
+
+The actions Module {#module-actions}
+------------------------------------
+
+### Definition ### {#module-actions-definition}
+
+[=Local end definition=]:
+
+<pre class="cddl local-cddl">
+
+</pre>
+
+### Types ### {#module-actions-types}
+
+<pre class="cddl local-cddl">
+
+</pre>
+
+### Commands ### {#module-actions-commands}
+
+#### The actions.perform Command #### {#module-actions-perform}
+
+The <dfn>actions.perform</dfn> command simulates user input actions such as key down and key up on a keyboard.
+
+Note: This is intended to be similar to WebDriver's <a href="https://w3c.github.io/webdriver/#perform-actions">Perform Actions</a>. [[WEBDRIVER]]
+
+<dl>
+  <dt>Command Type
+  <dd>
+
+  <pre class="cddl remote-cddl">
+  ActionsPerformActions = {
+    method: "actions.perform",
+    params: [1* ActionsPerformActionsParameter ]
+  }
+
+  ActionsPerformActionsParameter = {
+    type: "key",
+    id: text,
+    actions: [1* ActionItem ],
+    *text => any
+  }
+
+  ActionItem = {
+    type: "keyUp" / "keyDown",
+    value: text,
+    *text => any
+  }
+  </pre>
+
+  Issue: do we need "pause" as a type in `ActionItems`? See WebDriver's <a href="https://w3c.github.io/webdriver/#dfn-process-a-pause-action">process a pause action</a>.
+
+  <dt>Return Type
+  <dd>
+
+  <pre class="cddl">
+  EmptyResult
+  </pre>
+
+</dl>
+
+The [=remote end steps=] given |session| and |command parameters| are:
+
+1. [=Try=] to [=check that one of the expected applications has focus=].
+2. ...
+
+Issue: Do we also need a "release" command like WebDriver's <a href="https://w3c.github.io/webdriver/#release-actions">Release Actions</a>?
+
+### Events ### {#module-actions-events}
+
+None.
 
 Privacy {#privacy}
 ==================

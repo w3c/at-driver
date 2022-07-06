@@ -68,3 +68,31 @@ VendorSettingsGetSupportedSettingsCommand = {
   method: "<vendor>:settings.getSupportedSettings",
   params: EmptyParams
 }
+
+InteractionSendKeysCommand = {
+  method: "interaction.sendKeys",
+  params: InteractionSendKeysParameters
+}
+
+InteractionSendKeysParameters = {
+  "text" => text,
+  *text => any
+}
+
+ActionsPerformActions = {
+  method: "actions.perform",
+  params: [1* ActionsPerformActionsParameter ]
+}
+
+ActionsPerformActionsParameter = {
+  type: "key",
+  id: text,
+  actions: [1* ActionItem ],
+  *text => any
+}
+
+ActionItem = {
+  type: "keyUp" / "keyDown",
+  value: text,
+  *text => any
+}
