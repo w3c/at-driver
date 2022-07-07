@@ -74,7 +74,7 @@ A <dfn lt="UUID">Universally Unique Identifier (UUID)</dfn> is a 128 bits long U
 
 Where algorithms that return values are fallible, they are written in terms of returning either <dfn>success</dfn> or <dfn>error</dfn>. A [=success=] value has an associated data field which encapsulates the value returned, whereas an [=error=] response has an associated [=error code=].
 
-When calling a fallible algorithm, the construct "Let |result| be the result of <dfn>trying</dfn> to call |algorithm|" is equivalent to:
+When calling a fallible algorithm, the construct "Let |result| be the result of <dfn lt="try|trying">trying</dfn> to call |algorithm|" is equivalent to:
 
 1. Let |temp| be the result of calling |algorithm|.
 2. If |temp| is an [=error=], then return |temp|. Otherwise, let |result| be |temp|'s data field.
@@ -305,7 +305,21 @@ The following table lists each <dfn>error code</dfn>, its associated JSON `error
     <td><dfn for="error code">session not created</dfn>
     <td>`session not created`
     <td>A new [=session=] could not be created.
+  <tr>
+    <td><dfn for="error code">invalid OS focus state</dfn>
+    <td>`invalid OS focus state`
+    <td>The application that currently has OS focus is not one of the expected applications.
 </table>
+
+Security checks {#security-checks}
+----------------------------------
+
+In order to mitigate security risks when using this API, there are some security checks for certain commands.
+
+To <dfn>check that one of the expected applications has focus</dfn>:
+
+1. If the application that currently has OS focus (and so could act on simulated key presses from this API) is not one of the expected applications, then return an <a>error</a> with <a>error code</a> <a for="error code">invalid OS focus state</a>. Which applications are expected is <a>implementation-defined</a>.
+2. Return <a>success</a> with data null.
 
 Transport {#transport}
 ======================
@@ -567,7 +581,8 @@ Note: This is intended to be similar to WebDriver's <a href="https://w3c.github.
 
 The [=remote end steps=] given |session| and |command parameters| are:
 
-1. ...
+1. [=Try=] to [=check that one of the expected applications has focus=].
+2. ...
 
 ### Events ### {#module-interaction-events}
 
@@ -655,7 +670,8 @@ Note: This is intended to be similar to WebDriver's <a href="https://w3c.github.
 
 The [=remote end steps=] given |session| and |command parameters| are:
 
-1. ...
+1. [=Try=] to [=check that one of the expected applications has focus=].
+2. ...
 
 Issue: Do we also need a "release" command like WebDriver's <a href="https://w3c.github.io/webdriver/#release-actions">Release Actions</a>?
 
