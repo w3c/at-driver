@@ -1,12 +1,6 @@
 import { Lexer, Parser } from 'cddl';
 import * as fs from 'node:fs/promises';
 
-function assert(condition, message) {
-  if (!condition) {
-    throw new Error(`Assertion failed: ${message}`);
-  }
-}
-
 function cddlParse(input) {
   const l = new Lexer(input);
   const parser = new Parser(l);
