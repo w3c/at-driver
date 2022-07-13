@@ -245,7 +245,7 @@ The AT Driver protocol is organized into modules.
 
 Each <dfn>module</dfn> represents a collection of related [=commands=] and [=events=] pertaining to a certain aspect of the assistive technology.
 
-Each module has a <dfn>module name</dfn> which is a string. The [=command name=] and [=event name=] for commands and events adefined in the module start with the [=module name=] followed by a period "`.`".
+Each module has a <dfn>module name</dfn> which is a string. The [=command name=] and [=event name=] for commands and events defined in the module start with the [=module name=] followed by a period "`.`".
 
 Modules which contain [=commands=] define [=remote end definition=] fragments.
 
