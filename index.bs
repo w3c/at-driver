@@ -96,7 +96,7 @@ Protocol {#protocol}
 
 This section defines the basic concepts of the AT Driver protocol. These terms are distinct from their representation at the transport layer.
 
-The protocol is defined using a CDDL definition. For the convenience of implementors two seperate CDDL definitions are defined; the <dfn>remote end definition</dfn> which defines the format of messages produced on the [=local end=] and consumed on the [=remote end=], and the <dfn>local end definition</dfn> which defines the format of messages produced on the [=remote end=] and consumed on the [=local end=].
+The protocol is defined using a CDDL definition. For the convenience of implementors two separate CDDL definitions are defined; the <dfn>remote end definition</dfn> which defines the format of messages produced on the [=local end=] and consumed on the [=remote end=], and the <dfn>local end definition</dfn> which defines the format of messages produced on the [=remote end=] and consumed on the [=local end=].
 
 
 Definition {#protocol-definition}
