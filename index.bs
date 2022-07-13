@@ -629,7 +629,7 @@ The actions Module {#module-actions}
 
 #### The actions.perform Command #### {#module-actions-perform}
 
-The <dfn>actions.perform</dfn> command simulates user intput actions such as key down and key up on a keyboard.
+The <dfn>actions.perform</dfn> command simulates user input actions such as key down and key up on a keyboard.
 
 Note: This is intended to be similar to WebDriver's <a href="https://w3c.github.io/webdriver/#perform-actions">Perform Actions</a>. [[WEBDRIVER]]
 
