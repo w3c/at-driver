@@ -1,4 +1,4 @@
-import { Lexer, Parser } from 'cddl';
+import { Lexer, Parser } from 'cddl/build/index.js';
 import * as fs from 'node:fs/promises';
 
 const parseCddl = input => new Parser(new Lexer(input)).parse();
