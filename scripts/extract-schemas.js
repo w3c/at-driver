@@ -1,14 +1,10 @@
 import { Lexer, Parser } from 'cddl';
 import * as fs from 'node:fs/promises';
 
-function cddlParse(input) {
-  const l = new Lexer(input);
-  const parser = new Parser(l);
-  return parser.parse();
-}
+const parseCddl = input => new Parser(new Lexer(input)).parse();
 
-function cddlToJSONSchema(input) {
-  const cddlAst = cddlParse(input);
+const cddlToJSONSchema = input => {
+  const cddlAst = parseCddl(input);
   const jsonSchemaAst = {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "TODO",
@@ -22,39 +18,51 @@ function cddlToJSONSchema(input) {
   }
 }
 
-// Extract CDDL from index.bs and write to files
+const removeIndentation = (indentation, cddl) => {
+  if (indentation.length === 0) {
+    return cddl;
+  }
 
-const source = await fs.readFile('index.bs', { encoding: 'utf8' });
-const localCddlArr = [];
-const remoteCddlArr = [];
-let matches = [...source.matchAll(/^([ \t]*)<pre class=['"]cddl((?: [a-zA-Z0-9_-]+)+)['"]>([\s\S]*?)<\/pre>/gm)];
-for (const match of matches) {
-  let indentation = match[1];
-  let isRemote = match[2].indexOf(' remote-cddl') > -1;
-  let isLocal = match[2].indexOf(' local-cddl') > -1;
-  if (!isRemote && !isLocal) {
-    continue;
-  }
-  let cddlBlock = match[3].trim();
-  if (indentation.length > 0) {
-    let indentationRegexp = new RegExp(`^${match[1]}`);
-    let lines = cddlBlock.split('\n');
-    const result = [];
-    for (const line of lines) {
-      result.push(line.replace(indentationRegexp, ''));
-    }
-    cddlBlock = result.join('\n');
-  }
-  if (isLocal) {
-    localCddlArr.push(cddlBlock);
-  }
-  if (isRemote) {
-    remoteCddlArr.push(cddlBlock);
-  }
+  let indentationRegexp = new RegExp(`^${indentation}`);
+  return cddl
+      .split('\n')
+      .map(line => line.replace(indentationRegexp, ''))
+      .join('\n');
 }
 
-const localCddl = localCddlArr.join('\n\n') + '\n';
-const remoteCddl = remoteCddlArr.join('\n\n') + '\n';
+const formatCddl = cddl => cddl.join('\n\n').trim() + '\n';
+
+const extractCddlFromSpec = async () => {
+  const source = await fs.readFile('index.bs', { encoding: 'utf8' });
+  const matches = [...source.matchAll(/^([ \t]*)<pre class=['"]cddl((?: [a-zA-Z0-9_-]+)+)['"]>([\s\S]*?)<\/pre>/gm)];
+
+  const [local, remote] = matches.reduce(([local, remote], match) => {
+    const [_, indentation, cssClass, content] = match;
+
+    let isLocal = cssClass.indexOf(' local-cddl') > -1;
+    let isRemote = cssClass.indexOf(' remote-cddl') > -1;
+
+    if (!isLocal && !isRemote) {
+      return [local, remote];
+    }
+
+    let cddl = removeIndentation(indentation, content.trim());
+
+    if (isLocal) {
+      local.push(cddl);
+    } else {
+      remote.push(cddl);
+    }
+
+    return [local, remote];
+  }, [[], []])
+
+  return [
+      formatCddl(local),
+      formatCddl(remote)
+  ]
+}
+
 try {
   await fs.mkdir('schemas');
 } catch(ex) {
@@ -62,6 +70,9 @@ try {
     throw ex;
   }
 }
+
+const [localCddl, remoteCddl] = await extractCddlFromSpec();
+
 await fs.writeFile('schemas/at-driver-local.cddl', localCddl);
 await fs.writeFile('schemas/at-driver-remote.cddl', remoteCddl);
 
