@@ -3,21 +3,6 @@ import * as fs from 'node:fs/promises';
 
 const parseCddl = input => new Parser(new Lexer(input)).parse();
 
-const cddlToJSONSchema = input => {
-  const cddlAst = parseCddl(input);
-  const jsonSchemaAst = {
-    "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "TODO",
-    "$defs": {},
-  };
-  for (const obj of cddlAst) {
-    console.log(JSON.stringify(obj, null, 2)); // TODO
-    // For SessionNewCommand, need to not set additionalProperties: false
-    // since Command allows additional properties, all schemas in Command's allOf
-    // need to also allow additional properties (otherwise 'id' will be invalid).
-  }
-}
-
 const removeIndentation = (indentation, cddl) => {
   if (indentation.length === 0) {
     return cddl;
@@ -50,7 +35,8 @@ const extractCddlFromSpec = async () => {
 
     if (isLocal) {
       local.push(cddl);
-    } else {
+    }
+    if (isRemote) {
       remote.push(cddl);
     }
 
@@ -76,6 +62,6 @@ const [localCddl, remoteCddl] = await extractCddlFromSpec();
 await fs.writeFile('schemas/at-driver-local.cddl', localCddl);
 await fs.writeFile('schemas/at-driver-remote.cddl', remoteCddl);
 
-// Convert CDDL to JSON Schema
-cddlToJSONSchema(localCddl);
-cddlToJSONSchema(remoteCddl);
+// Check that the CDDL can be parsed
+parseCddl(localCddl);
+parseCddl(remoteCddl);

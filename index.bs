@@ -547,3 +547,5 @@ The [=remote end definition=] and [=local end definition=] are available as non-
 - [at-driver-local.cddl](schemas/at-driver-local.cddl)
 - [at-driver-remote.json](schemas/at-driver-remote.json)
 - [at-driver-local.json](schemas/at-driver-local.json)
+
+Issue(23): The JSON Schema files are not yet generated from the CDDL and so might be out of date.
