@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "TODO",
+  "$defs": {
+    "Command": {
+      "allOf": [
+        {
+          "type": "object",
+          "properties": {
+            "id": { "type": "number" }
+          },
+          "required": ["id"]
+        },
+        { "$ref": "#/$defs/CommandData" }
+      ]
+    },
+    "CommandData": {
+      "oneOf": [
+        { "$ref": "#/$defs/SessionCommand" }
+      ]
+    },
+    "EmptyParams": {},
+    "SessionCommand": {
+      "oneOf": [
+        { "$ref": "#/$defs/SessionNewCommand" }
+      ]
+    },
+    "CapabilitiesRequest": {
+      "type": "object",
+      "properties": {
+        "atName": { "type": "string" },
+        "atVersion": { "type": "string" },
+        "platformName": { "type": "string" }
+      }
+    },
+    "SessionNewCommand": {
+      "type": "object",
+      "properties": {
+        "method": { "enum": [ "session.new" ] },
+        "params": {
+          "type": "object",
+          "properties": {
+            "capabilities": { "$ref": "#/$defs/CapabilitiesRequestParameters" }
+          },
+          "required": ["capabilities"],
+          "additionalProperties": false
+        }
+      },
+      "required": ["method", "params"]
+    },
+    "CapabilitiesRequestParameters": {
+      "type": "object",
+      "properties": {
+        "alwaysMatch": { "$ref": "#/$defs/CapabilitiesRequest" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "$ref": "#/$defs/Command"
+}

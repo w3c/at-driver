@@ -1,0 +1,56 @@
+Message = (
+  CommandResponse //
+  ErrorResponse //
+  Event
+)
+
+CommandResponse = {
+  id: uint,
+  result: ResultData,
+  *text => any
+}
+
+ErrorResponse = {
+  id: uint / null,
+  error: "unknown error" / "unknown command" / "invalid argument" / "session not created",
+  message: text,
+  ?stacktrace: text,
+  *text => any
+}
+
+ResultData = (
+  EmptyResult //
+  SessionResult
+)
+
+EmptyResult = {}
+
+Event = {
+  EventData,
+  *text => any
+}
+
+EventData = (
+  ATEvent
+)
+
+ATEvent = {}
+
+SessionResult = (SessionNewResult)
+
+CapabilitiesRequest = {
+  ?atName: text,
+  ?atVersion: text,
+  ?platformName: text,
+  *text => any
+}
+
+SessionNewResult = {
+  sessionId: text,
+  capabilities: {
+    atName: text,
+    atVersion: text,
+    platformName: text,
+    *text => any
+  }
+}
