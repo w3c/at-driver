@@ -55,5 +55,5 @@ SessionNewResult = {
 }
 
 VendorSettingsResult = {
-  VendorSettingsSetSettingsResult
+  VendorSettingsGetSettingsResult
 }

@@ -544,7 +544,7 @@ VendorSettingsCommand = {
 
 <xmp class="cddl local-cddl">
 VendorSettingsResult = {
-  VendorSettingsSetSettingsResult
+  VendorSettingsGetSettingsResult
 }
 </xmp>
 
