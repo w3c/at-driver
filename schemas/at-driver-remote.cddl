@@ -40,7 +40,9 @@ VendorSettingsSetSettingsCommand = {
   params: VendorSettingsSetSettingsParameters
 }
 
-VendorSettingSetSettingsParameters = [1* VendorSettingSetSettingsParametersItem ]
+VendorSettingSetSettingsParameters = {
+  settings: [1* VendorSettingSetSettingsParametersItem ],
+}
 
 VendorSettingSetSettingsParametersItem = {
   name: text,
@@ -53,7 +55,9 @@ VendorSettingsGetSettingsCommand = {
   params: VendorSettingsGetSettingsParameters
 }
 
-VendorSettingsGetSettingsParameters = [1* VendorSettingsGetSettingsParametersItem ]
+VendorSettingsGetSettingsParameters = {
+  settings: [1* VendorSettingsGetSettingsParametersItem ],
+}
 
 VendorSettingsGetSettingsParametersItem = {
   name: text,

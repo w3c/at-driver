@@ -554,8 +554,10 @@ VendorSettingsResult = {
 
 [=Local end definition=]:
 
-<xmp class="cddl local-ccdl">
-VendorSettingsGetSettingsResult = [1* VendorSettingsGetSettingsResultItem ]
+<xmp class="cddl local-cddl">
+VendorSettingsGetSettingsResult = {
+  settings: [1* VendorSettingsGetSettingsResultItem ],
+}
 
 VendorSettingsGetSettingsResultItem = {
   name: text,
@@ -564,7 +566,7 @@ VendorSettingsGetSettingsResultItem = {
 }
 </xmp>
 
-The `VendorSettingsGetSettingsResult` type is a list of settings and their values.
+The `VendorSettingsGetSettingsResult` type contains a list of settings and their values.
 
 ### Commands ### {#module-settings-commands}
 
@@ -581,7 +583,9 @@ This command sets the values of one or more settings.
       params: VendorSettingsSetSettingsParameters
     }
 
-    VendorSettingSetSettingsParameters = [1* VendorSettingSetSettingsParametersItem ]
+    VendorSettingSetSettingsParameters = {
+      settings: [1* VendorSettingSetSettingsParametersItem ],
+    }
 
     VendorSettingSetSettingsParametersItem = {
       name: text,
@@ -613,7 +617,9 @@ This command returns a list of the requested settings and their values.
       params: VendorSettingsGetSettingsParameters
     }
 
-    VendorSettingsGetSettingsParameters = [1* VendorSettingsGetSettingsParametersItem ]
+    VendorSettingsGetSettingsParameters = {
+      settings: [1* VendorSettingsGetSettingsParametersItem ],
+    }
 
     VendorSettingsGetSettingsParametersItem = {
       name: text,

@@ -57,3 +57,13 @@ SessionNewResult = {
 VendorSettingsResult = {
   VendorSettingsGetSettingsResult
 }
+
+VendorSettingsGetSettingsResult = {
+  settings: [1* VendorSettingsGetSettingsResultItem ],
+}
+
+VendorSettingsGetSettingsResultItem = {
+  name: text,
+  value: any,
+  *text => any
+}
