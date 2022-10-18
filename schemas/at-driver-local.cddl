@@ -20,7 +20,8 @@ ErrorResponse = {
 
 ResultData = (
   EmptyResult //
-  SessionResult
+  SessionResult //
+  VendorSettingsResult
 )
 
 EmptyResult = {}
@@ -53,14 +54,16 @@ SessionNewResult = {
   }
 }
 
-InteractionEvent = (InteractionCapturedOutputEvent)
-
-InteractionCapturedOutputParameters = {
-  data: text,
-  *text => any
+VendorSettingsResult = {
+  VendorSettingsGetSettingsResult
 }
 
-InteractionCapturedOutputEvent = {
-  method: "interaction.capturedOutput",
-  params: InteractionCapuredOutputParameters
+VendorSettingsGetSettingsResult = {
+  settings: [1* VendorSettingsGetSettingsResultItem ],
+}
+
+VendorSettingsGetSettingsResultItem = {
+  name: text,
+  value: any,
+  *text => any
 }
