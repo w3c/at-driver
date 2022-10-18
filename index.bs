@@ -218,8 +218,8 @@ To <dfn>match capabilities</dfn> given |requested capabilities|, the [=remote en
         :: If |value| is not equal to |matched capabilities|["`atName`"], then return [=success=] with data null.
         : "`atVersion`"
         :: Compare |value| to |matched capabilities|["`browserVersion`"] using an [=implementation-defined=] comparison algorithm. The comparison is to accept a value that places constraints on the version using the "`<`", "`<=`", "`>`", and "`>=`" operators.
-        : "`platform`"
-        :: If |value| is not equal to |matched capabilities|["`platform`"], then return [=success=] with data null.
+        : "`platformName`"
+        :: If |value| is not equal to |matched capabilities|["`platformName`"], then return [=success=] with data null.
         : Otherwise
         :: If |key| is the key of an [=extension capability=], set |match value| to the result of [=trying=] implementation-specific steps to match on |key| with |value|. If the match is not successful, return [=success=] with data null.
     3. [=map/Set=] |matched capabilities|[|key|] to |match value|.
