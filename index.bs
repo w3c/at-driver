@@ -665,6 +665,56 @@ The <a>remote end steps</a> given |session| and |command parameters| are <a>impl
 
 Issue: Do we need a "setting changed" event?
 
+The Interaction Module {#module-interaction}
+--------------------------------------------
+
+### Definition ### {#module-interaction-definition}
+
+[=Local end definition=]:
+
+<xmp class="cddl local-cddl">
+
+InteractionEvent = (InteractionCapturedOutputEvent)
+
+</xmp>
+
+### Types ### {#module-interaction-types}
+
+<xmp class="cddl local-cddl">
+InteractionCapturedOutputParameters = {
+  data: text,
+  *text => any
+}
+</xmp>
+
+### Commands ### {#module-interaction-commands}
+
+None.
+
+### Events ### {#module-interaction-events}
+
+<dl>
+  <dt>Event Type
+  <dd>
+
+  <xmp class="cddl local-cddl">
+  InteractionCapturedOutputEvent = {
+    method: "interaction.capturedOutput",
+    params: InteractionCapuredOutputParameters
+  }
+  </xmp>
+
+</dl>
+
+The [=remote end event trigger=] is:
+
+When the assistive technology would send some text |data| (a string, without speech-specific markup or annotations) to the Text-To-Speech system, or equivalent for non-speech assistive technology software, run these steps:
+
+1. Optionally, return. This step allows for an [=implementation-defined=] security check, to sandbox what information to expose.
+2. Let |params| be a [=map=] matching the `InteractionCapturedOutputParameters` production with the `data` field set to |data|.
+3. Let |body| be a [=map=] matching the `InteractionCapturedOutputEvent` production with the `params` field set to |params|.
+4. [=Emit an event=] with |session| and |body|.
+
 Privacy {#privacy}
 ==================
 
