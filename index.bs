@@ -703,16 +703,16 @@ InteractionCapturedOutputParameters = {
 
 ### Commands ### {#module-interaction-commands}
 
-#### The interaction.sendKeys Command #### {#module-interaction-keydown}
+#### The interaction.pressKeys Command #### {#module-interaction-presskeys}
 
-The <dfn>interaction.sendKeys</dfn> command simulates pressing a key combination on a keyboard.
+The <dfn>interaction.pressKeys</dfn> command simulates pressing a key combination on a keyboard.
 
 <dl>
   <dt>Command Type
   <dd>
 
   <pre class="cddl remote-cddl">
-  InteractionSendKeysCommand = {
+  InteractionPressKeysCommand = {
     method: "interaction.pressKeys",
     params: InteractionPressKeysParameters
   }

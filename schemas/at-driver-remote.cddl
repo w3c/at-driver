@@ -69,7 +69,7 @@ VendorSettingsGetSupportedSettingsCommand = {
   params: EmptyParams
 }
 
-InteractionSendKeysCommand = {
+InteractionPressKeysCommand = {
   method: "interaction.pressKeys",
   params: InteractionPressKeysParameters
 }
