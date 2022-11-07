@@ -707,6 +707,8 @@ InteractionCapturedOutputParameters = {
 
 The <dfn>interaction.pressKeys</dfn> command simulates pressing a key combination on a keyboard.
 
+Issue(34): This command does not yet have a means for indicating a screen-reader specific modifier key (or keys).
+
 <dl>
   <dt>Command Type
   <dd>
