@@ -5,7 +5,8 @@ Command = {
 }
 
 CommandData = (
-  SessionCommand
+  SessionCommand //
+  VendorSettingsCommand
 )
 
 EmptyParams = { *text => any }
@@ -26,4 +27,44 @@ SessionNewCommand = {
 
 CapabilitiesRequestParameters = {
   ?alwaysMatch: CapabilitiesRequest,
+}
+
+VendorSettingsCommand = {
+  VendorSettingsSetSettingsCommand //
+  VendorSettingsGetSettingsCommand //
+  VendorSettingsGetSupportedSettingsCommand
+}
+
+VendorSettingsSetSettingsCommand = {
+  method: "<vendor>:settings.setSettings",
+  params: VendorSettingsSetSettingsParameters
+}
+
+VendorSettingSetSettingsParameters = {
+  settings: [1* VendorSettingSetSettingsParametersItem ],
+}
+
+VendorSettingSetSettingsParametersItem = {
+  name: text,
+  value: any,
+  *text => any
+}
+
+VendorSettingsGetSettingsCommand = {
+  method: "<vendor>:settings.getSettings",
+  params: VendorSettingsGetSettingsParameters
+}
+
+VendorSettingsGetSettingsParameters = {
+  settings: [1* VendorSettingsGetSettingsParametersItem ],
+}
+
+VendorSettingsGetSettingsParametersItem = {
+  name: text,
+  *text => any
+}
+
+VendorSettingsGetSupportedSettingsCommand = {
+  method: "<vendor>:settings.getSupportedSettings",
+  params: EmptyParams
 }

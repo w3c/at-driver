@@ -4,11 +4,18 @@
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <title>ARIA-AT Automation</title>
   <meta content="w3c/CG-DRAFT" name="w3c-status">
-  <link href="https://www.w3.org/StyleSheets/TR/2016/cg-draft" rel="stylesheet">
+  <link href="https://www.w3.org/StyleSheets/TR/2021/cg-draft" rel="stylesheet">
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
-  <meta content="Bikeshed version b94c7e755, updated Fri Feb 19 16:28:59 2021 -0800" name="generator">
+  <meta content="Bikeshed version 63e66730b, updated Tue Oct 25 12:35:05 2022 -0700" name="generator">
   <link href="https://w3c.github.io/aria-at-automation/" rel="canonical">
-  <meta content="9edc5c4327f7aeb93cdd0dc8a120d0f37116d1c5" name="document-revision">
+  <meta content="a9711aa3cea289e00d592800f66c2865af59684e" name="document-revision">
+<style>
+table { border-collapse: collapse; border-style: hidden hidden none hidden; }
+table thead, table tbody { border-bottom: solid; }
+table tbody th { text-align: left; }
+table tbody th:first-child { border-left: solid; }
+table td, table th { border-left: solid; border-right: solid; border-bottom: solid thin; vertical-align: top; padding: 0.2em; }
+</style>
 <style>
 table { border-collapse: collapse; border-style: hidden hidden none hidden; }
 table thead, table tbody { border-bottom: solid; }
@@ -122,9 +129,9 @@ pre .property::before, pre .property::after {
     --ins-bg: transparent;
 
     --a-normal-text: #034575;
-    --a-normal-underline: #707070;
+    --a-normal-underline: #bbb;
     --a-visited-text: var(--a-normal-text);
-    --a-visited-underline: #bbb;
+    --a-visited-underline: #707070;
     --a-hover-bg: rgba(75%, 75%, 75%, .25);
     --a-active-text: #c00;
     --a-active-underline: #c00;
@@ -257,6 +264,16 @@ figcaption:not(.no-marker)::before {
 
 .dfn-paneled { cursor: pointer; }
 </style>
+<style>/* style-issues */
+
+a[href].issue-return {
+    float: right;
+    float: inline-end;
+    color: var(--issueheading-text);
+    font-weight: bold;
+    text-decoration: none;
+}
+</style>
 <style>/* style-md-lists */
 
 /* This is a weird hack for me not yet following the commonmark spec
@@ -293,6 +310,14 @@ a.self-link:hover {
 }
 .heading > a.self-link {
     font-size: 83%;
+}
+.example > a.self-link,
+.note > a.self-link,
+.issue > a.self-link {
+    /* These blocks are overflow:auto, so positioning outside
+       doesn't work. */
+    left: auto;
+    right: 0;
 }
 li > a.self-link {
     left: calc(-1 * (3.5rem - 26px) - 2em);
@@ -570,24 +595,27 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
 </style>
  <body class="h-entry">
   <div class="head">
-   <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
+   <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">ARIA-AT Automation</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Draft Community Group Report, <time class="dt-updated" datetime="2022-09-29">29 September 2022</time></span></h2>
-   <div data-fill-with="spec-metadata">
-    <dl>
-     <dt>This version:
-     <dd><a class="u-url" href="https://w3c.github.io/aria-at-automation/">https://w3c.github.io/aria-at-automation/</a>
-     <dt>Issue Tracking:
-     <dd><a href="https://github.com/w3c/aria-at-automation/issues/">GitHub</a>
-     <dd><a href="#issues-index">Inline In Spec</a>
-     <dt class="editor">Editor:
-     <dd class="editor p-author h-card vcard"><a class="p-name fn u-email email" href="mailto:simon@bocoup.com">Simon Pieters</a> (<a class="p-org org" href="https://bocoup.com">Bocoup</a>)
-     <dt>Tests:
-     <dd><a href="https://github.com/w3c/web-platform-tests/tree/master/aria-at-automation">web-platform-tests aria-at-automation/</a> (<a href="https://github.com/w3c/web-platform-tests/labels/aria-at-automation">ongoing work</a>)
-    </dl>
-   </div>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-DRAFT">Draft Community Group Report</a>, <time class="dt-updated" datetime="2022-11-09">9 November 2022</time></p>
+   <details open>
+    <summary>More details about this document</summary>
+    <div data-fill-with="spec-metadata">
+     <dl>
+      <dt>This version:
+      <dd><a class="u-url" href="https://w3c.github.io/aria-at-automation/">https://w3c.github.io/aria-at-automation/</a>
+      <dt>Issue Tracking:
+      <dd><a href="https://github.com/w3c/aria-at-automation/issues/">GitHub</a>
+      <dd><a href="#issues-index">Inline In Spec</a>
+      <dt class="editor">Editor:
+      <dd class="editor p-author h-card vcard"><a class="p-name fn u-email email" href="mailto:simon@bocoup.com">Simon Pieters</a> (<a class="p-org org" href="https://bocoup.com">Bocoup</a>)
+      <dt>Tests:
+      <dd><a href="https://github.com/w3c/web-platform-tests/tree/master/aria-at-automation">web-platform-tests aria-at-automation/</a> (<a href="https://github.com/w3c/web-platform-tests/labels/aria-at-automation">ongoing work</a>)
+     </dl>
+    </div>
+   </details>
    <div data-fill-with="warning"></div>
-   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2022 <a href="https://www.w3.org/"><abbr title="World Wide Web Consortium">W3C</abbr></a><sup>®</sup> (<a href="https://www.csail.mit.edu/"><abbr title="Massachusetts Institute of Technology">MIT</abbr></a>, <a href="https://www.ercim.eu/"><abbr title="European Research Consortium for Informatics and Mathematics">ERCIM</abbr></a>, <a href="https://www.keio.ac.jp/">Keio</a>, <a href="https://ev.buaa.edu.cn/">Beihang</a>). W3C <a href="http://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document" rel="license">permissive document license</a> rules apply. </p>
+   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2022 <a href="https://www.w3.org/"><abbr title="World Wide Web Consortium">W3C</abbr></a><sup>®</sup> (<a href="https://www.csail.mit.edu/"><abbr title="Massachusetts Institute of Technology">MIT</abbr></a>, <a href="https://www.ercim.eu/"><abbr title="European Research Consortium for Informatics and Mathematics">ERCIM</abbr></a>, <a href="https://www.keio.ac.jp/">Keio</a>, <a href="https://ev.buaa.edu.cn/">Beihang</a>). W3C <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document" rel="license">permissive document license</a> rules apply. </p>
    <hr title="Separator for header">
   </div>
   <div class="p-summary" data-fill-with="abstract">
@@ -644,7 +672,24 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
           <li><a href="#module-session-new"><span class="secno">7.1.3.1</span> <span class="content">The session.new Command</span></a>
          </ol>
        </ol>
-      <li><a href="#module-settings"><span class="secno">7.2</span> <span class="content">The settings Module</span></a>
+      <li>
+       <a href="#module-vendor-settings"><span class="secno">7.2</span> <span class="content">The &lt;vendor>:settings Module</span></a>
+       <ol class="toc">
+        <li><a href="#module-vendor-settings-definition"><span class="secno">7.2.1</span> <span class="content">Definition</span></a>
+        <li>
+         <a href="#module-vendor-settings-types"><span class="secno">7.2.2</span> <span class="content">Types</span></a>
+         <ol class="toc">
+          <li><a href="#module-vendor-settings-get-settings-result"><span class="secno">7.2.2.1</span> <span class="content">The VendorSettingsGetSettingsResult type</span></a>
+         </ol>
+        <li>
+         <a href="#module-settings-commands"><span class="secno">7.2.3</span> <span class="content">Commands</span></a>
+         <ol class="toc">
+          <li><a href="#command-vendor-settings-set-settings"><span class="secno">7.2.3.1</span> <span class="content">The &lt;vendor>:settings.setSettings Command</span></a>
+          <li><a href="#command-vendor-settings-get-settings"><span class="secno">7.2.3.2</span> <span class="content">The &lt;vendor>settings.getSettings Command</span></a>
+          <li><a href="#command-vendor-settings-get-supported-settings"><span class="secno">7.2.3.3</span> <span class="content">The &lt;vendor>settings.getSupportedSettings Command</span></a>
+          <li><a href="#module-vendor-settings-events"><span class="secno">7.2.3.4</span> <span class="content">Events</span></a>
+         </ol>
+       </ol>
       <li>
        <a href="#module-interaction"><span class="secno">7.3</span> <span class="content">The Interaction Module</span></a>
        <ol class="toc">
@@ -733,7 +778,8 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
 }
 
 CommandData = (
-  SessionCommand
+  SessionCommand //
+  VendorSettingsCommand
 )
 
 EmptyParams = { *text => any }
@@ -761,7 +807,8 @@ ErrorResponse = {
 
 ResultData = (
   EmptyResult //
-  SessionResult
+  SessionResult //
+  VendorSettingsResult
 )
 
 EmptyResult = {}
@@ -847,9 +894,9 @@ EventData = (
         <dt data-md>"<code>atVersion</code>"
         <dd data-md>
          <p>Compare <var>value</var> to <var>matched capabilities</var>["<code>browserVersion</code>"] using an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined">implementation-defined</a> comparison algorithm. The comparison is to accept a value that places constraints on the version using the "<code>&lt;</code>", "<code>&lt;=</code>", "<code>></code>", and "<code>>=</code>" operators.</p>
-        <dt data-md>"<code>platform</code>"
+        <dt data-md>"<code>platformName</code>"
         <dd data-md>
-         <p>If <var>value</var> is not equal to <var>matched capabilities</var>["<code>platform</code>"], then return <a data-link-type="dfn" href="#success" id="ref-for-success④">success</a> with data null.</p>
+         <p>If <var>value</var> is not equal to <var>matched capabilities</var>["<code>platformName</code>"], then return <a data-link-type="dfn" href="#success" id="ref-for-success④">success</a> with data null.</p>
         <dt data-md>Otherwise
         <dd data-md>
          <p>If <var>key</var> is the key of an <a data-link-type="dfn" href="#extension-capabilities" id="ref-for-extension-capabilities①">extension capability</a>, set <var>match value</var> to the result of <a data-link-type="dfn" href="#trying" id="ref-for-trying①">trying</a> implementation-specific steps to match on <var>key</var> with <var>value</var>. If the match is not successful, return <a data-link-type="dfn" href="#success" id="ref-for-success⑤">success</a> with data null.</p>
@@ -1145,12 +1192,112 @@ CapabilitiesRequestParameters = {
     <li data-md>
      <p>Return <a data-link-type="dfn" href="#success" id="ref-for-success⑧">success</a> with data <var>body</var>.</p>
    </ol>
-   <h3 class="heading settled" data-level="7.2" id="module-settings"><span class="secno">7.2. </span><span class="content">The settings Module</span><a class="self-link" href="#module-settings"></a></h3>
-   <p class="issue" id="issue-91a8a6fe"><a class="self-link" href="#issue-91a8a6fe"></a> TODO any setting, excluding security-sensitive settings, for each AT.</p>
+   <h3 class="heading settled" data-level="7.2" id="module-vendor-settings"><span class="secno">7.2. </span><span class="content">The &lt;vendor>:settings Module</span><a class="self-link" href="#module-vendor-settings"></a></h3>
+   <p>Currently, there are no standardized settings. Implementations that wish to allow controlling and reading settings through the protocol defined in this specification must support settings as an <a data-link-type="dfn" href="#extension-modules" id="ref-for-extension-modules①">extension module</a>, with the structure defined in this section. Implementations are strongly encouraged to review the security implications of each setting, and only support the settings that are deemed safe. It is not defined what constitutes a setting, however, it is intended to represent user preferences such as the default voice, or the default rate of speech.</p>
+   <p>In the schema definitions in this section, <code>&lt;vendor></code> is a placeholder for an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined⑤">implementation-defined</a> prefix for the <a data-link-type="dfn" href="#extension-modules" id="ref-for-extension-modules②">extension module</a>. The value of the prefix should be the name of the vendor or the assistive technology product, as appropriate.</p>
+   <p class="note" role="note"><span>Note:</span> The prefix could be, for example, <code>nvda</code>, <code>jaws</code>, or <code>macOSVoiceOver</code>.</p>
+   <h4 class="heading settled" data-level="7.2.1" id="module-vendor-settings-definition"><span class="secno">7.2.1. </span><span class="content">Definition</span><a class="self-link" href="#module-vendor-settings-definition"></a></h4>
+   <p><a data-link-type="dfn" href="#remote-end-definition" id="ref-for-remote-end-definition⑦">Remote end definition</a></p>
+<pre class="cddl remote-cddl">VendorSettingsCommand = {
+  VendorSettingsSetSettingsCommand //
+  VendorSettingsGetSettingsCommand //
+  VendorSettingsGetSupportedSettingsCommand
+}
+</pre>
+   <p><a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition⑧">Local end definition</a></p>
+<pre class="cddl local-cddl">VendorSettingsResult = {
+  VendorSettingsGetSettingsResult
+}
+</pre>
+   <h4 class="heading settled" data-level="7.2.2" id="module-vendor-settings-types"><span class="secno">7.2.2. </span><span class="content">Types</span><a class="self-link" href="#module-vendor-settings-types"></a></h4>
+   <h5 class="heading settled" data-level="7.2.2.1" id="module-vendor-settings-get-settings-result"><span class="secno">7.2.2.1. </span><span class="content">The VendorSettingsGetSettingsResult type</span><a class="self-link" href="#module-vendor-settings-get-settings-result"></a></h5>
+   <p><a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition⑨">Local end definition</a>:</p>
+<pre class="cddl local-cddl">VendorSettingsGetSettingsResult = {
+  settings: [1* VendorSettingsGetSettingsResultItem ],
+}
+
+VendorSettingsGetSettingsResultItem = {
+  name: text,
+  value: any,
+  *text => any
+}
+</pre>
+   <p>The <code>VendorSettingsGetSettingsResult</code> type contains a list of settings and their values.</p>
+   <h4 class="heading settled" data-level="7.2.3" id="module-settings-commands"><span class="secno">7.2.3. </span><span class="content">Commands</span><a class="self-link" href="#module-settings-commands"></a></h4>
+   <h5 class="heading settled" data-level="7.2.3.1" id="command-vendor-settings-set-settings"><span class="secno">7.2.3.1. </span><span class="content">The &lt;vendor>:settings.setSettings Command</span><a class="self-link" href="#command-vendor-settings-set-settings"></a></h5>
+   <p>This command sets the values of one or more settings.</p>
+   <dl>
+    <dt>Command Type
+    <dd>
+<pre class="cddl remote-cddl">VendorSettingsSetSettingsCommand = {
+  method: "&lt;vendor>:settings.setSettings",
+  params: VendorSettingsSetSettingsParameters
+}
+
+VendorSettingSetSettingsParameters = {
+  settings: [1* VendorSettingSetSettingsParametersItem ],
+}
+
+VendorSettingSetSettingsParametersItem = {
+  name: text,
+  value: any,
+  *text => any
+}
+</pre>
+    <dt>Return Type
+    <dd>
+<pre class="cddl">EmptyResult
+</pre>
+   </dl>
+   <p>The <a data-link-type="dfn" href="#remote-end-steps" id="ref-for-remote-end-steps②">remote end steps</a> given <var>session</var> and <var>command parameters</var> are <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined⑥">implementation-defined</a>.</p>
+   <h5 class="heading settled" data-level="7.2.3.2" id="command-vendor-settings-get-settings"><span class="secno">7.2.3.2. </span><span class="content">The &lt;vendor>settings.getSettings Command</span><a class="self-link" href="#command-vendor-settings-get-settings"></a></h5>
+   <p>This command returns a list of the requested settings and their values.</p>
+   <dl>
+    <dt>Command Type
+    <dd>
+<pre class="cddl remote-cddl">VendorSettingsGetSettingsCommand = {
+  method: "&lt;vendor>:settings.getSettings",
+  params: VendorSettingsGetSettingsParameters
+}
+
+VendorSettingsGetSettingsParameters = {
+  settings: [1* VendorSettingsGetSettingsParametersItem ],
+}
+
+VendorSettingsGetSettingsParametersItem = {
+  name: text,
+  *text => any
+}
+</pre>
+    <dt>Return Type
+    <dd>
+<pre class="cddl">VendorSettingsGetSettingsResult
+</pre>
+   </dl>
+   <p>The <a data-link-type="dfn" href="#remote-end-steps" id="ref-for-remote-end-steps③">remote end steps</a> given <var>session</var> and <var>command parameters</var> are <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined⑦">implementation-defined</a>.</p>
+   <h5 class="heading settled" data-level="7.2.3.3" id="command-vendor-settings-get-supported-settings"><span class="secno">7.2.3.3. </span><span class="content">The &lt;vendor>settings.getSupportedSettings Command</span><a class="self-link" href="#command-vendor-settings-get-supported-settings"></a></h5>
+   <p>This command returns a list of all settings that the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②①">remote end</a> supports, and their values.</p>
+   <dl>
+    <dt>Command Type
+    <dd>
+<pre class="cddl remote-cddl">VendorSettingsGetSupportedSettingsCommand = {
+  method: "&lt;vendor>:settings.getSupportedSettings",
+  params: EmptyParams
+}
+</pre>
+    <dt>Return Type
+    <dd>
+<pre class="cddl">VendorSettingsGetSettingsResult
+</pre>
+   </dl>
+   <p>The <a data-link-type="dfn" href="#remote-end-steps" id="ref-for-remote-end-steps④">remote end steps</a> given <var>session</var> and <var>command parameters</var> are <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined⑧">implementation-defined</a>.</p>
+   <h5 class="heading settled" data-level="7.2.3.4" id="module-vendor-settings-events"><span class="secno">7.2.3.4. </span><span class="content">Events</span><a class="self-link" href="#module-vendor-settings-events"></a></h5>
+   <p class="issue" id="issue-0b79b3d5"><a class="self-link" href="#issue-0b79b3d5"></a> Do we need a "setting changed" event?</p>
    <h3 class="heading settled" data-level="7.3" id="module-interaction"><span class="secno">7.3. </span><span class="content">The Interaction Module</span><a class="self-link" href="#module-interaction"></a></h3>
    <h4 class="heading settled" data-level="7.3.1" id="module-interaction-definition"><span class="secno">7.3.1. </span><span class="content">Definition</span><a class="self-link" href="#module-interaction-definition"></a></h4>
-   <p><a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition⑧">Local end definition</a>:</p>
-<pre class="cddl local-cddl">InteractionEvent = (InteractionCapturedOutputEvent)
+   <p><a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition①⓪">Local end definition</a>:</p>
+<pre class="cddl local-cddl">
+InteractionEvent = (InteractionCapturedOutputEvent)
 
 </pre>
    <h4 class="heading settled" data-level="7.3.2" id="module-interaction-types"><span class="secno">7.3.2. </span><span class="content">Types</span><a class="self-link" href="#module-interaction-types"></a></h4>
@@ -1175,7 +1322,7 @@ CapabilitiesRequestParameters = {
    <p>When the assistive technology would send some text <var>data</var> (a string, without speech-specific markup or annotations) to the Text-To-Speech system, or equivalent for non-speech assistive technology software, run these steps:</p>
    <ol>
     <li data-md>
-     <p>Optionally, return. This step allows for an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined⑤">implementation-defined</a> security check, to sandbox what information to expose.</p>
+     <p>Optionally, return. This step allows for an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined⑨">implementation-defined</a> security check, to sandbox what information to expose.</p>
     <li data-md>
      <p>Let <var>params</var> be a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map⑤">map</a> matching the <code>InteractionCapturedOutputParameters</code> production with the <code>data</code> field set to <var>data</var>.</p>
     <li data-md>
@@ -1184,7 +1331,7 @@ CapabilitiesRequestParameters = {
      <p><a data-link-type="dfn" href="#emit-an-event" id="ref-for-emit-an-event">Emit an event</a> with <var>session</var> and <var>body</var>.</p>
    </ol>
    <h2 class="heading settled" data-level="8" id="privacy"><span class="secno">8. </span><span class="content">Privacy</span><a class="self-link" href="#privacy"></a></h2>
-   <p>It is advisable that <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②①">remote ends</a> create a new profile when creating a new session. This prevents potentially sensitive session data from being accessible to new sessions, ensuring both privacy and preventing state from bleeding through to the next session.</p>
+   <p>It is advisable that <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②②">remote ends</a> create a new profile when creating a new session. This prevents potentially sensitive session data from being accessible to new sessions, ensuring both privacy and preventing state from bleeding through to the next session.</p>
    <h2 class="heading settled" data-level="9" id="security"><span class="secno">9. </span><span class="content">Security</span><a class="self-link" href="#security"></a></h2>
    <p>An assistive technology can rely on a command-line flag or a configuration option to test whether to enable AT Driver, or alternatively make the assistive technology initiate or confirm the connection through a privileged content document or control widget, in case the assistive technology does not directly implement the WebSocket endpoints.</p>
    <p>It is strongly suggested that assistive technology require users to take explicit action to enable AT Driver, and that AT Driver remains disabled in publicly consumed versions of the assistive technology.</p>
@@ -1196,7 +1343,7 @@ CapabilitiesRequestParameters = {
    <p class="issue" id="issue-fbd6fc51"><a class="self-link" href="#issue-fbd6fc51"></a> TODO exclude access to any security-sensitive settings.</p>
    <p class="issue" id="issue-398c181d"><a class="self-link" href="#issue-398c181d"></a> TODO exclude access to any security-sensitive commands.</p>
    <h2 class="heading settled" id="schemas"><span class="content">Appendix A: Schemas</span><a class="self-link" href="#schemas"></a></h2>
-   <p>The <a data-link-type="dfn" href="#remote-end-definition" id="ref-for-remote-end-definition⑦">remote end definition</a> and <a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition⑨">local end definition</a> are available as non-normative CDDL and JSON Schema schemas:</p>
+   <p>The <a data-link-type="dfn" href="#remote-end-definition" id="ref-for-remote-end-definition⑧">remote end definition</a> and <a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition①①">local end definition</a> are available as non-normative CDDL and JSON Schema schemas:</p>
    <ul>
     <li data-md>
      <p><a href="schemas/at-driver-remote.cddl">at-driver-remote.cddl</a></p>
@@ -1207,7 +1354,7 @@ CapabilitiesRequestParameters = {
     <li data-md>
      <p><a href="schemas/at-driver-local.json">at-driver-local.json</a></p>
    </ul>
-   <p class="issue" id="issue-f906273a"><a class="self-link" href="#issue-f906273a"></a> The JSON Schema files are not yet generated from the CDDL and so might be out of date. <a href="https://github.com/w3c/aria-at-automation/issues/23">&lt;https://github.com/w3c/aria-at-automation/issues/23></a></p>
+   <p class="issue" id="issue-f906273a"><a class="self-link" href="#issue-f906273a"></a> The JSON Schema files are not yet generated from the CDDL and so might be out of date. <a href="https://github.com/w3c/aria-at-automation/issues/23">[Issue #23]</a></p>
   </main>
   <div data-fill-with="conformance">
    <h2 class="no-ref no-num heading settled" id="w3c-conformance"><span class="content">Conformance</span><a class="self-link" href="#w3c-conformance"></a></h2>
@@ -1234,7 +1381,7 @@ CapabilitiesRequestParameters = {
     and are set apart from the normative text
     with <code>class="note"</code>,
     like this: </p>
-   <p class="note" role="note">Note, this is an informative note. </p>
+   <p class="note" role="note">Note, this is an informative note.</p>
    <h3 class="no-ref no-num heading settled" id="w3c-conformant-algorithms"><span class="content">Conformant Algorithms</span><a class="self-link" href="#w3c-conformant-algorithms"></a></h3>
    <p>Requirements phrased in the imperative as part of algorithms
     (such as "strip any leading space characters"
@@ -1250,66 +1397,66 @@ CapabilitiesRequestParameters = {
     and are not intended to be performant.
     Implementers are encouraged to optimize. </p>
   </div>
-<script src="https://www.w3.org/scripts/TR/2016/fixup.js"></script>
+<script src="https://www.w3.org/scripts/TR/2021/fixup.js"></script>
   <h2 class="no-num no-ref heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
   <h3 class="no-num no-ref heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
   <ul class="index">
-   <li><a href="#remote-end-active-listeners">active listeners</a><span>, in §6</span>
-   <li><a href="#remote-end-active-sessions">active sessions</a><span>, in §5.3</span>
-   <li><a href="#session-associated-with-connection">associated with connection</a><span>, in §6</span>
-   <li><a href="#standard-capabilities-at-name">AT name</a><span>, in §5.2</span>
-   <li><a href="#standard-capabilities-at-version">AT version</a><span>, in §5.2</span>
-   <li><a href="#capabilities">Capabilities</a><span>, in §5.2</span>
-   <li><a href="#command">command</a><span>, in §5.5</span>
-   <li><a href="#command-name">command name</a><span>, in §5.5</span>
-   <li><a href="#command-parameters">command parameters</a><span>, in §5.5</span>
-   <li><a href="#command-type">command type</a><span>, in §5.5</span>
-   <li><a href="#emit-an-event">emit an event</a><span>, in §6</span>
-   <li><a href="#error">error</a><span>, in §3</span>
-   <li><a href="#error-code">error code</a><span>, in §5.7</span>
-   <li><a href="#event">event</a><span>, in §5.6</span>
-   <li><a href="#event-name">event name</a><span>, in §5.6</span>
-   <li><a href="#event-parameters">event parameters</a><span>, in §5.6</span>
-   <li><a href="#event-type">event type</a><span>, in §5.6</span>
-   <li><a href="#extension-capabilities">extension capabilities</a><span>, in §5.2</span>
-   <li><a href="#extension-modules">extension modules</a><span>, in §5.4</span>
-   <li><a href="#generating-a-uuid">Generating a UUID</a><span>, in §3</span>
-   <li><a href="#handle-a-connection-closing">handle a connection closing</a><span>, in §6</span>
-   <li><a href="#handle-an-incoming-message">handle an incoming message</a><span>, in §6</span>
-   <li><a href="#websocket-listener-host">host</a><span>, in §6</span>
-   <li><a href="#error-code-invalid-argument">invalid argument</a><span>, in §5.7</span>
-   <li><a href="#error-code-invalid-session-id">invalid session id</a><span>, in §5.7</span>
-   <li><a href="#local-end">local end</a><span>, in §4</span>
-   <li><a href="#local-end-definition">local end definition</a><span>, in §5</span>
-   <li><a href="#match-capabilities">match capabilities</a><span>, in §5.2</span>
-   <li><a href="#module">module</a><span>, in §5.4</span>
-   <li><a href="#module-name">module name</a><span>, in §5.4</span>
-   <li><a href="#standard-capabilities-platform">Platform</a><span>, in §5.2</span>
-   <li><a href="#websocket-listener-port">port</a><span>, in §6</span>
-   <li><a href="#process-capabilities">process capabilities</a><span>, in §5.2</span>
-   <li><a href="#remote-end">remote end</a><span>, in §4</span>
-   <li><a href="#remote-end-definition">remote end definition</a><span>, in §5</span>
-   <li><a href="#remote-end-event-trigger">remote end event trigger</a><span>, in §5.6</span>
-   <li><a href="#remote-end-steps">remote end steps</a><span>, in §5.5</span>
-   <li><a href="#respond-with-an-error">respond with an error</a><span>, in §6</span>
-   <li><a href="#result-type">result type</a><span>, in §5.5</span>
-   <li><a href="#websocket-listener-secure-flag">secure flag</a><span>, in §6</span>
-   <li><a href="#session">session</a><span>, in §5.3</span>
-   <li><a href="#session-session-id">session ID</a><span>, in §5.3</span>
-   <li><a href="#sessionnew">session.new</a><span>, in §7.1.3.1</span>
-   <li><a href="#error-code-session-not-created">session not created</a><span>, in §5.7</span>
-   <li><a href="#session-session-websocket-connections">session WebSocket connections</a><span>, in §6</span>
-   <li><a href="#set-of-all-command-names">set of all command names</a><span>, in §5.5</span>
-   <li><a href="#standard-capabilities">standard capabilities</a><span>, in §5.2</span>
-   <li><a href="#start-listening-for-a-websocket-connection">start listening for a WebSocket connection</a><span>, in §6</span>
-   <li><a href="#static-command">static command</a><span>, in §5.5</span>
-   <li><a href="#success">success</a><span>, in §3</span>
-   <li><a href="#trying">trying</a><span>, in §3</span>
-   <li><a href="#error-code-unknown-command">unknown command</a><span>, in §5.7</span>
-   <li><a href="#uuid">UUID</a><span>, in §3</span>
-   <li><a href="#websocket-connection">WebSocket connection</a><span>, in §6</span>
-   <li><a href="#remote-end-websocket-connections-not-associated-with-a-session">WebSocket connections not associated with a session</a><span>, in §6</span>
-   <li><a href="#websocket-listener">WebSocket listener</a><span>, in §6</span>
+   <li><a href="#remote-end-active-listeners">active listeners</a><span>, in § 6</span>
+   <li><a href="#remote-end-active-sessions">active sessions</a><span>, in § 5.3</span>
+   <li><a href="#session-associated-with-connection">associated with connection</a><span>, in § 6</span>
+   <li><a href="#standard-capabilities-at-name">AT name</a><span>, in § 5.2</span>
+   <li><a href="#standard-capabilities-at-version">AT version</a><span>, in § 5.2</span>
+   <li><a href="#capabilities">Capabilities</a><span>, in § 5.2</span>
+   <li><a href="#command">command</a><span>, in § 5.5</span>
+   <li><a href="#command-name">command name</a><span>, in § 5.5</span>
+   <li><a href="#command-parameters">command parameters</a><span>, in § 5.5</span>
+   <li><a href="#command-type">command type</a><span>, in § 5.5</span>
+   <li><a href="#emit-an-event">emit an event</a><span>, in § 6</span>
+   <li><a href="#error">error</a><span>, in § 3</span>
+   <li><a href="#error-code">error code</a><span>, in § 5.7</span>
+   <li><a href="#event">event</a><span>, in § 5.6</span>
+   <li><a href="#event-name">event name</a><span>, in § 5.6</span>
+   <li><a href="#event-parameters">event parameters</a><span>, in § 5.6</span>
+   <li><a href="#event-type">event type</a><span>, in § 5.6</span>
+   <li><a href="#extension-capabilities">extension capabilities</a><span>, in § 5.2</span>
+   <li><a href="#extension-modules">extension modules</a><span>, in § 5.4</span>
+   <li><a href="#generating-a-uuid">Generating a UUID</a><span>, in § 3</span>
+   <li><a href="#handle-a-connection-closing">handle a connection closing</a><span>, in § 6</span>
+   <li><a href="#handle-an-incoming-message">handle an incoming message</a><span>, in § 6</span>
+   <li><a href="#websocket-listener-host">host</a><span>, in § 6</span>
+   <li><a href="#error-code-invalid-argument">invalid argument</a><span>, in § 5.7</span>
+   <li><a href="#error-code-invalid-session-id">invalid session id</a><span>, in § 5.7</span>
+   <li><a href="#local-end">local end</a><span>, in § 4</span>
+   <li><a href="#local-end-definition">local end definition</a><span>, in § 5</span>
+   <li><a href="#match-capabilities">match capabilities</a><span>, in § 5.2</span>
+   <li><a href="#module">module</a><span>, in § 5.4</span>
+   <li><a href="#module-name">module name</a><span>, in § 5.4</span>
+   <li><a href="#standard-capabilities-platform">Platform</a><span>, in § 5.2</span>
+   <li><a href="#websocket-listener-port">port</a><span>, in § 6</span>
+   <li><a href="#process-capabilities">process capabilities</a><span>, in § 5.2</span>
+   <li><a href="#remote-end">remote end</a><span>, in § 4</span>
+   <li><a href="#remote-end-definition">remote end definition</a><span>, in § 5</span>
+   <li><a href="#remote-end-event-trigger">remote end event trigger</a><span>, in § 5.6</span>
+   <li><a href="#remote-end-steps">remote end steps</a><span>, in § 5.5</span>
+   <li><a href="#respond-with-an-error">respond with an error</a><span>, in § 6</span>
+   <li><a href="#result-type">result type</a><span>, in § 5.5</span>
+   <li><a href="#websocket-listener-secure-flag">secure flag</a><span>, in § 6</span>
+   <li><a href="#session">session</a><span>, in § 5.3</span>
+   <li><a href="#session-session-id">session ID</a><span>, in § 5.3</span>
+   <li><a href="#sessionnew">session.new</a><span>, in § 7.1.3.1</span>
+   <li><a href="#error-code-session-not-created">session not created</a><span>, in § 5.7</span>
+   <li><a href="#session-session-websocket-connections">session WebSocket connections</a><span>, in § 6</span>
+   <li><a href="#set-of-all-command-names">set of all command names</a><span>, in § 5.5</span>
+   <li><a href="#standard-capabilities">standard capabilities</a><span>, in § 5.2</span>
+   <li><a href="#start-listening-for-a-websocket-connection">start listening for a WebSocket connection</a><span>, in § 6</span>
+   <li><a href="#static-command">static command</a><span>, in § 5.5</span>
+   <li><a href="#success">success</a><span>, in § 3</span>
+   <li><a href="#trying">trying</a><span>, in § 3</span>
+   <li><a href="#error-code-unknown-command">unknown command</a><span>, in § 5.7</span>
+   <li><a href="#uuid">UUID</a><span>, in § 3</span>
+   <li><a href="#websocket-connection">WebSocket connection</a><span>, in § 6</span>
+   <li><a href="#remote-end-websocket-connections-not-associated-with-a-session">WebSocket connections not associated with a session</a><span>, in § 6</span>
+   <li><a href="#websocket-listener">WebSocket listener</a><span>, in § 6</span>
   </ul>
   <aside class="dfn-panel" data-for="term-for-in-parallel">
    <a href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel</a><b>Referenced in:</b>
@@ -1360,7 +1507,11 @@ CapabilitiesRequestParameters = {
    <ul>
     <li><a href="#ref-for-implementation-defined">5.2. Capabilities</a>
     <li><a href="#ref-for-implementation-defined①">6. Transport</a> <a href="#ref-for-implementation-defined②">(2)</a> <a href="#ref-for-implementation-defined③">(3)</a> <a href="#ref-for-implementation-defined④">(4)</a>
-    <li><a href="#ref-for-implementation-defined⑤">7.3.4. Events</a>
+    <li><a href="#ref-for-implementation-defined⑤">7.2. The &lt;vendor>:settings Module</a>
+    <li><a href="#ref-for-implementation-defined⑥">7.2.3.1. The &lt;vendor>:settings.setSettings Command</a>
+    <li><a href="#ref-for-implementation-defined⑦">7.2.3.2. The &lt;vendor>settings.getSettings Command</a>
+    <li><a href="#ref-for-implementation-defined⑧">7.2.3.3. The &lt;vendor>settings.getSupportedSettings Command</a>
+    <li><a href="#ref-for-implementation-defined⑨">7.3.4. Events</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-ordered-map">
@@ -1388,6 +1539,13 @@ CapabilitiesRequestParameters = {
    <a href="https://infra.spec.whatwg.org/#serialize-an-infra-value-to-json-bytes">https://infra.spec.whatwg.org/#serialize-an-infra-value-to-json-bytes</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-serialize-an-infra-value-to-json-bytes">6. Transport</a> <a href="#ref-for-serialize-an-infra-value-to-json-bytes①">(2)</a> <a href="#ref-for-serialize-an-infra-value-to-json-bytes②">(3)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-ordered-set">
+   <a href="https://infra.spec.whatwg.org/#ordered-set">https://infra.spec.whatwg.org/#ordered-set</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-ordered-set">5.5. Commands</a>
+    <li><a href="#ref-for-ordered-set①">6. Transport</a> <a href="#ref-for-ordered-set②">(2)</a> <a href="#ref-for-ordered-set③">(3)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-map-set">
@@ -1435,6 +1593,7 @@ CapabilitiesRequestParameters = {
      <li><span class="dfn-paneled" id="term-for-parse-a-json-string-to-an-infra-value">parse json into infra values</span>
      <li><span class="dfn-paneled" id="term-for-scalar-value-string">scalar value string</span>
      <li><span class="dfn-paneled" id="term-for-serialize-an-infra-value-to-json-bytes">serialize an infra value to json bytes</span>
+     <li><span class="dfn-paneled" id="term-for-ordered-set">set</span>
      <li><span class="dfn-paneled" id="term-for-map-set">set <small>(for map)</small></span>
      <li><span class="dfn-paneled" id="term-for-map-size">size</span>
      <li><span class="dfn-paneled" id="term-for-string">string</span>
@@ -1449,34 +1608,34 @@ CapabilitiesRequestParameters = {
   <h3 class="no-num no-ref heading settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
   <dl>
    <dt id="biblio-html">[HTML]
-   <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/">HTML Standard</a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
+   <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/"><cite>HTML Standard</cite></a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
    <dt id="biblio-infra">[INFRA]
-   <dd>Anne van Kesteren; Domenic Denicola. <a href="https://infra.spec.whatwg.org/">Infra Standard</a>. Living Standard. URL: <a href="https://infra.spec.whatwg.org/">https://infra.spec.whatwg.org/</a>
+   <dd>Anne van Kesteren; Domenic Denicola. <a href="https://infra.spec.whatwg.org/"><cite>Infra Standard</cite></a>. Living Standard. URL: <a href="https://infra.spec.whatwg.org/">https://infra.spec.whatwg.org/</a>
    <dt id="biblio-rfc2119">[RFC2119]
-   <dd>S. Bradner. <a href="https://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>. March 1997. Best Current Practice. URL: <a href="https://tools.ietf.org/html/rfc2119">https://tools.ietf.org/html/rfc2119</a>
+   <dd>S. Bradner. <a href="https://datatracker.ietf.org/doc/html/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://datatracker.ietf.org/doc/html/rfc2119">https://datatracker.ietf.org/doc/html/rfc2119</a>
    <dt id="biblio-rfc4122">[RFC4122]
-   <dd>P. Leach; M. Mealling; R. Salz. <a href="https://www.rfc-editor.org/rfc/rfc4122">A Universally Unique IDentifier (UUID) URN Namespace</a>. July 2005. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc4122">https://www.rfc-editor.org/rfc/rfc4122</a>
+   <dd>P. Leach; M. Mealling; R. Salz. <a href="https://www.rfc-editor.org/rfc/rfc4122"><cite>A Universally Unique IDentifier (UUID) URN Namespace</cite></a>. July 2005. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc4122">https://www.rfc-editor.org/rfc/rfc4122</a>
    <dt id="biblio-rfc6455">[RFC6455]
-   <dd>I. Fette; A. Melnikov. <a href="https://www.rfc-editor.org/rfc/rfc6455">The WebSocket Protocol</a>. December 2011. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc6455">https://www.rfc-editor.org/rfc/rfc6455</a>
+   <dd>I. Fette; A. Melnikov. <a href="https://www.rfc-editor.org/rfc/rfc6455"><cite>The WebSocket Protocol</cite></a>. December 2011. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc6455">https://www.rfc-editor.org/rfc/rfc6455</a>
    <dt id="biblio-rfc8610">[RFC8610]
-   <dd>H. Birkholz; C. Vigano; C. Bormann. <a href="https://www.rfc-editor.org/rfc/rfc8610">Concise Data Definition Language (CDDL): A Notational Convention to Express Concise Binary Object Representation (CBOR) and JSON Data Structures</a>. June 2019. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc8610">https://www.rfc-editor.org/rfc/rfc8610</a>
+   <dd>H. Birkholz; C. Vigano; C. Bormann. <a href="https://www.rfc-editor.org/rfc/rfc8610"><cite>Concise Data Definition Language (CDDL): A Notational Convention to Express Concise Binary Object Representation (CBOR) and JSON Data Structures</cite></a>. June 2019. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc8610">https://www.rfc-editor.org/rfc/rfc8610</a>
    <dt id="biblio-webidl">[WEBIDL]
-   <dd>Edgar Chen; Timothy Gu. <a href="https://webidl.spec.whatwg.org/">Web IDL Standard</a>. Living Standard. URL: <a href="https://webidl.spec.whatwg.org/">https://webidl.spec.whatwg.org/</a>
+   <dd>Edgar Chen; Timothy Gu. <a href="https://webidl.spec.whatwg.org/"><cite>Web IDL Standard</cite></a>. Living Standard. URL: <a href="https://webidl.spec.whatwg.org/">https://webidl.spec.whatwg.org/</a>
   </dl>
   <h3 class="no-num no-ref heading settled" id="informative"><span class="content">Informative References</span><a class="self-link" href="#informative"></a></h3>
   <dl>
    <dt id="biblio-rfc4632">[RFC4632]
-   <dd>V. Fuller; T. Li. <a href="https://www.rfc-editor.org/rfc/rfc4632">Classless Inter-domain Routing (CIDR): The Internet Address Assignment and Aggregation Plan</a>. August 2006. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc4632">https://www.rfc-editor.org/rfc/rfc4632</a>
+   <dd>V. Fuller; T. Li. <a href="https://www.rfc-editor.org/rfc/rfc4632"><cite>Classless Inter-domain Routing (CIDR): The Internet Address Assignment and Aggregation Plan</cite></a>. August 2006. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc4632">https://www.rfc-editor.org/rfc/rfc4632</a>
   </dl>
   <h2 class="no-num no-ref heading settled" id="issues-index"><span class="content">Issues Index</span><a class="self-link" href="#issues-index"></a></h2>
   <div style="counter-reset:issue">
-   <div class="issue"> As in WebDriver BiDi, this does not end any session. Not sure if we want to allow reconnecting to the same session, or implicitly end the session.<a href="#issue-0e6df82e"> ↵ </a></div>
-   <div class="issue"> TODO any setting, excluding security-sensitive settings, for each AT.<a href="#issue-91a8a6fe"> ↵ </a></div>
-   <div class="issue"> TODO sandbox (limit availability to information that apps usually can’t access, e.g. login screen).<a href="#issue-f9e956aa"> ↵ </a></div>
-   <div class="issue"> TODO no HID level simulated keypresses.<a href="#issue-0225dc78"> ↵ </a></div>
-   <div class="issue"> TODO exclude access to any security-sensitive settings.<a href="#issue-fbd6fc51"> ↵ </a></div>
-   <div class="issue"> TODO exclude access to any security-sensitive commands.<a href="#issue-398c181d"> ↵ </a></div>
-   <div class="issue"> The JSON Schema files are not yet generated from the CDDL and so might be out of date. <a href="https://github.com/w3c/aria-at-automation/issues/23">&lt;https://github.com/w3c/aria-at-automation/issues/23></a><a href="#issue-f906273a"> ↵ </a></div>
+   <div class="issue"> As in WebDriver BiDi, this does not end any session. Not sure if we want to allow reconnecting to the same session, or implicitly end the session. <a class="issue-return" href="#issue-0e6df82e" title="Jump to section">↵</a></div>
+   <div class="issue"> Do we need a "setting changed" event? <a class="issue-return" href="#issue-0b79b3d5" title="Jump to section">↵</a></div>
+   <div class="issue"> TODO sandbox (limit availability to information that apps usually can’t access, e.g. login screen). <a class="issue-return" href="#issue-f9e956aa" title="Jump to section">↵</a></div>
+   <div class="issue"> TODO no HID level simulated keypresses. <a class="issue-return" href="#issue-0225dc78" title="Jump to section">↵</a></div>
+   <div class="issue"> TODO exclude access to any security-sensitive settings. <a class="issue-return" href="#issue-fbd6fc51" title="Jump to section">↵</a></div>
+   <div class="issue"> TODO exclude access to any security-sensitive commands. <a class="issue-return" href="#issue-398c181d" title="Jump to section">↵</a></div>
+   <div class="issue"> The JSON Schema files are not yet generated from the CDDL and so might be out of date. <a href="https://github.com/w3c/aria-at-automation/issues/23">[Issue #23]</a> <a class="issue-return" href="#issue-f906273a" title="Jump to section">↵</a></div>
   </div>
   <aside class="dfn-panel" data-for="uuid">
    <b><a href="#uuid">#uuid</a></b><b>Referenced in:</b>
@@ -1534,7 +1693,8 @@ CapabilitiesRequestParameters = {
     <li><a href="#ref-for-remote-end①②">5.6. Events</a> <a href="#ref-for-remote-end①③">(2)</a>
     <li><a href="#ref-for-remote-end①④">5.7. Errors</a>
     <li><a href="#ref-for-remote-end①⑤">6. Transport</a> <a href="#ref-for-remote-end①⑥">(2)</a> <a href="#ref-for-remote-end①⑦">(3)</a> <a href="#ref-for-remote-end①⑧">(4)</a> <a href="#ref-for-remote-end①⑨">(5)</a> <a href="#ref-for-remote-end②⓪">(6)</a>
-    <li><a href="#ref-for-remote-end②①">8. Privacy</a>
+    <li><a href="#ref-for-remote-end②①">7.2.3.3. The &lt;vendor>settings.getSupportedSettings Command</a>
+    <li><a href="#ref-for-remote-end②②">8. Privacy</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="remote-end-definition">
@@ -1546,7 +1706,8 @@ CapabilitiesRequestParameters = {
     <li><a href="#ref-for-remote-end-definition④">6. Transport</a>
     <li><a href="#ref-for-remote-end-definition⑤">7.1.1. Definition</a>
     <li><a href="#ref-for-remote-end-definition⑥">7.1.2.1. The session.CapabilitiesRequest Type</a>
-    <li><a href="#ref-for-remote-end-definition⑦">Appendix A: Schemas</a>
+    <li><a href="#ref-for-remote-end-definition⑦">7.2.1. Definition</a>
+    <li><a href="#ref-for-remote-end-definition⑧">Appendix A: Schemas</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="local-end-definition">
@@ -1559,8 +1720,10 @@ CapabilitiesRequestParameters = {
     <li><a href="#ref-for-local-end-definition④">6. Transport</a> <a href="#ref-for-local-end-definition⑤">(2)</a>
     <li><a href="#ref-for-local-end-definition⑥">7.1.1. Definition</a>
     <li><a href="#ref-for-local-end-definition⑦">7.1.2.1. The session.CapabilitiesRequest Type</a>
-    <li><a href="#ref-for-local-end-definition⑧">7.3.1. Definition</a>
-    <li><a href="#ref-for-local-end-definition⑨">Appendix A: Schemas</a>
+    <li><a href="#ref-for-local-end-definition⑧">7.2.1. Definition</a>
+    <li><a href="#ref-for-local-end-definition⑨">7.2.2.1. The VendorSettingsGetSettingsResult type</a>
+    <li><a href="#ref-for-local-end-definition①⓪">7.3.1. Definition</a>
+    <li><a href="#ref-for-local-end-definition①①">Appendix A: Schemas</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="extension-capabilities">
@@ -1618,6 +1781,7 @@ CapabilitiesRequestParameters = {
    <b><a href="#extension-modules">#extension-modules</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-extension-modules">5.5. Commands</a>
+    <li><a href="#ref-for-extension-modules①">7.2. The &lt;vendor>:settings Module</a> <a href="#ref-for-extension-modules②">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="command">
@@ -1654,6 +1818,9 @@ CapabilitiesRequestParameters = {
    <ul>
     <li><a href="#ref-for-remote-end-steps">6. Transport</a>
     <li><a href="#ref-for-remote-end-steps①">7.1.3.1. The session.new Command</a>
+    <li><a href="#ref-for-remote-end-steps②">7.2.3.1. The &lt;vendor>:settings.setSettings Command</a>
+    <li><a href="#ref-for-remote-end-steps③">7.2.3.2. The &lt;vendor>settings.getSettings Command</a>
+    <li><a href="#ref-for-remote-end-steps④">7.2.3.3. The &lt;vendor>settings.getSupportedSettings Command</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="static-command">
