@@ -274,7 +274,7 @@ Each [=command=] is defined by:
     * `method` which is a string literal in the form `[module name].[method name]`. This is the <dfn>command name</dfn>.
     * `params` which defines a mapping containing data that to be passed into the command. The populated value of this map is the <dfn>command parameters</dfn>.
 * A <dfn>result type</dfn>, which is defined by the [=local end definition=] fragment.
-* A set of <dfn>remote end steps</dfn> which define the actions to take for a command given a [=session=] and [=command parameters=] and return an instance of the command [=return type=].
+* A set of <dfn>remote end steps</dfn> which define the actions to take for a command given a [=session=] and [=command parameters=] and return an instance of the command [=result type=].
 
 A command that can run without an active session is a <dfn>static command</dfn>. Commands are not static commands unless stated in their definition.
 
@@ -488,7 +488,7 @@ The <dfn>session.new</dfn> command allows creating a new [=session=]. This is a 
 
   Note: `firstMatch` is not included currently to reduce complexity.
 
-  <dt>Return Type
+  <dt>Result Type
   <dd>
 
   <xmp class="cddl local-cddl">
@@ -594,7 +594,7 @@ This command sets the values of one or more settings.
     }
     </xmp>
   </dd>
-  <dt>Return Type</dt>
+  <dt>Result Type</dt>
   <dd>
     <xmp class="cddl">
     EmptyResult
@@ -627,7 +627,7 @@ This command returns a list of the requested settings and their values.
     }
     </xmp>
   </dd>
-  <dt>Return Type</dt>
+  <dt>Result Type</dt>
   <dd>
     <xmp class="cddl">
     VendorSettingsGetSettingsResult
@@ -651,7 +651,7 @@ This command returns a list of all settings that the [=remote end=] supports, an
     }
     </xmp>
   </dd>
-  <dt>Return Type</dt>
+  <dt>Result Type</dt>
   <dd>
     <xmp class="cddl">
     VendorSettingsGetSettingsResult
