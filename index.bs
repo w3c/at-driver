@@ -222,8 +222,10 @@ The following table of <dfn>standard capabilities</dfn> enumerates the capabilit
 
 To <dfn>process capabilities</dfn> with argument |parameters|, the [=remote end=] must:
 
-1. Let |capabilities request| be |parameters|["`capabilities`"] if it <a for=map>exists</a>, else null.
-2. Let |required capabilities| be |capabilities request|["`alwaysMatch`"] if it <a for=map>exists</a>, else null.
+1. If |parameters|["`capabilities`"] [=map/exists=] and |parameters|["`capabilities`"]["`alwaysMatch`"] [=map/exists=]:
+    1. Let |required capabilities| be |parameters|["`capabilities`"]["`alwaysMatch`"].
+2. Otherwise:
+    1. Let |required capabilities| be a new [=map=].
 3. Let |matched capabilities| be the result of [=trying=] to [=match capabilities=] given |required capabilities|.
 4. If |matched capabilities| is not null, then return [=success=] with data |matched capabilities|.
 5. Return [=success=] with data null.
