@@ -216,9 +216,7 @@ To <dfn>process capabilities</dfn> with argument |parameters|, the [=remote end=
     1. Let |required capabilities| be |parameters|["`capabilities`"]["`alwaysMatch`"].
 2. Otherwise:
     1. Let |required capabilities| be a new [=map=].
-3. Let |matched capabilities| be the result of [=trying=] to [=match capabilities=] given |required capabilities|.
-4. If |matched capabilities| is not null, then return [=success=] with data |matched capabilities|.
-5. Return [=success=] with data null.
+3. Return the result of [=match capabilities=] given |required capabilities|.
 
 </div>
 
