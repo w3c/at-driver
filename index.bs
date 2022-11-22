@@ -754,7 +754,7 @@ The [=remote end steps=] given |session| and |command parameters| are:
 3. Let |keys| be the value of the <code>keys</code> field of |command
     parameters|.
 4. [=list/For each=] |key| of |keys|:
-    1. Run [=implementation-defined=] steps to simulate pressing |key|.
+    1. Run [=implementation-defined=] steps to simulate depressing |key|.
 5. [=list/For each=] |key| of |keys| in reverse [=List=] order:
     1. Run [=implementation-defined=] steps to simulate releasing |key|.
 6. Return a new map matching the `EmptyResult` production.
