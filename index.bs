@@ -86,7 +86,7 @@ A <dfn lt="UUID">Universally Unique Identifier (UUID)</dfn> is a 128 bits long U
 
 Where algorithms that return values are fallible, they are written in terms of returning either <dfn>success</dfn> or <dfn>error</dfn>. A [=success=] value has an associated data field which encapsulates the value returned, whereas an [=error=] response has an associated [=error code=].
 
-When calling a fallible algorithm, the construct "Let |result| be the result of <dfn>trying</dfn> to call |algorithm|" is equivalent to:
+When calling a fallible algorithm, the construct "Let |result| be the result of <dfn lt="try|trying">trying</dfn> to call |algorithm|" is equivalent to:
 
 1. Let |temp| be the result of calling |algorithm|.
 2. If |temp| is an [=error=], then return |temp|. Otherwise, let |result| be |temp|'s data field.
@@ -200,7 +200,7 @@ The following table of <dfn>standard capabilities</dfn> enumerates the capabilit
     <td>Identifies the version of the assistive technology.
   <tr>
     <td><dfn for="standard capabilities">Platform</dfn>
-    <td>"`atName`"
+    <td>"`platformName`"
     <td>[=string=]
     <td>Identifies the operating system of the [=remote end=].
 </table>
@@ -319,7 +319,21 @@ The following table lists each <dfn>error code</dfn>, its associated JSON `error
     <td><dfn for="error code">session not created</dfn>
     <td>`session not created`
     <td>A new [=session=] could not be created.
+  <tr>
+    <td><dfn for="error code">invalid OS focus state</dfn>
+    <td>`invalid OS focus state`
+    <td>The application that currently has OS focus is not one of the expected applications.
 </table>
+
+Security checks {#security-checks}
+----------------------------------
+
+In order to mitigate security risks when using this API, there are some security checks for certain commands.
+
+To <dfn>check that one of the expected applications has focus</dfn>:
+
+1. If the application that currently has OS focus (and so could act on simulated key presses from this API) is not one of the expected applications, then return an <a>error</a> with <a>error code</a> <a for="error code">invalid OS focus state</a>. Which applications are expected is <a>implementation-defined</a>.
+2. Return <a>success</a> with data null.
 
 Transport {#transport}
 ======================
@@ -689,7 +703,46 @@ InteractionCapturedOutputParameters = {
 
 ### Commands ### {#module-interaction-commands}
 
-None.
+#### The interaction.pressKeys Command #### {#module-interaction-presskeys}
+
+The <dfn>interaction.pressKeys</dfn> command simulates pressing a key combination on a keyboard.
+
+Issue(34): This command does not yet have a means for indicating a screen-reader specific modifier key (or keys).
+
+<dl>
+  <dt>Command Type
+  <dd>
+
+  <pre class="cddl remote-cddl">
+  InteractionPressKeysCommand = {
+    method: "interaction.pressKeys",
+    params: InteractionPressKeysParameters
+  }
+
+  InteractionPressKeysParameters = {
+    "keys" => KeyCombination,
+    *text => any
+  }
+
+  KeyCombination = [
+    1* text
+  ]
+  </pre>
+
+  <dt>Result Type
+  <dd>
+
+  <pre class="cddl">
+  EmptyResult
+  </pre>
+
+</dl>
+
+The [=remote end steps=] given |session| and |command parameters| are:
+
+1. [=Try=] to run an [=implementation-defined=] security check, e.g. honor OS settings for whether it allows keyboard simulation.
+2. [=Try=] to [=check that one of the expected applications has focus=].
+3. Run <a>implementation-defined</a> steps to simulate pressing the key combination represented in `KeyCombination`, such that they first item in the array is pressed first, and then each other key is pressed, in order, and finally the keys are released in reverse order. Each string in `KeyCombination` represents a "raw key" consisting of a single code point with the same meaning as in <a href="https://w3c.github.io/webdriver/#keyboard-actions">WebDriver's keyboard actions</a>. For example, `["\uE008", "a"]` means holding the left shift key and pressing "a", and then releasing the left shift key. [[WEBDRIVER]]
 
 ### Events ### {#module-interaction-events}
 
@@ -714,6 +767,7 @@ When the assistive technology would send some text |data| (a string, without spe
 2. Let |params| be a [=map=] matching the `InteractionCapturedOutputParameters` production with the `data` field set to |data|.
 3. Let |body| be a [=map=] matching the `InteractionCapturedOutputEvent` production with the `params` field set to |params|.
 4. [=Emit an event=] with |session| and |body|.
+
 
 Privacy {#privacy}
 ==================
