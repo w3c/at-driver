@@ -729,7 +729,7 @@ Issue(34): This command does not yet have a means for indicating a screen-reader
   ]
   </pre>
 
-  <dt>Return Type
+  <dt>Result Type
   <dd>
 
   <pre class="cddl">
