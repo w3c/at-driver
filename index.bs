@@ -15,6 +15,7 @@ Markup Shorthands: markdown yes
 
 <xmp class='link-defaults'>
 spec:infra; type:dfn; for:/; text:set
+spec:infra; type:dfn; text:list
 </xmp>
 
 <style>
@@ -27,6 +28,7 @@ table td, table th { border-left: solid; border-right: solid; border-bottom: sol
 
 <pre class='link-defaults'>
 spec:infra; type:dfn; for:/; text:set
+spec:infra; type:dfn; text:list
 </pre>
 
 <style>
@@ -739,11 +741,23 @@ Issue(34): This command does not yet have a means for indicating a screen-reader
 
 </dl>
 
+Note: Each string in `KeyCombination` represents a "raw key" consisting of a
+single code point with the same meaning as in <a
+href="https://w3c.github.io/webdriver/#keyboard-actions">WebDriver's keyboard
+actions</a>. For example, `["\uE008", "a"]` means holding the left shift key
+and pressing "a", and then releasing the left shift key. [[WEBDRIVER]]
+
 The [=remote end steps=] given |session| and |command parameters| are:
 
 1. [=Try=] to run an [=implementation-defined=] security check, e.g. honor OS settings for whether it allows keyboard simulation.
 2. [=Try=] to [=check that one of the expected applications has focus=].
-3. Run <a>implementation-defined</a> steps to simulate pressing the key combination represented in `KeyCombination`, such that they first item in the array is pressed first, and then each other key is pressed, in order, and finally the keys are released in reverse order. Each string in `KeyCombination` represents a "raw key" consisting of a single code point with the same meaning as in <a href="https://w3c.github.io/webdriver/#keyboard-actions">WebDriver's keyboard actions</a>. For example, `["\uE008", "a"]` means holding the left shift key and pressing "a", and then releasing the left shift key. [[WEBDRIVER]]
+3. Let |keys| be the value of the <code>keys</code> field of |command
+    parameters|.
+4. [=list/For each=] |key| of |keys|:
+    1. Run [=implementation-defined=] steps to simulate pressing |key|.
+5. [=list/For each=] |key| of |keys| in reverse [=List=] order:
+    1. Run [=implementation-defined=] steps to simulate releasing |key|.
+6. Return a new map matching the `EmptyResult` production.
 
 ### Events ### {#module-interaction-events}
 
