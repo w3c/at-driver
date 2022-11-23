@@ -598,7 +598,7 @@ This command sets the values of one or more settings.
       params: VendorSettingsSetSettingsParameters
     }
 
-    VendorSettingSetSettingsParameters = {
+    VendorSettingsSetSettingsParameters = {
       settings: [1* VendorSettingSetSettingsParametersItem ],
     }
 
@@ -754,7 +754,7 @@ The [=remote end steps=] given |session| and |command parameters| are:
   <xmp class="cddl local-cddl">
   InteractionCapturedOutputEvent = {
     method: "interaction.capturedOutput",
-    params: InteractionCapuredOutputParameters
+    params: InteractionCapturedOutputParameters
   }
   </xmp>
 
