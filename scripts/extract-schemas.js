@@ -1,7 +1,4 @@
-import { Lexer, Parser } from 'cddl/build/index.js';
 import * as fs from 'node:fs/promises';
-
-const parseCddl = input => new Parser(new Lexer(input)).parse();
 
 const removeIndentation = (indentation, cddl) => {
   if (indentation.length === 0) {
@@ -61,7 +58,3 @@ const [localCddl, remoteCddl] = await extractCddlFromSpec();
 
 await fs.writeFile('schemas/at-driver-local.cddl', localCddl);
 await fs.writeFile('schemas/at-driver-remote.cddl', remoteCddl);
-
-// Check that the CDDL can be parsed
-parseCddl(localCddl);
-parseCddl(remoteCddl);
