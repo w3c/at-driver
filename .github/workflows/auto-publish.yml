@@ -22,5 +22,6 @@ jobs:
           node-version: 18.x
       - name: Validate and extract CDDL
         run: npm run extract-schemas
+      - run: npm ci
       - name: Verify that the generated files match the in-line CDDL
         run: git diff --exit-code
