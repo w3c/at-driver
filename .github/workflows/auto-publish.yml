@@ -12,3 +12,15 @@ jobs:
       - uses: w3c/spec-prod@v2
         with:
           GH_PAGES_BRANCH: gh-pages
+  check-cddl:
+    name: Verify that in-line CDDL is valid and is in-sync with the generated files
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 18.x
+      - name: Validate and extract CDDL
+        run: npm run extract-schemas
+      - name: Verify that the generated files match the in-line CDDL
+        run: git diff --exit-code
