@@ -12,3 +12,40 @@ jobs:
       - uses: w3c/spec-prod@v2
         with:
           GH_PAGES_BRANCH: gh-pages
+  check-cddl-consistency:
+    name: Verify that the generated CDDL files are in sync with the inline CDDL
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 18.x
+      - name: Extract CDDL
+        run: npm run extract-schemas
+      - name: Verify that the generated files match the in-line CDDL
+        run: git diff --exit-code
+  check-cddl-validity:
+    name: Verify that the generated CDDL files are valid
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get cddl version
+        run: curl -s https://crates.io/api/v1/crates/cddl | python3 -c "import sys, json; print(json.load(sys.stdin)['crate']['max_stable_version'])" | tee cddl.txt
+      - name: "Cache rust binaries"
+        uses: actions/cache@v3
+        id: cache-cddl
+        env:
+          cache-name: cache-cddl
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/git/db/
+            ~/.cargo/registry/cache/
+            ~/.cargo/registry/index/
+            ./target/
+          key: cddl-${{ hashFiles('cddl.txt') }}
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - name: Validate CDDL files
+        run: ./scripts/test-cddl.sh
