@@ -323,6 +323,10 @@ The following table lists each <dfn>error code</dfn>, its associated JSON `error
     <td>`session not created`
     <td>A new [=session=] could not be created.
   <tr>
+    <td><dfn for="error code">cannot simulate keyboard interaction</dfn>
+    <td>`cannot simulate keyboard interaction`
+    <td>The [=remote end=] cannot simulate keyboard interaction.
+  <tr>
     <td><dfn for="error code">invalid OS focus state</dfn>
     <td>`invalid OS focus state`
     <td>The application that currently has OS focus is not one of the expected applications.
@@ -332,6 +336,11 @@ Security checks {#security-checks}
 ----------------------------------
 
 In order to mitigate security risks when using this API, there are some security checks for certain commands.
+
+To <dfn>check that keyboard interaction can be simulated</dfn>:
+
+1. If the remote end cannot simulate keyboard interaction for any [=implementation-defined=] reason, then return an [=error=] with [=error code=] [=cannot simulate keyboard interaction=].
+2. Return [=success=] with data null.
 
 To <dfn>check that one of the expected applications has focus</dfn>:
 
@@ -749,7 +758,7 @@ and pressing "a", and then releasing the left shift key. [[WEBDRIVER]]
 
 The [=remote end steps=] given |session| and |command parameters| are:
 
-1. [=Try=] to run an [=implementation-defined=] security check, e.g. honor OS settings for whether it allows keyboard simulation.
+1. [=Try=] to [=check that keyboard interaction can be simulated=].
 2. [=Try=] to [=check that one of the expected applications has focus=].
 3. Let |keys| be the value of the <code>keys</code> field of |command
     parameters|.
