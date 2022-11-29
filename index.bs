@@ -488,7 +488,7 @@ The <dfn>session.new</dfn> command allows creating a new [=session=]. This is a 
 
   Note: `firstMatch` is not included currently to reduce complexity.
 
-  <dt>Result Type
+  <dt>[=Result Type=]
   <dd>
 
   <xmp class="cddl local-cddl">
@@ -594,7 +594,7 @@ This command sets the values of one or more settings.
     }
     </xmp>
   </dd>
-  <dt>Result Type</dt>
+  <dt>[=Result Type=]</dt>
   <dd>
     <xmp class="cddl">
     EmptyResult
@@ -627,7 +627,7 @@ This command returns a list of the requested settings and their values.
     }
     </xmp>
   </dd>
-  <dt>Result Type</dt>
+  <dt>[=Result Type=]</dt>
   <dd>
     <xmp class="cddl">
     VendorSettingsGetSettingsResult
@@ -651,7 +651,7 @@ This command returns a list of all settings that the [=remote end=] supports, an
     }
     </xmp>
   </dd>
-  <dt>Result Type</dt>
+  <dt>[=Result Type=]</dt>
   <dd>
     <xmp class="cddl">
     VendorSettingsGetSettingsResult
