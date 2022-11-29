@@ -208,6 +208,8 @@ The following table of <dfn>standard capabilities</dfn> enumerates the capabilit
 
 [=Remote ends=] may introduce <dfn>extension capabilities</dfn> that are extra capabilities used to provide configuration or fulfill other vendor-specific needs. Extension capabilities' key must contain a "`:`" (colon) character, denoting an implementation specific namespace. The value can be arbitrary JSON types.
 
+<div algorithm>
+
 To <dfn>process capabilities</dfn> with argument |parameters|, the [=remote end=] must:
 
 1. Let |capabilities request| be |parameters|["`capabilities`"] if it <a for=map>exists</a>, else null.
@@ -215,6 +217,10 @@ To <dfn>process capabilities</dfn> with argument |parameters|, the [=remote end=
 3. Let |matched capabilities| be the result of [=trying=] to [=match capabilities=] given |required capabilities|.
 4. If |matched capabilities| is not null, then return [=success=] with data |matched capabilities|.
 5. Return [=success=] with data null.
+
+</div>
+
+<div algorithm>
 
 To <dfn>match capabilities</dfn> given |requested capabilities|, the [=remote end=] must:
 
@@ -240,6 +246,7 @@ To <dfn>match capabilities</dfn> given |requested capabilities|, the [=remote en
     3. [=map/Set=] |matched capabilities|[|key|] to |match value|.
 4. Return [=success=] with data |matched capabilities|.
 
+</div>
 
 Session {#protocol-session}
 ---------------------------
@@ -381,6 +388,8 @@ To <dfn>start listening for a WebSocket connection</dfn>:
 
 Note: a future iteration of this specification may allow multiple connections, to support [intermediary nodes like in WebDriver](https://w3c.github.io/webdriver/#dfn-intermediary-nodes).
 
+<div algorithm>
+
 To <dfn>handle an incoming message</dfn> given a [=WebSocket connection=] |connection|, type |type| and data |data|:
 
 1. If |type| is not [text](https://tools.ietf.org/html/rfc6455#section-5.2), [=respond with an error=] given |connection|, null, and [=invalid argument=], and finally return.
@@ -410,6 +419,10 @@ To <dfn>handle an incoming message</dfn> given a [=WebSocket connection=] |conne
     4. If |parsed| is a [=map=] and |parsed|["`method`"] <a for=map>exists</a> and is a string, but |parsed|["`method`"] is not in the [=set of all command names=], set |error code| to [=unknown command=].
     5. [=Respond with an error=] given |connection|, |command id|, and |error code|.
 
+</div>
+
+<div algorithm>
+
 To <dfn>emit an event</dfn> given |session|, and |body|:
 
   1. [=Assert=]: |body| has <a for=map>size</a> 2 and <a for=map>contains</a> "`method`" and "`params`".
@@ -418,12 +431,20 @@ To <dfn>emit an event</dfn> given |session|, and |body|:
   4. Let |serialized| be the result of [=serialize an infra value to JSON bytes=] given |body|.
   5. [Send a WebSocket message](https://tools.ietf.org/html/rfc6455#section-6.1) comprised of |serialized| over |connection|.
 
+</div>
+
+<div algorithm>
+
 To <dfn>respond with an error</dfn> given a [=WebSocket connection=] |connection|, |command id|, and |error code|:
 
   1. Let |error data| be a new [=map=] matching the `ErrorResponse` production in the [=local end definition=], with the `id` field set to |command id|, the `error` field set to |error code|, the `message` field set to an [=implementation-defined=] string containing a human-readable definition of the error that occurred and the `stacktrace` field optionally set to an [=implementation-defined=] string containing a stack trace report of the active stack frames at the time when the error occurred.
   2. Let |response| be the result of [=serialize an infra value to JSON bytes=] given |error data|.
       Note: command id can be null, in which case the id field will also be set to null, not omitted from response.
   3. [Send a WebSocket message](https://tools.ietf.org/html/rfc6455#section-6.1) comprised of |response| over |connection|.
+
+</div>
+
+<div algorithm>
 
 To <dfn>handle a connection closing</dfn> given a [=WebSocket connection=] |connection|:
 
@@ -434,6 +455,7 @@ To <dfn>handle a connection closing</dfn> given a [=WebSocket connection=] |conn
 
 Issue: As in WebDriver BiDi, this does not end any session. Not sure if we want to allow reconnecting to the same session, or implicitly end the session.
 
+</div>
 
 Establishing a Connection {#transport-establishing}
 ----------------------------------------------------
@@ -520,6 +542,8 @@ The <dfn>session.new</dfn> command allows creating a new [=session=]. This is a 
 
 </dl>
 
+<div algorithm="remote end steps for session.new">
+
 The [=remote end steps=] given |session| and |command parameters| are:
 
 1. If |session| is not null, return an <a for="command">error</a> with error code [=session not created=].
@@ -533,6 +557,8 @@ The [=remote end steps=] given |session| and |command parameters| are:
 9. Start an instance of the appropriate assistive technology, given |capabilities|.
 10. Let |body| be a new [=map=] matching the `SessionNewResult` production, with the `sessionId` field set to |session|'s [=session ID=], and the `capabilities` field set to |capabilities|.
 11. Return [=success=] with data |body|.
+
+</div>
 
 The &lt;vendor>:settings Module {#module-vendor-settings}
 --------------------------------------
@@ -760,6 +786,8 @@ The [=remote end steps=] given |session| and |command parameters| are:
 
 </dl>
 
+<div algorithm="remote end event trigger for interaction.capturedOutput">
+
 The [=remote end event trigger=] is:
 
 When the assistive technology would send some text |data| (a string, without speech-specific markup or annotations) to the Text-To-Speech system, or equivalent for non-speech assistive technology software, run these steps:
@@ -769,6 +797,7 @@ When the assistive technology would send some text |data| (a string, without spe
 3. Let |body| be a [=map=] matching the `InteractionCapturedOutputEvent` production with the `params` field set to |params|.
 4. [=Emit an event=] with |session| and |body|.
 
+</div>
 
 Privacy {#privacy}
 ==================
