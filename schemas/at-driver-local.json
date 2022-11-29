@@ -20,7 +20,7 @@
     "ErrorResponse": {
       "type": "object",
       "properties": {
-        "id": { "type": "number" },
+        "id": { "type": [ "number", "null" ] },
         "error": { "enum": [ "unknown error", "unknown command", "invalid argument", "session not created" ] },
         "message": { "type": "string" },
         "stacktrace": { "type": "string" }
@@ -30,7 +30,8 @@
     "ResultData": {
       "oneOf": [
         { "$ref": "#/$defs/EmptyResult" },
-        { "$ref": "#/$defs/SessionResult" }
+        { "$ref": "#/$defs/SessionResult" },
+        { "$ref": "#/$defs/VendorSettingsResult" }
       ]
     },
     "EmptyResult": {
@@ -46,12 +47,8 @@
     },
     "EventData": {
       "oneOf": [
-        { "$ref": "#/$defs/ATEvent" }
+        { "$ref": "#/$defs/InteractionEvent" }
       ]
-    },
-    "ATEvent": {
-      "type": "object",
-      "additionalProperties": false
     },
     "SessionResult": {
       "oneOf": [
@@ -81,6 +78,52 @@
         }
       },
       "required": ["sessionId", "capabilities"],
+      "additionalProperties": false
+    },
+    "VendorSettingsResult": {
+      "oneOf": [
+        { "$ref": "#/$defs/VendorSettingsGetSettingsResult" }
+      ]
+    },
+    "VendorSettingsGetSettingsResult": {
+      "type": "object",
+      "properties": {
+        "settings": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/VendorSettingsGetSettingsResultItem" }
+        }
+      },
+      "required": ["settings"],
+      "additionalProperties": false
+    },
+    "VendorSettingsGetSettingsResultItem": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "value": { "oneOf": [ {"type": "null"}, {"type": "boolean"}, {"type": "object"}, {"type": "array"}, {"type": "number"}, {"type": "string"} ] }
+      },
+      "required": [ "name", "value" ]
+    },
+    "InteractionEvent": {
+      "oneOf": [
+        { "$ref": "#/$defs/InteractionCapturedOutputEvent" }
+      ]
+    },
+    "InteractionCapturedOutputPameters": {
+      "type": "object",
+      "properties": {
+        "data": { "type": "string" }
+      },
+      "required": [ "data" ]
+    },
+    "InteractionCapturedOutputEvent": {
+      "type": "object",
+      "properties": {
+        "method": { "enum": [ "interaction.capturedOutput" ] },
+        "params": { "$ref": "#/$defs/InteractionCapturedOutputPameters" }
+      },
+      "required": [ "method", "params" ],
       "additionalProperties": false
     }
   },
