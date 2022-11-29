@@ -23,7 +23,7 @@
         "id": { "type": "number" },
         "error": { "enum": [ "unknown error", "unknown command", "invalid argument", "session not created" ] },
         "message": { "type": "string" },
-        "stacktrace": { "type": "string" },
+        "stacktrace": { "type": "string" }
       },
       "required": ["id", "error", "message"]
     },
