@@ -6,7 +6,8 @@ Command = {
 
 CommandData = (
   SessionCommand //
-  VendorSettingsCommand
+  VendorSettingsCommand //
+  InteractionCommand
 )
 
 EmptyParams = { *text => any }
@@ -68,6 +69,8 @@ VendorSettingsGetSupportedSettingsCommand = {
   method: "<vendor>:settings.getSupportedSettings",
   params: EmptyParams
 }
+
+InteractionCommand = (InteractionPressKeysCommand)
 
 InteractionPressKeysCommand = {
   method: "interaction.pressKeys",

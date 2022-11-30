@@ -128,7 +128,8 @@ Command = {
 
 CommandData = (
   SessionCommand //
-  VendorSettingsCommand
+  VendorSettingsCommand //
+  InteractionCommand
 )
 
 EmptyParams = { *text => any }
@@ -684,6 +685,12 @@ The Interaction Module {#module-interaction}
 --------------------------------------------
 
 ### Definition ### {#module-interaction-definition}
+
+[=Remote end definition=]:
+
+<xmp class="cddl remote-cddl">
+InteractionCommand = (InteractionPressKeysCommand)
+</xmp>
 
 [=Local end definition=]:
 
