@@ -8,7 +8,6 @@ Repository: w3c/aria-at-automation
 URL: https://w3c.github.io/aria-at-automation/
 Editor: Mike Pennisi, Bocoup https://bocoup.com, mike@bocoup.com
 Former Editor: Simon Pieters, Bocoup https://bocoup.com, simon@bocoup.com
-!Tests: <a href=https://github.com/w3c/web-platform-tests/tree/master/aria-at-automation>web-platform-tests aria-at-automation/</a> (<a href=https://github.com/w3c/web-platform-tests/labels/aria-at-automation>ongoing work</a>)
 Abstract: A short description of your spec, one or two sentences. (TODO)
 Markup Shorthands: markdown yes
 </xmp>
