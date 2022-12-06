@@ -336,6 +336,12 @@ To <dfn>check that one of the expected applications has focus</dfn>:
 1. If the application that currently has OS focus (and so could act on simulated key presses from this API) is not one of the expected applications, then return an <a>error</a> with <a>error code</a> <a for="error code">invalid OS focus state</a>. Which applications are expected is <a>implementation-defined</a>.
 2. Return <a>success</a> with data null.
 
+To determine whether a string |text| <dfn>should be withheld</dfn>:
+
+1. If the [=remote end=] determines that it is unsafe to expose |text| to an external process for any [=implementation-defined=] reason:
+    2. Return true.
+2. Return false.
+
 Transport {#transport}
 ======================
 
@@ -764,7 +770,8 @@ The [=remote end event trigger=] is:
 
 When the assistive technology would send some text |data| (a string, without speech-specific markup or annotations) to the Text-To-Speech system, or equivalent for non-speech assistive technology software, run these steps:
 
-1. Optionally, return. This step allows for an [=implementation-defined=] security check, to sandbox what information to expose.
+1. If |data| [=should be withheld=]:
+    1. Return.
 2. Let |params| be a [=map=] matching the `InteractionCapturedOutputParameters` production with the `data` field set to |data|.
 3. Let |body| be a [=map=] matching the `InteractionCapturedOutputEvent` production with the `params` field set to |params|.
 4. [=Emit an event=] with |session| and |body|.
