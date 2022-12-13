@@ -8,7 +8,7 @@
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
   <meta content="Bikeshed version 26e85e599, updated Thu Dec 8 15:29:31 2022 -0800" name="generator">
   <link href="https://w3c.github.io/aria-at-automation/" rel="canonical">
-  <meta content="6946c032e7427844cbc6a05a5d29921fc8aad1a5" name="document-revision">
+  <meta content="d6fbe142e329d2ea272ec76862597478e9d007e5" name="document-revision">
 <style>
 table { border-collapse: collapse; border-style: hidden hidden none hidden; }
 table thead, table tbody { border-bottom: solid; }
@@ -1063,7 +1063,7 @@ and a <dfn class="dfn-paneled" data-dfn-for="WebSocket listener" data-dfn-type="
         <li data-md>
          <p>Let <var>result</var> be the result of running the <a data-link-type="dfn" href="#remote-end-steps" id="ref-for-remote-end-steps">remote end steps</a> for <var>command</var> given <var>session</var> and <a data-link-type="dfn" href="#command-parameters" id="ref-for-command-parameters①">command parameters</a> <var>matched</var>["<code>params</code>"].</p>
         <li data-md>
-         <p>If <var>result</var> is an <a data-link-type="dfn">error</a>, then <a data-link-type="dfn" href="#respond-with-an-error" id="ref-for-respond-with-an-error③">respond with an error</a> given <var>connection</var>, <var>command id</var>, and <var>result</var>’s <a data-link-type="dfn" href="#error-code" id="ref-for-error-code②">error code</a>, and finally return.</p>
+         <p>If <var>result</var> is an <a data-link-type="dfn" href="#error" id="ref-for-error④">error</a>, then <a data-link-type="dfn" href="#respond-with-an-error" id="ref-for-respond-with-an-error③">respond with an error</a> given <var>connection</var>, <var>command id</var>, and <var>result</var>’s <a data-link-type="dfn" href="#error-code" id="ref-for-error-code②">error code</a>, and finally return.</p>
         <li data-md>
          <p>Let <var>value</var> be <var>result</var>’s data.</p>
         <li data-md>
@@ -1188,15 +1188,15 @@ CapabilitiesRequestParameters = {
    <p>The <a data-link-type="dfn" href="#remote-end-steps" id="ref-for-remote-end-steps①">remote end steps</a> given <var>session</var> and <var>command parameters</var> are:</p>
    <ol>
     <li data-md>
-     <p>If <var>session</var> is not null, return an <a data-link-type="dfn">error</a> with error code <a data-link-type="dfn" href="#error-code-session-not-created" id="ref-for-error-code-session-not-created">session not created</a>.</p>
+     <p>If <var>session</var> is not null, return an <a data-link-type="dfn" href="#error" id="ref-for-error⑤">error</a> with error code <a data-link-type="dfn" href="#error-code-session-not-created" id="ref-for-error-code-session-not-created">session not created</a>.</p>
     <li data-md>
-     <p>If the list of <a data-link-type="dfn" href="#remote-end-active-sessions" id="ref-for-remote-end-active-sessions②">active sessions</a> is not empty, then return <a data-link-type="dfn" href="#error" id="ref-for-error④">error</a> with error code <a data-link-type="dfn" href="#error-code-session-not-created" id="ref-for-error-code-session-not-created①">session not created</a>.</p>
+     <p>If the list of <a data-link-type="dfn" href="#remote-end-active-sessions" id="ref-for-remote-end-active-sessions②">active sessions</a> is not empty, then return <a data-link-type="dfn" href="#error" id="ref-for-error⑥">error</a> with error code <a data-link-type="dfn" href="#error-code-session-not-created" id="ref-for-error-code-session-not-created①">session not created</a>.</p>
     <li data-md>
-     <p>If the implementation is unable to start a new session for any reason, return an <a data-link-type="dfn">error</a> with error code <a data-link-type="dfn" href="#error-code-session-not-created" id="ref-for-error-code-session-not-created②">session not created</a>.</p>
+     <p>If the implementation is unable to start a new session for any reason, return an <a data-link-type="dfn" href="#error" id="ref-for-error⑦">error</a> with error code <a data-link-type="dfn" href="#error-code-session-not-created" id="ref-for-error-code-session-not-created②">session not created</a>.</p>
     <li data-md>
      <p>Let <var>capabilities</var> be the result of <a data-link-type="dfn" href="#try" id="ref-for-try②">trying</a> to <a data-link-type="dfn" href="#process-capabilities" id="ref-for-process-capabilities">process capabilities</a> with <var>command parameters</var>.</p>
     <li data-md>
-     <p>If <var>capabilities</var> is null, return <a data-link-type="dfn" href="#error" id="ref-for-error⑤">error</a> with error code <a data-link-type="dfn" href="#error-code-session-not-created" id="ref-for-error-code-session-not-created③">session not created</a>.</p>
+     <p>If <var>capabilities</var> is null, return <a data-link-type="dfn" href="#error" id="ref-for-error⑧">error</a> with error code <a data-link-type="dfn" href="#error-code-session-not-created" id="ref-for-error-code-session-not-created③">session not created</a>.</p>
     <li data-md>
      <p>Let <var>session id</var> be the result of <a data-link-type="dfn" href="#generating-a-uuid" id="ref-for-generating-a-uuid">generating a UUID</a>.</p>
     <li data-md>
@@ -1712,7 +1712,8 @@ KeyCombination = [
     <li><a href="#ref-for-error">3. Infrastructure</a> <a href="#ref-for-error①">(2)</a>
     <li><a href="#ref-for-error②">5.5. Commands</a>
     <li><a href="#ref-for-error③">5.8. Security checks</a>
-    <li><a href="#ref-for-error④">7.1.3.1. The session.new Command</a> <a href="#ref-for-error⑤">(2)</a>
+    <li><a href="#ref-for-error④">6. Transport</a>
+    <li><a href="#ref-for-error⑤">7.1.3.1. The session.new Command</a> <a href="#ref-for-error⑥">(2)</a> <a href="#ref-for-error⑦">(3)</a> <a href="#ref-for-error⑧">(4)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="try">
