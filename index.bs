@@ -753,7 +753,7 @@ The <a>remote end steps</a> given <var ignore>session</var> and <var ignore>comm
 1. If [=supported settings=] is null:
     1. Let |names| be a new [=list=].
 2. Otherwise:
-    2. Let |names| be [=supported settings=].
+    1. Let |names| be [=supported settings=].
 3. Let |result| be the result of [=get settings=] with |names|.
 4. [=Assert=]: |result| is a [=success=] value.
 5. Return |result|.
