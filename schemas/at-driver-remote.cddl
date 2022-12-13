@@ -68,3 +68,17 @@ VendorSettingsGetSupportedSettingsCommand = {
   method: "<vendor>:settings.getSupportedSettings",
   params: EmptyParams
 }
+
+InteractionPressKeysCommand = {
+  method: "interaction.pressKeys",
+  params: InteractionPressKeysParameters
+}
+
+InteractionPressKeysParameters = {
+  "keys" => KeyCombination,
+  *text => any
+}
+
+KeyCombination = [
+  1* text
+]
