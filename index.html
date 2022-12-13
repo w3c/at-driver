@@ -8,7 +8,7 @@
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
   <meta content="Bikeshed version 26e85e599, updated Thu Dec 8 15:29:31 2022 -0800" name="generator">
   <link href="https://w3c.github.io/aria-at-automation/" rel="canonical">
-  <meta content="d6fbe142e329d2ea272ec76862597478e9d007e5" name="document-revision">
+  <meta content="6339fed39094023ac567a2efe9963a6004a00abc" name="document-revision">
 <style>
 table { border-collapse: collapse; border-style: hidden hidden none hidden; }
 table thead, table tbody { border-bottom: solid; }
@@ -403,6 +403,17 @@ c-[vg] { color: #0077aa } /* Name.Variable.Global */
 c-[vi] { color: #0077aa } /* Name.Variable.Instance */
 c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
 </style>
+<style>/* style-var-click-highlighting */
+
+    var { cursor: pointer; }
+    var.selected0 { background-color: #F4D200; box-shadow: 0 0 0 2px #F4D200; }
+    var.selected1 { background-color: #FF87A2; box-shadow: 0 0 0 2px #FF87A2; }
+    var.selected2 { background-color: #96E885; box-shadow: 0 0 0 2px #96E885; }
+    var.selected3 { background-color: #3EEED2; box-shadow: 0 0 0 2px #3EEED2; }
+    var.selected4 { background-color: #EACFB6; box-shadow: 0 0 0 2px #EACFB6; }
+    var.selected5 { background-color: #82DDFF; box-shadow: 0 0 0 2px #82DDFF; }
+    var.selected6 { background-color: #FFBCF2; box-shadow: 0 0 0 2px #FFBCF2; }
+    </style>
 <style>/* style-darkmode */
 
 @media (prefers-color-scheme: dark) {
@@ -857,63 +868,67 @@ EventData = (
       <td>Identifies the operating system of the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end④">remote end</a>. 
    </table>
    <p><a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end⑤">Remote ends</a> may introduce <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="extension-capabilities">extension capabilities</dfn> that are extra capabilities used to provide configuration or fulfill other vendor-specific needs. Extension capabilities' key must contain a "<code>:</code>" (colon) character, denoting an implementation specific namespace. The value can be arbitrary JSON types.</p>
-   <p>To <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="process-capabilities">process capabilities</dfn> with argument <var>parameters</var>, the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end⑥">remote end</a> must:</p>
-   <ol>
-    <li data-md>
-     <p>Let <var>capabilities request</var> be <var>parameters</var>["<code>capabilities</code>"] if it <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#map-exists" id="ref-for-map-exists">exists</a>, else null.</p>
-    <li data-md>
-     <p>Let <var>required capabilities</var> be <var>capabilities request</var>["<code>alwaysMatch</code>"] if it <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#map-exists" id="ref-for-map-exists①">exists</a>, else null.</p>
-    <li data-md>
-     <p>Let <var>matched capabilities</var> be the result of <a data-link-type="dfn" href="#try" id="ref-for-try">trying</a> to <a data-link-type="dfn" href="#match-capabilities" id="ref-for-match-capabilities">match capabilities</a> given <var>required capabilities</var>.</p>
-    <li data-md>
-     <p>If <var>matched capabilities</var> is not null, then return <a data-link-type="dfn" href="#success" id="ref-for-success①">success</a> with data <var>matched capabilities</var>.</p>
-    <li data-md>
-     <p>Return <a data-link-type="dfn" href="#success" id="ref-for-success②">success</a> with data null.</p>
-   </ol>
-   <p>To <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="match-capabilities">match capabilities</dfn> given <var>requested capabilities</var>, the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end⑦">remote end</a> must:</p>
-   <ol>
-    <li data-md>
-     <p>Let <var>matched capabilities</var> be a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map">map</a> with the following entries:</p>
-     <dl>
-      <dt data-md>"<code>atName</code>"
-      <dd data-md>
-       <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ascii-lowercase" id="ref-for-ascii-lowercase">ASCII lowercase</a> name of the assistive technology as a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#string" id="ref-for-string③">string</a>.</p>
-      <dt data-md>"<code>atVersion</code>"
-      <dd data-md>
-       <p>The assistive technology version, as a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#string" id="ref-for-string④">string</a>.</p>
-      <dt data-md>"<code>platformName</code>"
-      <dd data-md>
-       <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ascii-lowercase" id="ref-for-ascii-lowercase①">ASCII lowercase</a> name of the current platform as a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#string" id="ref-for-string⑤">string</a>.</p>
-     </dl>
-    <li data-md>
-     <p>Optionally add <a data-link-type="dfn" href="#extension-capabilities" id="ref-for-extension-capabilities">extension capabilities</a> as entries to <var>matched capabilities</var>.</p>
-    <li data-md>
-     <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#map-iterate" id="ref-for-map-iterate">For each</a> <var>key</var> → <var>value</var> of <var>requested capabilities</var>:</p>
-     <ol>
-      <li data-md>
-       <p>Let <var>match value</var> be <var>value</var>.</p>
-      <li data-md>
-       <p>Switch on <var>key</var>:</p>
-       <dl>
-        <dt data-md>"<code>atName</code>"
-        <dd data-md>
-         <p>If <var>value</var> is not equal to <var>matched capabilities</var>["<code>atName</code>"], then return <a data-link-type="dfn" href="#success" id="ref-for-success③">success</a> with data null.</p>
-        <dt data-md>"<code>atVersion</code>"
-        <dd data-md>
-         <p>Compare <var>value</var> to <var>matched capabilities</var>["<code>browserVersion</code>"] using an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined">implementation-defined</a> comparison algorithm. The comparison is to accept a value that places constraints on the version using the "<code>&lt;</code>", "<code>&lt;=</code>", "<code>></code>", and "<code>>=</code>" operators.</p>
-        <dt data-md>"<code>platformName</code>"
-        <dd data-md>
-         <p>If <var>value</var> is not equal to <var>matched capabilities</var>["<code>platformName</code>"], then return <a data-link-type="dfn" href="#success" id="ref-for-success④">success</a> with data null.</p>
-        <dt data-md>Otherwise
-        <dd data-md>
-         <p>If <var>key</var> is the key of an <a data-link-type="dfn" href="#extension-capabilities" id="ref-for-extension-capabilities①">extension capability</a>, set <var>match value</var> to the result of <a data-link-type="dfn" href="#try" id="ref-for-try①">trying</a> implementation-specific steps to match on <var>key</var> with <var>value</var>. If the match is not successful, return <a data-link-type="dfn" href="#success" id="ref-for-success⑤">success</a> with data null.</p>
-       </dl>
-      <li data-md>
-       <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#map-set" id="ref-for-map-set">Set</a> <var>matched capabilities</var>[<var>key</var>] to <var>match value</var>.</p>
-     </ol>
-    <li data-md>
-     <p>Return <a data-link-type="dfn" href="#success" id="ref-for-success⑥">success</a> with data <var>matched capabilities</var>.</p>
-   </ol>
+   <div class="algorithm" data-algorithm="process capabilities">
+    <p>To <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="process-capabilities">process capabilities</dfn> with argument <var>parameters</var>, the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end⑥">remote end</a> must:</p>
+    <ol>
+     <li data-md>
+      <p>Let <var>capabilities request</var> be <var>parameters</var>["<code>capabilities</code>"] if it <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#map-exists" id="ref-for-map-exists">exists</a>, else null.</p>
+     <li data-md>
+      <p>Let <var>required capabilities</var> be <var>capabilities request</var>["<code>alwaysMatch</code>"] if it <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#map-exists" id="ref-for-map-exists①">exists</a>, else null.</p>
+     <li data-md>
+      <p>Let <var>matched capabilities</var> be the result of <a data-link-type="dfn" href="#try" id="ref-for-try">trying</a> to <a data-link-type="dfn" href="#match-capabilities" id="ref-for-match-capabilities">match capabilities</a> given <var>required capabilities</var>.</p>
+     <li data-md>
+      <p>If <var>matched capabilities</var> is not null, then return <a data-link-type="dfn" href="#success" id="ref-for-success①">success</a> with data <var>matched capabilities</var>.</p>
+     <li data-md>
+      <p>Return <a data-link-type="dfn" href="#success" id="ref-for-success②">success</a> with data null.</p>
+    </ol>
+   </div>
+   <div class="algorithm" data-algorithm="match capabilities">
+    <p>To <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="match-capabilities">match capabilities</dfn> given <var>requested capabilities</var>, the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end⑦">remote end</a> must:</p>
+    <ol>
+     <li data-md>
+      <p>Let <var>matched capabilities</var> be a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map">map</a> with the following entries:</p>
+      <dl>
+       <dt data-md>"<code>atName</code>"
+       <dd data-md>
+        <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ascii-lowercase" id="ref-for-ascii-lowercase">ASCII lowercase</a> name of the assistive technology as a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#string" id="ref-for-string③">string</a>.</p>
+       <dt data-md>"<code>atVersion</code>"
+       <dd data-md>
+        <p>The assistive technology version, as a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#string" id="ref-for-string④">string</a>.</p>
+       <dt data-md>"<code>platformName</code>"
+       <dd data-md>
+        <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ascii-lowercase" id="ref-for-ascii-lowercase①">ASCII lowercase</a> name of the current platform as a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#string" id="ref-for-string⑤">string</a>.</p>
+      </dl>
+     <li data-md>
+      <p>Optionally add <a data-link-type="dfn" href="#extension-capabilities" id="ref-for-extension-capabilities">extension capabilities</a> as entries to <var>matched capabilities</var>.</p>
+     <li data-md>
+      <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#map-iterate" id="ref-for-map-iterate">For each</a> <var>key</var> → <var>value</var> of <var>requested capabilities</var>:</p>
+      <ol>
+       <li data-md>
+        <p>Let <var>match value</var> be <var>value</var>.</p>
+       <li data-md>
+        <p>Switch on <var>key</var>:</p>
+        <dl>
+         <dt data-md>"<code>atName</code>"
+         <dd data-md>
+          <p>If <var>value</var> is not equal to <var>matched capabilities</var>["<code>atName</code>"], then return <a data-link-type="dfn" href="#success" id="ref-for-success③">success</a> with data null.</p>
+         <dt data-md>"<code>atVersion</code>"
+         <dd data-md>
+          <p>Compare <var>value</var> to <var>matched capabilities</var>["<code>browserVersion</code>"] using an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined">implementation-defined</a> comparison algorithm. The comparison is to accept a value that places constraints on the version using the "<code>&lt;</code>", "<code>&lt;=</code>", "<code>></code>", and "<code>>=</code>" operators.</p>
+         <dt data-md>"<code>platformName</code>"
+         <dd data-md>
+          <p>If <var>value</var> is not equal to <var>matched capabilities</var>["<code>platformName</code>"], then return <a data-link-type="dfn" href="#success" id="ref-for-success④">success</a> with data null.</p>
+         <dt data-md>Otherwise
+         <dd data-md>
+          <p>If <var>key</var> is the key of an <a data-link-type="dfn" href="#extension-capabilities" id="ref-for-extension-capabilities①">extension capability</a>, set <var>match value</var> to the result of <a data-link-type="dfn" href="#try" id="ref-for-try①">trying</a> implementation-specific steps to match on <var>key</var> with <var>value</var>. If the match is not successful, return <a data-link-type="dfn" href="#success" id="ref-for-success⑤">success</a> with data null.</p>
+        </dl>
+       <li data-md>
+        <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#map-set" id="ref-for-map-set">Set</a> <var>matched capabilities</var>[<var>key</var>] to <var>match value</var>.</p>
+      </ol>
+     <li data-md>
+      <p>Return <a data-link-type="dfn" href="#success" id="ref-for-success⑥">success</a> with data <var>matched capabilities</var>.</p>
+    </ol>
+   </div>
    <h3 class="heading settled" data-level="5.3" id="protocol-session"><span class="secno">5.3. </span><span class="content">Session</span><a class="self-link" href="#protocol-session"></a></h3>
    <p>A <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="session">session</dfn> represents the connection between a <a data-link-type="dfn" href="#local-end" id="ref-for-local-end③">local end</a> and a specific <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end⑧">remote end</a>.</p>
    <p>A <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end⑨">remote end</a> has an associated list of <dfn class="dfn-paneled" data-dfn-for="remote end" data-dfn-type="dfn" data-noexport id="remote-end-active-sessions">active sessions</dfn>, which is a list of all <a data-link-type="dfn" href="#session" id="ref-for-session④">sessions</a> that are currently started. A remote end has at most one <a data-link-type="dfn" href="#remote-end-active-sessions" id="ref-for-remote-end-active-sessions">active session</a> at a given time.</p>
@@ -1032,104 +1047,112 @@ and a <dfn class="dfn-paneled" data-dfn-for="WebSocket listener" data-dfn-type="
      <p>Return <var>listener</var>.</p>
    </ol>
    <p class="note" role="note"><span>Note:</span> a future iteration of this specification may allow multiple connections, to support <a href="https://w3c.github.io/webdriver/#dfn-intermediary-nodes">intermediary nodes like in WebDriver</a>.</p>
-   <p>To <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="handle-an-incoming-message">handle an incoming message</dfn> given a <a data-link-type="dfn" href="#websocket-connection" id="ref-for-websocket-connection④">WebSocket connection</a> <var>connection</var>, type <var>type</var> and data <var>data</var>:</p>
-   <ol>
-    <li data-md>
-     <p>If <var>type</var> is not <a href="https://tools.ietf.org/html/rfc6455#section-5.2">text</a>, <a data-link-type="dfn" href="#respond-with-an-error" id="ref-for-respond-with-an-error">respond with an error</a> given <var>connection</var>, null, and <a data-link-type="dfn">invalid argument</a>, and finally return.</p>
-    <li data-md>
-     <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#assert" id="ref-for-assert">Assert</a>: <var>data</var> is a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#scalar-value-string" id="ref-for-scalar-value-string">scalar value string</a>, because the <a href="https://tools.ietf.org/html/rfc6455#section-8.1">WebSocket handling errors in UTF-8-encoded data=</a> would already have <a href="https://tools.ietf.org/html/rfc6455#section-7.1.7">failed the WebSocket connection</a> otherwise.</p>
-    <li data-md>
-     <p>If there is a <a data-link-type="dfn" href="#session" id="ref-for-session①②">session</a> <a data-link-type="dfn" href="#session-associated-with-connection" id="ref-for-session-associated-with-connection">associated with connection</a> <var>connection</var>, let <var>session</var> be that session. Otherwise if <var>connection</var> is in the set of <a data-link-type="dfn" href="#remote-end-websocket-connections-not-associated-with-a-session" id="ref-for-remote-end-websocket-connections-not-associated-with-a-session①">WebSocket connections not associated with a session</a>, let <var>session</var> be null. Otherwise, return.</p>
-    <li data-md>
-     <p>Let <var>parsed</var> be the result of <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#parse-a-json-string-to-an-infra-value" id="ref-for-parse-a-json-string-to-an-infra-value">parsing JSON into Infra values</a> given <var>data</var>. If this throws an exception, then <a data-link-type="dfn" href="#respond-with-an-error" id="ref-for-respond-with-an-error①">respond with an error</a> given <var>connection</var>, null, and <a data-link-type="dfn">invalid argument</a>, and finally return.</p>
-    <li data-md>
-     <p>Match parsed against the <a data-link-type="dfn" href="#remote-end-definition" id="ref-for-remote-end-definition④">remote end definition</a>. If this results in a match:</p>
-     <ol>
-      <li data-md>
-       <p>Let <var>matched</var> be the map representing the matched data.</p>
-      <li data-md>
-       <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#assert" id="ref-for-assert①">Assert</a>: <var>matched</var> <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#map-exists" id="ref-for-map-exists②">contains</a> "<code>id</code>", "<code>method</code>", and "<code>params</code>".</p>
-      <li data-md>
-       <p>Let <var>command id</var> be <var>matched</var>["<code>id</code>"].</p>
-      <li data-md>
-       <p>Let <var>method</var> be <var>matched</var>["<code>method</code>"].</p>
-      <li data-md>
-       <p>Let <var>command</var> be the command with <a data-link-type="dfn" href="#command-name" id="ref-for-command-name②">command name</a> <var>method</var>.</p>
-      <li data-md>
-       <p>If <var>session</var> is null and <var>command</var> is not a <a data-link-type="dfn" href="#static-command" id="ref-for-static-command">static command</a>, then <a data-link-type="dfn" href="#respond-with-an-error" id="ref-for-respond-with-an-error②">respond with an error</a> given <var>connection</var>, <var>command id</var>, and <a data-link-type="dfn" href="#error-code-invalid-session-id" id="ref-for-error-code-invalid-session-id">invalid session id</a>, and return.</p>
-      <li data-md>
-       <p>Run the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel">in parallel</a>:</p>
-       <ol>
-        <li data-md>
-         <p>Let <var>result</var> be the result of running the <a data-link-type="dfn" href="#remote-end-steps" id="ref-for-remote-end-steps">remote end steps</a> for <var>command</var> given <var>session</var> and <a data-link-type="dfn" href="#command-parameters" id="ref-for-command-parameters①">command parameters</a> <var>matched</var>["<code>params</code>"].</p>
-        <li data-md>
-         <p>If <var>result</var> is an <a data-link-type="dfn" href="#error" id="ref-for-error④">error</a>, then <a data-link-type="dfn" href="#respond-with-an-error" id="ref-for-respond-with-an-error③">respond with an error</a> given <var>connection</var>, <var>command id</var>, and <var>result</var>’s <a data-link-type="dfn" href="#error-code" id="ref-for-error-code②">error code</a>, and finally return.</p>
-        <li data-md>
-         <p>Let <var>value</var> be <var>result</var>’s data.</p>
-        <li data-md>
-         <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#assert" id="ref-for-assert②">Assert</a>: <var>value</var> matches the definition for the <a data-link-type="dfn" href="#result-type" id="ref-for-result-type①">result type</a> corresponding to the command with <a data-link-type="dfn" href="#command-name" id="ref-for-command-name③">command name</a> <var>method</var>.</p>
-        <li data-md>
-         <p>If <var>method</var> is "<code>session.new</code>", let <a data-link-type="dfn" href="#session" id="ref-for-session①③">session</a> be the entry in the list of <a data-link-type="dfn" href="#remote-end-active-sessions" id="ref-for-remote-end-active-sessions①">active sessions</a> whose <a data-link-type="dfn" href="#session-session-id" id="ref-for-session-session-id">session ID</a> is equal to the "<code>sessionId</code>" property of <var>value</var>, let <var>session</var>’s <a data-link-type="dfn" href="#websocket-connection" id="ref-for-websocket-connection⑤">WebSocket connection</a> be <var>connection</var>, and remove <var>connection</var> from the set of <a data-link-type="dfn" href="#remote-end-websocket-connections-not-associated-with-a-session" id="ref-for-remote-end-websocket-connections-not-associated-with-a-session②">WebSocket connections not associated with a session</a>.</p>
-        <li data-md>
-         <p>Let <var>response</var> be a new map matching the <code>CommandResponse</code> production in the <a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition④">local end definition</a> with the <code>id</code> field set to <var>command id</var> and the <code>value</code> field set to <var>value</var>.</p>
-        <li data-md>
-         <p>Let <var>serialized</var> be the result of <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#serialize-an-infra-value-to-json-bytes" id="ref-for-serialize-an-infra-value-to-json-bytes">serialize an infra value to JSON bytes</a> given <var>response</var>.</p>
-        <li data-md>
-         <p><a href="https://tools.ietf.org/html/rfc6455#section-6.1">Send a WebSocket message</a> comprised of <var>serialized</var> over <var>connection</var>.</p>
-       </ol>
-     </ol>
-    <li data-md>
-     <p>Otherwise:</p>
-     <ol>
-      <li data-md>
-       <p>Let <var>command id</var> be null.</p>
-      <li data-md>
-       <p>If <var>parsed</var> is a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map①">map</a> and <var>parsed</var>["<code>id</code>"] <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#map-exists" id="ref-for-map-exists③">exists</a> and is an integer greater than or equal to zero, set <var>command id</var> to that integer.</p>
-      <li data-md>
-       <p>Let <var>error code</var> be <a data-link-type="dfn">invalid argument</a>.</p>
-      <li data-md>
-       <p>If <var>parsed</var> is a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map②">map</a> and <var>parsed</var>["<code>method</code>"] <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#map-exists" id="ref-for-map-exists④">exists</a> and is a string, but <var>parsed</var>["<code>method</code>"] is not in the <a data-link-type="dfn" href="#set-of-all-command-names" id="ref-for-set-of-all-command-names">set of all command names</a>, set <var>error code</var> to <a data-link-type="dfn" href="#error-code-unknown-command" id="ref-for-error-code-unknown-command">unknown command</a>.</p>
-      <li data-md>
-       <p><a data-link-type="dfn" href="#respond-with-an-error" id="ref-for-respond-with-an-error④">Respond with an error</a> given <var>connection</var>, <var>command id</var>, and <var>error code</var>.</p>
-     </ol>
-   </ol>
-   <p>To <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="emit-an-event">emit an event</dfn> given <var>session</var>, and <var>body</var>:</p>
-   <ol>
-    <li data-md>
-     <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#assert" id="ref-for-assert③">Assert</a>: <var>body</var> has <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#map-size" id="ref-for-map-size">size</a> 2 and <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#map-exists" id="ref-for-map-exists⑤">contains</a> "<code>method</code>" and "<code>params</code>".</p>
-    <li data-md>
-     <p>Let <var>connection</var> be <var>session</var>’s <a data-link-type="dfn" href="#websocket-connection" id="ref-for-websocket-connection⑥">WebSocket connection</a>.</p>
-    <li data-md>
-     <p>If <var>connection</var> is null, return.</p>
-    <li data-md>
-     <p>Let <var>serialized</var> be the result of <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#serialize-an-infra-value-to-json-bytes" id="ref-for-serialize-an-infra-value-to-json-bytes①">serialize an infra value to JSON bytes</a> given <var>body</var>.</p>
-    <li data-md>
-     <p><a href="https://tools.ietf.org/html/rfc6455#section-6.1">Send a WebSocket message</a> comprised of <var>serialized</var> over <var>connection</var>.</p>
-   </ol>
-   <p>To <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="respond-with-an-error">respond with an error</dfn> given a <a data-link-type="dfn" href="#websocket-connection" id="ref-for-websocket-connection⑦">WebSocket connection</a> <var>connection</var>, <var>command id</var>, and <var>error code</var>:</p>
-   <ol>
-    <li data-md>
-     <p>Let <var>error data</var> be a new <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map③">map</a> matching the <code>ErrorResponse</code> production in the <a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition⑤">local end definition</a>, with the <code>id</code> field set to <var>command id</var>, the <code>error</code> field set to <var>error code</var>, the <code>message</code> field set to an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined④">implementation-defined</a> string containing a human-readable definition of the error that occurred and the <code>stacktrace</code> field optionally set to an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined⑤">implementation-defined</a> string containing a stack trace report of the active stack frames at the time when the error occurred.</p>
-    <li data-md>
-     <p>Let <var>response</var> be the result of <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#serialize-an-infra-value-to-json-bytes" id="ref-for-serialize-an-infra-value-to-json-bytes②">serialize an infra value to JSON bytes</a> given <var>error data</var>.
+   <div class="algorithm" data-algorithm="handle an incoming message">
+    <p>To <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="handle-an-incoming-message">handle an incoming message</dfn> given a <a data-link-type="dfn" href="#websocket-connection" id="ref-for-websocket-connection④">WebSocket connection</a> <var>connection</var>, type <var>type</var> and data <var>data</var>:</p>
+    <ol>
+     <li data-md>
+      <p>If <var>type</var> is not <a href="https://tools.ietf.org/html/rfc6455#section-5.2">text</a>, <a data-link-type="dfn" href="#respond-with-an-error" id="ref-for-respond-with-an-error">respond with an error</a> given <var>connection</var>, null, and <a data-link-type="dfn">invalid argument</a>, and finally return.</p>
+     <li data-md>
+      <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#assert" id="ref-for-assert">Assert</a>: <var>data</var> is a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#scalar-value-string" id="ref-for-scalar-value-string">scalar value string</a>, because the <a href="https://tools.ietf.org/html/rfc6455#section-8.1">WebSocket handling errors in UTF-8-encoded data=</a> would already have <a href="https://tools.ietf.org/html/rfc6455#section-7.1.7">failed the WebSocket connection</a> otherwise.</p>
+     <li data-md>
+      <p>If there is a <a data-link-type="dfn" href="#session" id="ref-for-session①②">session</a> <a data-link-type="dfn" href="#session-associated-with-connection" id="ref-for-session-associated-with-connection">associated with connection</a> <var>connection</var>, let <var>session</var> be that session. Otherwise if <var>connection</var> is in the set of <a data-link-type="dfn" href="#remote-end-websocket-connections-not-associated-with-a-session" id="ref-for-remote-end-websocket-connections-not-associated-with-a-session①">WebSocket connections not associated with a session</a>, let <var>session</var> be null. Otherwise, return.</p>
+     <li data-md>
+      <p>Let <var>parsed</var> be the result of <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#parse-a-json-string-to-an-infra-value" id="ref-for-parse-a-json-string-to-an-infra-value">parsing JSON into Infra values</a> given <var>data</var>. If this throws an exception, then <a data-link-type="dfn" href="#respond-with-an-error" id="ref-for-respond-with-an-error①">respond with an error</a> given <var>connection</var>, null, and <a data-link-type="dfn">invalid argument</a>, and finally return.</p>
+     <li data-md>
+      <p>Match parsed against the <a data-link-type="dfn" href="#remote-end-definition" id="ref-for-remote-end-definition④">remote end definition</a>. If this results in a match:</p>
+      <ol>
+       <li data-md>
+        <p>Let <var>matched</var> be the map representing the matched data.</p>
+       <li data-md>
+        <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#assert" id="ref-for-assert①">Assert</a>: <var>matched</var> <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#map-exists" id="ref-for-map-exists②">contains</a> "<code>id</code>", "<code>method</code>", and "<code>params</code>".</p>
+       <li data-md>
+        <p>Let <var>command id</var> be <var>matched</var>["<code>id</code>"].</p>
+       <li data-md>
+        <p>Let <var>method</var> be <var>matched</var>["<code>method</code>"].</p>
+       <li data-md>
+        <p>Let <var>command</var> be the command with <a data-link-type="dfn" href="#command-name" id="ref-for-command-name②">command name</a> <var>method</var>.</p>
+       <li data-md>
+        <p>If <var>session</var> is null and <var>command</var> is not a <a data-link-type="dfn" href="#static-command" id="ref-for-static-command">static command</a>, then <a data-link-type="dfn" href="#respond-with-an-error" id="ref-for-respond-with-an-error②">respond with an error</a> given <var>connection</var>, <var>command id</var>, and <a data-link-type="dfn" href="#error-code-invalid-session-id" id="ref-for-error-code-invalid-session-id">invalid session id</a>, and return.</p>
+       <li data-md>
+        <p>Run the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel">in parallel</a>:</p>
+        <ol>
+         <li data-md>
+          <p>Let <var>result</var> be the result of running the <a data-link-type="dfn" href="#remote-end-steps" id="ref-for-remote-end-steps">remote end steps</a> for <var>command</var> given <var>session</var> and <a data-link-type="dfn" href="#command-parameters" id="ref-for-command-parameters①">command parameters</a> <var>matched</var>["<code>params</code>"].</p>
+         <li data-md>
+          <p>If <var>result</var> is an <a data-link-type="dfn" href="#error" id="ref-for-error④">error</a>, then <a data-link-type="dfn" href="#respond-with-an-error" id="ref-for-respond-with-an-error③">respond with an error</a> given <var>connection</var>, <var>command id</var>, and <var>result</var>’s <a data-link-type="dfn" href="#error-code" id="ref-for-error-code②">error code</a>, and finally return.</p>
+         <li data-md>
+          <p>Let <var>value</var> be <var>result</var>’s data.</p>
+         <li data-md>
+          <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#assert" id="ref-for-assert②">Assert</a>: <var>value</var> matches the definition for the <a data-link-type="dfn" href="#result-type" id="ref-for-result-type①">result type</a> corresponding to the command with <a data-link-type="dfn" href="#command-name" id="ref-for-command-name③">command name</a> <var>method</var>.</p>
+         <li data-md>
+          <p>If <var>method</var> is "<code>session.new</code>", let <a data-link-type="dfn" href="#session" id="ref-for-session①③">session</a> be the entry in the list of <a data-link-type="dfn" href="#remote-end-active-sessions" id="ref-for-remote-end-active-sessions①">active sessions</a> whose <a data-link-type="dfn" href="#session-session-id" id="ref-for-session-session-id">session ID</a> is equal to the "<code>sessionId</code>" property of <var>value</var>, let <var>session</var>’s <a data-link-type="dfn" href="#websocket-connection" id="ref-for-websocket-connection⑤">WebSocket connection</a> be <var>connection</var>, and remove <var>connection</var> from the set of <a data-link-type="dfn" href="#remote-end-websocket-connections-not-associated-with-a-session" id="ref-for-remote-end-websocket-connections-not-associated-with-a-session②">WebSocket connections not associated with a session</a>.</p>
+         <li data-md>
+          <p>Let <var>response</var> be a new map matching the <code>CommandResponse</code> production in the <a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition④">local end definition</a> with the <code>id</code> field set to <var>command id</var> and the <code>value</code> field set to <var>value</var>.</p>
+         <li data-md>
+          <p>Let <var>serialized</var> be the result of <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#serialize-an-infra-value-to-json-bytes" id="ref-for-serialize-an-infra-value-to-json-bytes">serialize an infra value to JSON bytes</a> given <var>response</var>.</p>
+         <li data-md>
+          <p><a href="https://tools.ietf.org/html/rfc6455#section-6.1">Send a WebSocket message</a> comprised of <var>serialized</var> over <var>connection</var>.</p>
+        </ol>
+      </ol>
+     <li data-md>
+      <p>Otherwise:</p>
+      <ol>
+       <li data-md>
+        <p>Let <var>command id</var> be null.</p>
+       <li data-md>
+        <p>If <var>parsed</var> is a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map①">map</a> and <var>parsed</var>["<code>id</code>"] <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#map-exists" id="ref-for-map-exists③">exists</a> and is an integer greater than or equal to zero, set <var>command id</var> to that integer.</p>
+       <li data-md>
+        <p>Let <var>error code</var> be <a data-link-type="dfn">invalid argument</a>.</p>
+       <li data-md>
+        <p>If <var>parsed</var> is a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map②">map</a> and <var>parsed</var>["<code>method</code>"] <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#map-exists" id="ref-for-map-exists④">exists</a> and is a string, but <var>parsed</var>["<code>method</code>"] is not in the <a data-link-type="dfn" href="#set-of-all-command-names" id="ref-for-set-of-all-command-names">set of all command names</a>, set <var>error code</var> to <a data-link-type="dfn" href="#error-code-unknown-command" id="ref-for-error-code-unknown-command">unknown command</a>.</p>
+       <li data-md>
+        <p><a data-link-type="dfn" href="#respond-with-an-error" id="ref-for-respond-with-an-error④">Respond with an error</a> given <var>connection</var>, <var>command id</var>, and <var>error code</var>.</p>
+      </ol>
+    </ol>
+   </div>
+   <div class="algorithm" data-algorithm="emit an event">
+    <p>To <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="emit-an-event">emit an event</dfn> given <var>session</var>, and <var>body</var>:</p>
+    <ol>
+     <li data-md>
+      <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#assert" id="ref-for-assert③">Assert</a>: <var>body</var> has <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#map-size" id="ref-for-map-size">size</a> 2 and <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#map-exists" id="ref-for-map-exists⑤">contains</a> "<code>method</code>" and "<code>params</code>".</p>
+     <li data-md>
+      <p>Let <var>connection</var> be <var>session</var>’s <a data-link-type="dfn" href="#websocket-connection" id="ref-for-websocket-connection⑥">WebSocket connection</a>.</p>
+     <li data-md>
+      <p>If <var>connection</var> is null, return.</p>
+     <li data-md>
+      <p>Let <var>serialized</var> be the result of <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#serialize-an-infra-value-to-json-bytes" id="ref-for-serialize-an-infra-value-to-json-bytes①">serialize an infra value to JSON bytes</a> given <var>body</var>.</p>
+     <li data-md>
+      <p><a href="https://tools.ietf.org/html/rfc6455#section-6.1">Send a WebSocket message</a> comprised of <var>serialized</var> over <var>connection</var>.</p>
+    </ol>
+   </div>
+   <div class="algorithm" data-algorithm="respond with an error">
+    <p>To <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="respond-with-an-error">respond with an error</dfn> given a <a data-link-type="dfn" href="#websocket-connection" id="ref-for-websocket-connection⑦">WebSocket connection</a> <var>connection</var>, <var>command id</var>, and <var>error code</var>:</p>
+    <ol>
+     <li data-md>
+      <p>Let <var>error data</var> be a new <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map③">map</a> matching the <code>ErrorResponse</code> production in the <a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition⑤">local end definition</a>, with the <code>id</code> field set to <var>command id</var>, the <code>error</code> field set to <var>error code</var>, the <code>message</code> field set to an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined④">implementation-defined</a> string containing a human-readable definition of the error that occurred and the <code>stacktrace</code> field optionally set to an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined⑤">implementation-defined</a> string containing a stack trace report of the active stack frames at the time when the error occurred.</p>
+     <li data-md>
+      <p>Let <var>response</var> be the result of <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#serialize-an-infra-value-to-json-bytes" id="ref-for-serialize-an-infra-value-to-json-bytes②">serialize an infra value to JSON bytes</a> given <var>error data</var>.
   Note: command id can be null, in which case the id field will also be set to null, not omitted from response.</p>
-    <li data-md>
-     <p><a href="https://tools.ietf.org/html/rfc6455#section-6.1">Send a WebSocket message</a> comprised of <var>response</var> over <var>connection</var>.</p>
-   </ol>
-   <p>To <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="handle-a-connection-closing">handle a connection closing</dfn> given a <a data-link-type="dfn" href="#websocket-connection" id="ref-for-websocket-connection⑧">WebSocket connection</a> <var>connection</var>:</p>
-   <ol>
-    <li data-md>
-     <p>If there is a <a data-link-type="dfn" href="#session" id="ref-for-session①④">session</a> <a data-link-type="dfn" href="#session-associated-with-connection" id="ref-for-session-associated-with-connection①">associated with connection</a> <var>connection</var>:</p>
-     <ol>
-      <li data-md>
-       <p>Let <var>session</var> be the <a data-link-type="dfn" href="#session" id="ref-for-session①⑤">session</a> <a data-link-type="dfn" href="#session-associated-with-connection" id="ref-for-session-associated-with-connection②">associated with connection</a> <var>connection</var>.</p>
-      <li data-md>
-       <p>Remove <var>connection</var> from <var>session</var>’s <a data-link-type="dfn" href="#session-session-websocket-connections" id="ref-for-session-session-websocket-connections①">session WebSocket connections</a>.</p>
-     </ol>
-    <li data-md>
-     <p>Otherwise, if the set of <a data-link-type="dfn" href="#remote-end-websocket-connections-not-associated-with-a-session" id="ref-for-remote-end-websocket-connections-not-associated-with-a-session③">WebSocket connections not associated with a session</a> contains <var>connection</var>, remove <var>connection</var> from that set.</p>
-   </ol>
-   <p class="issue" id="issue-0e6df82e"><a class="self-link" href="#issue-0e6df82e"></a> As in WebDriver BiDi, this does not end any session. Not sure if we want to allow reconnecting to the same session, or implicitly end the session.</p>
+     <li data-md>
+      <p><a href="https://tools.ietf.org/html/rfc6455#section-6.1">Send a WebSocket message</a> comprised of <var>response</var> over <var>connection</var>.</p>
+    </ol>
+   </div>
+   <div class="algorithm" data-algorithm="handle a connection closing">
+    <p>To <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="handle-a-connection-closing">handle a connection closing</dfn> given a <a data-link-type="dfn" href="#websocket-connection" id="ref-for-websocket-connection⑧">WebSocket connection</a> <var>connection</var>:</p>
+    <ol>
+     <li data-md>
+      <p>If there is a <a data-link-type="dfn" href="#session" id="ref-for-session①④">session</a> <a data-link-type="dfn" href="#session-associated-with-connection" id="ref-for-session-associated-with-connection①">associated with connection</a> <var>connection</var>:</p>
+      <ol>
+       <li data-md>
+        <p>Let <var>session</var> be the <a data-link-type="dfn" href="#session" id="ref-for-session①⑤">session</a> <a data-link-type="dfn" href="#session-associated-with-connection" id="ref-for-session-associated-with-connection②">associated with connection</a> <var>connection</var>.</p>
+       <li data-md>
+        <p>Remove <var>connection</var> from <var>session</var>’s <a data-link-type="dfn" href="#session-session-websocket-connections" id="ref-for-session-session-websocket-connections①">session WebSocket connections</a>.</p>
+      </ol>
+     <li data-md>
+      <p>Otherwise, if the set of <a data-link-type="dfn" href="#remote-end-websocket-connections-not-associated-with-a-session" id="ref-for-remote-end-websocket-connections-not-associated-with-a-session③">WebSocket connections not associated with a session</a> contains <var>connection</var>, remove <var>connection</var> from that set.</p>
+    </ol>
+    <p class="issue" id="issue-0e6df82e"><a class="self-link" href="#issue-0e6df82e"></a> As in WebDriver BiDi, this does not end any session. Not sure if we want to allow reconnecting to the same session, or implicitly end the session.</p>
+   </div>
    <h3 class="heading settled" data-level="6.1" id="transport-establishing"><span class="secno">6.1. </span><span class="content">Establishing a Connection</span><a class="self-link" href="#transport-establishing"></a></h3>
    <p>The URL to the WebSocket server is communicated out-of-band. When an implementation is ready to accept requests to start an AT Driver session, it must:</p>
    <ol>
@@ -1185,31 +1208,33 @@ CapabilitiesRequestParameters = {
 }
 </pre>
    </dl>
-   <p>The <a data-link-type="dfn" href="#remote-end-steps" id="ref-for-remote-end-steps①">remote end steps</a> given <var>session</var> and <var>command parameters</var> are:</p>
-   <ol>
-    <li data-md>
-     <p>If <var>session</var> is not null, return an <a data-link-type="dfn" href="#error" id="ref-for-error⑤">error</a> with error code <a data-link-type="dfn" href="#error-code-session-not-created" id="ref-for-error-code-session-not-created">session not created</a>.</p>
-    <li data-md>
-     <p>If the list of <a data-link-type="dfn" href="#remote-end-active-sessions" id="ref-for-remote-end-active-sessions②">active sessions</a> is not empty, then return <a data-link-type="dfn" href="#error" id="ref-for-error⑥">error</a> with error code <a data-link-type="dfn" href="#error-code-session-not-created" id="ref-for-error-code-session-not-created①">session not created</a>.</p>
-    <li data-md>
-     <p>If the implementation is unable to start a new session for any reason, return an <a data-link-type="dfn" href="#error" id="ref-for-error⑦">error</a> with error code <a data-link-type="dfn" href="#error-code-session-not-created" id="ref-for-error-code-session-not-created②">session not created</a>.</p>
-    <li data-md>
-     <p>Let <var>capabilities</var> be the result of <a data-link-type="dfn" href="#try" id="ref-for-try②">trying</a> to <a data-link-type="dfn" href="#process-capabilities" id="ref-for-process-capabilities">process capabilities</a> with <var>command parameters</var>.</p>
-    <li data-md>
-     <p>If <var>capabilities</var> is null, return <a data-link-type="dfn" href="#error" id="ref-for-error⑧">error</a> with error code <a data-link-type="dfn" href="#error-code-session-not-created" id="ref-for-error-code-session-not-created③">session not created</a>.</p>
-    <li data-md>
-     <p>Let <var>session id</var> be the result of <a data-link-type="dfn" href="#generating-a-uuid" id="ref-for-generating-a-uuid">generating a UUID</a>.</p>
-    <li data-md>
-     <p>Let <var>session</var> be a new <a data-link-type="dfn" href="#session" id="ref-for-session①⑦">session</a> with the <a data-link-type="dfn" href="#session-session-id" id="ref-for-session-session-id①">session ID</a> of <var>session id</var>.</p>
-    <li data-md>
-     <p>Append <var>session</var> to <a data-link-type="dfn" href="#remote-end-active-sessions" id="ref-for-remote-end-active-sessions③">active sessions</a>.</p>
-    <li data-md>
-     <p>Start an instance of the appropriate assistive technology, given <var>capabilities</var>.</p>
-    <li data-md>
-     <p>Let <var>body</var> be a new <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map④">map</a> matching the <code>SessionNewResult</code> production, with the <code>sessionId</code> field set to <var>session</var>’s <a data-link-type="dfn" href="#session-session-id" id="ref-for-session-session-id②">session ID</a>, and the <code>capabilities</code> field set to <var>capabilities</var>.</p>
-    <li data-md>
-     <p>Return <a data-link-type="dfn" href="#success" id="ref-for-success⑨">success</a> with data <var>body</var>.</p>
-   </ol>
+   <div class="algorithm" data-algorithm="remote end steps for session.new">
+    <p>The <a data-link-type="dfn" href="#remote-end-steps" id="ref-for-remote-end-steps①">remote end steps</a> given <var>session</var> and <var>command parameters</var> are:</p>
+    <ol>
+     <li data-md>
+      <p>If <var>session</var> is not null, return an <a data-link-type="dfn" href="#error" id="ref-for-error⑤">error</a> with error code <a data-link-type="dfn" href="#error-code-session-not-created" id="ref-for-error-code-session-not-created">session not created</a>.</p>
+     <li data-md>
+      <p>If the list of <a data-link-type="dfn" href="#remote-end-active-sessions" id="ref-for-remote-end-active-sessions②">active sessions</a> is not empty, then return <a data-link-type="dfn" href="#error" id="ref-for-error⑥">error</a> with error code <a data-link-type="dfn" href="#error-code-session-not-created" id="ref-for-error-code-session-not-created①">session not created</a>.</p>
+     <li data-md>
+      <p>If the implementation is unable to start a new session for any reason, return an <a data-link-type="dfn" href="#error" id="ref-for-error⑦">error</a> with error code <a data-link-type="dfn" href="#error-code-session-not-created" id="ref-for-error-code-session-not-created②">session not created</a>.</p>
+     <li data-md>
+      <p>Let <var>capabilities</var> be the result of <a data-link-type="dfn" href="#try" id="ref-for-try②">trying</a> to <a data-link-type="dfn" href="#process-capabilities" id="ref-for-process-capabilities">process capabilities</a> with <var>command parameters</var>.</p>
+     <li data-md>
+      <p>If <var>capabilities</var> is null, return <a data-link-type="dfn" href="#error" id="ref-for-error⑧">error</a> with error code <a data-link-type="dfn" href="#error-code-session-not-created" id="ref-for-error-code-session-not-created③">session not created</a>.</p>
+     <li data-md>
+      <p>Let <var>session id</var> be the result of <a data-link-type="dfn" href="#generating-a-uuid" id="ref-for-generating-a-uuid">generating a UUID</a>.</p>
+     <li data-md>
+      <p>Let <var>session</var> be a new <a data-link-type="dfn" href="#session" id="ref-for-session①⑦">session</a> with the <a data-link-type="dfn" href="#session-session-id" id="ref-for-session-session-id①">session ID</a> of <var>session id</var>.</p>
+     <li data-md>
+      <p>Append <var>session</var> to <a data-link-type="dfn" href="#remote-end-active-sessions" id="ref-for-remote-end-active-sessions③">active sessions</a>.</p>
+     <li data-md>
+      <p>Start an instance of the appropriate assistive technology, given <var>capabilities</var>.</p>
+     <li data-md>
+      <p>Let <var>body</var> be a new <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map④">map</a> matching the <code>SessionNewResult</code> production, with the <code>sessionId</code> field set to <var>session</var>’s <a data-link-type="dfn" href="#session-session-id" id="ref-for-session-session-id②">session ID</a>, and the <code>capabilities</code> field set to <var>capabilities</var>.</p>
+     <li data-md>
+      <p>Return <a data-link-type="dfn" href="#success" id="ref-for-success⑨">success</a> with data <var>body</var>.</p>
+    </ol>
+   </div>
    <h3 class="heading settled" data-level="7.2" id="module-vendor-settings"><span class="secno">7.2. </span><span class="content">The &lt;vendor>:settings Module</span><a class="self-link" href="#module-vendor-settings"></a></h3>
    <p>Currently, there are no standardized settings. Implementations that wish to allow controlling and reading settings through the protocol defined in this specification must support settings as an <a data-link-type="dfn" href="#extension-modules" id="ref-for-extension-modules①">extension module</a>, with the structure defined in this section. Implementations are strongly encouraged to review the security implications of each setting, and only support the settings that are deemed safe. It is not defined what constitutes a setting, however, it is intended to represent user preferences such as the default voice, or the default rate of speech.</p>
    <p>In the schema definitions in this section, <code>&lt;vendor></code> is a placeholder for an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined⑥">implementation-defined</a> prefix for the <a data-link-type="dfn" href="#extension-modules" id="ref-for-extension-modules②">extension module</a>. The value of the prefix should be the name of the vendor or the assistive technology product, as appropriate.</p>
@@ -1369,18 +1394,20 @@ KeyCombination = [
 }
 </pre>
    </dl>
-   <p>The <a data-link-type="dfn" href="#remote-end-event-trigger" id="ref-for-remote-end-event-trigger">remote end event trigger</a> is:</p>
-   <p>When the assistive technology would send some text <var>data</var> (a string, without speech-specific markup or annotations) to the Text-To-Speech system, or equivalent for non-speech assistive technology software, run these steps:</p>
-   <ol>
-    <li data-md>
-     <p>Optionally, return. This step allows for an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined①②">implementation-defined</a> security check, to sandbox what information to expose.</p>
-    <li data-md>
-     <p>Let <var>params</var> be a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map⑤">map</a> matching the <code>InteractionCapturedOutputParameters</code> production with the <code>data</code> field set to <var>data</var>.</p>
-    <li data-md>
-     <p>Let <var>body</var> be a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map⑥">map</a> matching the <code>InteractionCapturedOutputEvent</code> production with the <code>params</code> field set to <var>params</var>.</p>
-    <li data-md>
-     <p><a data-link-type="dfn" href="#emit-an-event" id="ref-for-emit-an-event">Emit an event</a> with <var>session</var> and <var>body</var>.</p>
-   </ol>
+   <div class="algorithm" data-algorithm="remote end event trigger for interaction.capturedOutput">
+    <p>The <a data-link-type="dfn" href="#remote-end-event-trigger" id="ref-for-remote-end-event-trigger">remote end event trigger</a> is:</p>
+    <p>When the assistive technology would send some text <var>data</var> (a string, without speech-specific markup or annotations) to the Text-To-Speech system, or equivalent for non-speech assistive technology software, run these steps:</p>
+    <ol>
+     <li data-md>
+      <p>Optionally, return. This step allows for an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined①②">implementation-defined</a> security check, to sandbox what information to expose.</p>
+     <li data-md>
+      <p>Let <var>params</var> be a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map⑤">map</a> matching the <code>InteractionCapturedOutputParameters</code> production with the <code>data</code> field set to <var>data</var>.</p>
+     <li data-md>
+      <p>Let <var>body</var> be a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map⑥">map</a> matching the <code>InteractionCapturedOutputEvent</code> production with the <code>params</code> field set to <var>params</var>.</p>
+     <li data-md>
+      <p><a data-link-type="dfn" href="#emit-an-event" id="ref-for-emit-an-event">Emit an event</a> with <var>session</var> and <var>body</var>.</p>
+    </ol>
+   </div>
    <h2 class="heading settled" data-level="8" id="privacy"><span class="secno">8. </span><span class="content">Privacy</span><a class="self-link" href="#privacy"></a></h2>
    <p>It is advisable that <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②②">remote ends</a> create a new profile when creating a new session. This prevents potentially sensitive session data from being accessible to new sessions, ensuring both privacy and preventing state from bleeding through to the next session.</p>
    <h2 class="heading settled" data-level="9" id="security"><span class="secno">9. </span><span class="content">Security</span><a class="self-link" href="#security"></a></h2>
@@ -2095,3 +2122,88 @@ document.body.addEventListener("click", function(e) {
 
 });
 </script>
+<script>/* script-var-click-highlighting */
+
+    "use strict";
+    {
+        document.addEventListener("click", e=>{
+            if(e.target.nodeName == "VAR") {
+                highlightSameAlgoVars(e.target);
+            }
+        });
+        const indexCounts = new Map();
+        const indexNames = new Map();
+        function highlightSameAlgoVars(v) {
+            // Find the algorithm container.
+            let algoContainer = null;
+            let searchEl = v;
+            while(algoContainer == null && searchEl != document.body) {
+                searchEl = searchEl.parentNode;
+                if(searchEl.hasAttribute("data-algorithm")) {
+                    algoContainer = searchEl;
+                }
+            }
+
+            // Not highlighting document-global vars,
+            // too likely to be unrelated.
+            if(algoContainer == null) return;
+
+            const algoName = algoContainer.getAttribute("data-algorithm");
+            const varName = getVarName(v);
+            const addClass = !v.classList.contains("selected");
+            let highlightClass = null;
+            if(addClass) {
+                const index = chooseHighlightIndex(algoName, varName);
+                indexCounts.get(algoName)[index] += 1;
+                indexNames.set(algoName+"///"+varName, index);
+                highlightClass = nameFromIndex(index);
+            } else {
+                const index = previousHighlightIndex(algoName, varName);
+                indexCounts.get(algoName)[index] -= 1;
+                highlightClass = nameFromIndex(index);
+            }
+
+            // Find all same-name vars, and toggle their class appropriately.
+            for(const el of algoContainer.querySelectorAll("var")) {
+                if(getVarName(el) == varName) {
+                    el.classList.toggle("selected", addClass);
+                    el.classList.toggle(highlightClass, addClass);
+                }
+            }
+        }
+        function getVarName(el) {
+            return el.textContent.replace(/(\s|\xa0)+/, " ").trim();
+        }
+        function chooseHighlightIndex(algoName, varName) {
+            let indexes = null;
+            if(indexCounts.has(algoName)) {
+                indexes = indexCounts.get(algoName);
+            } else {
+                // 7 classes right now
+                indexes = [0,0,0,0,0,0,0];
+                indexCounts.set(algoName, indexes);
+            }
+
+            // If the element was recently unclicked,
+            // *and* that color is still unclaimed,
+            // give it back the same color.
+            const lastIndex = previousHighlightIndex(algoName, varName);
+            if(indexes[lastIndex] === 0) return lastIndex;
+
+            // Find the earliest index with the lowest count.
+            const minCount = Math.min.apply(null, indexes);
+            let index = null;
+            for(var i = 0; i < indexes.length; i++) {
+                if(indexes[i] == minCount) {
+                    return i;
+                }
+            }
+        }
+        function previousHighlightIndex(algoName, varName) {
+            return indexNames.get(algoName+"///"+varName);
+        }
+        function nameFromIndex(index) {
+            return "selected" + index;
+        }
+    }
+    </script>
