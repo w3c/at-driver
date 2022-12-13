@@ -8,7 +8,7 @@
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
   <meta content="Bikeshed version 26e85e599, updated Thu Dec 8 15:29:31 2022 -0800" name="generator">
   <link href="https://w3c.github.io/aria-at-automation/" rel="canonical">
-  <meta content="0b42b19f3eea0f334d0b98a4ea3037ac8ba0cdba" name="document-revision">
+  <meta content="6946c032e7427844cbc6a05a5d29921fc8aad1a5" name="document-revision">
 <style>
 table { border-collapse: collapse; border-style: hidden hidden none hidden; }
 table thead, table tbody { border-bottom: solid; }
@@ -1053,31 +1053,29 @@ and a <dfn class="dfn-paneled" data-dfn-for="WebSocket listener" data-dfn-type="
        <p>Let <var>command id</var> be <var>matched</var>["<code>id</code>"].</p>
       <li data-md>
        <p>Let <var>method</var> be <var>matched</var>["<code>method</code>"].</p>
+      <li data-md>
+       <p>Let <var>command</var> be the command with <a data-link-type="dfn" href="#command-name" id="ref-for-command-name②">command name</a> <var>method</var>.</p>
+      <li data-md>
+       <p>If <var>session</var> is null and <var>command</var> is not a <a data-link-type="dfn" href="#static-command" id="ref-for-static-command">static command</a>, then <a data-link-type="dfn" href="#respond-with-an-error" id="ref-for-respond-with-an-error②">respond with an error</a> given <var>connection</var>, <var>command id</var>, and <a data-link-type="dfn" href="#error-code-invalid-session-id" id="ref-for-error-code-invalid-session-id">invalid session id</a>, and return.</p>
+      <li data-md>
+       <p>Run the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel">in parallel</a>:</p>
        <ol>
         <li data-md>
-         <p>Let <var>command</var> be the command with <a data-link-type="dfn" href="#command-name" id="ref-for-command-name②">command name</a> <var>method</var>.</p>
+         <p>Let <var>result</var> be the result of running the <a data-link-type="dfn" href="#remote-end-steps" id="ref-for-remote-end-steps">remote end steps</a> for <var>command</var> given <var>session</var> and <a data-link-type="dfn" href="#command-parameters" id="ref-for-command-parameters①">command parameters</a> <var>matched</var>["<code>params</code>"].</p>
         <li data-md>
-         <p>If <var>session</var> is null and <var>command</var> is not a <a data-link-type="dfn" href="#static-command" id="ref-for-static-command">static command</a>, then <a data-link-type="dfn" href="#respond-with-an-error" id="ref-for-respond-with-an-error②">respond with an error</a> given <var>connection</var>, <var>command id</var>, and <a data-link-type="dfn" href="#error-code-invalid-session-id" id="ref-for-error-code-invalid-session-id">invalid session id</a>, and return.</p>
+         <p>If <var>result</var> is an <a data-link-type="dfn">error</a>, then <a data-link-type="dfn" href="#respond-with-an-error" id="ref-for-respond-with-an-error③">respond with an error</a> given <var>connection</var>, <var>command id</var>, and <var>result</var>’s <a data-link-type="dfn" href="#error-code" id="ref-for-error-code②">error code</a>, and finally return.</p>
         <li data-md>
-         <p>Run the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel">in parallel</a>:</p>
-         <ol>
-          <li data-md>
-           <p>Let <var>result</var> be the result of running the <a data-link-type="dfn" href="#remote-end-steps" id="ref-for-remote-end-steps">remote end steps</a> for <var>command</var> given <var>session</var> and <a data-link-type="dfn" href="#command-parameters" id="ref-for-command-parameters①">command parameters</a> <var>matched</var>["<code>params</code>"].</p>
-          <li data-md>
-           <p>If <var>result</var> is an <a data-link-type="dfn">error</a>, then <a data-link-type="dfn" href="#respond-with-an-error" id="ref-for-respond-with-an-error③">respond with an error</a> given <var>connection</var>, <var>command id</var>, and <var>result</var>’s <a data-link-type="dfn" href="#error-code" id="ref-for-error-code②">error code</a>, and finally return.</p>
-          <li data-md>
-           <p>Let <var>value</var> be <var>result</var>’s data.</p>
-          <li data-md>
-           <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#assert" id="ref-for-assert②">Assert</a>: <var>value</var> matches the definition for the <a data-link-type="dfn" href="#result-type" id="ref-for-result-type①">result type</a> corresponding to the command with <a data-link-type="dfn" href="#command-name" id="ref-for-command-name③">command name</a> <var>method</var>.</p>
-          <li data-md>
-           <p>If <var>method</var> is "<code>session.new</code>", let <a data-link-type="dfn" href="#session" id="ref-for-session①③">session</a> be the entry in the list of <a data-link-type="dfn" href="#remote-end-active-sessions" id="ref-for-remote-end-active-sessions①">active sessions</a> whose <a data-link-type="dfn" href="#session-session-id" id="ref-for-session-session-id">session ID</a> is equal to the "<code>sessionId</code>" property of <var>value</var>, let <var>session</var>’s <a data-link-type="dfn" href="#websocket-connection" id="ref-for-websocket-connection⑤">WebSocket connection</a> be <var>connection</var>, and remove <var>connection</var> from the set of <a data-link-type="dfn" href="#remote-end-websocket-connections-not-associated-with-a-session" id="ref-for-remote-end-websocket-connections-not-associated-with-a-session②">WebSocket connections not associated with a session</a>.</p>
-          <li data-md>
-           <p>Let <var>response</var> be a new map matching the <code>CommandResponse</code> production in the <a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition④">local end definition</a> with the <code>id</code> field set to <var>command id</var> and the <code>value</code> field set to <var>value</var>.</p>
-          <li data-md>
-           <p>Let <var>serialized</var> be the result of <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#serialize-an-infra-value-to-json-bytes" id="ref-for-serialize-an-infra-value-to-json-bytes">serialize an infra value to JSON bytes</a> given <var>response</var>.</p>
-          <li data-md>
-           <p><a href="https://tools.ietf.org/html/rfc6455#section-6.1">Send a WebSocket message</a> comprised of <var>serialized</var> over <var>connection</var>.</p>
-         </ol>
+         <p>Let <var>value</var> be <var>result</var>’s data.</p>
+        <li data-md>
+         <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#assert" id="ref-for-assert②">Assert</a>: <var>value</var> matches the definition for the <a data-link-type="dfn" href="#result-type" id="ref-for-result-type①">result type</a> corresponding to the command with <a data-link-type="dfn" href="#command-name" id="ref-for-command-name③">command name</a> <var>method</var>.</p>
+        <li data-md>
+         <p>If <var>method</var> is "<code>session.new</code>", let <a data-link-type="dfn" href="#session" id="ref-for-session①③">session</a> be the entry in the list of <a data-link-type="dfn" href="#remote-end-active-sessions" id="ref-for-remote-end-active-sessions①">active sessions</a> whose <a data-link-type="dfn" href="#session-session-id" id="ref-for-session-session-id">session ID</a> is equal to the "<code>sessionId</code>" property of <var>value</var>, let <var>session</var>’s <a data-link-type="dfn" href="#websocket-connection" id="ref-for-websocket-connection⑤">WebSocket connection</a> be <var>connection</var>, and remove <var>connection</var> from the set of <a data-link-type="dfn" href="#remote-end-websocket-connections-not-associated-with-a-session" id="ref-for-remote-end-websocket-connections-not-associated-with-a-session②">WebSocket connections not associated with a session</a>.</p>
+        <li data-md>
+         <p>Let <var>response</var> be a new map matching the <code>CommandResponse</code> production in the <a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition④">local end definition</a> with the <code>id</code> field set to <var>command id</var> and the <code>value</code> field set to <var>value</var>.</p>
+        <li data-md>
+         <p>Let <var>serialized</var> be the result of <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#serialize-an-infra-value-to-json-bytes" id="ref-for-serialize-an-infra-value-to-json-bytes">serialize an infra value to JSON bytes</a> given <var>response</var>.</p>
+        <li data-md>
+         <p><a href="https://tools.ietf.org/html/rfc6455#section-6.1">Send a WebSocket message</a> comprised of <var>serialized</var> over <var>connection</var>.</p>
        </ol>
      </ol>
     <li data-md>
