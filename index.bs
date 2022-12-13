@@ -396,7 +396,7 @@ To <dfn>handle an incoming message</dfn> given a [=WebSocket connection=] |conne
     6. If |session| is null and |command| is not a [=static command=], then [=respond with an error=] given |connection|, |command id|, and [=invalid session id=], and return.
     7. Run the following steps [=in parallel=]:
         1. Let |result| be the result of running the [=remote end steps=] for |command| given |session| and [=command parameters=] |matched|["`params`"].
-        2. If |result| is an <a for=command>error</a>, then [=respond with an error=] given |connection|, |command id|, and |result|'s [=error code=], and finally return.
+        2. If |result| is an [=error=], then [=respond with an error=] given |connection|, |command id|, and |result|'s [=error code=], and finally return.
         3. Let |value| be |result|'s data.
         4. [=Assert=]: |value| matches the definition for the [=result type=] corresponding to the command with [=command name=] |method|.
         5. If |method| is "`session.new`", let [=session=] be the entry in the list of [=active sessions=] whose [=session ID=] is equal to the "`sessionId`" property of |value|, let |session|'s [=WebSocket connection=] be |connection|, and remove |connection| from the set of [=WebSocket connections not associated with a session=].
@@ -522,9 +522,9 @@ The <dfn>session.new</dfn> command allows creating a new [=session=]. This is a 
 
 The [=remote end steps=] given |session| and |command parameters| are:
 
-1. If |session| is not null, return an <a for="command">error</a> with error code [=session not created=].
+1. If |session| is not null, return an [=error=] with error code [=session not created=].
 2. If the list of [=active sessions=] is not empty, then return [=error=] with error code [=session not created=].
-3. If the implementation is unable to start a new session for any reason, return an <a for="command">error</a> with error code [=session not created=].
+3. If the implementation is unable to start a new session for any reason, return an [=error=] with error code [=session not created=].
 4. Let |capabilities| be the result of [=trying=] to [=process capabilities=] with |command parameters|.
 5. If |capabilities| is null, return [=error=] with error code [=session not created=].
 6. Let |session id| be the result of [=generating a UUID=].
