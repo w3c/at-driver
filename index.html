@@ -8,7 +8,7 @@
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
   <meta content="Bikeshed version 26e85e599, updated Thu Dec 8 15:29:31 2022 -0800" name="generator">
   <link href="https://w3c.github.io/aria-at-automation/" rel="canonical">
-  <meta content="11f9e3c81a7e917757c2647eb42d30e44f56790b" name="document-revision">
+  <meta content="06d32139718b2ef047cdc63e41ec8264dd001a8a" name="document-revision">
 <style>
 table { border-collapse: collapse; border-style: hidden hidden none hidden; }
 table thead, table tbody { border-bottom: solid; }
@@ -797,7 +797,8 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
 
 CommandData = (
   SessionCommand //
-  VendorSettingsCommand
+  VendorSettingsCommand //
+  InteractionCommand
 )
 
 EmptyParams = { *text => any }
@@ -1338,6 +1339,9 @@ VendorSettingsGetSettingsParametersItem = {
    <p class="issue" id="issue-0b79b3d5"><a class="self-link" href="#issue-0b79b3d5"></a> Do we need a "setting changed" event?</p>
    <h3 class="heading settled" data-level="7.3" id="module-interaction"><span class="secno">7.3. </span><span class="content">The Interaction Module</span><a class="self-link" href="#module-interaction"></a></h3>
    <h4 class="heading settled" data-level="7.3.1" id="module-interaction-definition"><span class="secno">7.3.1. </span><span class="content">Definition</span><a class="self-link" href="#module-interaction-definition"></a></h4>
+   <p><a data-link-type="dfn" href="#remote-end-definition" id="ref-for-remote-end-definition⑧">Remote end definition</a>:</p>
+<pre class="cddl remote-cddl">InteractionCommand = (InteractionPressKeysCommand)
+</pre>
    <p><a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition①⓪">Local end definition</a>:</p>
 <pre class="cddl local-cddl">
 InteractionEvent = (InteractionCapturedOutputEvent)
@@ -1425,7 +1429,7 @@ KeyCombination = [
    <p class="issue" id="issue-fbd6fc51"><a class="self-link" href="#issue-fbd6fc51"></a> TODO exclude access to any security-sensitive settings.</p>
    <p class="issue" id="issue-398c181d"><a class="self-link" href="#issue-398c181d"></a> TODO exclude access to any security-sensitive commands.</p>
    <h2 class="heading settled" id="schemas"><span class="content">Appendix A: Schemas</span><a class="self-link" href="#schemas"></a></h2>
-   <p>The <a data-link-type="dfn" href="#remote-end-definition" id="ref-for-remote-end-definition⑧">remote end definition</a> and <a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition①①">local end definition</a> are available as non-normative CDDL and JSON Schema schemas:</p>
+   <p>The <a data-link-type="dfn" href="#remote-end-definition" id="ref-for-remote-end-definition⑨">remote end definition</a> and <a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition①①">local end definition</a> are available as non-normative CDDL and JSON Schema schemas:</p>
    <ul>
     <li data-md>
      <p><a href="schemas/at-driver-remote.cddl">at-driver-remote.cddl</a></p>
@@ -1796,7 +1800,8 @@ KeyCombination = [
     <li><a href="#ref-for-remote-end-definition⑤">7.1.1. Definition</a>
     <li><a href="#ref-for-remote-end-definition⑥">7.1.2.1. The session.CapabilitiesRequest Type</a>
     <li><a href="#ref-for-remote-end-definition⑦">7.2.1. Definition</a>
-    <li><a href="#ref-for-remote-end-definition⑧">Appendix A: Schemas</a>
+    <li><a href="#ref-for-remote-end-definition⑧">7.3.1. Definition</a>
+    <li><a href="#ref-for-remote-end-definition⑨">Appendix A: Schemas</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="local-end-definition">
