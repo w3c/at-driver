@@ -795,7 +795,8 @@ When the assistive technology would send some text |data| (a string, without spe
 1. Optionally, return. This step allows for an [=implementation-defined=] security check, to sandbox what information to expose.
 2. Let |params| be a [=map=] matching the `InteractionCapturedOutputParameters` production with the `data` field set to |data|.
 3. Let |body| be a [=map=] matching the `InteractionCapturedOutputEvent` production with the `params` field set to |params|.
-4. [=Emit an event=] with |session| and |body|.
+4. [=list/For each=] |session| of [=active sessions=]:
+    1. [=Emit an event=] with |session| and |body|.
 
 </div>
 
