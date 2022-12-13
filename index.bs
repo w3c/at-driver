@@ -630,11 +630,11 @@ This command sets the values of one or more settings.
       params: VendorSettingsSetSettingsParameters
     }
 
-    VendorSettingSetSettingsParameters = {
-      settings: [1* VendorSettingSetSettingsParametersItem ],
+    VendorSettingsSetSettingsParameters = {
+      settings: [1* VendorSettingsSetSettingsParametersItem ],
     }
 
-    VendorSettingSetSettingsParametersItem = {
+    VendorSettingsSetSettingsParametersItem = {
       name: text,
       value: any,
       *text => any
