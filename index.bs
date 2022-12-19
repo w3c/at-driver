@@ -8,14 +8,13 @@ Repository: w3c/aria-at-automation
 URL: https://w3c.github.io/aria-at-automation/
 Editor: Mike Pennisi, Bocoup https://bocoup.com, mike@bocoup.com
 Former Editor: Simon Pieters, Bocoup https://bocoup.com, simon@bocoup.com
-!Tests: <a href=https://github.com/w3c/web-platform-tests/tree/master/aria-at-automation>web-platform-tests aria-at-automation/</a> (<a href=https://github.com/w3c/web-platform-tests/labels/aria-at-automation>ongoing work</a>)
-Abstract: A short description of your spec, one or two sentences. (TODO)
+Abstract: A protocol for introspection and remove control of assistive technology software
 Markup Shorthands: markdown yes
 </xmp>
 
 <xmp class='link-defaults'>
 spec:infra; type:dfn; for:/; text:set
-spec:infra; type:dfn; for:/; text:list
+spec:infra; type:dfn; text:list
 </xmp>
 
 <style>
@@ -28,6 +27,7 @@ table td, table th { border-left: solid; border-right: solid; border-bottom: sol
 
 <pre class='link-defaults'>
 spec:infra; type:dfn; for:/; text:set
+spec:infra; type:dfn; text:list
 </pre>
 
 <style>
@@ -129,7 +129,8 @@ Command = {
 
 CommandData = (
   SessionCommand //
-  VendorSettingsCommand
+  VendorSettingsCommand //
+  InteractionCommand
 )
 
 EmptyParams = { *text => any }
@@ -209,6 +210,8 @@ The following table of <dfn>standard capabilities</dfn> enumerates the capabilit
 
 [=Remote ends=] may introduce <dfn>extension capabilities</dfn> that are extra capabilities used to provide configuration or fulfill other vendor-specific needs. Extension capabilities' key must contain a "`:`" (colon) character, denoting an implementation specific namespace. The value can be arbitrary JSON types.
 
+<div algorithm>
+
 To <dfn>process capabilities</dfn> with argument |parameters|, the [=remote end=] must:
 
 1. Let |capabilities request| be |parameters|["`capabilities`"] if it <a for=map>exists</a>, else null.
@@ -216,6 +219,10 @@ To <dfn>process capabilities</dfn> with argument |parameters|, the [=remote end=
 3. Let |matched capabilities| be the result of [=trying=] to [=match capabilities=] given |required capabilities|.
 4. If |matched capabilities| is not null, then return [=success=] with data |matched capabilities|.
 5. Return [=success=] with data null.
+
+</div>
+
+<div algorithm>
 
 To <dfn>match capabilities</dfn> given |requested capabilities|, the [=remote end=] must:
 
@@ -241,6 +248,7 @@ To <dfn>match capabilities</dfn> given |requested capabilities|, the [=remote en
     3. [=map/Set=] |matched capabilities|[|key|] to |match value|.
 4. Return [=success=] with data |matched capabilities|.
 
+</div>
 
 Session {#protocol-session}
 ---------------------------
@@ -276,7 +284,7 @@ Each [=command=] is defined by:
     * `method` which is a string literal in the form `[module name].[method name]`. This is the <dfn>command name</dfn>.
     * `params` which defines a mapping containing data that to be passed into the command. The populated value of this map is the <dfn>command parameters</dfn>.
 * A <dfn>result type</dfn>, which is defined by the [=local end definition=] fragment.
-* A set of <dfn>remote end steps</dfn> which define the actions to take for a command given a [=session=] and [=command parameters=] and return an instance of the command [=return type=].
+* A set of <dfn>remote end steps</dfn> which define the actions to take for a command given a [=session=] and [=command parameters=] and return an instance of the command [=result type=].
 
 A command that can run without an active session is a <dfn>static command</dfn>. Commands are not static commands unless stated in their definition.
 
@@ -322,6 +330,10 @@ The following table lists each <dfn>error code</dfn>, its associated JSON `error
     <td>`session not created`
     <td>A new [=session=] could not be created.
   <tr>
+    <td><dfn for="error code">cannot simulate keyboard interaction</dfn>
+    <td>`cannot simulate keyboard interaction`
+    <td>The [=remote end=] cannot simulate keyboard interaction.
+  <tr>
     <td><dfn for="error code">invalid OS focus state</dfn>
     <td>`invalid OS focus state`
     <td>The application that currently has OS focus is not one of the expected applications.
@@ -332,10 +344,21 @@ Security checks {#security-checks}
 
 In order to mitigate security risks when using this API, there are some security checks for certain commands.
 
+To <dfn>check that keyboard interaction can be simulated</dfn>:
+
+1. If the remote end cannot simulate keyboard interaction for any [=implementation-defined=] reason, then return an [=error=] with [=error code=] [=cannot simulate keyboard interaction=].
+2. Return [=success=] with data null.
+
 To <dfn>check that one of the expected applications has focus</dfn>:
 
 1. If the application that currently has OS focus (and so could act on simulated key presses from this API) is not one of the expected applications, then return an <a>error</a> with <a>error code</a> <a for="error code">invalid OS focus state</a>. Which applications are expected is <a>implementation-defined</a>.
 2. Return <a>success</a> with data null.
+
+To determine whether a string |text| <dfn>should be withheld</dfn>:
+
+1. If the [=remote end=] determines that it is unsafe to expose |text| to an external process for any [=implementation-defined=] reason:
+    2. Return true.
+2. Return false.
 
 Transport {#transport}
 ======================
@@ -382,6 +405,8 @@ To <dfn>start listening for a WebSocket connection</dfn>:
 
 Note: a future iteration of this specification may allow multiple connections, to support [intermediary nodes like in WebDriver](https://w3c.github.io/webdriver/#dfn-intermediary-nodes).
 
+<div algorithm>
+
 To <dfn>handle an incoming message</dfn> given a [=WebSocket connection=] |connection|, type |type| and data |data|:
 
 1. If |type| is not [text](https://tools.ietf.org/html/rfc6455#section-5.2), [=respond with an error=] given |connection|, null, and [=invalid argument=], and finally return.
@@ -393,23 +418,27 @@ To <dfn>handle an incoming message</dfn> given a [=WebSocket connection=] |conne
     2. [=Assert=]: |matched| <a for=map>contains</a> "`id`", "`method`", and "`params`".
     3. Let |command id| be |matched|["`id`"].
     4. Let |method| be |matched|["`method`"].
-        1. Let |command| be the command with [=command name=] |method|.
-        2. If |session| is null and |command| is not a [=static command=], then [=respond with an error=] given |connection|, |command id|, and [=invalid session id=], and return.
-        3. Run the following steps [=in parallel=]:
-            1. Let |result| be the result of running the [=remote end steps=] for |command| given |session| and [=command parameters=] |matched|["`params`"].
-            2. If |result| is an <a for=command>error</a>, then [=respond with an error=] given |connection|, |command id|, and |result|'s [=error code=], and finally return.
-            3. Let |value| be |result|'s data.
-            4. [=Assert=]: |value| matches the definition for the [=result type=] corresponding to the command with [=command name=] |method|.
-            5. If |method| is "`session.new`", let [=session=] be the entry in the list of [=active sessions=] whose [=session ID=] is equal to the "`sessionId`" property of |value|, let |session|'s [=WebSocket connection=] be |connection|, and remove |connection| from the set of [=WebSocket connections not associated with a session=].
-            6. Let |response| be a new map matching the `CommandResponse` production in the [=local end definition=] with the `id` field set to |command id| and the `value` field set to |value|.
-            7. Let |serialized| be the result of [=serialize an infra value to JSON bytes=] given |response|.
-            8. [Send a WebSocket message](https://tools.ietf.org/html/rfc6455#section-6.1) comprised of |serialized| over |connection|.
+    5. Let |command| be the command with [=command name=] |method|.
+    6. If |session| is null and |command| is not a [=static command=], then [=respond with an error=] given |connection|, |command id|, and [=invalid session id=], and return.
+    7. Run the following steps [=in parallel=]:
+        1. Let |result| be the result of running the [=remote end steps=] for |command| given |session| and [=command parameters=] |matched|["`params`"].
+        2. If |result| is an [=error=], then [=respond with an error=] given |connection|, |command id|, and |result|'s [=error code=], and finally return.
+        3. Let |value| be |result|'s data.
+        4. [=Assert=]: |value| matches the definition for the [=result type=] corresponding to the command with [=command name=] |method|.
+        5. If |method| is "`session.new`", let [=session=] be the entry in the list of [=active sessions=] whose [=session ID=] is equal to the "`sessionId`" property of |value|, let |session|'s [=WebSocket connection=] be |connection|, and remove |connection| from the set of [=WebSocket connections not associated with a session=].
+        6. Let |response| be a new map matching the `CommandResponse` production in the [=local end definition=] with the `id` field set to |command id| and the `value` field set to |value|.
+        7. Let |serialized| be the result of [=serialize an infra value to JSON bytes=] given |response|.
+        8. [Send a WebSocket message](https://tools.ietf.org/html/rfc6455#section-6.1) comprised of |serialized| over |connection|.
 6. Otherwise:
     1. Let |command id| be null.
     2. If |parsed| is a [=map=] and |parsed|["`id`"] <a for=map>exists</a> and is an integer greater than or equal to zero, set |command id| to that integer.
     3. Let |error code| be [=invalid argument=].
     4. If |parsed| is a [=map=] and |parsed|["`method`"] <a for=map>exists</a> and is a string, but |parsed|["`method`"] is not in the [=set of all command names=], set |error code| to [=unknown command=].
     5. [=Respond with an error=] given |connection|, |command id|, and |error code|.
+
+</div>
+
+<div algorithm>
 
 To <dfn>emit an event</dfn> given |session|, and |body|:
 
@@ -419,12 +448,20 @@ To <dfn>emit an event</dfn> given |session|, and |body|:
   4. Let |serialized| be the result of [=serialize an infra value to JSON bytes=] given |body|.
   5. [Send a WebSocket message](https://tools.ietf.org/html/rfc6455#section-6.1) comprised of |serialized| over |connection|.
 
+</div>
+
+<div algorithm>
+
 To <dfn>respond with an error</dfn> given a [=WebSocket connection=] |connection|, |command id|, and |error code|:
 
   1. Let |error data| be a new [=map=] matching the `ErrorResponse` production in the [=local end definition=], with the `id` field set to |command id|, the `error` field set to |error code|, the `message` field set to an [=implementation-defined=] string containing a human-readable definition of the error that occurred and the `stacktrace` field optionally set to an [=implementation-defined=] string containing a stack trace report of the active stack frames at the time when the error occurred.
   2. Let |response| be the result of [=serialize an infra value to JSON bytes=] given |error data|.
       Note: command id can be null, in which case the id field will also be set to null, not omitted from response.
   3. [Send a WebSocket message](https://tools.ietf.org/html/rfc6455#section-6.1) comprised of |response| over |connection|.
+
+</div>
+
+<div algorithm>
 
 To <dfn>handle a connection closing</dfn> given a [=WebSocket connection=] |connection|:
 
@@ -435,6 +472,7 @@ To <dfn>handle a connection closing</dfn> given a [=WebSocket connection=] |conn
 
 Issue: As in WebDriver BiDi, this does not end any session. Not sure if we want to allow reconnecting to the same session, or implicitly end the session.
 
+</div>
 
 Establishing a Connection {#transport-establishing}
 ----------------------------------------------------
@@ -504,7 +542,7 @@ The <dfn>session.new</dfn> command allows creating a new [=session=]. This is a 
 
   Note: `firstMatch` is not included currently to reduce complexity.
 
-  <dt>Return Type
+  <dt>[=Result Type=]
   <dd>
 
   <xmp class="cddl local-cddl">
@@ -521,11 +559,13 @@ The <dfn>session.new</dfn> command allows creating a new [=session=]. This is a 
 
 </dl>
 
+<div algorithm="remote end steps for session.new">
+
 The [=remote end steps=] given |session| and |command parameters| are:
 
-1. If |session| is not null, return an <a for="command">error</a> with error code [=session not created=].
+1. If |session| is not null, return an [=error=] with error code [=session not created=].
 2. If the list of [=active sessions=] is not empty, then return [=error=] with error code [=session not created=].
-3. If the implementation is unable to start a new session for any reason, return an <a for="command">error</a> with error code [=session not created=].
+3. If the implementation is unable to start a new session for any reason, return an [=error=] with error code [=session not created=].
 4. Let |capabilities| be the result of [=trying=] to [=process capabilities=] with |command parameters|.
 5. If |capabilities| is null, return [=error=] with error code [=session not created=].
 6. Let |session id| be the result of [=generating a UUID=].
@@ -534,6 +574,8 @@ The [=remote end steps=] given |session| and |command parameters| are:
 9. Start an instance of the appropriate assistive technology, given |capabilities|.
 10. Let |body| be a new [=map=] matching the `SessionNewResult` production, with the `sessionId` field set to |session|'s [=session ID=], and the `capabilities` field set to |capabilities|.
 11. Return [=success=] with data |body|.
+
+</div>
 
 The &lt;vendor>:settings Module {#module-vendor-settings}
 --------------------------------------
@@ -650,7 +692,7 @@ Issue: Require implementations to report failures in settings modification opera
       params: VendorSettingsSetSettingsParameters
     }
 
-    VendorSettingSetSettingsParameters = {
+    VendorSettingsSetSettingsParameters = {
       settings: [1* VendorSettingSetSettingsParametersItem ],
     }
 
@@ -661,7 +703,7 @@ Issue: Require implementations to report failures in settings modification opera
     }
     </xmp>
   </dd>
-  <dt>Return Type</dt>
+  <dt>[=Result Type=]</dt>
   <dd>
     <xmp class="cddl">
     EmptyResult
@@ -706,7 +748,7 @@ The <dfn>&lt;vendor>:settings.getSettings command</dfn> returns a list of the re
     }
     </xmp>
   </dd>
-  <dt>Return Type</dt>
+  <dt>[=Result Type=]</dt>
   <dd>
     <xmp class="cddl">
     VendorSettingsGetSettingsResult
@@ -737,7 +779,7 @@ The <dfn>&lt;vendor>:settings.getSupportedSettings command</dfn> returns a list 
     }
     </xmp>
   </dd>
-  <dt>Return Type</dt>
+  <dt>[=Result Type=]</dt>
   <dd>
     <xmp class="cddl">
     VendorSettingsGetSettingsResult
@@ -768,6 +810,12 @@ The Interaction Module {#module-interaction}
 --------------------------------------------
 
 ### Definition ### {#module-interaction-definition}
+
+[=Remote end definition=]:
+
+<xmp class="cddl remote-cddl">
+InteractionCommand = (InteractionPressKeysCommand)
+</xmp>
 
 [=Local end definition=]:
 
@@ -823,11 +871,23 @@ Issue(34): This command does not yet have a means for indicating a screen-reader
 
 </dl>
 
+Note: Each string in `KeyCombination` represents a "raw key" consisting of a
+single code point with the same meaning as in <a
+href="https://w3c.github.io/webdriver/#keyboard-actions">WebDriver's keyboard
+actions</a>. For example, `["\uE008", "a"]` means holding the left shift key
+and pressing "a", and then releasing the left shift key. [[WEBDRIVER]]
+
 The [=remote end steps=] given |session| and |command parameters| are:
 
-1. [=Try=] to run an [=implementation-defined=] security check, e.g. honor OS settings for whether it allows keyboard simulation.
+1. [=Try=] to [=check that keyboard interaction can be simulated=].
 2. [=Try=] to [=check that one of the expected applications has focus=].
-3. Run <a>implementation-defined</a> steps to simulate pressing the key combination represented in `KeyCombination`, such that they first item in the array is pressed first, and then each other key is pressed, in order, and finally the keys are released in reverse order. Each string in `KeyCombination` represents a "raw key" consisting of a single code point with the same meaning as in <a href="https://w3c.github.io/webdriver/#keyboard-actions">WebDriver's keyboard actions</a>. For example, `["\uE008", "a"]` means holding the left shift key and pressing "a", and then releasing the left shift key. [[WEBDRIVER]]
+3. Let |keys| be the value of the <code>keys</code> field of |command
+    parameters|.
+4. [=list/For each=] |key| of |keys|:
+    1. Run [=implementation-defined=] steps to simulate depressing |key|.
+5. [=list/For each=] |key| of |keys| in reverse [=List=] order:
+    1. Run [=implementation-defined=] steps to simulate releasing |key|.
+6. Return a new map matching the `EmptyResult` production.
 
 ### Events ### {#module-interaction-events}
 
@@ -838,21 +898,26 @@ The [=remote end steps=] given |session| and |command parameters| are:
   <xmp class="cddl local-cddl">
   InteractionCapturedOutputEvent = {
     method: "interaction.capturedOutput",
-    params: InteractionCapuredOutputParameters
+    params: InteractionCapturedOutputParameters
   }
   </xmp>
 
 </dl>
 
+<div algorithm="remote end event trigger for interaction.capturedOutput">
+
 The [=remote end event trigger=] is:
 
 When the assistive technology would send some text |data| (a string, without speech-specific markup or annotations) to the Text-To-Speech system, or equivalent for non-speech assistive technology software, run these steps:
 
-1. Optionally, return. This step allows for an [=implementation-defined=] security check, to sandbox what information to expose.
+1. If |data| [=should be withheld=]:
+    1. Return.
 2. Let |params| be a [=map=] matching the `InteractionCapturedOutputParameters` production with the `data` field set to |data|.
 3. Let |body| be a [=map=] matching the `InteractionCapturedOutputEvent` production with the `params` field set to |params|.
-4. [=Emit an event=] with |session| and |body|.
+4. [=list/For each=] |session| of [=active sessions=]:
+    1. [=Emit an event=] with |session| and |body|.
 
+</div>
 
 Privacy {#privacy}
 ==================
