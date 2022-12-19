@@ -51,3 +51,14 @@ jobs:
           toolchain: stable
       - name: Validate CDDL files
         run: ./scripts/test-cddl.sh
+  check-json-schema-validity:
+    name: Verify that the JSON schema files are valid
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: npm ci
+      - name: Validate JSON Schema files
+        run: ./scripts/validate-json-schema.js
