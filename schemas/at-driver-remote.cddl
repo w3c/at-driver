@@ -41,7 +41,7 @@ VendorSettingsSetSettingsCommand = {
   params: VendorSettingsSetSettingsParameters
 }
 
-VendorSettingSetSettingsParameters = {
+VendorSettingsSetSettingsParameters = {
   settings: [1* VendorSettingSetSettingsParametersItem ],
 }
 
