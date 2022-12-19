@@ -409,10 +409,10 @@ Note: a future iteration of this specification may allow multiple connections, t
 
 To <dfn>handle an incoming message</dfn> given a [=WebSocket connection=] |connection|, type |type| and data |data|:
 
-1. If |type| is not [text](https://tools.ietf.org/html/rfc6455#section-5.2), [=respond with an error=] given |connection|, null, and [=invalid argument=], and finally return.
+1. If |type| is not [text](https://tools.ietf.org/html/rfc6455#section-5.2), [=respond with an error=] given |connection|, null, and <a for="error code">invalid argument</a>, and finally return.
 2. [=Assert=]: |data| is a [=scalar value string=], because the [WebSocket handling errors in UTF-8-encoded data=](https://tools.ietf.org/html/rfc6455#section-8.1) would already have [failed the WebSocket connection](https://tools.ietf.org/html/rfc6455#section-7.1.7) otherwise.
 3. If there is a [=session=] [=associated with connection=] |connection|, let |session| be that session. Otherwise if |connection| is in the set of [=WebSocket connections not associated with a session=], let |session| be null. Otherwise, return.
-4. Let |parsed| be the result of [=parsing JSON into Infra values=] given |data|. If this throws an exception, then [=respond with an error=] given |connection|, null, and [=invalid argument=], and finally return.
+4. Let |parsed| be the result of [=parsing JSON into Infra values=] given |data|. If this throws an exception, then [=respond with an error=] given |connection|, null, and <a for="error code">invalid argument</a>, and finally return.
 5. Match parsed against the [=remote end definition=]. If this results in a match:
     1. Let |matched| be the map representing the matched data.
     2. [=Assert=]: |matched| <a for=map>contains</a> "`id`", "`method`", and "`params`".
@@ -432,7 +432,7 @@ To <dfn>handle an incoming message</dfn> given a [=WebSocket connection=] |conne
 6. Otherwise:
     1. Let |command id| be null.
     2. If |parsed| is a [=map=] and |parsed|["`id`"] <a for=map>exists</a> and is an integer greater than or equal to zero, set |command id| to that integer.
-    3. Let |error code| be [=invalid argument=].
+    3. Let |error code| be <a for="error code">invalid argument</a>.
     4. If |parsed| is a [=map=] and |parsed|["`method`"] <a for=map>exists</a> and is a string, but |parsed|["`method`"] is not in the [=set of all command names=], set |error code| to [=unknown command=].
     5. [=Respond with an error=] given |connection|, |command id|, and |error code|.
 
@@ -607,7 +607,7 @@ To <dfn>get settings</dfn> given a [=list=] of strings |names|:
 1. Let |items| be a new [=list=].
 2. [=list/For each=] |name| of |names|:
     1. If [=setting name is invalid=] given |name|:
-        1. Return an [=error=] with [=error code=] [=invalid argument=].
+        1. Return an [=error=] with [=error code=] <a for="error code">invalid argument</a>.
     2. Let |value| be the value of the setting named |name|.
     3. Let |item| be a new [=map=] matching the `VendorSettingsGetSettingsResultItem` production in the [=local end definition=] with the `name` field set to |name| and the `value` field set to |value|.
     4. [=list/Append=] |item| to |items|.
@@ -621,10 +621,10 @@ To <dfn>get settings</dfn> given a [=list=] of strings |names|:
 To <dfn>modify setting</dfn> given string |name| and |value|:
 
 1. If [=setting name is invalid=] given |name|:
-    1. Return an [=error=] with [=error code=] [=invalid argument=].
+    1. Return an [=error=] with [=error code=] <a for="error code">invalid argument</a>.
 2. Take any [=implementation-defined=] steps to change the [=remote end=] setting named |name| to the value |value|.
 3. If there is any [=implementation-defined=] indication that the setting named |name| does not hold the value |value|:
-    1. Return an [=error=] with [=error code=] [=invalid argument=].
+    1. Return an [=error=] with [=error code=] <a for="error code">invalid argument</a>.
 4. Return [=success=] with data null.
 
 </div>
