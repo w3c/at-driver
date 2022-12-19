@@ -12,6 +12,8 @@ jobs:
       - uses: w3c/spec-prod@v2
         with:
           GH_PAGES_BRANCH: gh-pages
+          # equivalent to the Bikeshed CLI argument, `--die-on=link-error`
+          BUILD_FAIL_ON: link-error
   check-cddl-consistency:
     name: Verify that the generated CDDL files are in sync with the inline CDDL
     runs-on: ubuntu-20.04
