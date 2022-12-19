@@ -8,7 +8,7 @@
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
   <meta content="Bikeshed version 26e85e599, updated Thu Dec 8 15:29:31 2022 -0800" name="generator">
   <link href="https://w3c.github.io/aria-at-automation/" rel="canonical">
-  <meta content="26e83e26245227d45fe2448cebedf835bb8ea401" name="document-revision">
+  <meta content="a00307e2a21a560a024063833e20125f676dc596" name="document-revision">
 <style>
 table { border-collapse: collapse; border-style: hidden hidden none hidden; }
 table thead, table tbody { border-bottom: solid; }
@@ -608,7 +608,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">ARIA-AT Automation</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-DRAFT">Draft Community Group Report</a>, <time class="dt-updated" datetime="2022-12-13">13 December 2022</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-DRAFT">Draft Community Group Report</a>, <time class="dt-updated" datetime="2022-12-19">19 December 2022</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -998,23 +998,34 @@ EventData = (
       <td><code>session not created</code> 
       <td>A new <a data-link-type="dfn" href="#session" id="ref-for-session⑧">session</a> could not be created. 
      <tr>
+      <td><dfn class="dfn-paneled" data-dfn-for="error code" data-dfn-type="dfn" data-noexport id="error-code-cannot-simulate-keyboard-interaction">cannot simulate keyboard interaction</dfn> 
+      <td><code>cannot simulate keyboard interaction</code> 
+      <td>The <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end①⑤">remote end</a> cannot simulate keyboard interaction. 
+     <tr>
       <td><dfn class="dfn-paneled" data-dfn-for="error code" data-dfn-type="dfn" data-noexport id="error-code-invalid-os-focus-state">invalid OS focus state</dfn> 
       <td><code>invalid OS focus state</code> 
       <td>The application that currently has OS focus is not one of the expected applications. 
    </table>
    <h3 class="heading settled" data-level="5.8" id="security-checks"><span class="secno">5.8. </span><span class="content">Security checks</span><a class="self-link" href="#security-checks"></a></h3>
    <p>In order to mitigate security risks when using this API, there are some security checks for certain commands.</p>
+   <p>To <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="check-that-keyboard-interaction-can-be-simulated">check that keyboard interaction can be simulated</dfn>:</p>
+   <ol>
+    <li data-md>
+     <p>If the remote end cannot simulate keyboard interaction for any <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined①">implementation-defined</a> reason, then return an <a data-link-type="dfn" href="#error" id="ref-for-error③">error</a> with <a data-link-type="dfn" href="#error-code" id="ref-for-error-code①">error code</a> <a data-link-type="dfn" href="#error-code-cannot-simulate-keyboard-interaction" id="ref-for-error-code-cannot-simulate-keyboard-interaction">cannot simulate keyboard interaction</a>.</p>
+    <li data-md>
+     <p>Return <a data-link-type="dfn" href="#success" id="ref-for-success⑧">success</a> with data null.</p>
+   </ol>
    <p>To <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="check-that-one-of-the-expected-applications-has-focus">check that one of the expected applications has focus</dfn>:</p>
    <ol>
     <li data-md>
-     <p>If the application that currently has OS focus (and so could act on simulated key presses from this API) is not one of the expected applications, then return an <a data-link-type="dfn" href="#error" id="ref-for-error③">error</a> with <a data-link-type="dfn" href="#error-code" id="ref-for-error-code①">error code</a> <a data-link-type="dfn" href="#error-code-invalid-os-focus-state" id="ref-for-error-code-invalid-os-focus-state">invalid OS focus state</a>. Which applications are expected is <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined①">implementation-defined</a>.</p>
+     <p>If the application that currently has OS focus (and so could act on simulated key presses from this API) is not one of the expected applications, then return an <a data-link-type="dfn" href="#error" id="ref-for-error④">error</a> with <a data-link-type="dfn" href="#error-code" id="ref-for-error-code②">error code</a> <a data-link-type="dfn" href="#error-code-invalid-os-focus-state" id="ref-for-error-code-invalid-os-focus-state">invalid OS focus state</a>. Which applications are expected is <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined②">implementation-defined</a>.</p>
     <li data-md>
-     <p>Return <a data-link-type="dfn" href="#success" id="ref-for-success⑧">success</a> with data null.</p>
+     <p>Return <a data-link-type="dfn" href="#success" id="ref-for-success⑨">success</a> with data null.</p>
    </ol>
    <p>To determine whether a string <var>text</var> <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="should-be-withheld">should be withheld</dfn>:</p>
    <ol>
     <li data-md>
-     <p>If the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end①⑤">remote end</a> determines that it is unsafe to expose <var>text</var> to an external process for any <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined②">implementation-defined</a> reason:</p>
+     <p>If the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end①⑥">remote end</a> determines that it is unsafe to expose <var>text</var> to an external process for any <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined③">implementation-defined</a> reason:</p>
      <ol start="2">
       <li data-md>
        <p>Return true.</p>
@@ -1028,9 +1039,9 @@ EventData = (
    <p>A <a data-link-type="dfn" href="#websocket-listener" id="ref-for-websocket-listener">WebSocket listener</a> has a <dfn class="dfn-paneled" data-dfn-for="WebSocket listener" data-dfn-type="dfn" data-noexport id="websocket-listener-host">host</dfn>,
 a <dfn class="dfn-paneled" data-dfn-for="WebSocket listener" data-dfn-type="dfn" data-noexport id="websocket-listener-port">port</dfn>,
 and a <dfn class="dfn-paneled" data-dfn-for="WebSocket listener" data-dfn-type="dfn" data-noexport id="websocket-listener-secure-flag">secure flag</dfn>.</p>
-   <p>When a <a data-link-type="dfn" href="#websocket-listener" id="ref-for-websocket-listener①">WebSocket listener</a> <var>listener</var> is created, a <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end①⑥">remote end</a> must start to listen for WebSocket connections on the host and port given by <var>listener</var>’s host and port. If <var>listener</var>’s <a data-link-type="dfn" href="#websocket-listener-secure-flag" id="ref-for-websocket-listener-secure-flag">secure flag</a> is set, then connections established from <var>listener</var> must be TLS encrypted.</p>
-   <p>A <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end①⑦">remote end</a> has a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-set" id="ref-for-ordered-set①">set</a> of <a data-link-type="dfn" href="#websocket-listener" id="ref-for-websocket-listener②">WebSocket listeners</a> <dfn class="dfn-paneled" data-dfn-for="remote end" data-dfn-type="dfn" data-noexport id="remote-end-active-listeners">active listeners</dfn>, which is initially empty.</p>
-   <p>A <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end①⑧">remote end</a> has a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-set" id="ref-for-ordered-set②">set</a> of <dfn class="dfn-paneled" data-dfn-for="remote end" data-dfn-type="dfn" data-noexport id="remote-end-websocket-connections-not-associated-with-a-session">WebSocket connections not associated with a session</dfn>, which is initially empty.</p>
+   <p>When a <a data-link-type="dfn" href="#websocket-listener" id="ref-for-websocket-listener①">WebSocket listener</a> <var>listener</var> is created, a <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end①⑦">remote end</a> must start to listen for WebSocket connections on the host and port given by <var>listener</var>’s host and port. If <var>listener</var>’s <a data-link-type="dfn" href="#websocket-listener-secure-flag" id="ref-for-websocket-listener-secure-flag">secure flag</a> is set, then connections established from <var>listener</var> must be TLS encrypted.</p>
+   <p>A <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end①⑧">remote end</a> has a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-set" id="ref-for-ordered-set①">set</a> of <a data-link-type="dfn" href="#websocket-listener" id="ref-for-websocket-listener②">WebSocket listeners</a> <dfn class="dfn-paneled" data-dfn-for="remote end" data-dfn-type="dfn" data-noexport id="remote-end-active-listeners">active listeners</dfn>, which is initially empty.</p>
+   <p>A <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end①⑨">remote end</a> has a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-set" id="ref-for-ordered-set②">set</a> of <dfn class="dfn-paneled" data-dfn-for="remote end" data-dfn-type="dfn" data-noexport id="remote-end-websocket-connections-not-associated-with-a-session">WebSocket connections not associated with a session</dfn>, which is initially empty.</p>
    <p>A <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="websocket-connection">WebSocket connection</dfn> is a network connection that follows the requirements of the WebSocket protocol. <a data-link-type="biblio" href="#biblio-rfc6455" title="The WebSocket Protocol">[RFC6455]</a></p>
    <p>A <a data-link-type="dfn" href="#session" id="ref-for-session⑨">session</a> has a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-set" id="ref-for-ordered-set③">set</a> of <dfn class="dfn-paneled" data-dfn-for="session" data-dfn-type="dfn" data-noexport id="session-session-websocket-connections">session WebSocket connections</dfn> whose elements are <a data-link-type="dfn" href="#websocket-connection" id="ref-for-websocket-connection">WebSocket connections</a>. This is initially empty.</p>
    <p>A <a data-link-type="dfn" href="#session" id="ref-for-session①⓪">session</a> <var>session</var> is <dfn class="dfn-paneled" data-dfn-for="session" data-dfn-type="dfn" data-noexport id="session-associated-with-connection">associated with connection</dfn> <var>connection</var> if <var>session</var>’s <a data-link-type="dfn" href="#session-session-websocket-connections" id="ref-for-session-session-websocket-connections">session WebSocket connections</a> contains <var>connection</var>.</p>
@@ -1040,19 +1051,19 @@ and a <dfn class="dfn-paneled" data-dfn-for="WebSocket listener" data-dfn-type="
     <li data-md>
      <p>Let <var>resource name</var> be the resource name from <a href="https://tools.ietf.org/html/rfc6455#section-4.2.1">reading the client’s opening handshake</a>. If <var>resource name</var> is not "<code>/session</code>", then stop running these steps and act as if the requested service is not available.</p>
     <li data-md>
-     <p>Run any other <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined③">implementation-defined</a> steps to decide if the connection should be accepted, and if it is not stop running these steps and act as if the requested service is not available.</p>
+     <p>Run any other <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined④">implementation-defined</a> steps to decide if the connection should be accepted, and if it is not stop running these steps and act as if the requested service is not available.</p>
     <li data-md>
      <p>Add the connection to the set of <a data-link-type="dfn" href="#remote-end-websocket-connections-not-associated-with-a-session" id="ref-for-remote-end-websocket-connections-not-associated-with-a-session">WebSocket connections not associated with a session</a>.</p>
    </ol>
-   <p>When a <a href="https://tools.ietf.org/html/rfc6455#section-6.2">WebSocket message has been received</a> for a <a data-link-type="dfn" href="#websocket-connection" id="ref-for-websocket-connection②">WebSocket connection</a> <var>connection</var> with type <var>type</var> and data <var>data</var>, a <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end①⑨">remote end</a> must <a data-link-type="dfn" href="#handle-an-incoming-message" id="ref-for-handle-an-incoming-message">handle an incoming message</a> given <var>connection</var>, <var>type</var> and <var>data</var>.</p>
-   <p>When the <a href="https://tools.ietf.org/html/rfc6455#section-7.1.3">WebSocket closing handshake is started</a> or when the <a href="https://tools.ietf.org/html/rfc6455#section-7.1.4">WebSocket connection is closed</a> for a <a data-link-type="dfn" href="#websocket-connection" id="ref-for-websocket-connection③">WebSocket connection</a> <var>connection</var>, a <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②⓪">remote end</a> must <a data-link-type="dfn" href="#handle-a-connection-closing" id="ref-for-handle-a-connection-closing">handle a connection closing</a> given <var>connection</var>.</p>
+   <p>When a <a href="https://tools.ietf.org/html/rfc6455#section-6.2">WebSocket message has been received</a> for a <a data-link-type="dfn" href="#websocket-connection" id="ref-for-websocket-connection②">WebSocket connection</a> <var>connection</var> with type <var>type</var> and data <var>data</var>, a <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②⓪">remote end</a> must <a data-link-type="dfn" href="#handle-an-incoming-message" id="ref-for-handle-an-incoming-message">handle an incoming message</a> given <var>connection</var>, <var>type</var> and <var>data</var>.</p>
+   <p>When the <a href="https://tools.ietf.org/html/rfc6455#section-7.1.3">WebSocket closing handshake is started</a> or when the <a href="https://tools.ietf.org/html/rfc6455#section-7.1.4">WebSocket connection is closed</a> for a <a data-link-type="dfn" href="#websocket-connection" id="ref-for-websocket-connection③">WebSocket connection</a> <var>connection</var>, a <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②①">remote end</a> must <a data-link-type="dfn" href="#handle-a-connection-closing" id="ref-for-handle-a-connection-closing">handle a connection closing</a> given <var>connection</var>.</p>
    <p class="note" role="note"><span>Note:</span> Both conditions are needed because it is possible for a WebSocket connection to be closed without a closing handshake.</p>
    <p>To <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="start-listening-for-a-websocket-connection">start listening for a WebSocket connection</dfn>:</p>
    <ol>
     <li data-md>
-     <p>Let <var>listener</var> be a new <a data-link-type="dfn" href="#websocket-listener" id="ref-for-websocket-listener③">WebSocket listener</a> with <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined④">implementation-defined</a> <a data-link-type="dfn" href="#websocket-listener-host" id="ref-for-websocket-listener-host">host</a>, <a data-link-type="dfn" href="#websocket-listener-port" id="ref-for-websocket-listener-port">port</a>, and <a data-link-type="dfn" href="#websocket-listener-secure-flag" id="ref-for-websocket-listener-secure-flag①">secure flag</a>.</p>
+     <p>Let <var>listener</var> be a new <a data-link-type="dfn" href="#websocket-listener" id="ref-for-websocket-listener③">WebSocket listener</a> with <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined⑤">implementation-defined</a> <a data-link-type="dfn" href="#websocket-listener-host" id="ref-for-websocket-listener-host">host</a>, <a data-link-type="dfn" href="#websocket-listener-port" id="ref-for-websocket-listener-port">port</a>, and <a data-link-type="dfn" href="#websocket-listener-secure-flag" id="ref-for-websocket-listener-secure-flag①">secure flag</a>.</p>
     <li data-md>
-     <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#set-append" id="ref-for-set-append">Append</a> <var>listener</var> to the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②①">remote end</a>'s <a data-link-type="dfn" href="#remote-end-active-listeners" id="ref-for-remote-end-active-listeners①">active listeners</a>.</p>
+     <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#set-append" id="ref-for-set-append">Append</a> <var>listener</var> to the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②②">remote end</a>'s <a data-link-type="dfn" href="#remote-end-active-listeners" id="ref-for-remote-end-active-listeners①">active listeners</a>.</p>
     <li data-md>
      <p>Return <var>listener</var>.</p>
    </ol>
@@ -1089,7 +1100,7 @@ and a <dfn class="dfn-paneled" data-dfn-for="WebSocket listener" data-dfn-type="
          <li data-md>
           <p>Let <var>result</var> be the result of running the <a data-link-type="dfn" href="#remote-end-steps" id="ref-for-remote-end-steps">remote end steps</a> for <var>command</var> given <var>session</var> and <a data-link-type="dfn" href="#command-parameters" id="ref-for-command-parameters①">command parameters</a> <var>matched</var>["<code>params</code>"].</p>
          <li data-md>
-          <p>If <var>result</var> is an <a data-link-type="dfn" href="#error" id="ref-for-error④">error</a>, then <a data-link-type="dfn" href="#respond-with-an-error" id="ref-for-respond-with-an-error③">respond with an error</a> given <var>connection</var>, <var>command id</var>, and <var>result</var>’s <a data-link-type="dfn" href="#error-code" id="ref-for-error-code②">error code</a>, and finally return.</p>
+          <p>If <var>result</var> is an <a data-link-type="dfn" href="#error" id="ref-for-error⑤">error</a>, then <a data-link-type="dfn" href="#respond-with-an-error" id="ref-for-respond-with-an-error③">respond with an error</a> given <var>connection</var>, <var>command id</var>, and <var>result</var>’s <a data-link-type="dfn" href="#error-code" id="ref-for-error-code③">error code</a>, and finally return.</p>
          <li data-md>
           <p>Let <var>value</var> be <var>result</var>’s data.</p>
          <li data-md>
@@ -1139,7 +1150,7 @@ and a <dfn class="dfn-paneled" data-dfn-for="WebSocket listener" data-dfn-type="
     <p>To <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="respond-with-an-error">respond with an error</dfn> given a <a data-link-type="dfn" href="#websocket-connection" id="ref-for-websocket-connection⑦">WebSocket connection</a> <var>connection</var>, <var>command id</var>, and <var>error code</var>:</p>
     <ol>
      <li data-md>
-      <p>Let <var>error data</var> be a new <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map③">map</a> matching the <code>ErrorResponse</code> production in the <a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition⑤">local end definition</a>, with the <code>id</code> field set to <var>command id</var>, the <code>error</code> field set to <var>error code</var>, the <code>message</code> field set to an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined⑤">implementation-defined</a> string containing a human-readable definition of the error that occurred and the <code>stacktrace</code> field optionally set to an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined⑥">implementation-defined</a> string containing a stack trace report of the active stack frames at the time when the error occurred.</p>
+      <p>Let <var>error data</var> be a new <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map③">map</a> matching the <code>ErrorResponse</code> production in the <a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition⑤">local end definition</a>, with the <code>id</code> field set to <var>command id</var>, the <code>error</code> field set to <var>error code</var>, the <code>message</code> field set to an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined⑥">implementation-defined</a> string containing a human-readable definition of the error that occurred and the <code>stacktrace</code> field optionally set to an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined⑦">implementation-defined</a> string containing a stack trace report of the active stack frames at the time when the error occurred.</p>
      <li data-md>
       <p>Let <var>response</var> be the result of <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#serialize-an-infra-value-to-json-bytes" id="ref-for-serialize-an-infra-value-to-json-bytes②">serialize an infra value to JSON bytes</a> given <var>error data</var>.
   Note: command id can be null, in which case the id field will also be set to null, not omitted from response.</p>
@@ -1222,15 +1233,15 @@ CapabilitiesRequestParameters = {
     <p>The <a data-link-type="dfn" href="#remote-end-steps" id="ref-for-remote-end-steps①">remote end steps</a> given <var>session</var> and <var>command parameters</var> are:</p>
     <ol>
      <li data-md>
-      <p>If <var>session</var> is not null, return an <a data-link-type="dfn" href="#error" id="ref-for-error⑤">error</a> with error code <a data-link-type="dfn" href="#error-code-session-not-created" id="ref-for-error-code-session-not-created">session not created</a>.</p>
+      <p>If <var>session</var> is not null, return an <a data-link-type="dfn" href="#error" id="ref-for-error⑥">error</a> with error code <a data-link-type="dfn" href="#error-code-session-not-created" id="ref-for-error-code-session-not-created">session not created</a>.</p>
      <li data-md>
-      <p>If the list of <a data-link-type="dfn" href="#remote-end-active-sessions" id="ref-for-remote-end-active-sessions②">active sessions</a> is not empty, then return <a data-link-type="dfn" href="#error" id="ref-for-error⑥">error</a> with error code <a data-link-type="dfn" href="#error-code-session-not-created" id="ref-for-error-code-session-not-created①">session not created</a>.</p>
+      <p>If the list of <a data-link-type="dfn" href="#remote-end-active-sessions" id="ref-for-remote-end-active-sessions②">active sessions</a> is not empty, then return <a data-link-type="dfn" href="#error" id="ref-for-error⑦">error</a> with error code <a data-link-type="dfn" href="#error-code-session-not-created" id="ref-for-error-code-session-not-created①">session not created</a>.</p>
      <li data-md>
-      <p>If the implementation is unable to start a new session for any reason, return an <a data-link-type="dfn" href="#error" id="ref-for-error⑦">error</a> with error code <a data-link-type="dfn" href="#error-code-session-not-created" id="ref-for-error-code-session-not-created②">session not created</a>.</p>
+      <p>If the implementation is unable to start a new session for any reason, return an <a data-link-type="dfn" href="#error" id="ref-for-error⑧">error</a> with error code <a data-link-type="dfn" href="#error-code-session-not-created" id="ref-for-error-code-session-not-created②">session not created</a>.</p>
      <li data-md>
       <p>Let <var>capabilities</var> be the result of <a data-link-type="dfn" href="#try" id="ref-for-try②">trying</a> to <a data-link-type="dfn" href="#process-capabilities" id="ref-for-process-capabilities">process capabilities</a> with <var>command parameters</var>.</p>
      <li data-md>
-      <p>If <var>capabilities</var> is null, return <a data-link-type="dfn" href="#error" id="ref-for-error⑧">error</a> with error code <a data-link-type="dfn" href="#error-code-session-not-created" id="ref-for-error-code-session-not-created③">session not created</a>.</p>
+      <p>If <var>capabilities</var> is null, return <a data-link-type="dfn" href="#error" id="ref-for-error⑨">error</a> with error code <a data-link-type="dfn" href="#error-code-session-not-created" id="ref-for-error-code-session-not-created③">session not created</a>.</p>
      <li data-md>
       <p>Let <var>session id</var> be the result of <a data-link-type="dfn" href="#generating-a-uuid" id="ref-for-generating-a-uuid">generating a UUID</a>.</p>
      <li data-md>
@@ -1242,12 +1253,12 @@ CapabilitiesRequestParameters = {
      <li data-md>
       <p>Let <var>body</var> be a new <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map④">map</a> matching the <code>SessionNewResult</code> production, with the <code>sessionId</code> field set to <var>session</var>’s <a data-link-type="dfn" href="#session-session-id" id="ref-for-session-session-id②">session ID</a>, and the <code>capabilities</code> field set to <var>capabilities</var>.</p>
      <li data-md>
-      <p>Return <a data-link-type="dfn" href="#success" id="ref-for-success⑨">success</a> with data <var>body</var>.</p>
+      <p>Return <a data-link-type="dfn" href="#success" id="ref-for-success①⓪">success</a> with data <var>body</var>.</p>
     </ol>
    </div>
    <h3 class="heading settled" data-level="7.2" id="module-vendor-settings"><span class="secno">7.2. </span><span class="content">The &lt;vendor>:settings Module</span><a class="self-link" href="#module-vendor-settings"></a></h3>
    <p>Currently, there are no standardized settings. Implementations that wish to allow controlling and reading settings through the protocol defined in this specification must support settings as an <a data-link-type="dfn" href="#extension-modules" id="ref-for-extension-modules①">extension module</a>, with the structure defined in this section. Implementations are strongly encouraged to review the security implications of each setting, and only support the settings that are deemed safe. It is not defined what constitutes a setting, however, it is intended to represent user preferences such as the default voice, or the default rate of speech.</p>
-   <p>In the schema definitions in this section, <code>&lt;vendor></code> is a placeholder for an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined⑦">implementation-defined</a> prefix for the <a data-link-type="dfn" href="#extension-modules" id="ref-for-extension-modules②">extension module</a>. The value of the prefix should be the name of the vendor or the assistive technology product, as appropriate.</p>
+   <p>In the schema definitions in this section, <code>&lt;vendor></code> is a placeholder for an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined⑧">implementation-defined</a> prefix for the <a data-link-type="dfn" href="#extension-modules" id="ref-for-extension-modules②">extension module</a>. The value of the prefix should be the name of the vendor or the assistive technology product, as appropriate.</p>
    <p class="note" role="note"><span>Note:</span> The prefix could be, for example, <code>nvda</code>, <code>jaws</code>, or <code>macOSVoiceOver</code>.</p>
    <h4 class="heading settled" data-level="7.2.1" id="module-vendor-settings-definition"><span class="secno">7.2.1. </span><span class="content">Definition</span><a class="self-link" href="#module-vendor-settings-definition"></a></h4>
    <p><a data-link-type="dfn" href="#remote-end-definition" id="ref-for-remote-end-definition⑦">Remote end definition</a></p>
@@ -1302,7 +1313,7 @@ VendorSettingSetSettingsParametersItem = {
 <pre class="cddl">EmptyResult
 </pre>
    </dl>
-   <p>The <a data-link-type="dfn" href="#remote-end-steps" id="ref-for-remote-end-steps②">remote end steps</a> given <var>session</var> and <var>command parameters</var> are <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined⑧">implementation-defined</a>.</p>
+   <p>The <a data-link-type="dfn" href="#remote-end-steps" id="ref-for-remote-end-steps②">remote end steps</a> given <var>session</var> and <var>command parameters</var> are <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined⑨">implementation-defined</a>.</p>
    <h5 class="heading settled" data-level="7.2.3.2" id="command-vendor-settings-get-settings"><span class="secno">7.2.3.2. </span><span class="content">The &lt;vendor>settings.getSettings Command</span><a class="self-link" href="#command-vendor-settings-get-settings"></a></h5>
    <p>This command returns a list of the requested settings and their values.</p>
    <dl>
@@ -1327,9 +1338,9 @@ VendorSettingsGetSettingsParametersItem = {
 <pre class="cddl">VendorSettingsGetSettingsResult
 </pre>
    </dl>
-   <p>The <a data-link-type="dfn" href="#remote-end-steps" id="ref-for-remote-end-steps③">remote end steps</a> given <var>session</var> and <var>command parameters</var> are <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined⑨">implementation-defined</a>.</p>
+   <p>The <a data-link-type="dfn" href="#remote-end-steps" id="ref-for-remote-end-steps③">remote end steps</a> given <var>session</var> and <var>command parameters</var> are <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined①⓪">implementation-defined</a>.</p>
    <h5 class="heading settled" data-level="7.2.3.3" id="command-vendor-settings-get-supported-settings"><span class="secno">7.2.3.3. </span><span class="content">The &lt;vendor>settings.getSupportedSettings Command</span><a class="self-link" href="#command-vendor-settings-get-supported-settings"></a></h5>
-   <p>This command returns a list of all settings that the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②②">remote end</a> supports, and their values.</p>
+   <p>This command returns a list of all settings that the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②③">remote end</a> supports, and their values.</p>
    <dl>
     <dt>Command Type
     <dd>
@@ -1343,7 +1354,7 @@ VendorSettingsGetSettingsParametersItem = {
 <pre class="cddl">VendorSettingsGetSettingsResult
 </pre>
    </dl>
-   <p>The <a data-link-type="dfn" href="#remote-end-steps" id="ref-for-remote-end-steps④">remote end steps</a> given <var>session</var> and <var>command parameters</var> are <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined①⓪">implementation-defined</a>.</p>
+   <p>The <a data-link-type="dfn" href="#remote-end-steps" id="ref-for-remote-end-steps④">remote end steps</a> given <var>session</var> and <var>command parameters</var> are <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined①①">implementation-defined</a>.</p>
    <h5 class="heading settled" data-level="7.2.3.4" id="module-vendor-settings-events"><span class="secno">7.2.3.4. </span><span class="content">Events</span><a class="self-link" href="#module-vendor-settings-events"></a></h5>
    <p class="issue" id="issue-0b79b3d5"><a class="self-link" href="#issue-0b79b3d5"></a> Do we need a "setting changed" event?</p>
    <h3 class="heading settled" data-level="7.3" id="module-interaction"><span class="secno">7.3. </span><span class="content">The Interaction Module</span><a class="self-link" href="#module-interaction"></a></h3>
@@ -1388,14 +1399,33 @@ KeyCombination = [
 <pre class="cddl">EmptyResult
 </pre>
    </dl>
+   <p class="note" role="note"><span>Note:</span> Each string in <code>KeyCombination</code> represents a "raw key" consisting of a
+single code point with the same meaning as in <a href="https://w3c.github.io/webdriver/#keyboard-actions">WebDriver’s keyboard
+actions</a>. For example, <code>["\uE008", "a"]</code> means holding the left shift key
+and pressing "a", and then releasing the left shift key. <a data-link-type="biblio" href="#biblio-webdriver" title="WebDriver">[WEBDRIVER]</a></p>
    <p>The <a data-link-type="dfn" href="#remote-end-steps" id="ref-for-remote-end-steps⑤">remote end steps</a> given <var>session</var> and <var>command parameters</var> are:</p>
    <ol>
     <li data-md>
-     <p><a data-link-type="dfn" href="#try" id="ref-for-try③">Try</a> to run an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined①①">implementation-defined</a> security check, e.g. honor OS settings for whether it allows keyboard simulation.</p>
+     <p><a data-link-type="dfn" href="#try" id="ref-for-try③">Try</a> to <a data-link-type="dfn" href="#check-that-keyboard-interaction-can-be-simulated" id="ref-for-check-that-keyboard-interaction-can-be-simulated">check that keyboard interaction can be simulated</a>.</p>
     <li data-md>
      <p><a data-link-type="dfn" href="#try" id="ref-for-try④">Try</a> to <a data-link-type="dfn" href="#check-that-one-of-the-expected-applications-has-focus" id="ref-for-check-that-one-of-the-expected-applications-has-focus">check that one of the expected applications has focus</a>.</p>
     <li data-md>
-     <p>Run <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined①②">implementation-defined</a> steps to simulate pressing the key combination represented in <code>KeyCombination</code>, such that they first item in the array is pressed first, and then each other key is pressed, in order, and finally the keys are released in reverse order. Each string in <code>KeyCombination</code> represents a "raw key" consisting of a single code point with the same meaning as in <a href="https://w3c.github.io/webdriver/#keyboard-actions">WebDriver’s keyboard actions</a>. For example, <code>["\uE008", "a"]</code> means holding the left shift key and pressing "a", and then releasing the left shift key. <a data-link-type="biblio" href="#biblio-webdriver" title="WebDriver">[WEBDRIVER]</a></p>
+     <p>Let <var>keys</var> be the value of the <code>keys</code> field of <var>command
+parameters</var>.</p>
+    <li data-md>
+     <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-iterate" id="ref-for-list-iterate">For each</a> <var>key</var> of <var>keys</var>:</p>
+     <ol>
+      <li data-md>
+       <p>Run <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined①②">implementation-defined</a> steps to simulate depressing <var>key</var>.</p>
+     </ol>
+    <li data-md>
+     <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-iterate" id="ref-for-list-iterate①">For each</a> <var>key</var> of <var>keys</var> in reverse <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list" id="ref-for-list">List</a> order:</p>
+     <ol>
+      <li data-md>
+       <p>Run <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined①③">implementation-defined</a> steps to simulate releasing <var>key</var>.</p>
+     </ol>
+    <li data-md>
+     <p>Return a new map matching the <code>EmptyResult</code> production.</p>
    </ol>
    <h4 class="heading settled" data-level="7.3.4" id="module-interaction-events"><span class="secno">7.3.4. </span><span class="content">Events</span><a class="self-link" href="#module-interaction-events"></a></h4>
    <dl>
@@ -1422,7 +1452,7 @@ KeyCombination = [
      <li data-md>
       <p>Let <var>body</var> be a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map⑥">map</a> matching the <code>InteractionCapturedOutputEvent</code> production with the <code>params</code> field set to <var>params</var>.</p>
      <li data-md>
-      <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-iterate" id="ref-for-list-iterate">For each</a> <var>session</var> of <a data-link-type="dfn" href="#remote-end-active-sessions" id="ref-for-remote-end-active-sessions④">active sessions</a>:</p>
+      <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-iterate" id="ref-for-list-iterate②">For each</a> <var>session</var> of <a data-link-type="dfn" href="#remote-end-active-sessions" id="ref-for-remote-end-active-sessions④">active sessions</a>:</p>
       <ol>
        <li data-md>
         <p><a data-link-type="dfn" href="#emit-an-event" id="ref-for-emit-an-event">Emit an event</a> with <var>session</var> and <var>body</var>.</p>
@@ -1430,7 +1460,7 @@ KeyCombination = [
     </ol>
    </div>
    <h2 class="heading settled" data-level="8" id="privacy"><span class="secno">8. </span><span class="content">Privacy</span><a class="self-link" href="#privacy"></a></h2>
-   <p>It is advisable that <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②③">remote ends</a> create a new profile when creating a new session. This prevents potentially sensitive session data from being accessible to new sessions, ensuring both privacy and preventing state from bleeding through to the next session.</p>
+   <p>It is advisable that <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②④">remote ends</a> create a new profile when creating a new session. This prevents potentially sensitive session data from being accessible to new sessions, ensuring both privacy and preventing state from bleeding through to the next session.</p>
    <h2 class="heading settled" data-level="9" id="security"><span class="secno">9. </span><span class="content">Security</span><a class="self-link" href="#security"></a></h2>
    <p>An assistive technology can rely on a command-line flag or a configuration option to test whether to enable AT Driver, or alternatively make the assistive technology initiate or confirm the connection through a privileged content document or control widget, in case the assistive technology does not directly implement the WebSocket endpoints.</p>
    <p>It is strongly suggested that assistive technology require users to take explicit action to enable AT Driver, and that AT Driver remains disabled in publicly consumed versions of the assistive technology.</p>
@@ -1505,7 +1535,9 @@ KeyCombination = [
    <li><a href="#session-associated-with-connection">associated with connection</a><span>, in § 6</span>
    <li><a href="#standard-capabilities-at-name">AT name</a><span>, in § 5.2</span>
    <li><a href="#standard-capabilities-at-version">AT version</a><span>, in § 5.2</span>
+   <li><a href="#error-code-cannot-simulate-keyboard-interaction">cannot simulate keyboard interaction</a><span>, in § 5.7</span>
    <li><a href="#capabilities">Capabilities</a><span>, in § 5.2</span>
+   <li><a href="#check-that-keyboard-interaction-can-be-simulated">check that keyboard interaction can be simulated</a><span>, in § 5.8</span>
    <li><a href="#check-that-one-of-the-expected-applications-has-focus">check that one of the expected applications has focus</a><span>, in § 5.8</span>
    <li><a href="#command">command</a><span>, in § 5.5</span>
    <li><a href="#command-name">command name</a><span>, in § 5.5</span>
@@ -1603,7 +1635,8 @@ KeyCombination = [
   <aside class="dfn-panel" data-for="term-for-list-iterate">
    <a href="https://infra.spec.whatwg.org/#list-iterate">https://infra.spec.whatwg.org/#list-iterate</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-list-iterate">7.3.4. Events</a>
+    <li><a href="#ref-for-list-iterate">7.3.3.1. The interaction.pressKeys Command</a> <a href="#ref-for-list-iterate①">(2)</a>
+    <li><a href="#ref-for-list-iterate②">7.3.4. Events</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-map-iterate">
@@ -1616,13 +1649,19 @@ KeyCombination = [
    <a href="https://infra.spec.whatwg.org/#implementation-defined">https://infra.spec.whatwg.org/#implementation-defined</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-implementation-defined">5.2. Capabilities</a>
-    <li><a href="#ref-for-implementation-defined①">5.8. Security checks</a> <a href="#ref-for-implementation-defined②">(2)</a>
-    <li><a href="#ref-for-implementation-defined③">6. Transport</a> <a href="#ref-for-implementation-defined④">(2)</a> <a href="#ref-for-implementation-defined⑤">(3)</a> <a href="#ref-for-implementation-defined⑥">(4)</a>
-    <li><a href="#ref-for-implementation-defined⑦">7.2. The &lt;vendor>:settings Module</a>
-    <li><a href="#ref-for-implementation-defined⑧">7.2.3.1. The &lt;vendor>:settings.setSettings Command</a>
-    <li><a href="#ref-for-implementation-defined⑨">7.2.3.2. The &lt;vendor>settings.getSettings Command</a>
-    <li><a href="#ref-for-implementation-defined①⓪">7.2.3.3. The &lt;vendor>settings.getSupportedSettings Command</a>
-    <li><a href="#ref-for-implementation-defined①①">7.3.3.1. The interaction.pressKeys Command</a> <a href="#ref-for-implementation-defined①②">(2)</a>
+    <li><a href="#ref-for-implementation-defined①">5.8. Security checks</a> <a href="#ref-for-implementation-defined②">(2)</a> <a href="#ref-for-implementation-defined③">(3)</a>
+    <li><a href="#ref-for-implementation-defined④">6. Transport</a> <a href="#ref-for-implementation-defined⑤">(2)</a> <a href="#ref-for-implementation-defined⑥">(3)</a> <a href="#ref-for-implementation-defined⑦">(4)</a>
+    <li><a href="#ref-for-implementation-defined⑧">7.2. The &lt;vendor>:settings Module</a>
+    <li><a href="#ref-for-implementation-defined⑨">7.2.3.1. The &lt;vendor>:settings.setSettings Command</a>
+    <li><a href="#ref-for-implementation-defined①⓪">7.2.3.2. The &lt;vendor>settings.getSettings Command</a>
+    <li><a href="#ref-for-implementation-defined①①">7.2.3.3. The &lt;vendor>settings.getSupportedSettings Command</a>
+    <li><a href="#ref-for-implementation-defined①②">7.3.3.1. The interaction.pressKeys Command</a> <a href="#ref-for-implementation-defined①③">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-list">
+   <a href="https://infra.spec.whatwg.org/#list">https://infra.spec.whatwg.org/#list</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-list">7.3.3.1. The interaction.pressKeys Command</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-ordered-map">
@@ -1695,6 +1734,7 @@ KeyCombination = [
      <li><span class="dfn-paneled" id="term-for-list-iterate">for each <small>(for list)</small></span>
      <li><span class="dfn-paneled" id="term-for-map-iterate">for each <small>(for map)</small></span>
      <li><span class="dfn-paneled" id="term-for-implementation-defined">implementation-defined</span>
+     <li><span class="dfn-paneled" id="term-for-list">list</span>
      <li><span class="dfn-paneled" id="term-for-ordered-map">map</span>
      <li><span class="dfn-paneled" id="term-for-parse-a-json-string-to-an-infra-value">parse json into infra values</span>
      <li><span class="dfn-paneled" id="term-for-scalar-value-string">scalar value string</span>
@@ -1757,8 +1797,8 @@ KeyCombination = [
     <li><a href="#ref-for-success">3. Infrastructure</a>
     <li><a href="#ref-for-success①">5.2. Capabilities</a> <a href="#ref-for-success②">(2)</a> <a href="#ref-for-success③">(3)</a> <a href="#ref-for-success④">(4)</a> <a href="#ref-for-success⑤">(5)</a> <a href="#ref-for-success⑥">(6)</a>
     <li><a href="#ref-for-success⑦">5.5. Commands</a>
-    <li><a href="#ref-for-success⑧">5.8. Security checks</a>
-    <li><a href="#ref-for-success⑨">7.1.3.1. The session.new Command</a>
+    <li><a href="#ref-for-success⑧">5.8. Security checks</a> <a href="#ref-for-success⑨">(2)</a>
+    <li><a href="#ref-for-success①⓪">7.1.3.1. The session.new Command</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="error">
@@ -1766,9 +1806,9 @@ KeyCombination = [
    <ul>
     <li><a href="#ref-for-error">3. Infrastructure</a> <a href="#ref-for-error①">(2)</a>
     <li><a href="#ref-for-error②">5.5. Commands</a>
-    <li><a href="#ref-for-error③">5.8. Security checks</a>
-    <li><a href="#ref-for-error④">6. Transport</a>
-    <li><a href="#ref-for-error⑤">7.1.3.1. The session.new Command</a> <a href="#ref-for-error⑥">(2)</a> <a href="#ref-for-error⑦">(3)</a> <a href="#ref-for-error⑧">(4)</a>
+    <li><a href="#ref-for-error③">5.8. Security checks</a> <a href="#ref-for-error④">(2)</a>
+    <li><a href="#ref-for-error⑤">6. Transport</a>
+    <li><a href="#ref-for-error⑥">7.1.3.1. The session.new Command</a> <a href="#ref-for-error⑦">(2)</a> <a href="#ref-for-error⑧">(3)</a> <a href="#ref-for-error⑨">(4)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="try">
@@ -1797,11 +1837,11 @@ KeyCombination = [
     <li><a href="#ref-for-remote-end⑧">5.3. Session</a> <a href="#ref-for-remote-end⑨">(2)</a>
     <li><a href="#ref-for-remote-end①⓪">5.5. Commands</a> <a href="#ref-for-remote-end①①">(2)</a>
     <li><a href="#ref-for-remote-end①②">5.6. Events</a> <a href="#ref-for-remote-end①③">(2)</a>
-    <li><a href="#ref-for-remote-end①④">5.7. Errors</a>
-    <li><a href="#ref-for-remote-end①⑤">5.8. Security checks</a>
-    <li><a href="#ref-for-remote-end①⑥">6. Transport</a> <a href="#ref-for-remote-end①⑦">(2)</a> <a href="#ref-for-remote-end①⑧">(3)</a> <a href="#ref-for-remote-end①⑨">(4)</a> <a href="#ref-for-remote-end②⓪">(5)</a> <a href="#ref-for-remote-end②①">(6)</a>
-    <li><a href="#ref-for-remote-end②②">7.2.3.3. The &lt;vendor>settings.getSupportedSettings Command</a>
-    <li><a href="#ref-for-remote-end②③">8. Privacy</a>
+    <li><a href="#ref-for-remote-end①④">5.7. Errors</a> <a href="#ref-for-remote-end①⑤">(2)</a>
+    <li><a href="#ref-for-remote-end①⑥">5.8. Security checks</a>
+    <li><a href="#ref-for-remote-end①⑦">6. Transport</a> <a href="#ref-for-remote-end①⑧">(2)</a> <a href="#ref-for-remote-end①⑨">(3)</a> <a href="#ref-for-remote-end②⓪">(4)</a> <a href="#ref-for-remote-end②①">(5)</a> <a href="#ref-for-remote-end②②">(6)</a>
+    <li><a href="#ref-for-remote-end②③">7.2.3.3. The &lt;vendor>settings.getSupportedSettings Command</a>
+    <li><a href="#ref-for-remote-end②④">8. Privacy</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="remote-end-definition">
@@ -1979,8 +2019,8 @@ KeyCombination = [
    <b><a href="#error-code">#error-code</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-error-code">3. Infrastructure</a>
-    <li><a href="#ref-for-error-code①">5.8. Security checks</a>
-    <li><a href="#ref-for-error-code②">6. Transport</a>
+    <li><a href="#ref-for-error-code①">5.8. Security checks</a> <a href="#ref-for-error-code②">(2)</a>
+    <li><a href="#ref-for-error-code③">6. Transport</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="error-code-invalid-session-id">
@@ -2001,10 +2041,22 @@ KeyCombination = [
     <li><a href="#ref-for-error-code-session-not-created">7.1.3.1. The session.new Command</a> <a href="#ref-for-error-code-session-not-created①">(2)</a> <a href="#ref-for-error-code-session-not-created②">(3)</a> <a href="#ref-for-error-code-session-not-created③">(4)</a>
    </ul>
   </aside>
+  <aside class="dfn-panel" data-for="error-code-cannot-simulate-keyboard-interaction">
+   <b><a href="#error-code-cannot-simulate-keyboard-interaction">#error-code-cannot-simulate-keyboard-interaction</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-error-code-cannot-simulate-keyboard-interaction">5.8. Security checks</a>
+   </ul>
+  </aside>
   <aside class="dfn-panel" data-for="error-code-invalid-os-focus-state">
    <b><a href="#error-code-invalid-os-focus-state">#error-code-invalid-os-focus-state</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-error-code-invalid-os-focus-state">5.8. Security checks</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="check-that-keyboard-interaction-can-be-simulated">
+   <b><a href="#check-that-keyboard-interaction-can-be-simulated">#check-that-keyboard-interaction-can-be-simulated</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-check-that-keyboard-interaction-can-be-simulated">7.3.3.1. The interaction.pressKeys Command</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="check-that-one-of-the-expected-applications-has-focus">
