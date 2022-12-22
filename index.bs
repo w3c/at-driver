@@ -121,10 +121,14 @@ This section gives the initial contents of the remote end definition and local e
 [=Remote end definition=]
 
 <xmp class="cddl remote-cddl">
+Extensible = {
+  *text => any
+}
+
 Command = {
   id: uint,
   CommandData,
-  *text => any,
+  Extensible,
 }
 
 CommandData = (
@@ -133,12 +137,16 @@ CommandData = (
   InteractionCommand
 )
 
-EmptyParams = { *text => any }
+EmptyParams = { Extensible }
 </xmp>
 
 [=Local end definition=]:
 
 <xmp class="cddl local-cddl">
+Extensible = {
+  *text => any
+}
+
 Message = (
   CommandResponse //
   ErrorResponse //
@@ -148,7 +156,7 @@ Message = (
 CommandResponse = {
   id: uint,
   result: ResultData,
-  *text => any
+  Extensible,
 }
 
 ErrorResponse = {
@@ -156,7 +164,7 @@ ErrorResponse = {
   error: "unknown error" / "unknown command" / "invalid argument" / "session not created",
   message: text,
   ?stacktrace: text,
-  *text => any
+  Extensible,
 }
 
 ResultData = (
@@ -169,7 +177,7 @@ EmptyResult = {}
 
 Event = {
   EventData,
-  *text => any
+  Extensible,
 }
 
 EventData = (
@@ -513,7 +521,7 @@ CapabilitiesRequest = {
   ?atName: text,
   ?atVersion: text,
   ?platformName: text,
-  *text => any
+  Extensible,
 }
 </xmp>
 
@@ -552,7 +560,7 @@ The <dfn>session.new</dfn> command allows creating a new [=session=]. This is a 
       atName: text,
       atVersion: text,
       platformName: text,
-      *text => any
+      Extensible,
     }
   }
   </xmp>
@@ -667,7 +675,7 @@ VendorSettingsGetSettingsResult = {
 VendorSettingsGetSettingsResultItem = {
   name: text,
   value: any,
-  *text => any
+  Extensible,
 }
 </xmp>
 
@@ -699,7 +707,7 @@ Issue: Require implementations to report failures in settings modification opera
     VendorSettingsSetSettingsParametersItem = {
       name: text,
       value: any,
-      *text => any
+      Extensible,
     }
     </xmp>
   </dd>
@@ -744,7 +752,7 @@ The <dfn>&lt;vendor>:settings.getSettings command</dfn> returns a list of the re
 
     VendorSettingsGetSettingsParametersItem = {
       name: text,
-      *text => any
+      Extensible,
     }
     </xmp>
   </dd>
@@ -830,7 +838,7 @@ InteractionEvent = (InteractionCapturedOutputEvent)
 <xmp class="cddl local-cddl">
 InteractionCapturedOutputParameters = {
   data: text,
-  *text => any
+  Extensible,
 }
 </xmp>
 
@@ -854,7 +862,7 @@ Issue(34): This command does not yet have a means for indicating a screen-reader
 
   InteractionPressKeysParameters = {
     "keys" => KeyCombination,
-    *text => any
+    Extensible,
   }
 
   KeyCombination = [
