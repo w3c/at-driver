@@ -17,7 +17,7 @@
     "CommandData": {
       "oneOf": [
         { "$ref": "#/$defs/SessionCommand" },
-        { "$ref": "#/$defs/VendorSettingsCommand" },
+        { "$ref": "#/$defs/SettingsCommand" },
         { "$ref": "#/$defs/InteractionCommand" }
       ]
     },
@@ -58,35 +58,35 @@
       },
       "additionalProperties": false
     },
-    "VendorSettingsCommand": {
+    "SettingsCommand": {
       "oneOf": [
-        { "$ref": "#/$defs/VendorSettingsSetSettingsCommand" },
-        { "$ref": "#/$defs/VendorSettingsGetSettingsCommand" },
-        { "$ref": "#/$defs/VendorSettingsGetSupportedSettingsCommand" }
+        { "$ref": "#/$defs/SettingsSetSettingsCommand" },
+        { "$ref": "#/$defs/SettingsGetSettingsCommand" },
+        { "$ref": "#/$defs/SettingsGetSupportedSettingsCommand" }
       ]
     },
-    "VendorSettingsSetSettingsCommand": {
+    "SettingsSetSettingsCommand": {
       "type": "object",
       "properties": {
-        "method": { "enum": [ "<vendor>:settings.setSettings" ] },
-        "params": { "$ref": "#/$defs/VendorSettingsSetSettingsParameters" }
+        "method": { "enum": [ "settings.setSettings" ] },
+        "params": { "$ref": "#/$defs/SettingsSetSettingsParameters" }
       },
       "required": [ "method", "params" ],
       "additionalProperties": false
     },
-    "VendorSettingsSetSettingsParameters": {
+    "SettingsSetSettingsParameters": {
       "type": "object",
       "properties": {
         "settings": {
           "type": "array",
           "minItems": 1,
-          "items": { "$ref": "#/$defs/VendorSettingsSetSettingsParametersItem" }
+          "items": { "$ref": "#/$defs/SettingsSetSettingsParametersItem" }
         }
       },
       "required": [ "settings" ],
       "additionalProperties": false
     },
-    "VendorSettingsSetSettingsParametersItem": {
+    "SettingsSetSettingsParametersItem": {
       "type": "object",
       "properties": {
         "name": { "type": "string" },
@@ -94,38 +94,38 @@
       },
       "required": [ "name", "value" ]
     },
-    "VendorSettingsGetSettingsCommand": {
+    "SettingsGetSettingsCommand": {
       "type": "object",
       "properties": {
-        "method": { "enum": [ "<vendor>:settings.getSettings" ] },
-        "params": { "$ref": "#/$defs/VendorSettingsGetSettingsParameters" }
+        "method": { "enum": [ "settings.getSettings" ] },
+        "params": { "$ref": "#/$defs/SettingsGetSettingsParameters" }
       },
       "required": [ "method", "params" ],
       "additionalProperties": false
     },
-    "VendorSettingsGetSettingsParameters": {
+    "SettingsGetSettingsParameters": {
       "type": "object",
       "properties": {
         "settings": {
           "type": "array",
           "minItems": 1,
-          "items": { "$ref": "#/$defs/VendorSettingsGetSettingsParametersItem" }
+          "items": { "$ref": "#/$defs/SettingsGetSettingsParametersItem" }
         }
       },
       "required": [ "settings" ],
       "additionalProperties": false
     },
-    "VendorSettingsGetSettingsParametersItem": {
+    "SettingsGetSettingsParametersItem": {
       "type": "object",
       "properties": {
         "name": { "type": "string" }
       },
       "required": [ "name" ]
     },
-    "VendorSettingsGetSupportedSettingsCommand": {
+    "SettingsGetSupportedSettingsCommand": {
       "type": "object",
       "properties": {
-        "method": { "enum": [ "<vendor>:settings.getSupportedSettings" ] },
+        "method": { "enum": [ "settings.getSupportedSettings" ] },
         "params": { "$ref": "#/$defs/EmptyParams" }
       },
       "required": [ "method", "params" ],
