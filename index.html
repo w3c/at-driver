@@ -8,7 +8,7 @@
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
   <meta content="Bikeshed version 26e85e599, updated Thu Dec 8 15:29:31 2022 -0800" name="generator">
   <link href="https://w3c.github.io/aria-at-automation/" rel="canonical">
-  <meta content="89dc57f4a134023633a6f7b464f9c5964f4d92c7" name="document-revision">
+  <meta content="70493026ad6d5b38a70264395bc66da2415e7707" name="document-revision">
 <style>
 table { border-collapse: collapse; border-style: hidden hidden none hidden; }
 table thead, table tbody { border-bottom: solid; }
@@ -608,7 +608,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">ARIA-AT Automation</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-DRAFT">Draft Community Group Report</a>, <time class="dt-updated" datetime="2022-12-19">19 December 2022</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-DRAFT">Draft Community Group Report</a>, <time class="dt-updated" datetime="2022-12-22">22 December 2022</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -982,7 +982,7 @@ EventData = (
       <th>JSON error code 
       <th>Description 
      <tr>
-      <td><dfn data-dfn-for="error code" data-dfn-type="dfn" data-noexport id="error-code-invalid-argument">invalid argument<a class="self-link" href="#error-code-invalid-argument"></a></dfn> 
+      <td><dfn class="dfn-paneled" data-dfn-for="error code" data-dfn-type="dfn" data-noexport id="error-code-invalid-argument">invalid argument</dfn> 
       <td><code>invalid argument</code> 
       <td>The arguments passed to a <a data-link-type="dfn" href="#command" id="ref-for-command④">command</a> are either invalid or malformed. 
      <tr>
@@ -1072,13 +1072,13 @@ and a <dfn class="dfn-paneled" data-dfn-for="WebSocket listener" data-dfn-type="
     <p>To <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="handle-an-incoming-message">handle an incoming message</dfn> given a <a data-link-type="dfn" href="#websocket-connection" id="ref-for-websocket-connection④">WebSocket connection</a> <var>connection</var>, type <var>type</var> and data <var>data</var>:</p>
     <ol>
      <li data-md>
-      <p>If <var>type</var> is not <a href="https://tools.ietf.org/html/rfc6455#section-5.2">text</a>, <a data-link-type="dfn" href="#respond-with-an-error" id="ref-for-respond-with-an-error">respond with an error</a> given <var>connection</var>, null, and <a data-link-type="dfn">invalid argument</a>, and finally return.</p>
+      <p>If <var>type</var> is not <a href="https://tools.ietf.org/html/rfc6455#section-5.2">text</a>, <a data-link-type="dfn" href="#respond-with-an-error" id="ref-for-respond-with-an-error">respond with an error</a> given <var>connection</var>, null, and <a data-link-type="dfn" href="#error-code-invalid-argument" id="ref-for-error-code-invalid-argument">invalid argument</a>, and finally return.</p>
      <li data-md>
       <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#assert" id="ref-for-assert">Assert</a>: <var>data</var> is a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#scalar-value-string" id="ref-for-scalar-value-string">scalar value string</a>, because the <a href="https://tools.ietf.org/html/rfc6455#section-8.1">WebSocket handling errors in UTF-8-encoded data=</a> would already have <a href="https://tools.ietf.org/html/rfc6455#section-7.1.7">failed the WebSocket connection</a> otherwise.</p>
      <li data-md>
       <p>If there is a <a data-link-type="dfn" href="#session" id="ref-for-session①②">session</a> <a data-link-type="dfn" href="#session-associated-with-connection" id="ref-for-session-associated-with-connection">associated with connection</a> <var>connection</var>, let <var>session</var> be that session. Otherwise if <var>connection</var> is in the set of <a data-link-type="dfn" href="#remote-end-websocket-connections-not-associated-with-a-session" id="ref-for-remote-end-websocket-connections-not-associated-with-a-session①">WebSocket connections not associated with a session</a>, let <var>session</var> be null. Otherwise, return.</p>
      <li data-md>
-      <p>Let <var>parsed</var> be the result of <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#parse-a-json-string-to-an-infra-value" id="ref-for-parse-a-json-string-to-an-infra-value">parsing JSON into Infra values</a> given <var>data</var>. If this throws an exception, then <a data-link-type="dfn" href="#respond-with-an-error" id="ref-for-respond-with-an-error①">respond with an error</a> given <var>connection</var>, null, and <a data-link-type="dfn">invalid argument</a>, and finally return.</p>
+      <p>Let <var>parsed</var> be the result of <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#parse-a-json-string-to-an-infra-value" id="ref-for-parse-a-json-string-to-an-infra-value">parsing JSON into Infra values</a> given <var>data</var>. If this throws an exception, then <a data-link-type="dfn" href="#respond-with-an-error" id="ref-for-respond-with-an-error①">respond with an error</a> given <var>connection</var>, null, and <a data-link-type="dfn" href="#error-code-invalid-argument" id="ref-for-error-code-invalid-argument①">invalid argument</a>, and finally return.</p>
      <li data-md>
       <p>Match parsed against the <a data-link-type="dfn" href="#remote-end-definition" id="ref-for-remote-end-definition④">remote end definition</a>. If this results in a match:</p>
       <ol>
@@ -1123,7 +1123,7 @@ and a <dfn class="dfn-paneled" data-dfn-for="WebSocket listener" data-dfn-type="
        <li data-md>
         <p>If <var>parsed</var> is a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map①">map</a> and <var>parsed</var>["<code>id</code>"] <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#map-exists" id="ref-for-map-exists③">exists</a> and is an integer greater than or equal to zero, set <var>command id</var> to that integer.</p>
        <li data-md>
-        <p>Let <var>error code</var> be <a data-link-type="dfn">invalid argument</a>.</p>
+        <p>Let <var>error code</var> be <a data-link-type="dfn" href="#error-code-invalid-argument" id="ref-for-error-code-invalid-argument②">invalid argument</a>.</p>
        <li data-md>
         <p>If <var>parsed</var> is a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map②">map</a> and <var>parsed</var>["<code>method</code>"] <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#map-exists" id="ref-for-map-exists④">exists</a> and is a string, but <var>parsed</var>["<code>method</code>"] is not in the <a data-link-type="dfn" href="#set-of-all-command-names" id="ref-for-set-of-all-command-names">set of all command names</a>, set <var>error code</var> to <a data-link-type="dfn" href="#error-code-unknown-command" id="ref-for-error-code-unknown-command">unknown command</a>.</p>
        <li data-md>
@@ -1292,7 +1292,7 @@ CapabilitiesRequestParameters = {
         <p>If <a data-link-type="dfn" href="#setting-name-is-invalid" id="ref-for-setting-name-is-invalid">setting name is invalid</a> given <var>name</var>:</p>
         <ol>
          <li data-md>
-          <p>Return an <a data-link-type="dfn" href="#error" id="ref-for-error①⓪">error</a> with <a data-link-type="dfn" href="#error-code" id="ref-for-error-code④">error code</a> <a data-link-type="dfn">invalid argument</a>.</p>
+          <p>Return an <a data-link-type="dfn" href="#error" id="ref-for-error①⓪">error</a> with <a data-link-type="dfn" href="#error-code" id="ref-for-error-code④">error code</a> <a data-link-type="dfn" href="#error-code-invalid-argument" id="ref-for-error-code-invalid-argument③">invalid argument</a>.</p>
         </ol>
        <li data-md>
         <p>Let <var>value</var> be the value of the setting named <var>name</var>.</p>
@@ -1314,7 +1314,7 @@ CapabilitiesRequestParameters = {
       <p>If <a data-link-type="dfn" href="#setting-name-is-invalid" id="ref-for-setting-name-is-invalid①">setting name is invalid</a> given <var>name</var>:</p>
       <ol>
        <li data-md>
-        <p>Return an <a data-link-type="dfn" href="#error" id="ref-for-error①①">error</a> with <a data-link-type="dfn" href="#error-code" id="ref-for-error-code⑤">error code</a> <a data-link-type="dfn">invalid argument</a>.</p>
+        <p>Return an <a data-link-type="dfn" href="#error" id="ref-for-error①①">error</a> with <a data-link-type="dfn" href="#error-code" id="ref-for-error-code⑤">error code</a> <a data-link-type="dfn" href="#error-code-invalid-argument" id="ref-for-error-code-invalid-argument④">invalid argument</a>.</p>
       </ol>
      <li data-md>
       <p>Take any <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined⑨">implementation-defined</a> steps to change the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②④">remote end</a> setting named <var>name</var> to the value <var>value</var>.</p>
@@ -1322,7 +1322,7 @@ CapabilitiesRequestParameters = {
       <p>If there is any <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined①⓪">implementation-defined</a> indication that the setting named <var>name</var> does not hold the value <var>value</var>:</p>
       <ol>
        <li data-md>
-        <p>Return an <a data-link-type="dfn" href="#error" id="ref-for-error①②">error</a> with <a data-link-type="dfn" href="#error-code" id="ref-for-error-code⑥">error code</a> <a data-link-type="dfn">invalid argument</a>.</p>
+        <p>Return an <a data-link-type="dfn" href="#error" id="ref-for-error①②">error</a> with <a data-link-type="dfn" href="#error-code" id="ref-for-error-code⑥">error code</a> <a data-link-type="dfn" href="#error-code-invalid-argument" id="ref-for-error-code-invalid-argument⑤">invalid argument</a>.</p>
       </ol>
      <li data-md>
       <p>Return <a data-link-type="dfn" href="#success" id="ref-for-success①②">success</a> with data null.</p>
@@ -2185,6 +2185,13 @@ parameters</var>.</p>
     <li><a href="#ref-for-error-code①">5.8. Security checks</a> <a href="#ref-for-error-code②">(2)</a>
     <li><a href="#ref-for-error-code③">6. Transport</a>
     <li><a href="#ref-for-error-code④">7.2. The &lt;vendor>:settings Module</a> <a href="#ref-for-error-code⑤">(2)</a> <a href="#ref-for-error-code⑥">(3)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="error-code-invalid-argument">
+   <b><a href="#error-code-invalid-argument">#error-code-invalid-argument</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-error-code-invalid-argument">6. Transport</a> <a href="#ref-for-error-code-invalid-argument①">(2)</a> <a href="#ref-for-error-code-invalid-argument②">(3)</a>
+    <li><a href="#ref-for-error-code-invalid-argument③">7.2. The &lt;vendor>:settings Module</a> <a href="#ref-for-error-code-invalid-argument④">(2)</a> <a href="#ref-for-error-code-invalid-argument⑤">(3)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="error-code-invalid-session-id">
