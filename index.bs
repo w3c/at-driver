@@ -693,10 +693,10 @@ Issue: Require implementations to report failures in settings modification opera
     }
 
     VendorSettingsSetSettingsParameters = {
-      settings: [1* VendorSettingSetSettingsParametersItem ],
+      settings: [1* VendorSettingsSetSettingsParametersItem ],
     }
 
-    VendorSettingSetSettingsParametersItem = {
+    VendorSettingsSetSettingsParametersItem = {
       name: text,
       value: any,
       *text => any

@@ -42,10 +42,10 @@ VendorSettingsSetSettingsCommand = {
 }
 
 VendorSettingsSetSettingsParameters = {
-  settings: [1* VendorSettingSetSettingsParametersItem ],
+  settings: [1* VendorSettingsSetSettingsParametersItem ],
 }
 
-VendorSettingSetSettingsParametersItem = {
+VendorSettingsSetSettingsParametersItem = {
   name: text,
   value: any,
   *text => any
