@@ -8,7 +8,7 @@
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
   <meta content="Bikeshed version d6f2d6445, updated Tue Jan 17 11:25:25 2023 -0800" name="generator">
   <link href="https://w3c.github.io/aria-at-automation/" rel="canonical">
-  <meta content="367bce2c9adc68d7b06c21b2a28b11767c039586" name="document-revision">
+  <meta content="e5046600f392e713464d194f9882e4db9055d7dc" name="document-revision">
 <style>
 table { border-collapse: collapse; border-style: hidden hidden none hidden; }
 table thead, table tbody { border-bottom: solid; }
@@ -748,7 +748,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <p>There should only be the WebSocket form of communication -- as in <a href="https://w3c.github.io/webdriver-bidi/#supports-bidi-only-sessions">BiDi-only sessions for WebDriver BiDi</a>.</p>
    <p>A connection can have 0 or more <a data-link-type="dfn" href="#session" id="ref-for-session">sessions</a>. Each session corresponds to an instance of an AT. We may limit the maximum number of sessions per AT to 1 initially.</p>
    <p>When a remote end supports multiple sessions, it does not necessarily mean that there will be multiple ATs running at the same time in the same instance of an OS. Some ATs might not be able to function properly if there are other ATs running at the same time. The AT Driver <a data-link-type="dfn" href="#session" id="ref-for-session①">session</a> concept can still be used by having the remote end run in a separate environment and each AT is run in its own OS instance (for example in a virtual machine), and the remote end proxies messages in some fashion.</p>
-   <p>Commands are grouped into modules. The modules could be: Sessions, Settings, Actions.</p>
+   <p>Commands are grouped into <a data-link-type="dfn" href="#module" id="ref-for-module">modules</a>. The modules could be: Sessions, Settings, Actions.</p>
    <p>Message transport is provided using the WebSocket protocol.</p>
    <p>The protocol is defined using a Concise Data Definition Language (CDDL) definition. The serialization is JSON.</p>
    <h3 class="heading settled" data-level="2.1" id="explainer-example"><span class="secno">2.1. </span><span class="content">Example</span><a class="self-link" href="#explainer-example"></a></h3>
@@ -943,7 +943,7 @@ EventData = (
    <p>Each <a data-link-type="dfn" href="#command" id="ref-for-command③">command</a> is defined by:</p>
    <ul>
     <li data-md>
-     <p>A <dfn data-dfn-type="dfn" data-noexport id="command-type">command type<a class="self-link" href="#command-type"></a></dfn> which is defined by a <a data-link-type="dfn" href="#remote-end-definition" id="ref-for-remote-end-definition③">remote end definition</a> fragment containing a group. Each such group has two fields:</p>
+     <p>A <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="command-type">command type</dfn> which is defined by a <a data-link-type="dfn" href="#remote-end-definition" id="ref-for-remote-end-definition③">remote end definition</a> fragment containing a group. Each such group has two fields:</p>
      <ul>
       <li data-md>
        <p><code>method</code> which is a string literal in the form <code>[module name].[method name]</code>. This is the <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="command-name">command name</dfn>.</p>
@@ -1204,7 +1204,7 @@ and a <dfn class="dfn-paneled" data-dfn-for="WebSocket listener" data-dfn-type="
    <h5 class="heading settled" data-level="7.1.3.1" id="module-session-new"><span class="secno">7.1.3.1. </span><span class="content">The session.new Command</span><a class="self-link" href="#module-session-new"></a></h5>
    <p>The <dfn data-dfn-type="dfn" data-noexport id="sessionnew">session.new<a class="self-link" href="#sessionnew"></a></dfn> command allows creating a new <a data-link-type="dfn" href="#session" id="ref-for-session①⑥">session</a>. This is a <a data-link-type="dfn" href="#static-command" id="ref-for-static-command①">static command</a>.</p>
    <dl>
-    <dt>Command Type 
+    <dt><a data-link-type="dfn" href="#command-type" id="ref-for-command-type">Command Type</a> 
     <dd>
 <pre class="cddl remote-cddl">SessionNewCommand = {
   method: "session.new",
@@ -1260,7 +1260,7 @@ CapabilitiesRequestParameters = {
    <p>Currently, there are no standardized settings. Implementations that wish to allow controlling and reading settings through the protocol defined in this specification must support settings as an <a data-link-type="dfn" href="#extension-modules" id="ref-for-extension-modules①">extension module</a>, with the structure defined in this section. Implementations are strongly encouraged to review the security implications of each setting, and only support the settings that are deemed safe. It is not defined what constitutes a setting, however, it is intended to represent user preferences such as the default voice, or the default rate of speech.</p>
    <p>In the schema definitions in this section, <code>&lt;vendor></code> is a placeholder for an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined⑧">implementation-defined</a> prefix for the <a data-link-type="dfn" href="#extension-modules" id="ref-for-extension-modules②">extension module</a>. The value of the prefix should be the name of the vendor or the assistive technology product, as appropriate.</p>
    <p class="note" role="note"><span class="marker">Note:</span> The prefix could be, for example, <code>nvda</code>, <code>jaws</code>, or <code>macOSVoiceOver</code>.</p>
-   <p>A <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②③">remote end</a> has an associated set of <dfn class="dfn-paneled" data-dfn-for="remote end" data-dfn-type="dfn" data-noexport id="remote-end-supported-settings">supported settings</dfn>, which is either null or a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-set" id="ref-for-ordered-set④">set</a> of strings which contains the name of every setting that may be referenced by this <a data-link-type="dfn" href="#module" id="ref-for-module">module</a>.</p>
+   <p>A <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②③">remote end</a> has an associated set of <dfn class="dfn-paneled" data-dfn-for="remote end" data-dfn-type="dfn" data-noexport id="remote-end-supported-settings">supported settings</dfn>, which is either null or a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-set" id="ref-for-ordered-set④">set</a> of strings which contains the name of every setting that may be referenced by this <a data-link-type="dfn" href="#module" id="ref-for-module①">module</a>.</p>
    <div class="algorithm" data-algorithm="setting name is invalid">
     <p>To determine if a <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="setting-name-is-invalid">setting name is invalid</dfn> given string <var>name</var>:</p>
     <ol>
@@ -1328,7 +1328,7 @@ CapabilitiesRequestParameters = {
       <p>Return <a data-link-type="dfn" href="#success" id="ref-for-success①②">success</a> with data null.</p>
     </ol>
    </div>
-   <p class="note" role="note"><span class="marker">Note:</span> Today’s implementations may not be able to detect invalid setting names or values, limiting their ability to report when operations do not model authentic interactions with the internal state. The algorithms in this <a data-link-type="dfn" href="#module" id="ref-for-module①">module</a> are designed to reflect this.</p>
+   <p class="note" role="note"><span class="marker">Note:</span> Today’s implementations may not be able to detect invalid setting names or values, limiting their ability to report when operations do not model authentic interactions with the internal state. The algorithms in this <a data-link-type="dfn" href="#module" id="ref-for-module②">module</a> are designed to reflect this.</p>
    <p class="issue" id="issue-b4b3c071"><a class="self-link" href="#issue-b4b3c071"></a> Require implementations to maintain a static list of supported settings.</p>
    <h4 class="heading settled" data-level="7.2.1" id="module-vendor-settings-definition"><span class="secno">7.2.1. </span><span class="content">Definition</span><a class="self-link" href="#module-vendor-settings-definition"></a></h4>
    <p><a data-link-type="dfn" href="#remote-end-definition" id="ref-for-remote-end-definition⑦">Remote end definition</a></p>
@@ -1363,7 +1363,7 @@ VendorSettingsGetSettingsResultItem = {
    <p class="note" role="note"><span class="marker">Note:</span> Today’s implementations may not be able to detect failed modification operations. <a data-link-type="dfn" href="#vendorsettingssetsettings" id="ref-for-vendorsettingssetsettings">&lt;vendor>:settings.setSettings</a> is designed to reflect that reality. Clients should therefore interpret <a data-link-type="dfn" href="#success" id="ref-for-success①③">successes</a> with some skepticism as such results do not necessarily indicate that the referenced setting has the desired value.</p>
    <p class="issue" id="issue-c41981a9"><a class="self-link" href="#issue-c41981a9"></a> Require implementations to report failures in settings modification operations.</p>
    <dl>
-    <dt>Command Type
+    <dt><a data-link-type="dfn" href="#command-type" id="ref-for-command-type①">Command Type</a>
     <dd>
 <pre class="cddl remote-cddl">VendorSettingsSetSettingsCommand = {
   method: "&lt;vendor>:settings.setSettings",
@@ -1409,7 +1409,7 @@ VendorSettingsSetSettingsParametersItem = {
    <h5 class="heading settled" data-level="7.2.3.2" id="command-vendor-settings-get-settings"><span class="secno">7.2.3.2. </span><span class="content">The &lt;vendor>settings.getSettings Command</span><a class="self-link" href="#command-vendor-settings-get-settings"></a></h5>
    <p>The <dfn data-dfn-type="dfn" data-noexport id="vendorsettingsgetsettings-command">&lt;vendor>:settings.getSettings command<a class="self-link" href="#vendorsettingsgetsettings-command"></a></dfn> returns a list of the requested settings and their values.</p>
    <dl>
-    <dt>Command Type
+    <dt><a data-link-type="dfn" href="#command-type" id="ref-for-command-type②">Command Type</a>
     <dd>
 <pre class="cddl remote-cddl">VendorSettingsGetSettingsCommand = {
   method: "&lt;vendor>:settings.getSettings",
@@ -1442,7 +1442,7 @@ VendorSettingsGetSettingsParametersItem = {
    <h5 class="heading settled" data-level="7.2.3.3" id="command-vendor-settings-get-supported-settings"><span class="secno">7.2.3.3. </span><span class="content">The &lt;vendor>settings.getSupportedSettings Command</span><a class="self-link" href="#command-vendor-settings-get-supported-settings"></a></h5>
    <p>The <dfn data-dfn-type="dfn" data-noexport id="vendorsettingsgetsupportedsettings-command">&lt;vendor>:settings.getSupportedSettings command<a class="self-link" href="#vendorsettingsgetsupportedsettings-command"></a></dfn> returns a list of all settings that the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②⑤">remote end</a> supports, and their values.</p>
    <dl>
-    <dt>Command Type
+    <dt><a data-link-type="dfn" href="#command-type" id="ref-for-command-type③">Command Type</a>
     <dd>
 <pre class="cddl remote-cddl">VendorSettingsGetSupportedSettingsCommand = {
   method: "&lt;vendor>:settings.getSupportedSettings",
@@ -1500,7 +1500,7 @@ InteractionEvent = (InteractionCapturedOutputEvent)
    <p>The <dfn data-dfn-type="dfn" data-noexport id="interactionpresskeys">interaction.pressKeys<a class="self-link" href="#interactionpresskeys"></a></dfn> command simulates pressing a key combination on a keyboard.</p>
    <p class="issue" id="issue-05fb1c8b"><a class="self-link" href="#issue-05fb1c8b"></a> This command does not yet have a means for indicating a screen-reader specific modifier key (or keys). <a href="https://github.com/w3c/aria-at-automation/issues/34">[Issue #34]</a></p>
    <dl>
-    <dt>Command Type 
+    <dt><a data-link-type="dfn" href="#command-type" id="ref-for-command-type④">Command Type</a> 
     <dd>
 <pre class="cddl remote-cddl">InteractionPressKeysCommand = {
   method: "interaction.pressKeys",
@@ -2080,7 +2080,8 @@ parameters</var>.</p>
   <aside class="dfn-panel" data-for="module">
    <b><a href="#module">#module</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-module">7.2. The &lt;vendor>:settings Module</a> <a href="#ref-for-module①">(2)</a>
+    <li><a href="#ref-for-module">2. Explainer</a>
+    <li><a href="#ref-for-module①">7.2. The &lt;vendor>:settings Module</a> <a href="#ref-for-module②">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="module-name">
@@ -2102,6 +2103,16 @@ parameters</var>.</p>
     <li><a href="#ref-for-command">5.4. Modules</a> <a href="#ref-for-command①">(2)</a> <a href="#ref-for-command②">(3)</a>
     <li><a href="#ref-for-command③">5.5. Commands</a>
     <li><a href="#ref-for-command④">5.7. Errors</a> <a href="#ref-for-command⑤">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="command-type">
+   <b><a href="#command-type">#command-type</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-command-type">7.1.3.1. The session.new Command</a>
+    <li><a href="#ref-for-command-type①">7.2.3.1. The &lt;vendor>:settings.setSettings Command</a>
+    <li><a href="#ref-for-command-type②">7.2.3.2. The &lt;vendor>settings.getSettings Command</a>
+    <li><a href="#ref-for-command-type③">7.2.3.3. The &lt;vendor>settings.getSupportedSettings Command</a>
+    <li><a href="#ref-for-command-type④">7.3.3.1. The interaction.pressKeys Command</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="command-name">
