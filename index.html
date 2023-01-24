@@ -6,9 +6,9 @@
   <meta content="w3c/CG-DRAFT" name="w3c-status">
   <link href="https://www.w3.org/StyleSheets/TR/2021/cg-draft" rel="stylesheet">
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
-  <meta content="Bikeshed version 26e85e599, updated Thu Dec 8 15:29:31 2022 -0800" name="generator">
+  <meta content="Bikeshed version d6f2d6445, updated Tue Jan 17 11:25:25 2023 -0800" name="generator">
   <link href="https://w3c.github.io/aria-at-automation/" rel="canonical">
-  <meta content="3ad852cc82c1367efe0116c7559bb965000e4c3f" name="document-revision">
+  <meta content="367bce2c9adc68d7b06c21b2a28b11767c039586" name="document-revision">
 <style>
 table { border-collapse: collapse; border-style: hidden hidden none hidden; }
 table thead, table tbody { border-bottom: solid; }
@@ -608,7 +608,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">ARIA-AT Automation</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-DRAFT">Draft Community Group Report</a>, <time class="dt-updated" datetime="2022-12-22">22 December 2022</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-DRAFT">Draft Community Group Report</a>, <time class="dt-updated" datetime="2023-01-24">24 January 2023</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -626,7 +626,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
     </div>
    </details>
    <div data-fill-with="warning"></div>
-   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2022 <a href="https://www.w3.org/"><abbr title="World Wide Web Consortium">W3C</abbr></a><sup>®</sup> (<a href="https://www.csail.mit.edu/"><abbr title="Massachusetts Institute of Technology">MIT</abbr></a>, <a href="https://www.ercim.eu/"><abbr title="European Research Consortium for Informatics and Mathematics">ERCIM</abbr></a>, <a href="https://www.keio.ac.jp/">Keio</a>, <a href="https://ev.buaa.edu.cn/">Beihang</a>). W3C <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document" rel="license">permissive document license</a> rules apply. </p>
+   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2023 <a href="https://www.w3.org/">World Wide Web Consortium</a>. <abbr title="World Wide Web Consortium">W3C</abbr><sup>®</sup> <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document" rel="license">permissive document license</a> rules apply. </p>
    <hr title="Separator for header">
   </div>
   <div class="p-summary" data-fill-with="abstract">
@@ -770,7 +770,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
     <li data-md>
      <p>If <var>temp</var> is an <a data-link-type="dfn" href="#error" id="ref-for-error①">error</a>, then return <var>temp</var>. Otherwise, let <var>result</var> be <var>temp</var>’s data field.</p>
    </ol>
-   <p class="note" role="note"><span>Note:</span> This means that errors are propagated upwards when using "trying".</p>
+   <p class="note" role="note"><span class="marker">Note:</span> This means that errors are propagated upwards when using "trying".</p>
    <h2 class="heading settled" data-level="4" id="nodes"><span class="secno">4. </span><span class="content">Nodes</span><a class="self-link" href="#nodes"></a></h2>
    <p>The AT Driver protocol consists of communication between:</p>
    <dl>
@@ -1045,7 +1045,7 @@ and a <dfn class="dfn-paneled" data-dfn-for="WebSocket listener" data-dfn-type="
    <p>A <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="websocket-connection">WebSocket connection</dfn> is a network connection that follows the requirements of the WebSocket protocol. <a data-link-type="biblio" href="#biblio-rfc6455" title="The WebSocket Protocol">[RFC6455]</a></p>
    <p>A <a data-link-type="dfn" href="#session" id="ref-for-session⑨">session</a> has a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-set" id="ref-for-ordered-set③">set</a> of <dfn class="dfn-paneled" data-dfn-for="session" data-dfn-type="dfn" data-noexport id="session-session-websocket-connections">session WebSocket connections</dfn> whose elements are <a data-link-type="dfn" href="#websocket-connection" id="ref-for-websocket-connection">WebSocket connections</a>. This is initially empty.</p>
    <p>A <a data-link-type="dfn" href="#session" id="ref-for-session①⓪">session</a> <var>session</var> is <dfn class="dfn-paneled" data-dfn-for="session" data-dfn-type="dfn" data-noexport id="session-associated-with-connection">associated with connection</dfn> <var>connection</var> if <var>session</var>’s <a data-link-type="dfn" href="#session-session-websocket-connections" id="ref-for-session-session-websocket-connections">session WebSocket connections</a> contains <var>connection</var>.</p>
-   <p class="note" role="note"><span>Note:</span> Each <a data-link-type="dfn" href="#websocket-connection" id="ref-for-websocket-connection①">WebSocket connection</a> is associated with at most one <a data-link-type="dfn" href="#session" id="ref-for-session①①">session</a>.</p>
+   <p class="note" role="note"><span class="marker">Note:</span> Each <a data-link-type="dfn" href="#websocket-connection" id="ref-for-websocket-connection①">WebSocket connection</a> is associated with at most one <a data-link-type="dfn" href="#session" id="ref-for-session①①">session</a>.</p>
    <p>When a client <a href="https://tools.ietf.org/html/rfc6455#section-4.1">establishes a WebSocket connection</a> <var>connection</var> by connecting to one of the set of <a data-link-type="dfn" href="#remote-end-active-listeners" id="ref-for-remote-end-active-listeners">active listeners</a> <var>listener</var>, the implementation must proceed according to the <a href="https://tools.ietf.org/html/rfc6455#section-4.2">WebSocket server-side requirements</a>, with the following steps run when deciding whether to accept the incoming connection:</p>
    <ol>
     <li data-md>
@@ -1057,7 +1057,7 @@ and a <dfn class="dfn-paneled" data-dfn-for="WebSocket listener" data-dfn-type="
    </ol>
    <p>When a <a href="https://tools.ietf.org/html/rfc6455#section-6.2">WebSocket message has been received</a> for a <a data-link-type="dfn" href="#websocket-connection" id="ref-for-websocket-connection②">WebSocket connection</a> <var>connection</var> with type <var>type</var> and data <var>data</var>, a <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②⓪">remote end</a> must <a data-link-type="dfn" href="#handle-an-incoming-message" id="ref-for-handle-an-incoming-message">handle an incoming message</a> given <var>connection</var>, <var>type</var> and <var>data</var>.</p>
    <p>When the <a href="https://tools.ietf.org/html/rfc6455#section-7.1.3">WebSocket closing handshake is started</a> or when the <a href="https://tools.ietf.org/html/rfc6455#section-7.1.4">WebSocket connection is closed</a> for a <a data-link-type="dfn" href="#websocket-connection" id="ref-for-websocket-connection③">WebSocket connection</a> <var>connection</var>, a <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②①">remote end</a> must <a data-link-type="dfn" href="#handle-a-connection-closing" id="ref-for-handle-a-connection-closing">handle a connection closing</a> given <var>connection</var>.</p>
-   <p class="note" role="note"><span>Note:</span> Both conditions are needed because it is possible for a WebSocket connection to be closed without a closing handshake.</p>
+   <p class="note" role="note"><span class="marker">Note:</span> Both conditions are needed because it is possible for a WebSocket connection to be closed without a closing handshake.</p>
    <p>To <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="start-listening-for-a-websocket-connection">start listening for a WebSocket connection</dfn>:</p>
    <ol>
     <li data-md>
@@ -1067,18 +1067,18 @@ and a <dfn class="dfn-paneled" data-dfn-for="WebSocket listener" data-dfn-type="
     <li data-md>
      <p>Return <var>listener</var>.</p>
    </ol>
-   <p class="note" role="note"><span>Note:</span> a future iteration of this specification may allow multiple connections, to support <a href="https://w3c.github.io/webdriver/#dfn-intermediary-nodes">intermediary nodes like in WebDriver</a>.</p>
+   <p class="note" role="note"><span class="marker">Note:</span> a future iteration of this specification may allow multiple connections, to support <a href="https://w3c.github.io/webdriver/#dfn-intermediary-nodes">intermediary nodes like in WebDriver</a>.</p>
    <div class="algorithm" data-algorithm="handle an incoming message">
     <p>To <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="handle-an-incoming-message">handle an incoming message</dfn> given a <a data-link-type="dfn" href="#websocket-connection" id="ref-for-websocket-connection④">WebSocket connection</a> <var>connection</var>, type <var>type</var> and data <var>data</var>:</p>
     <ol>
      <li data-md>
-      <p>If <var>type</var> is not <a href="https://tools.ietf.org/html/rfc6455#section-5.2">text</a>, <a data-link-type="dfn" href="#respond-with-an-error" id="ref-for-respond-with-an-error">respond with an error</a> given <var>connection</var>, null, and <a data-link-type="dfn" href="#error-code-invalid-argument" id="ref-for-error-code-invalid-argument">invalid argument</a>, and finally return.</p>
+      <p>If <var>type</var> is not <a href="https://tools.ietf.org/html/rfc6455#section-5.2">text</a>, <a data-link-type="dfn" href="#send-an-error-response" id="ref-for-send-an-error-response">send an error response</a> given <var>connection</var>, null, and <a data-link-type="dfn" href="#error-code-invalid-argument" id="ref-for-error-code-invalid-argument">invalid argument</a>, and finally return.</p>
      <li data-md>
       <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#assert" id="ref-for-assert">Assert</a>: <var>data</var> is a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#scalar-value-string" id="ref-for-scalar-value-string">scalar value string</a>, because the <a href="https://tools.ietf.org/html/rfc6455#section-8.1">WebSocket handling errors in UTF-8-encoded data=</a> would already have <a href="https://tools.ietf.org/html/rfc6455#section-7.1.7">failed the WebSocket connection</a> otherwise.</p>
      <li data-md>
       <p>If there is a <a data-link-type="dfn" href="#session" id="ref-for-session①②">session</a> <a data-link-type="dfn" href="#session-associated-with-connection" id="ref-for-session-associated-with-connection">associated with connection</a> <var>connection</var>, let <var>session</var> be that session. Otherwise if <var>connection</var> is in the set of <a data-link-type="dfn" href="#remote-end-websocket-connections-not-associated-with-a-session" id="ref-for-remote-end-websocket-connections-not-associated-with-a-session①">WebSocket connections not associated with a session</a>, let <var>session</var> be null. Otherwise, return.</p>
      <li data-md>
-      <p>Let <var>parsed</var> be the result of <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#parse-a-json-string-to-an-infra-value" id="ref-for-parse-a-json-string-to-an-infra-value">parsing JSON into Infra values</a> given <var>data</var>. If this throws an exception, then <a data-link-type="dfn" href="#respond-with-an-error" id="ref-for-respond-with-an-error①">respond with an error</a> given <var>connection</var>, null, and <a data-link-type="dfn" href="#error-code-invalid-argument" id="ref-for-error-code-invalid-argument①">invalid argument</a>, and finally return.</p>
+      <p>Let <var>parsed</var> be the result of <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#parse-a-json-string-to-an-infra-value" id="ref-for-parse-a-json-string-to-an-infra-value">parsing JSON into Infra values</a> given <var>data</var>. If this throws an exception, then <a data-link-type="dfn" href="#send-an-error-response" id="ref-for-send-an-error-response①">send an error response</a> given <var>connection</var>, null, and <a data-link-type="dfn" href="#error-code-invalid-argument" id="ref-for-error-code-invalid-argument①">invalid argument</a>, and finally return.</p>
      <li data-md>
       <p>Match parsed against the <a data-link-type="dfn" href="#remote-end-definition" id="ref-for-remote-end-definition④">remote end definition</a>. If this results in a match:</p>
       <ol>
@@ -1093,14 +1093,14 @@ and a <dfn class="dfn-paneled" data-dfn-for="WebSocket listener" data-dfn-type="
        <li data-md>
         <p>Let <var>command</var> be the command with <a data-link-type="dfn" href="#command-name" id="ref-for-command-name②">command name</a> <var>method</var>.</p>
        <li data-md>
-        <p>If <var>session</var> is null and <var>command</var> is not a <a data-link-type="dfn" href="#static-command" id="ref-for-static-command">static command</a>, then <a data-link-type="dfn" href="#respond-with-an-error" id="ref-for-respond-with-an-error②">respond with an error</a> given <var>connection</var>, <var>command id</var>, and <a data-link-type="dfn" href="#error-code-invalid-session-id" id="ref-for-error-code-invalid-session-id">invalid session id</a>, and return.</p>
+        <p>If <var>session</var> is null and <var>command</var> is not a <a data-link-type="dfn" href="#static-command" id="ref-for-static-command">static command</a>, then <a data-link-type="dfn" href="#send-an-error-response" id="ref-for-send-an-error-response②">send an error response</a> given <var>connection</var>, <var>command id</var>, and <a data-link-type="dfn" href="#error-code-invalid-session-id" id="ref-for-error-code-invalid-session-id">invalid session id</a>, and return.</p>
        <li data-md>
         <p>Run the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel">in parallel</a>:</p>
         <ol>
          <li data-md>
           <p>Let <var>result</var> be the result of running the <a data-link-type="dfn" href="#remote-end-steps" id="ref-for-remote-end-steps">remote end steps</a> for <var>command</var> given <var>session</var> and <a data-link-type="dfn" href="#command-parameters" id="ref-for-command-parameters①">command parameters</a> <var>matched</var>["<code>params</code>"].</p>
          <li data-md>
-          <p>If <var>result</var> is an <a data-link-type="dfn" href="#error" id="ref-for-error⑤">error</a>, then <a data-link-type="dfn" href="#respond-with-an-error" id="ref-for-respond-with-an-error③">respond with an error</a> given <var>connection</var>, <var>command id</var>, and <var>result</var>’s <a data-link-type="dfn" href="#error-code" id="ref-for-error-code③">error code</a>, and finally return.</p>
+          <p>If <var>result</var> is an <a data-link-type="dfn" href="#error" id="ref-for-error⑤">error</a>, then <a data-link-type="dfn" href="#send-an-error-response" id="ref-for-send-an-error-response③">send an error response</a> given <var>connection</var>, <var>command id</var>, and <var>result</var>’s <a data-link-type="dfn" href="#error-code" id="ref-for-error-code③">error code</a>, and finally return.</p>
          <li data-md>
           <p>Let <var>value</var> be <var>result</var>’s data.</p>
          <li data-md>
@@ -1127,7 +1127,7 @@ and a <dfn class="dfn-paneled" data-dfn-for="WebSocket listener" data-dfn-type="
        <li data-md>
         <p>If <var>parsed</var> is a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map②">map</a> and <var>parsed</var>["<code>method</code>"] <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#map-exists" id="ref-for-map-exists④">exists</a> and is a string, but <var>parsed</var>["<code>method</code>"] is not in the <a data-link-type="dfn" href="#set-of-all-command-names" id="ref-for-set-of-all-command-names">set of all command names</a>, set <var>error code</var> to <a data-link-type="dfn" href="#error-code-unknown-command" id="ref-for-error-code-unknown-command">unknown command</a>.</p>
        <li data-md>
-        <p><a data-link-type="dfn" href="#respond-with-an-error" id="ref-for-respond-with-an-error④">Respond with an error</a> given <var>connection</var>, <var>command id</var>, and <var>error code</var>.</p>
+        <p><a data-link-type="dfn" href="#send-an-error-response" id="ref-for-send-an-error-response④">Send an error response</a> given <var>connection</var>, <var>command id</var>, and <var>error code</var>.</p>
       </ol>
     </ol>
    </div>
@@ -1146,8 +1146,8 @@ and a <dfn class="dfn-paneled" data-dfn-for="WebSocket listener" data-dfn-type="
       <p><a href="https://tools.ietf.org/html/rfc6455#section-6.1">Send a WebSocket message</a> comprised of <var>serialized</var> over <var>connection</var>.</p>
     </ol>
    </div>
-   <div class="algorithm" data-algorithm="respond with an error">
-    <p>To <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="respond-with-an-error">respond with an error</dfn> given a <a data-link-type="dfn" href="#websocket-connection" id="ref-for-websocket-connection⑦">WebSocket connection</a> <var>connection</var>, <var>command id</var>, and <var>error code</var>:</p>
+   <div class="algorithm" data-algorithm="send an error response">
+    <p>To <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="send-an-error-response">send an error response</dfn> given a <a data-link-type="dfn" href="#websocket-connection" id="ref-for-websocket-connection⑦">WebSocket connection</a> <var>connection</var>, <var>command id</var>, and <var>error code</var>:</p>
     <ol>
      <li data-md>
       <p>Let <var>error data</var> be a new <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map③">map</a> matching the <code>ErrorResponse</code> production in the <a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition⑤">local end definition</a>, with the <code>id</code> field set to <var>command id</var>, the <code>error</code> field set to <var>error code</var>, the <code>message</code> field set to an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined⑥">implementation-defined</a> string containing a human-readable definition of the error that occurred and the <code>stacktrace</code> field optionally set to an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined⑦">implementation-defined</a> string containing a stack trace report of the active stack frames at the time when the error occurred.</p>
@@ -1215,7 +1215,7 @@ CapabilitiesRequestParameters = {
   ?alwaysMatch: CapabilitiesRequest,
 }
 </pre>
-     <p class="note" role="note"><span>Note:</span> <code>firstMatch</code> is not included currently to reduce complexity.</p>
+     <p class="note" role="note"><span class="marker">Note:</span> <code>firstMatch</code> is not included currently to reduce complexity.</p>
     <dt><a data-link-type="dfn" href="#result-type" id="ref-for-result-type②">Result Type</a> 
     <dd>
 <pre class="cddl local-cddl">SessionNewResult = {
@@ -1259,7 +1259,7 @@ CapabilitiesRequestParameters = {
    <h3 class="heading settled" data-level="7.2" id="module-vendor-settings"><span class="secno">7.2. </span><span class="content">The &lt;vendor>:settings Module</span><a class="self-link" href="#module-vendor-settings"></a></h3>
    <p>Currently, there are no standardized settings. Implementations that wish to allow controlling and reading settings through the protocol defined in this specification must support settings as an <a data-link-type="dfn" href="#extension-modules" id="ref-for-extension-modules①">extension module</a>, with the structure defined in this section. Implementations are strongly encouraged to review the security implications of each setting, and only support the settings that are deemed safe. It is not defined what constitutes a setting, however, it is intended to represent user preferences such as the default voice, or the default rate of speech.</p>
    <p>In the schema definitions in this section, <code>&lt;vendor></code> is a placeholder for an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined⑧">implementation-defined</a> prefix for the <a data-link-type="dfn" href="#extension-modules" id="ref-for-extension-modules②">extension module</a>. The value of the prefix should be the name of the vendor or the assistive technology product, as appropriate.</p>
-   <p class="note" role="note"><span>Note:</span> The prefix could be, for example, <code>nvda</code>, <code>jaws</code>, or <code>macOSVoiceOver</code>.</p>
+   <p class="note" role="note"><span class="marker">Note:</span> The prefix could be, for example, <code>nvda</code>, <code>jaws</code>, or <code>macOSVoiceOver</code>.</p>
    <p>A <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②③">remote end</a> has an associated set of <dfn class="dfn-paneled" data-dfn-for="remote end" data-dfn-type="dfn" data-noexport id="remote-end-supported-settings">supported settings</dfn>, which is either null or a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-set" id="ref-for-ordered-set④">set</a> of strings which contains the name of every setting that may be referenced by this <a data-link-type="dfn" href="#module" id="ref-for-module">module</a>.</p>
    <div class="algorithm" data-algorithm="setting name is invalid">
     <p>To determine if a <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="setting-name-is-invalid">setting name is invalid</dfn> given string <var>name</var>:</p>
@@ -1328,7 +1328,7 @@ CapabilitiesRequestParameters = {
       <p>Return <a data-link-type="dfn" href="#success" id="ref-for-success①②">success</a> with data null.</p>
     </ol>
    </div>
-   <p class="note" role="note"><span>Note:</span> Today’s implementations may not be able to detect invalid setting names or values, limiting their ability to report when operations do not model authentic interactions with the internal state. The algorithms in this <a data-link-type="dfn" href="#module" id="ref-for-module①">module</a> are designed to reflect this.</p>
+   <p class="note" role="note"><span class="marker">Note:</span> Today’s implementations may not be able to detect invalid setting names or values, limiting their ability to report when operations do not model authentic interactions with the internal state. The algorithms in this <a data-link-type="dfn" href="#module" id="ref-for-module①">module</a> are designed to reflect this.</p>
    <p class="issue" id="issue-b4b3c071"><a class="self-link" href="#issue-b4b3c071"></a> Require implementations to maintain a static list of supported settings.</p>
    <h4 class="heading settled" data-level="7.2.1" id="module-vendor-settings-definition"><span class="secno">7.2.1. </span><span class="content">Definition</span><a class="self-link" href="#module-vendor-settings-definition"></a></h4>
    <p><a data-link-type="dfn" href="#remote-end-definition" id="ref-for-remote-end-definition⑦">Remote end definition</a></p>
@@ -1360,7 +1360,7 @@ VendorSettingsGetSettingsResultItem = {
    <h4 class="heading settled" data-level="7.2.3" id="module-settings-commands"><span class="secno">7.2.3. </span><span class="content">Commands</span><a class="self-link" href="#module-settings-commands"></a></h4>
    <h5 class="heading settled" data-level="7.2.3.1" id="command-vendor-settings-set-settings"><span class="secno">7.2.3.1. </span><span class="content">The &lt;vendor>:settings.setSettings Command</span><a class="self-link" href="#command-vendor-settings-set-settings"></a></h5>
    <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="vendorsettingssetsettings">&lt;vendor>:settings.setSettings</dfn> command  sets the values of one or more settings.</p>
-   <p class="note" role="note"><span>Note:</span> Today’s implementations may not be able to detect failed modification operations. <a data-link-type="dfn" href="#vendorsettingssetsettings" id="ref-for-vendorsettingssetsettings">&lt;vendor>:settings.setSettings</a> is designed to reflect that reality. Clients should therefore interpret <a data-link-type="dfn" href="#success" id="ref-for-success①③">successes</a> with some skepticism as such results do not necessarily indicate that the referenced setting has the desired value.</p>
+   <p class="note" role="note"><span class="marker">Note:</span> Today’s implementations may not be able to detect failed modification operations. <a data-link-type="dfn" href="#vendorsettingssetsettings" id="ref-for-vendorsettingssetsettings">&lt;vendor>:settings.setSettings</a> is designed to reflect that reality. Clients should therefore interpret <a data-link-type="dfn" href="#success" id="ref-for-success①③">successes</a> with some skepticism as such results do not necessarily indicate that the referenced setting has the desired value.</p>
    <p class="issue" id="issue-c41981a9"><a class="self-link" href="#issue-c41981a9"></a> Require implementations to report failures in settings modification operations.</p>
    <dl>
     <dt>Command Type
@@ -1521,7 +1521,7 @@ KeyCombination = [
 <pre class="cddl">EmptyResult
 </pre>
    </dl>
-   <p class="note" role="note"><span>Note:</span> Each string in <code>KeyCombination</code> represents a "raw key" consisting of a
+   <p class="note" role="note"><span class="marker">Note:</span> Each string in <code>KeyCombination</code> represents a "raw key" consisting of a
 single code point with the same meaning as in <a href="https://w3c.github.io/webdriver/#keyboard-actions">WebDriver’s keyboard
 actions</a>. For example, <code>["\uE008", "a"]</code> means holding the left shift key
 and pressing "a", and then releasing the left shift key. <a data-link-type="biblio" href="#biblio-webdriver" title="WebDriver">[WEBDRIVER]</a></p>
@@ -1696,9 +1696,9 @@ parameters</var>.</p>
    <li><a href="#remote-end-definition">remote end definition</a><span>, in § 5</span>
    <li><a href="#remote-end-event-trigger">remote end event trigger</a><span>, in § 5.6</span>
    <li><a href="#remote-end-steps">remote end steps</a><span>, in § 5.5</span>
-   <li><a href="#respond-with-an-error">respond with an error</a><span>, in § 6</span>
    <li><a href="#result-type">result type</a><span>, in § 5.5</span>
    <li><a href="#websocket-listener-secure-flag">secure flag</a><span>, in § 6</span>
+   <li><a href="#send-an-error-response">send an error response</a><span>, in § 6</span>
    <li><a href="#session">session</a><span>, in § 5.3</span>
    <li><a href="#session-session-id">session ID</a><span>, in § 5.3</span>
    <li><a href="#sessionnew">session.new</a><span>, in § 7.1.3.1</span>
@@ -2314,10 +2314,10 @@ parameters</var>.</p>
     <li><a href="#ref-for-emit-an-event">7.3.4. Events</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="respond-with-an-error">
-   <b><a href="#respond-with-an-error">#respond-with-an-error</a></b><b>Referenced in:</b>
+  <aside class="dfn-panel" data-for="send-an-error-response">
+   <b><a href="#send-an-error-response">#send-an-error-response</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-respond-with-an-error">6. Transport</a> <a href="#ref-for-respond-with-an-error①">(2)</a> <a href="#ref-for-respond-with-an-error②">(3)</a> <a href="#ref-for-respond-with-an-error③">(4)</a> <a href="#ref-for-respond-with-an-error④">(5)</a>
+    <li><a href="#ref-for-send-an-error-response">6. Transport</a> <a href="#ref-for-send-an-error-response①">(2)</a> <a href="#ref-for-send-an-error-response②">(3)</a> <a href="#ref-for-send-an-error-response③">(4)</a> <a href="#ref-for-send-an-error-response④">(5)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="handle-a-connection-closing">
