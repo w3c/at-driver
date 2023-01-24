@@ -56,7 +56,7 @@ A connection can have 0 or more [=sessions=]. Each session corresponds to an ins
 
 When a remote end supports multiple sessions, it does not necessarily mean that there will be multiple ATs running at the same time in the same instance of an OS. Some ATs might not be able to function properly if there are other ATs running at the same time. The AT Driver [=session=] concept can still be used by having the remote end run in a separate environment and each AT is run in its own OS instance (for example in a virtual machine), and the remote end proxies messages in some fashion.
 
-Commands are grouped into modules. The modules could be: Sessions, Settings, Actions.
+Commands are grouped into [=modules=]. The modules could be: Sessions, Settings, Actions.
 
 Message transport is provided using the WebSocket protocol.
 
@@ -526,7 +526,7 @@ The `CapabilitiesRequest` type represents capabilities requested for a session.
 The <dfn>session.new</dfn> command allows creating a new [=session=]. This is a [=static command=].
 
 <dl>
-  <dt>Command Type
+  <dt>[=Command Type=]
   <dd>
 
   <xmp class="cddl remote-cddl">
@@ -684,7 +684,7 @@ Note: Today's implementations may not be able to detect failed modification oper
 Issue: Require implementations to report failures in settings modification operations.
 
 <dl>
-  <dt>Command Type</dt>
+  <dt>[=Command Type=]</dt>
   <dd>
     <xmp class="cddl remote-cddl">
     VendorSettingsSetSettingsCommand = {
@@ -730,7 +730,7 @@ The [=remote end steps=] given <var ignore>session</var> and |command parameters
 The <dfn>&lt;vendor>:settings.getSettings command</dfn> returns a list of the requested settings and their values.
 
 <dl>
-  <dt>Command Type</dt>
+  <dt>[=Command Type=]</dt>
   <dd>
     <xmp class="cddl remote-cddl">
     VendorSettingsGetSettingsCommand = {
@@ -770,7 +770,7 @@ The <a>remote end steps</a> given <var ignore>session</var> and |command paramet
 The <dfn>&lt;vendor>:settings.getSupportedSettings command</dfn> returns a list of all settings that the [=remote end=] supports, and their values.
 
 <dl>
-  <dt>Command Type</dt>
+  <dt>[=Command Type=]</dt>
   <dd>
     <xmp class="cddl remote-cddl">
     VendorSettingsGetSupportedSettingsCommand = {
@@ -843,7 +843,7 @@ The <dfn>interaction.pressKeys</dfn> command simulates pressing a key combinatio
 Issue(34): This command does not yet have a means for indicating a screen-reader specific modifier key (or keys).
 
 <dl>
-  <dt>Command Type
+  <dt>[=Command Type=]
   <dd>
 
   <pre class="cddl remote-cddl">
