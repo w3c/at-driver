@@ -8,7 +8,7 @@
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
   <meta content="Bikeshed version d6f2d6445, updated Tue Jan 17 11:25:25 2023 -0800" name="generator">
   <link href="https://w3c.github.io/aria-at-automation/" rel="canonical">
-  <meta content="9e822efa0e103a290249e5420f0d275c6b8703a3" name="document-revision">
+  <meta content="25302c28e0690eb522483119aec24887f42d1ea2" name="document-revision">
 <style>
 table { border-collapse: collapse; border-style: hidden hidden none hidden; }
 table thead, table tbody { border-bottom: solid; }
@@ -1560,7 +1560,9 @@ parameters</var>.</p>
        <p>Run <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined①②">implementation-defined</a> steps to simulate releasing <var>key</var>.</p>
      </ol>
     <li data-md>
-     <p>Return a new map matching the <code>EmptyResult</code> production.</p>
+     <p>Let <var>body</var> be a new <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map⑧">map</a>.</p>
+    <li data-md>
+     <p>Return <a data-link-type="dfn" href="#success" id="ref-for-success①⑥">success</a> with data <var>body</var>.</p>
    </ol>
    <h4 class="heading settled" data-level="7.3.4" id="module-interaction-events"><span class="secno">7.3.4. </span><span class="content">Events</span><a class="self-link" href="#module-interaction-events"></a></h4>
    <dl>
@@ -1583,9 +1585,9 @@ parameters</var>.</p>
         <p>Return.</p>
       </ol>
      <li data-md>
-      <p>Let <var>params</var> be a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map⑧">map</a> matching the <code>InteractionCapturedOutputParameters</code> production with the <code>data</code> field set to <var>data</var>.</p>
+      <p>Let <var>params</var> be a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map⑨">map</a> matching the <code>InteractionCapturedOutputParameters</code> production with the <code>data</code> field set to <var>data</var>.</p>
      <li data-md>
-      <p>Let <var>body</var> be a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map⑨">map</a> matching the <code>InteractionCapturedOutputEvent</code> production with the <code>params</code> field set to <var>params</var>.</p>
+      <p>Let <var>body</var> be a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map①⓪">map</a> matching the <code>InteractionCapturedOutputEvent</code> production with the <code>params</code> field set to <var>params</var>.</p>
      <li data-md>
       <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-iterate" id="ref-for-list-iterate④">For each</a> <var>session</var> of <a data-link-type="dfn" href="#remote-end-active-sessions" id="ref-for-remote-end-active-sessions⑤">active sessions</a>:</p>
       <ol>
@@ -1834,7 +1836,8 @@ parameters</var>.</p>
     <li><a href="#ref-for-ordered-map④">7.1.3.1. The session.new Command</a>
     <li><a href="#ref-for-ordered-map⑤">7.2. The &lt;vendor>:settings Module</a> <a href="#ref-for-ordered-map⑥">(2)</a>
     <li><a href="#ref-for-ordered-map⑦">7.2.3.1. The &lt;vendor>:settings.setSettings Command</a>
-    <li><a href="#ref-for-ordered-map⑧">7.3.4. Events</a> <a href="#ref-for-ordered-map⑨">(2)</a>
+    <li><a href="#ref-for-ordered-map⑧">7.3.3.1. The interaction.pressKeys Command</a>
+    <li><a href="#ref-for-ordered-map⑨">7.3.4. Events</a> <a href="#ref-for-ordered-map①⓪">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-parse-a-json-string-to-an-infra-value">
@@ -1971,6 +1974,7 @@ parameters</var>.</p>
     <li><a href="#ref-for-success①①">7.2. The &lt;vendor>:settings Module</a> <a href="#ref-for-success①②">(2)</a>
     <li><a href="#ref-for-success①③">7.2.3.1. The &lt;vendor>:settings.setSettings Command</a> <a href="#ref-for-success①④">(2)</a>
     <li><a href="#ref-for-success①⑤">7.2.3.3. The &lt;vendor>settings.getSupportedSettings Command</a>
+    <li><a href="#ref-for-success①⑥">7.3.3.1. The interaction.pressKeys Command</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="error">
