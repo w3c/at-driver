@@ -8,7 +8,7 @@
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
   <meta content="Bikeshed version d6f2d6445, updated Tue Jan 17 11:25:25 2023 -0800" name="generator">
   <link href="https://w3c.github.io/aria-at-automation/" rel="canonical">
-  <meta content="2aaa615b5b1d0b7d0670e19b529da4f7666584e3" name="document-revision">
+  <meta content="9e822efa0e103a290249e5420f0d275c6b8703a3" name="document-revision">
 <style>
 table { border-collapse: collapse; border-style: hidden hidden none hidden; }
 table thead, table tbody { border-bottom: solid; }
@@ -787,10 +787,14 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
    <h3 class="heading settled" data-level="5.1" id="protocol-definition"><span class="secno">5.1. </span><span class="content">Definition</span><a class="self-link" href="#protocol-definition"></a></h3>
    <p>This section gives the initial contents of the remote end definition and local end definition. These are augmented by the definition fragments defined in the remainder of the specification.</p>
    <p><a data-link-type="dfn" href="#remote-end-definition" id="ref-for-remote-end-definition">Remote end definition</a></p>
-<pre class="cddl remote-cddl">Command = {
+<pre class="cddl remote-cddl">Extensible = {
+  *text => any
+}
+
+Command = {
   id: uint,
   CommandData,
-  *text => any,
+  Extensible,
 }
 
 CommandData = (
@@ -799,10 +803,14 @@ CommandData = (
   InteractionCommand
 )
 
-EmptyParams = { *text => any }
+EmptyParams = { Extensible }
 </pre>
    <p><a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition">Local end definition</a>:</p>
-<pre class="cddl local-cddl">Message = (
+<pre class="cddl local-cddl">Extensible = {
+  *text => any
+}
+
+Message = (
   CommandResponse //
   ErrorResponse //
   Event
@@ -811,7 +819,7 @@ EmptyParams = { *text => any }
 CommandResponse = {
   id: uint,
   result: ResultData,
-  *text => any
+  Extensible,
 }
 
 ErrorResponse = {
@@ -819,7 +827,7 @@ ErrorResponse = {
   error: "unknown error" / "unknown command" / "invalid argument" / "session not created",
   message: text,
   ?stacktrace: text,
-  *text => any
+  Extensible,
 }
 
 ResultData = (
@@ -832,7 +840,7 @@ EmptyResult = {}
 
 Event = {
   EventData,
-  *text => any
+  Extensible,
 }
 
 EventData = (
@@ -1201,7 +1209,7 @@ and a <dfn class="dfn-paneled" data-dfn-for="WebSocket listener" data-dfn-type="
   ?atName: text,
   ?atVersion: text,
   ?platformName: text,
-  *text => any
+  Extensible,
 }
 </pre>
    <p>The <code>CapabilitiesRequest</code> type represents capabilities requested for a session.</p>
@@ -1229,7 +1237,7 @@ CapabilitiesRequestParameters = {
     atName: text,
     atVersion: text,
     platformName: text,
-    *text => any
+    Extensible,
   }
 }
 </pre>
@@ -1358,7 +1366,7 @@ CapabilitiesRequestParameters = {
 VendorSettingsGetSettingsResultItem = {
   name: text,
   value: any,
-  *text => any
+  Extensible,
 }
 </pre>
    <p>The <code>VendorSettingsGetSettingsResult</code> type contains a list of settings and their values.</p>
@@ -1382,7 +1390,7 @@ VendorSettingsSetSettingsParameters = {
 VendorSettingsSetSettingsParametersItem = {
   name: text,
   value: any,
-  *text => any
+  Extensible,
 }
 </pre>
     <dt><a data-link-type="dfn" href="#result-type" id="ref-for-result-type③">Result Type</a>
@@ -1427,7 +1435,7 @@ VendorSettingsGetSettingsParameters = {
 
 VendorSettingsGetSettingsParametersItem = {
   name: text,
-  *text => any
+  Extensible,
 }
 </pre>
     <dt><a data-link-type="dfn" href="#result-type" id="ref-for-result-type④">Result Type</a>
@@ -1497,7 +1505,7 @@ InteractionEvent = (InteractionCapturedOutputEvent)
    <h4 class="heading settled" data-level="7.3.2" id="module-interaction-types"><span class="secno">7.3.2. </span><span class="content">Types</span><a class="self-link" href="#module-interaction-types"></a></h4>
 <pre class="cddl local-cddl">InteractionCapturedOutputParameters = {
   data: text,
-  *text => any
+  Extensible,
 }
 </pre>
    <h4 class="heading settled" data-level="7.3.3" id="module-interaction-commands"><span class="secno">7.3.3. </span><span class="content">Commands</span><a class="self-link" href="#module-interaction-commands"></a></h4>
@@ -1514,7 +1522,7 @@ InteractionEvent = (InteractionCapturedOutputEvent)
 
 InteractionPressKeysParameters = {
   "keys" => KeyCombination,
-  *text => any
+  Extensible,
 }
 
 KeyCombination = [
