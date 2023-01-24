@@ -468,9 +468,9 @@ To <dfn>handle a connection closing</dfn> given a [=WebSocket connection=] |conn
   1. If there is a [=session=] [=associated with connection=] |connection|:
       1. Let |session| be the [=session=] [=associated with connection=] |connection|.
       2. Remove |connection| from |session|'s [=session WebSocket connections=].
+      3. If |session|'s [=session WebSocket connections=] is [=list/empty=]:
+          1. Remove |session| from [=active sessions=].
   2. Otherwise, if the set of [=WebSocket connections not associated with a session=] contains |connection|, remove |connection| from that set.
-
-Issue: As in WebDriver BiDi, this does not end any session. Not sure if we want to allow reconnecting to the same session, or implicitly end the session.
 
 </div>
 
