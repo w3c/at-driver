@@ -29,6 +29,7 @@ We review the needs of the ARIA-AT project’s automated tests through the lens 
     * Ability to access the spoken output of the screen reader.
     * Ability to access the internal state of the screen reader, e.g. virtual focus position, mode (interaction mode vs. reading mode).
 * Define an API that can be consistently implemented by all screen readers.
+* Enable open experimentation across a large set of platforms and by a diverse group of consumers.
 * Do not duplicate functionality where WebDriver is already suitable.
 
 
