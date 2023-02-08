@@ -99,7 +99,7 @@ We feel this is the most promising direction for a standardization effort.
 
 ### Extend WebDriver with desired functionality
 
-The required functionality could be specified in terms of the WebDriver standard. Initially, [the WebDriver standard’s built-in extension mechanism](https://w3c.github.io/webdriver/#extensions-0) could be used to publish normative text that is adjacent to WebDriver. As the text matures and becomes implemented, it might be moved into the WebDriver standard itself.
+The required functionality could be specified in terms of the WebDriver standard. Initially, [the WebDriver standard’s built-in extension mechanism](https://w3c.github.io/webdriver/#extensions-0) could be used to publish normative text in a distinct document. As the text matures and becomes implemented, it might be moved into the WebDriver standard itself.
 
 We advise against proceeding in this direction because it extends the responsibilities of the WebDriver server in a way that the maintainers are unlikely to support. In addition to integrating with their respective web browser, implementations like [GeckoDriver](https://github.com/mozilla/geckodriver) and [ChromeDriver](https://chromedriver.chromium.org/) would need to integrate with every available screen reader.
 
