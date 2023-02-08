@@ -103,7 +103,7 @@ The required functionality could be specified in terms of the WebDriver standard
 
 We advise against proceeding in this direction because it extends the responsibilities of the WebDriver server in a way that the maintainers are unlikely to support. In addition to integrating with their respective web browser, implementations like [GeckoDriver](https://github.com/mozilla/geckodriver) and [ChromeDriver](https://chromedriver.chromium.org/) would need to integrate with every available screen reader.
 
-A second hurdle to this approach concerns the state of the relevant standard. The particular needs of spoken text retrieval could not be met by the WebDriver standard in its current form. Standardizing this feature would require extending [the nascent bi-directional version of WebDriver](https://w3c.github.io/webdriver-bidi/). Since this version is more volatile than the traditional (that is, uni-directional) version, there is more risk in building on it.
+A second hurdle to this approach concerns the state of the relevant standard. The particular needs of spoken text retrieval could not be met by the WebDriver standard in its current form. Standardizing this feature would require extending [WebDriver BiDi, the bi-directional version of WebDriver](https://w3c.github.io/webdriver-bidi/). WebDriver BiDi is still being designed in 2023, making it a more volatile basis for extension.
 
 
 ### Extend one or more existing WebDriver servers
