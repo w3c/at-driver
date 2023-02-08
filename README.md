@@ -101,7 +101,7 @@ We feel this is the most promising direction for a standardization effort.
 
 The required functionality could be specified in terms of the WebDriver standard. Initially, [the WebDriver standard’s built-in extension mechanism](https://w3c.github.io/webdriver/#extensions-0) could be used to publish normative text in a distinct document. As the text matures and becomes implemented, it might be moved into the WebDriver standard itself.
 
-We advise against proceeding in this direction because it extends the responsibilities of the WebDriver server in a way that the maintainers are unlikely to support. In addition to integrating with their respective web browser, implementations like [GeckoDriver](https://github.com/mozilla/geckodriver) and [ChromeDriver](https://chromedriver.chromium.org/) would need to integrate with every available screen reader.
+We have chosen not to proceed in this direction because it extends the responsibilities of the WebDriver server in a way that the maintainers are unlikely to support. In addition to integrating with their respective web browser, implementations like [GeckoDriver](https://github.com/mozilla/geckodriver) and [ChromeDriver](https://chromedriver.chromium.org/) would need to integrate with every available screen reader.
 
 A second hurdle to this approach concerns the state of the relevant standard. The particular needs of spoken text retrieval could not be met by the WebDriver standard in its current form. Standardizing this feature would require extending [WebDriver BiDi, the bi-directional version of WebDriver](https://w3c.github.io/webdriver-bidi/). WebDriver BiDi is still being designed in 2023, making it a more volatile basis for extension.
 
@@ -110,7 +110,7 @@ A second hurdle to this approach concerns the state of the relevant standard. Th
 
 The required functionality could be built into an existing WebDriver server (e.g. [GeckoDriver](https://github.com/mozilla/geckodriver) or [ChromeDriver](https://chromedriver.chromium.org/)) using appropriate vendor prefixes. This would limit the number of subsystems involved, and like any reduction in complexity, it would help mitigate bugs.
 
-We advise against proceeding in this direction because while we are interested in testing multiple browsers, integrating with multiple browsers directly (instead of building "on top" of multiple browsers) will increase the development effort required to achieve that goal. Further, none of the participants in this effort have the expertise necessary to rapidly implement a solution so tightly-coupled to the existing technology.
+We have chosen not to proceed in this direction because while we are interested in testing multiple browsers, integrating with multiple browsers directly (instead of building "on top" of multiple browsers) will increase the development effort required to achieve that goal. Further, none of the participants in this effort have the expertise necessary to rapidly implement a solution so tightly-coupled to the existing technology.
 
 
 ### Simulate OS-level key presses and intercept spoken output
