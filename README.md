@@ -10,7 +10,7 @@
 
 ## Overview
 
-[The WebDriver protocol](https://w3c.github.io/webdriver/#extensions-0) is a [W3C](https://www.w3.org/) standard created for automating web browsers. The goal of [the ARIA-AT project](https://aria-at.w3.org/) is to automate tests for screen readers and web browsers, and for that goal, WebDriver is insufficient.
+[The WebDriver protocol](https://w3c.github.io/webdriver/#extensions-0) is a [W3C](https://www.w3.org/) standard created for automating web browsers. The goal of [the ARIA-AT project](https://aria-at.w3.org/) is to enable the automation of screen readers and web browsers, and for that purpose, WebDriver is insufficient.
 
 We review the needs of the ARIA-AT project’s automated tests through the lens of the WebDriver protocol. We identify which needs are already met by WebDriver and which needs require new infrastructure. Finally, we outline alternative proposals that we have considered.
 
