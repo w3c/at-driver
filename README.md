@@ -121,6 +121,13 @@ Some of the required functionality could be provided by a tool that does not int
 It is unclear whether some requirements (namely, configuring screen readers and observing their state) could be satisfied using this approach because there are no consistent operating-system-level facilities for these features. Even within the subset of required capabilities which can be realized via these means, the absence of a standard would undermine stability, and the commitment to a concrete implementation would limit adoption. While we recognize that this approach may yield helpful implementation experience in advance of consensus around a standard (see [the aria-at-automation-driver project](https://github.com/w3c/aria-at-automation-driver)), we recognize that it is fundamentally insufficient.
 
 
+### Promote nascent standard for introspecting accessibility properties
+
+[The Accessibility Object Model](https://wicg.github.io/aom/) is an effort whose goal is "to create a JavaScript API to allow developers to modify (and eventually explore) the accessibility tree for an HTML page." Developers empowered in this way could validate their code in terms of the data structure which the browser provides to the screen reader, giving them some confidence about the accessibility of their work.
+
+We have chosen not to proceed in this direction because we believe developers would be well-served by being able to observe the complete user experience *alongside* the low-level accessibility primitives. Assistive technologies play a critical role in shaping user experience, and this proposal's "end-to-end" nature (which encompasses the assistive technology in addition to the developer's code and the web browser) will give developers insight into that experience. Also, because this proposal exposes information about the end-user's experience (rather than a diagnostic data structure), we expect more people will be able to participate in the design and maintenance of systems built on it.
+
+
 ## References
 
 * [ARIA-AT](https://aria-at.w3.org/)
