@@ -17,7 +17,7 @@ We review the needs of the ARIA-AT project’s automated tests through the lens 
 
 ## Motivating Use Cases
 
-* It is difficult for web developers to know whether a particular design pattern or web platform feature is supported by all of the accessibility stack (browser, OS, screen reader) without manually testing.
+* It is difficult for web developers to know whether a particular design pattern or web platform feature is supported by all of the accessibility stack (browser, operating system, screen reader) without manually testing.
 * It is difficult for screen reader implementers to compare their product’s compliance to web standards to their competitors’ products without manually testing.
 
 
