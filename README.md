@@ -114,21 +114,11 @@ The required functionality could be built into an existing WebDriver server (e.g
 We have chosen not to proceed in this direction because while we are interested in testing multiple browsers, integrating with multiple browsers directly (instead of building "on top" of multiple browsers) will increase the development effort required to achieve that goal. Further, none of the participants in this effort have the expertise necessary to rapidly implement a solution so tightly-coupled to the existing technology.
 
 
-### Simulate OS-level key presses and intercept spoken output
+### Build a tool which integrates with operating systems to observe and control screen readers
 
-At the OS-level (as opposed to the browser-level, as in WebDriver), simulate key presses to give actions for the screen reader and browser. Also at the OS-level, install a custom voice that intercepts the spoken output, and make that text available to the test runner so that it can compare actual output with expected output.
+Some of the required functionality could be provided by a tool that does not integrate with screen reader directly. Such a tool could give instructions to the screen reader by simulating keyboard key presses at the level of the operating system (OS). Also at the OS-level, the tool could implement a text-to-speech "voice" which exposes the vocalizations as a stream of textual data. A general audience could benefit from this work if the source code and documentation were published under a free-and-open-source-software license.
 
-This is what we’re experimenting with currently at Bocoup. We believe this is a reasonable starting point because it allows us to start testing without changes to screen readers, but it’s not the ideal long-term solution because there are some limitations.
-
-#### Pros
-
-* Not blocked on screen readers implementing a new API to start testing.
-* It should be possible to access everything that users can access (with a keyboard).
-
-#### Cons
-
-* Changing screen reader settings in this way is likely not going to be robust.
-* No access to screen readers’ internal state.
+It is unclear whether some requirements (namely, configuring screen readers and observing their state) could be satisfied using this approach because there are no consistent operating-system-level facilities for these features. Even within the subset of required capabilities which can be realized via these means, the absence of a standard would undermine stability, and the commitment to a concrete implementation would limit adoption. While we recognize that this approach may yield helpful implementation experience in advance of consensus around a standard (see [the aria-at-automation-driver project](https://github.com/w3c/aria-at-automation-driver)), we recognize that it is fundamentally insufficient.
 
 
 ## References
