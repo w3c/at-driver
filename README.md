@@ -23,13 +23,12 @@ We review the needs of the ARIA-AT project’s automated tests through the lens 
 
 ## Goals
 
-* Automate testing of screen reader + web browser combinations.
+* Enable automation of screen reader and web browser combinations.
     * Ability to start and quit the screen reader.
-    * Ability to start and quit the web browser.
     * Ability to change settings in the screen reader in a robust way.
     * Ability to access the spoken output of the screen reader.
     * Ability to access the internal state of the screen reader, e.g. virtual focus position, mode (interaction mode vs. reading mode).
-* A common API shared by all screen readers.
+* Define an API that can be consistently implemented by all screen readers.
 * Do not duplicate functionality where WebDriver is already suitable.
 
 
