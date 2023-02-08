@@ -34,7 +34,7 @@ We review the needs of the ARIA-AT project’s automated tests through the lens 
 
 ## Requirements
 
-Web developers will need to trigger specific behaviors in web browsers and screen readers. This section enumerates all such behaviors and differentiates those which are already possible today from those which will require non-trivial development effort.
+Web developers will need to trigger specific behaviors in web browsers and screen readers. This section enumerates a minimal set of such behaviors. It differentiates the features which are already available through standard interfaces (as of 2023) from those which can only be accessed through proprietary interfaces (if at all).
 
 
 ### Start browser (already possible today)
