@@ -34,53 +34,53 @@ We review the needs of the ARIA-AT project’s automated tests through the lens 
 
 ## Requirements
 
-The future ARIA-AT tests will need to trigger specific behaviors in web browsers and screen readers. This section enumerates all such behaviors and differentiates those which are already possible today from those which will require non-trivial development effort.
+Web developers will need to trigger specific behaviors in web browsers and screen readers. This section enumerates all such behaviors and differentiates those which are already possible today from those which will require non-trivial development effort.
 
 
 ### Start browser (already possible today)
 
-ARIA-AT tests will need to create web browser instances before testing can begin.
+Web developers will need to create web browser instances before testing can begin.
 
 The WebDriver protocol already provides this feature through [its "New Session" command](https://w3c.github.io/webdriver/#new-session).
 
 
 ### Visit web page (already possible today)
 
-ARIA-AT tests will need to navigate web browser instances to documents designed to demonstrate accessibility behaviors.
+Web developers will need to navigate web browser instances to documents designed to demonstrate accessibility behaviors.
 
 The WebDriver protocol already provides this feature through [its "Navigate To" command](https://w3c.github.io/webdriver/#navigate-to).
 
 
 ### Quit browser (already possible today)
 
-ARIA-AT tests will need to destroy web browser instances after testing is complete.
+Web developers will need to destroy web browser instances after testing is complete.
 
 The WebDriver protocol already provides this feature through [its "Delete Session" command](https://w3c.github.io/webdriver/#delete-session).
 
 
 ### Configure screen reader
 
-ARIA-AT tests will need to set initial conditions for the screen reader under test, e.g. instructing the screen reader to convey mode changes in speech instead of via sound files.
+Web developers will need to set initial conditions for the screen reader under test, e.g. instructing the screen reader to convey mode changes in speech instead of via sound files.
 
 The WebDriver protocol already provides a mechanism for altering characteristics of the testing session via [its "Capabilities" mechanism](https://w3c.github.io/webdriver/#capabilities), but screen reader settings are not included in the set of capabilities.
 
 
 ### Press keyboard keys
 
-ARIA-AT tests will need to simulate keyboard key presses which can be received by a screen reader.
+Web developers will need to simulate keyboard key presses which can be received by a screen reader.
 
 Although the WebDriver protocol already provides two commands for simulating key presses (["Element Send Keys"](https://w3c.github.io/webdriver/#element-send-keys) and ["Perform Actions"](https://w3c.github.io/webdriver/#dfn-perform-actions)), those commands are unsuitable for the purposes of ARIA-AT automation because they operate by simulating input within the web browser instance. The operating system and screen reader cannot observe keyboard interaction simulated using these commands.
 
 ### Inspect screen reader internal state
 
-ARIA-AT tests will need to verify certain aspects of screen readers' status which are not directly observable by end users. The properties of interest have not yet been identified (nor have they been standardized across screen readers), but they may include, for instance, whether [so-called "modal" screen readers](https://github.com/w3c/aria-at/wiki/Screen-Reader-Terminology-Translation) are in "interaction mode" or "reading mode."
+Web developers will need to verify certain aspects of screen readers' status which are not directly observable by end users. The properties of interest have not yet been identified (nor have they been standardized across screen readers), but they may include, for instance, whether [so-called "modal" screen readers](https://github.com/w3c/aria-at/wiki/Screen-Reader-Terminology-Translation) are in "interaction mode" or "reading mode."
 
 WebDriver currently does not provide a mechanism for retrieving this information.
 
 
 ### Observe spoken text
 
-ARIA-AT tests will need to verify the correctness of the words that the screen reader vocalizes to the end user. The screen reader under test may attempt to vocalize at any moment (e.g. due to [ARIA live regions](https://www.w3.org/TR/wai-aria/#dfn-live-region) or due to screen reader implementation bugs), and this unique aspect warrants special consideration when evaluating potential paths forward.
+Web developers will need to verify the correctness of the words that the screen reader vocalizes to the end user. The screen reader under test may attempt to vocalize at any moment (e.g. due to [ARIA live regions](https://www.w3.org/TR/wai-aria/#dfn-live-region) or due to screen reader implementation bugs), and this unique aspect warrants special consideration when evaluating potential paths forward.
 
 WebDriver currently does not provide a mechanism for retrieving this information.
 
