@@ -8,7 +8,7 @@ Repository: w3c/aria-at-automation
 URL: https://w3c.github.io/aria-at-automation/
 Editor: Mike Pennisi, Bocoup https://bocoup.com, mike@bocoup.com
 Former Editor: Simon Pieters, Bocoup https://bocoup.com, simon@bocoup.com
-Abstract: A protocol for introspection and remove control of assistive technology software
+Abstract: A protocol for introspection and remote control of assistive technology software
 Markup Shorthands: markdown yes
 </xmp>
 
