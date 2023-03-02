@@ -850,6 +850,8 @@ The <dfn>interaction.pressKeys</dfn> command simulates pressing a key combinatio
 
 Issue(34): This command does not yet have a means for indicating a screen-reader specific modifier key (or keys).
 
+Issue(51): This algorithm only supports one specific kind of press/release sequence, and it is not clear if that is sufficient to express all keyboard commands in all implementations.
+
 <dl>
   <dt>[=Command Type=]
   <dd>
