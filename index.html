@@ -6,9 +6,9 @@
   <meta content="w3c/CG-DRAFT" name="w3c-status">
   <link href="https://www.w3.org/StyleSheets/TR/2021/cg-draft" rel="stylesheet">
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
-  <meta content="Bikeshed version d6f2d6445, updated Tue Jan 17 11:25:25 2023 -0800" name="generator">
+  <meta content="Bikeshed version 077497365, updated Thu Mar 2 15:15:29 2023 -0800" name="generator">
   <link href="https://w3c.github.io/aria-at-automation/" rel="canonical">
-  <meta content="25302c28e0690eb522483119aec24887f42d1ea2" name="document-revision">
+  <meta content="c49c292529da7c01a74e13e19baf99a70cd4d9b7" name="document-revision">
 <style>
 table { border-collapse: collapse; border-style: hidden hidden none hidden; }
 table thead, table tbody { border-bottom: solid; }
@@ -24,7 +24,6 @@ table tbody th:first-child { border-left: solid; }
 table td, table th { border-left: solid; border-right: solid; border-bottom: solid thin; vertical-align: top; padding: 0.2em; }
 </style>
 <style>/* style-autolinks */
-
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
     font-size: inherit;
@@ -84,7 +83,8 @@ pre .property::before, pre .property::after {
 
 [data-link-type=biblio] {
     white-space: pre;
-}</style>
+}
+</style>
 <style>/* style-colors */
 
 /* Any --*-text not paired with a --*-bg is assumed to have a transparent bg */
@@ -193,9 +193,9 @@ pre .property::before, pre .property::after {
     --outdated-shadow: red;
 
     --editedrec-bg: darkorange;
-}</style>
+}
+</style>
 <style>/* style-counters */
-
 body {
     counter-reset: example figure issue;
 }
@@ -222,9 +222,9 @@ figcaption {
 }
 figcaption:not(.no-marker)::before {
     content: "Figure " counter(figure) " ";
-}</style>
+}
+</style>
 <style>/* style-dfn-panel */
-
 :root {
     --dfnpanel-bg: #ddd;
     --dfnpanel-text: var(--text);
@@ -232,10 +232,10 @@ figcaption:not(.no-marker)::before {
 .dfn-panel {
     position: absolute;
     z-index: 35;
-    height: auto;
-    width: -webkit-fit-content;
-    width: fit-content;
+    width: 20em;
+    min-width: min-content;
     max-width: 300px;
+    height: auto;
     max-height: 500px;
     overflow: auto;
     padding: 0.5em 0.75em;
@@ -243,6 +243,7 @@ figcaption:not(.no-marker)::before {
     background: var(--dfnpanel-bg);
     color: var(--dfnpanel-text);
     border: outset 0.2em;
+    white-space: normal; /* in case it's moved into a pre */
 }
 .dfn-panel:not(.on) { display: none; }
 .dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
@@ -265,7 +266,6 @@ figcaption:not(.no-marker)::before {
 .dfn-paneled { cursor: pointer; }
 </style>
 <style>/* style-issues */
-
 a[href].issue-return {
     float: right;
     float: inline-end;
@@ -275,7 +275,6 @@ a[href].issue-return {
 }
 </style>
 <style>/* style-md-lists */
-
 /* This is a weird hack for me not yet following the commonmark spec
    regarding paragraph and lists. */
 [data-md] > :first-child {
@@ -283,7 +282,8 @@ a[href].issue-return {
 }
 [data-md] > :last-child {
     margin-bottom: 0;
-}</style>
+}
+</style>
 <style>/* style-selflinks */
 
 :root {
@@ -527,6 +527,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
        which is quite common in practice... */
     img { background: white; }
 }
+
 @media (prefers-color-scheme: dark) {
     :root {
         --selflink-text: black;
@@ -541,6 +542,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
         --dfnpanel-text: var(--text);
     }
 }
+
 @media (prefers-color-scheme: dark) {
     .highlight:not(.idl) { background: rgba(255, 255, 255, .05); }
 
@@ -608,7 +610,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">ARIA-AT Automation</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-DRAFT">Draft Community Group Report</a>, <time class="dt-updated" datetime="2023-01-24">24 January 2023</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-DRAFT">Draft Community Group Report</a>, <time class="dt-updated" datetime="2023-03-03">3 March 2023</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -879,22 +881,26 @@ EventData = (
     <p>To <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="process-capabilities">process capabilities</dfn> with argument <var>parameters</var>, the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end⑥">remote end</a> must:</p>
     <ol>
      <li data-md>
-      <p>Let <var>capabilities request</var> be <var>parameters</var>["<code>capabilities</code>"] if it <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#map-exists" id="ref-for-map-exists">exists</a>, else null.</p>
+      <p>If <var>parameters</var>["<code>capabilities</code>"] <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#map-exists" id="ref-for-map-exists">exists</a> and <var>parameters</var>["<code>capabilities</code>"]["<code>alwaysMatch</code>"] <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#map-exists" id="ref-for-map-exists①">exists</a>:</p>
+      <ol>
+       <li data-md>
+        <p>Let <var>required capabilities</var> be <var>parameters</var>["<code>capabilities</code>"]["<code>alwaysMatch</code>"].</p>
+      </ol>
      <li data-md>
-      <p>Let <var>required capabilities</var> be <var>capabilities request</var>["<code>alwaysMatch</code>"] if it <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#map-exists" id="ref-for-map-exists①">exists</a>, else null.</p>
+      <p>Otherwise:</p>
+      <ol>
+       <li data-md>
+        <p>Let <var>required capabilities</var> be a new <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map">map</a>.</p>
+      </ol>
      <li data-md>
-      <p>Let <var>matched capabilities</var> be the result of <a data-link-type="dfn" href="#try" id="ref-for-try">trying</a> to <a data-link-type="dfn" href="#match-capabilities" id="ref-for-match-capabilities">match capabilities</a> given <var>required capabilities</var>.</p>
-     <li data-md>
-      <p>If <var>matched capabilities</var> is not null, then return <a data-link-type="dfn" href="#success" id="ref-for-success①">success</a> with data <var>matched capabilities</var>.</p>
-     <li data-md>
-      <p>Return <a data-link-type="dfn" href="#success" id="ref-for-success②">success</a> with data null.</p>
+      <p>Return the result of <a data-link-type="dfn" href="#match-capabilities" id="ref-for-match-capabilities">match capabilities</a> given <var>required capabilities</var>.</p>
     </ol>
    </div>
    <div class="algorithm" data-algorithm="match capabilities">
     <p>To <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="match-capabilities">match capabilities</dfn> given <var>requested capabilities</var>, the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end⑦">remote end</a> must:</p>
     <ol>
      <li data-md>
-      <p>Let <var>matched capabilities</var> be a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map">map</a> with the following entries:</p>
+      <p>Let <var>matched capabilities</var> be a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map①">map</a> with the following entries:</p>
       <dl>
        <dt data-md>"<code>atName</code>"
        <dd data-md>
@@ -918,22 +924,22 @@ EventData = (
         <dl>
          <dt data-md>"<code>atName</code>"
          <dd data-md>
-          <p>If <var>value</var> is not equal to <var>matched capabilities</var>["<code>atName</code>"], then return <a data-link-type="dfn" href="#success" id="ref-for-success③">success</a> with data null.</p>
+          <p>If <var>value</var> is not equal to <var>matched capabilities</var>["<code>atName</code>"], then return <a data-link-type="dfn" href="#success" id="ref-for-success①">success</a> with data null.</p>
          <dt data-md>"<code>atVersion</code>"
          <dd data-md>
           <p>Compare <var>value</var> to <var>matched capabilities</var>["<code>browserVersion</code>"] using an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined">implementation-defined</a> comparison algorithm. The comparison is to accept a value that places constraints on the version using the "<code>&lt;</code>", "<code>&lt;=</code>", "<code>></code>", and "<code>>=</code>" operators.</p>
          <dt data-md>"<code>platformName</code>"
          <dd data-md>
-          <p>If <var>value</var> is not equal to <var>matched capabilities</var>["<code>platformName</code>"], then return <a data-link-type="dfn" href="#success" id="ref-for-success④">success</a> with data null.</p>
+          <p>If <var>value</var> is not equal to <var>matched capabilities</var>["<code>platformName</code>"], then return <a data-link-type="dfn" href="#success" id="ref-for-success②">success</a> with data null.</p>
          <dt data-md>Otherwise
          <dd data-md>
-          <p>If <var>key</var> is the key of an <a data-link-type="dfn" href="#extension-capabilities" id="ref-for-extension-capabilities①">extension capability</a>, set <var>match value</var> to the result of <a data-link-type="dfn" href="#try" id="ref-for-try①">trying</a> implementation-specific steps to match on <var>key</var> with <var>value</var>. If the match is not successful, return <a data-link-type="dfn" href="#success" id="ref-for-success⑤">success</a> with data null.</p>
+          <p>If <var>key</var> is the key of an <a data-link-type="dfn" href="#extension-capabilities" id="ref-for-extension-capabilities①">extension capability</a>, set <var>match value</var> to the result of <a data-link-type="dfn" href="#try" id="ref-for-try">trying</a> implementation-specific steps to match on <var>key</var> with <var>value</var>. If the match is not successful, return <a data-link-type="dfn" href="#success" id="ref-for-success③">success</a> with data null.</p>
         </dl>
        <li data-md>
         <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#map-set" id="ref-for-map-set">Set</a> <var>matched capabilities</var>[<var>key</var>] to <var>match value</var>.</p>
       </ol>
      <li data-md>
-      <p>Return <a data-link-type="dfn" href="#success" id="ref-for-success⑥">success</a> with data <var>matched capabilities</var>.</p>
+      <p>Return <a data-link-type="dfn" href="#success" id="ref-for-success④">success</a> with data <var>matched capabilities</var>.</p>
     </ol>
    </div>
    <h3 class="heading settled" data-level="5.3" id="protocol-session"><span class="secno">5.3. </span><span class="content">Session</span><a class="self-link" href="#protocol-session"></a></h3>
@@ -947,7 +953,7 @@ EventData = (
    <p>Modules which contain <a data-link-type="dfn" href="#command" id="ref-for-command①">commands</a> define <a data-link-type="dfn" href="#remote-end-definition" id="ref-for-remote-end-definition①">remote end definition</a> fragments.</p>
    <p>An implementation may define <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="extension-modules">extension modules</dfn>. These must have a module name that contains a single colon "<code>:</code>" character. The part before the colon is the prefix; this is typically the same for all extension modules specific to a given implementation and should be unique for a given implementation. Such modules extend the <a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition①">local end definition</a> and <a data-link-type="dfn" href="#remote-end-definition" id="ref-for-remote-end-definition②">remote end definition</a> providing additional groups as choices for the defined <a data-link-type="dfn" href="#command" id="ref-for-command②">commands</a> and <a data-link-type="dfn" href="#event" id="ref-for-event①">events</a>.</p>
    <h3 class="heading settled" data-level="5.5" id="protocol-commands"><span class="secno">5.5. </span><span class="content">Commands</span><a class="self-link" href="#protocol-commands"></a></h3>
-   <p>A <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="command">command</dfn> is an asynchronous operation, requested by the <a data-link-type="dfn" href="#local-end" id="ref-for-local-end④">local end</a> and run on the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end①⓪">remote end</a>, resulting in either a <a data-link-type="dfn" href="#success" id="ref-for-success⑦">success</a> or an <a data-link-type="dfn" href="#error" id="ref-for-error②">error</a> being returned to the <a data-link-type="dfn" href="#local-end" id="ref-for-local-end⑤">local end</a>. Multiple commands can run at the same time, and commands can potentially be long-running. As a consequence, commands can finish out-of-order.</p>
+   <p>A <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="command">command</dfn> is an asynchronous operation, requested by the <a data-link-type="dfn" href="#local-end" id="ref-for-local-end④">local end</a> and run on the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end①⓪">remote end</a>, resulting in either a <a data-link-type="dfn" href="#success" id="ref-for-success⑤">success</a> or an <a data-link-type="dfn" href="#error" id="ref-for-error②">error</a> being returned to the <a data-link-type="dfn" href="#local-end" id="ref-for-local-end⑤">local end</a>. Multiple commands can run at the same time, and commands can potentially be long-running. As a consequence, commands can finish out-of-order.</p>
    <p>Each <a data-link-type="dfn" href="#command" id="ref-for-command③">command</a> is defined by:</p>
    <ul>
     <li data-md>
@@ -1021,14 +1027,14 @@ EventData = (
     <li data-md>
      <p>If the remote end cannot simulate keyboard interaction for any <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined①">implementation-defined</a> reason, then return an <a data-link-type="dfn" href="#error" id="ref-for-error③">error</a> with <a data-link-type="dfn" href="#error-code" id="ref-for-error-code①">error code</a> <a data-link-type="dfn" href="#error-code-cannot-simulate-keyboard-interaction" id="ref-for-error-code-cannot-simulate-keyboard-interaction">cannot simulate keyboard interaction</a>.</p>
     <li data-md>
-     <p>Return <a data-link-type="dfn" href="#success" id="ref-for-success⑧">success</a> with data null.</p>
+     <p>Return <a data-link-type="dfn" href="#success" id="ref-for-success⑥">success</a> with data null.</p>
    </ol>
    <p>To <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="check-that-one-of-the-expected-applications-has-focus">check that one of the expected applications has focus</dfn>:</p>
    <ol>
     <li data-md>
      <p>If the application that currently has OS focus (and so could act on simulated key presses from this API) is not one of the expected applications, then return an <a data-link-type="dfn" href="#error" id="ref-for-error④">error</a> with <a data-link-type="dfn" href="#error-code" id="ref-for-error-code②">error code</a> <a data-link-type="dfn" href="#error-code-invalid-os-focus-state" id="ref-for-error-code-invalid-os-focus-state">invalid OS focus state</a>. Which applications are expected is <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined②">implementation-defined</a>.</p>
     <li data-md>
-     <p>Return <a data-link-type="dfn" href="#success" id="ref-for-success⑨">success</a> with data null.</p>
+     <p>Return <a data-link-type="dfn" href="#success" id="ref-for-success⑦">success</a> with data null.</p>
    </ol>
    <p>To determine whether a string <var>text</var> <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="should-be-withheld">should be withheld</dfn>:</p>
    <ol>
@@ -1129,11 +1135,11 @@ and a <dfn class="dfn-paneled" data-dfn-for="WebSocket listener" data-dfn-type="
        <li data-md>
         <p>Let <var>command id</var> be null.</p>
        <li data-md>
-        <p>If <var>parsed</var> is a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map①">map</a> and <var>parsed</var>["<code>id</code>"] <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#map-exists" id="ref-for-map-exists③">exists</a> and is an integer greater than or equal to zero, set <var>command id</var> to that integer.</p>
+        <p>If <var>parsed</var> is a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map②">map</a> and <var>parsed</var>["<code>id</code>"] <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#map-exists" id="ref-for-map-exists③">exists</a> and is an integer greater than or equal to zero, set <var>command id</var> to that integer.</p>
        <li data-md>
         <p>Let <var>error code</var> be <a data-link-type="dfn" href="#error-code-invalid-argument" id="ref-for-error-code-invalid-argument②">invalid argument</a>.</p>
        <li data-md>
-        <p>If <var>parsed</var> is a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map②">map</a> and <var>parsed</var>["<code>method</code>"] <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#map-exists" id="ref-for-map-exists④">exists</a> and is a string, but <var>parsed</var>["<code>method</code>"] is not in the <a data-link-type="dfn" href="#set-of-all-command-names" id="ref-for-set-of-all-command-names">set of all command names</a>, set <var>error code</var> to <a data-link-type="dfn" href="#error-code-unknown-command" id="ref-for-error-code-unknown-command">unknown command</a>.</p>
+        <p>If <var>parsed</var> is a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map③">map</a> and <var>parsed</var>["<code>method</code>"] <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#map-exists" id="ref-for-map-exists④">exists</a> and is a string, but <var>parsed</var>["<code>method</code>"] is not in the <a data-link-type="dfn" href="#set-of-all-command-names" id="ref-for-set-of-all-command-names">set of all command names</a>, set <var>error code</var> to <a data-link-type="dfn" href="#error-code-unknown-command" id="ref-for-error-code-unknown-command">unknown command</a>.</p>
        <li data-md>
         <p><a data-link-type="dfn" href="#send-an-error-response" id="ref-for-send-an-error-response④">Send an error response</a> given <var>connection</var>, <var>command id</var>, and <var>error code</var>.</p>
       </ol>
@@ -1158,7 +1164,7 @@ and a <dfn class="dfn-paneled" data-dfn-for="WebSocket listener" data-dfn-type="
     <p>To <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="send-an-error-response">send an error response</dfn> given a <a data-link-type="dfn" href="#websocket-connection" id="ref-for-websocket-connection⑦">WebSocket connection</a> <var>connection</var>, <var>command id</var>, and <var>error code</var>:</p>
     <ol>
      <li data-md>
-      <p>Let <var>error data</var> be a new <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map③">map</a> matching the <code>ErrorResponse</code> production in the <a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition⑤">local end definition</a>, with the <code>id</code> field set to <var>command id</var>, the <code>error</code> field set to <var>error code</var>, the <code>message</code> field set to an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined⑥">implementation-defined</a> string containing a human-readable definition of the error that occurred and the <code>stacktrace</code> field optionally set to an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined⑦">implementation-defined</a> string containing a stack trace report of the active stack frames at the time when the error occurred.</p>
+      <p>Let <var>error data</var> be a new <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map④">map</a> matching the <code>ErrorResponse</code> production in the <a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition⑤">local end definition</a>, with the <code>id</code> field set to <var>command id</var>, the <code>error</code> field set to <var>error code</var>, the <code>message</code> field set to an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined⑥">implementation-defined</a> string containing a human-readable definition of the error that occurred and the <code>stacktrace</code> field optionally set to an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined⑦">implementation-defined</a> string containing a stack trace report of the active stack frames at the time when the error occurred.</p>
      <li data-md>
       <p>Let <var>response</var> be the result of <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#serialize-an-infra-value-to-json-bytes" id="ref-for-serialize-an-infra-value-to-json-bytes②">serialize an infra value to JSON bytes</a> given <var>error data</var>.
   Note: command id can be null, in which case the id field will also be set to null, not omitted from response.</p>
@@ -1252,7 +1258,7 @@ CapabilitiesRequestParameters = {
      <li data-md>
       <p>If the implementation is unable to start a new session for any reason, return an <a data-link-type="dfn" href="#error" id="ref-for-error⑧">error</a> with error code <a data-link-type="dfn" href="#error-code-session-not-created" id="ref-for-error-code-session-not-created②">session not created</a>.</p>
      <li data-md>
-      <p>Let <var>capabilities</var> be the result of <a data-link-type="dfn" href="#try" id="ref-for-try②">trying</a> to <a data-link-type="dfn" href="#process-capabilities" id="ref-for-process-capabilities">process capabilities</a> with <var>command parameters</var>.</p>
+      <p>Let <var>capabilities</var> be the result of <a data-link-type="dfn" href="#try" id="ref-for-try①">trying</a> to <a data-link-type="dfn" href="#process-capabilities" id="ref-for-process-capabilities">process capabilities</a> with <var>command parameters</var>.</p>
      <li data-md>
       <p>If <var>capabilities</var> is null, return <a data-link-type="dfn" href="#error" id="ref-for-error⑨">error</a> with error code <a data-link-type="dfn" href="#error-code-session-not-created" id="ref-for-error-code-session-not-created③">session not created</a>.</p>
      <li data-md>
@@ -1264,9 +1270,9 @@ CapabilitiesRequestParameters = {
      <li data-md>
       <p>Start an instance of the appropriate assistive technology, given <var>capabilities</var>.</p>
      <li data-md>
-      <p>Let <var>body</var> be a new <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map④">map</a> matching the <code>SessionNewResult</code> production, with the <code>sessionId</code> field set to <var>session</var>’s <a data-link-type="dfn" href="#session-session-id" id="ref-for-session-session-id②">session ID</a>, and the <code>capabilities</code> field set to <var>capabilities</var>.</p>
+      <p>Let <var>body</var> be a new <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map⑤">map</a> matching the <code>SessionNewResult</code> production, with the <code>sessionId</code> field set to <var>session</var>’s <a data-link-type="dfn" href="#session-session-id" id="ref-for-session-session-id②">session ID</a>, and the <code>capabilities</code> field set to <var>capabilities</var>.</p>
      <li data-md>
-      <p>Return <a data-link-type="dfn" href="#success" id="ref-for-success①⓪">success</a> with data <var>body</var>.</p>
+      <p>Return <a data-link-type="dfn" href="#success" id="ref-for-success⑧">success</a> with data <var>body</var>.</p>
     </ol>
    </div>
    <h3 class="heading settled" data-level="7.2" id="module-vendor-settings"><span class="secno">7.2. </span><span class="content">The &lt;vendor>:settings Module</span><a class="self-link" href="#module-vendor-settings"></a></h3>
@@ -1310,14 +1316,14 @@ CapabilitiesRequestParameters = {
        <li data-md>
         <p>Let <var>value</var> be the value of the setting named <var>name</var>.</p>
        <li data-md>
-        <p>Let <var>item</var> be a new <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map⑤">map</a> matching the <code>VendorSettingsGetSettingsResultItem</code> production in the <a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition⑧">local end definition</a> with the <code>name</code> field set to <var>name</var> and the <code>value</code> field set to <var>value</var>.</p>
+        <p>Let <var>item</var> be a new <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map⑥">map</a> matching the <code>VendorSettingsGetSettingsResultItem</code> production in the <a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition⑧">local end definition</a> with the <code>name</code> field set to <var>name</var> and the <code>value</code> field set to <var>value</var>.</p>
        <li data-md>
         <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-append" id="ref-for-list-append">Append</a> <var>item</var> to <var>items</var>.</p>
       </ol>
      <li data-md>
-      <p>Let <var>body</var> be a new <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map⑥">map</a> matching the <code>VendorSettingsGetSettingsResult</code> production, with the <code>settings</code> field set to <var>items</var>.</p>
+      <p>Let <var>body</var> be a new <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map⑦">map</a> matching the <code>VendorSettingsGetSettingsResult</code> production, with the <code>settings</code> field set to <var>items</var>.</p>
      <li data-md>
-      <p>Return <a data-link-type="dfn" href="#success" id="ref-for-success①①">success</a> with data <var>body</var>.</p>
+      <p>Return <a data-link-type="dfn" href="#success" id="ref-for-success⑨">success</a> with data <var>body</var>.</p>
     </ol>
    </div>
    <div class="algorithm" data-algorithm="modify setting">
@@ -1338,7 +1344,7 @@ CapabilitiesRequestParameters = {
         <p>Return an <a data-link-type="dfn" href="#error" id="ref-for-error①②">error</a> with <a data-link-type="dfn" href="#error-code" id="ref-for-error-code⑥">error code</a> <a data-link-type="dfn" href="#error-code-invalid-argument" id="ref-for-error-code-invalid-argument⑤">invalid argument</a>.</p>
       </ol>
      <li data-md>
-      <p>Return <a data-link-type="dfn" href="#success" id="ref-for-success①②">success</a> with data null.</p>
+      <p>Return <a data-link-type="dfn" href="#success" id="ref-for-success①⓪">success</a> with data null.</p>
     </ol>
    </div>
    <p class="note" role="note"><span class="marker">Note:</span> Today’s implementations may not be able to detect invalid setting names or values, limiting their ability to report when operations do not model authentic interactions with the internal state. The algorithms in this <a data-link-type="dfn" href="#module" id="ref-for-module②">module</a> are designed to reflect this.</p>
@@ -1373,7 +1379,7 @@ VendorSettingsGetSettingsResultItem = {
    <h4 class="heading settled" data-level="7.2.3" id="module-settings-commands"><span class="secno">7.2.3. </span><span class="content">Commands</span><a class="self-link" href="#module-settings-commands"></a></h4>
    <h5 class="heading settled" data-level="7.2.3.1" id="command-vendor-settings-set-settings"><span class="secno">7.2.3.1. </span><span class="content">The &lt;vendor>:settings.setSettings Command</span><a class="self-link" href="#command-vendor-settings-set-settings"></a></h5>
    <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="vendorsettingssetsettings">&lt;vendor>:settings.setSettings</dfn> command  sets the values of one or more settings.</p>
-   <p class="note" role="note"><span class="marker">Note:</span> Today’s implementations may not be able to detect failed modification operations. <a data-link-type="dfn" href="#vendorsettingssetsettings" id="ref-for-vendorsettingssetsettings">&lt;vendor>:settings.setSettings</a> is designed to reflect that reality. Clients should therefore interpret <a data-link-type="dfn" href="#success" id="ref-for-success①③">successes</a> with some skepticism as such results do not necessarily indicate that the referenced setting has the desired value.</p>
+   <p class="note" role="note"><span class="marker">Note:</span> Today’s implementations may not be able to detect failed modification operations. <a data-link-type="dfn" href="#vendorsettingssetsettings" id="ref-for-vendorsettingssetsettings">&lt;vendor>:settings.setSettings</a> is designed to reflect that reality. Clients should therefore interpret <a data-link-type="dfn" href="#success" id="ref-for-success①①">successes</a> with some skepticism as such results do not necessarily indicate that the referenced setting has the desired value.</p>
    <p class="issue" id="issue-c41981a9"><a class="self-link" href="#issue-c41981a9"></a> Require implementations to report failures in settings modification operations.</p>
    <dl>
     <dt><a data-link-type="dfn" href="#command-type" id="ref-for-command-type①">Command Type</a>
@@ -1411,12 +1417,12 @@ VendorSettingsSetSettingsParametersItem = {
        <li data-md>
         <p>Let <var>value</var> be the value of the <code>value</code> field of <var>setting</var>.</p>
        <li data-md>
-        <p><a data-link-type="dfn" href="#try" id="ref-for-try③">Try</a> to <a data-link-type="dfn" href="#modify-setting" id="ref-for-modify-setting">modify setting</a> with <var>name</var> and <var>value</var>.</p>
+        <p><a data-link-type="dfn" href="#try" id="ref-for-try②">Try</a> to <a data-link-type="dfn" href="#modify-setting" id="ref-for-modify-setting">modify setting</a> with <var>name</var> and <var>value</var>.</p>
       </ol>
      <li data-md>
-      <p>Let <var>body</var> be a new <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map⑦">map</a>.</p>
+      <p>Let <var>body</var> be a new <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map⑧">map</a>.</p>
      <li data-md>
-      <p>Return <a data-link-type="dfn" href="#success" id="ref-for-success①④">success</a> with data <var>body</var>.</p>
+      <p>Return <a data-link-type="dfn" href="#success" id="ref-for-success①②">success</a> with data <var>body</var>.</p>
     </ol>
    </div>
    <h5 class="heading settled" data-level="7.2.3.2" id="command-vendor-settings-get-settings"><span class="secno">7.2.3.2. </span><span class="content">The &lt;vendor>settings.getSettings Command</span><a class="self-link" href="#command-vendor-settings-get-settings"></a></h5>
@@ -1485,7 +1491,7 @@ VendorSettingsGetSettingsParametersItem = {
      <li data-md>
       <p>Let <var>result</var> be the result of <a data-link-type="dfn" href="#get-settings" id="ref-for-get-settings①">get settings</a> with <var>names</var>.</p>
      <li data-md>
-      <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#assert" id="ref-for-assert④">Assert</a>: <var>result</var> is a <a data-link-type="dfn" href="#success" id="ref-for-success①⑤">success</a> value.</p>
+      <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#assert" id="ref-for-assert④">Assert</a>: <var>result</var> is a <a data-link-type="dfn" href="#success" id="ref-for-success①③">success</a> value.</p>
      <li data-md>
       <p>Return <var>result</var>.</p>
     </ol>
@@ -1512,6 +1518,7 @@ InteractionEvent = (InteractionCapturedOutputEvent)
    <h5 class="heading settled" data-level="7.3.3.1" id="module-interaction-presskeys"><span class="secno">7.3.3.1. </span><span class="content">The interaction.pressKeys Command</span><a class="self-link" href="#module-interaction-presskeys"></a></h5>
    <p>The <dfn data-dfn-type="dfn" data-noexport id="interactionpresskeys">interaction.pressKeys<a class="self-link" href="#interactionpresskeys"></a></dfn> command simulates pressing a key combination on a keyboard.</p>
    <p class="issue" id="issue-05fb1c8b"><a class="self-link" href="#issue-05fb1c8b"></a> This command does not yet have a means for indicating a screen-reader specific modifier key (or keys). <a href="https://github.com/w3c/aria-at-automation/issues/34">[Issue #34]</a></p>
+   <p class="issue" id="issue-1bd3afd8"><a class="self-link" href="#issue-1bd3afd8"></a> This algorithm only supports one specific kind of press/release sequence, and it is not clear if that is sufficient to express all keyboard commands in all implementations. <a href="https://github.com/w3c/aria-at-automation/issues/51">[Issue #51]</a></p>
    <dl>
     <dt><a data-link-type="dfn" href="#command-type" id="ref-for-command-type④">Command Type</a> 
     <dd>
@@ -1541,9 +1548,9 @@ and pressing "a", and then releasing the left shift key. <a data-link-type="bibl
    <p>The <a data-link-type="dfn" href="#remote-end-steps" id="ref-for-remote-end-steps⑤">remote end steps</a> given <var>session</var> and <var>command parameters</var> are:</p>
    <ol>
     <li data-md>
-     <p><a data-link-type="dfn" href="#try" id="ref-for-try④">Try</a> to <a data-link-type="dfn" href="#check-that-keyboard-interaction-can-be-simulated" id="ref-for-check-that-keyboard-interaction-can-be-simulated">check that keyboard interaction can be simulated</a>.</p>
+     <p><a data-link-type="dfn" href="#try" id="ref-for-try③">Try</a> to <a data-link-type="dfn" href="#check-that-keyboard-interaction-can-be-simulated" id="ref-for-check-that-keyboard-interaction-can-be-simulated">check that keyboard interaction can be simulated</a>.</p>
     <li data-md>
-     <p><a data-link-type="dfn" href="#try" id="ref-for-try⑤">Try</a> to <a data-link-type="dfn" href="#check-that-one-of-the-expected-applications-has-focus" id="ref-for-check-that-one-of-the-expected-applications-has-focus">check that one of the expected applications has focus</a>.</p>
+     <p><a data-link-type="dfn" href="#try" id="ref-for-try④">Try</a> to <a data-link-type="dfn" href="#check-that-one-of-the-expected-applications-has-focus" id="ref-for-check-that-one-of-the-expected-applications-has-focus">check that one of the expected applications has focus</a>.</p>
     <li data-md>
      <p>Let <var>keys</var> be the value of the <code>keys</code> field of <var>command
 parameters</var>.</p>
@@ -1560,9 +1567,9 @@ parameters</var>.</p>
        <p>Run <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined①②">implementation-defined</a> steps to simulate releasing <var>key</var>.</p>
      </ol>
     <li data-md>
-     <p>Let <var>body</var> be a new <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map⑧">map</a>.</p>
+     <p>Let <var>body</var> be a new <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map⑨">map</a>.</p>
     <li data-md>
-     <p>Return <a data-link-type="dfn" href="#success" id="ref-for-success①⑥">success</a> with data <var>body</var>.</p>
+     <p>Return <a data-link-type="dfn" href="#success" id="ref-for-success①④">success</a> with data <var>body</var>.</p>
    </ol>
    <h4 class="heading settled" data-level="7.3.4" id="module-interaction-events"><span class="secno">7.3.4. </span><span class="content">Events</span><a class="self-link" href="#module-interaction-events"></a></h4>
    <dl>
@@ -1585,9 +1592,9 @@ parameters</var>.</p>
         <p>Return.</p>
       </ol>
      <li data-md>
-      <p>Let <var>params</var> be a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map⑨">map</a> matching the <code>InteractionCapturedOutputParameters</code> production with the <code>data</code> field set to <var>data</var>.</p>
+      <p>Let <var>params</var> be a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map①⓪">map</a> matching the <code>InteractionCapturedOutputParameters</code> production with the <code>data</code> field set to <var>data</var>.</p>
      <li data-md>
-      <p>Let <var>body</var> be a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map①⓪">map</a> matching the <code>InteractionCapturedOutputEvent</code> production with the <code>params</code> field set to <var>params</var>.</p>
+      <p>Let <var>body</var> be a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map①①">map</a> matching the <code>InteractionCapturedOutputEvent</code> production with the <code>params</code> field set to <var>params</var>.</p>
      <li data-md>
       <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-iterate" id="ref-for-list-iterate④">For each</a> <var>session</var> of <a data-link-type="dfn" href="#remote-end-active-sessions" id="ref-for-remote-end-active-sessions⑤">active sessions</a>:</p>
       <ol>
@@ -1738,65 +1745,65 @@ parameters</var>.</p>
    <li><a href="#remote-end-websocket-connections-not-associated-with-a-session">WebSocket connections not associated with a session</a><span>, in § 6</span>
    <li><a href="#websocket-listener">WebSocket listener</a><span>, in § 6</span>
   </ul>
-  <aside class="dfn-panel" data-for="term-for-in-parallel">
-   <a href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-3a2763fcaa6bc82693554cf36780c0dd" class="dfn-panel" data-for="3a2763fcaa6bc82693554cf36780c0dd" id="infopanel-for-3a2763fcaa6bc82693554cf36780c0dd">
+   <span id="infopaneltitle-for-3a2763fcaa6bc82693554cf36780c0dd" style="display:none">Info about the 'in parallel' external reference.</span><a href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-in-parallel">6. Transport</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-list-append">
-   <a href="https://infra.spec.whatwg.org/#list-append">https://infra.spec.whatwg.org/#list-append</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-fcfc8b0ed220faa237969aed00e2586d" class="dfn-panel" data-for="fcfc8b0ed220faa237969aed00e2586d" id="infopanel-for-fcfc8b0ed220faa237969aed00e2586d">
+   <span id="infopaneltitle-for-fcfc8b0ed220faa237969aed00e2586d" style="display:none">Info about the 'append (for list)' external reference.</span><a href="https://infra.spec.whatwg.org/#list-append">https://infra.spec.whatwg.org/#list-append</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-list-append">7.2. The &lt;vendor>:settings Module</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-set-append">
-   <a href="https://infra.spec.whatwg.org/#set-append">https://infra.spec.whatwg.org/#set-append</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-53c2c70bc752d6cf2a1f7deddc029549" class="dfn-panel" data-for="53c2c70bc752d6cf2a1f7deddc029549" id="infopanel-for-53c2c70bc752d6cf2a1f7deddc029549">
+   <span id="infopaneltitle-for-53c2c70bc752d6cf2a1f7deddc029549" style="display:none">Info about the 'append (for set)' external reference.</span><a href="https://infra.spec.whatwg.org/#set-append">https://infra.spec.whatwg.org/#set-append</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-set-append">6. Transport</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-ascii-lowercase">
-   <a href="https://infra.spec.whatwg.org/#ascii-lowercase">https://infra.spec.whatwg.org/#ascii-lowercase</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-988001f27648dc25e93a5a2a8e0d0a26" class="dfn-panel" data-for="988001f27648dc25e93a5a2a8e0d0a26" id="infopanel-for-988001f27648dc25e93a5a2a8e0d0a26">
+   <span id="infopaneltitle-for-988001f27648dc25e93a5a2a8e0d0a26" style="display:none">Info about the 'ascii lowercase' external reference.</span><a href="https://infra.spec.whatwg.org/#ascii-lowercase">https://infra.spec.whatwg.org/#ascii-lowercase</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-ascii-lowercase">5.2. Capabilities</a> <a href="#ref-for-ascii-lowercase①">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-assert">
-   <a href="https://infra.spec.whatwg.org/#assert">https://infra.spec.whatwg.org/#assert</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-7618b9a6d44febb7e784c8f39faac140" class="dfn-panel" data-for="7618b9a6d44febb7e784c8f39faac140" id="infopanel-for-7618b9a6d44febb7e784c8f39faac140">
+   <span id="infopaneltitle-for-7618b9a6d44febb7e784c8f39faac140" style="display:none">Info about the 'assert' external reference.</span><a href="https://infra.spec.whatwg.org/#assert">https://infra.spec.whatwg.org/#assert</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-assert">6. Transport</a> <a href="#ref-for-assert①">(2)</a> <a href="#ref-for-assert②">(3)</a> <a href="#ref-for-assert③">(4)</a>
     <li><a href="#ref-for-assert④">7.2.3.3. The &lt;vendor>settings.getSupportedSettings Command</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-list-contain">
-   <a href="https://infra.spec.whatwg.org/#list-contain">https://infra.spec.whatwg.org/#list-contain</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-eb75379b05abc264a531a791358e1eba" class="dfn-panel" data-for="eb75379b05abc264a531a791358e1eba" id="infopanel-for-eb75379b05abc264a531a791358e1eba">
+   <span id="infopaneltitle-for-eb75379b05abc264a531a791358e1eba" style="display:none">Info about the 'contain (for list)' external reference.</span><a href="https://infra.spec.whatwg.org/#list-contain">https://infra.spec.whatwg.org/#list-contain</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-list-contain">7.2. The &lt;vendor>:settings Module</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-map-exists">
-   <a href="https://infra.spec.whatwg.org/#map-exists">https://infra.spec.whatwg.org/#map-exists</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-7aa70202d36f53e6295b249241561d26" class="dfn-panel" data-for="7aa70202d36f53e6295b249241561d26" id="infopanel-for-7aa70202d36f53e6295b249241561d26">
+   <span id="infopaneltitle-for-7aa70202d36f53e6295b249241561d26" style="display:none">Info about the 'contain (for map)' external reference.</span><a href="https://infra.spec.whatwg.org/#map-exists">https://infra.spec.whatwg.org/#map-exists</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-map-exists">5.2. Capabilities</a> <a href="#ref-for-map-exists①">(2)</a>
     <li><a href="#ref-for-map-exists②">6. Transport</a> <a href="#ref-for-map-exists③">(2)</a> <a href="#ref-for-map-exists④">(3)</a> <a href="#ref-for-map-exists⑤">(4)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-list-empty">
-   <a href="https://infra.spec.whatwg.org/#list-empty">https://infra.spec.whatwg.org/#list-empty</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-de8dad85bc31aef3359c7c7dbd918fe7" class="dfn-panel" data-for="de8dad85bc31aef3359c7c7dbd918fe7" id="infopanel-for-de8dad85bc31aef3359c7c7dbd918fe7">
+   <span id="infopaneltitle-for-de8dad85bc31aef3359c7c7dbd918fe7" style="display:none">Info about the 'empty' external reference.</span><a href="https://infra.spec.whatwg.org/#list-empty">https://infra.spec.whatwg.org/#list-empty</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-list-empty">6. Transport</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-map-exists">
-   <a href="https://infra.spec.whatwg.org/#map-exists">https://infra.spec.whatwg.org/#map-exists</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-0d3ee326a162c16997e7bb20e8b7133c" class="dfn-panel" data-for="0d3ee326a162c16997e7bb20e8b7133c" id="infopanel-for-0d3ee326a162c16997e7bb20e8b7133c">
+   <span id="infopaneltitle-for-0d3ee326a162c16997e7bb20e8b7133c" style="display:none">Info about the 'exist' external reference.</span><a href="https://infra.spec.whatwg.org/#map-exists">https://infra.spec.whatwg.org/#map-exists</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-map-exists">5.2. Capabilities</a> <a href="#ref-for-map-exists①">(2)</a>
     <li><a href="#ref-for-map-exists②">6. Transport</a> <a href="#ref-for-map-exists③">(2)</a> <a href="#ref-for-map-exists④">(3)</a> <a href="#ref-for-map-exists⑤">(4)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-list-iterate">
-   <a href="https://infra.spec.whatwg.org/#list-iterate">https://infra.spec.whatwg.org/#list-iterate</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-8b9e78ceedde26e69095bd6f6cce47bf" class="dfn-panel" data-for="8b9e78ceedde26e69095bd6f6cce47bf" id="infopanel-for-8b9e78ceedde26e69095bd6f6cce47bf">
+   <span id="infopaneltitle-for-8b9e78ceedde26e69095bd6f6cce47bf" style="display:none">Info about the 'for each (for list)' external reference.</span><a href="https://infra.spec.whatwg.org/#list-iterate">https://infra.spec.whatwg.org/#list-iterate</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-list-iterate">7.2. The &lt;vendor>:settings Module</a>
     <li><a href="#ref-for-list-iterate①">7.2.3.1. The &lt;vendor>:settings.setSettings Command</a>
@@ -1804,14 +1811,14 @@ parameters</var>.</p>
     <li><a href="#ref-for-list-iterate④">7.3.4. Events</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-map-iterate">
-   <a href="https://infra.spec.whatwg.org/#map-iterate">https://infra.spec.whatwg.org/#map-iterate</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-fa396dfe2ff99ebb3815418bc73c40fb" class="dfn-panel" data-for="fa396dfe2ff99ebb3815418bc73c40fb" id="infopanel-for-fa396dfe2ff99ebb3815418bc73c40fb">
+   <span id="infopaneltitle-for-fa396dfe2ff99ebb3815418bc73c40fb" style="display:none">Info about the 'for each (for map)' external reference.</span><a href="https://infra.spec.whatwg.org/#map-iterate">https://infra.spec.whatwg.org/#map-iterate</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-map-iterate">5.2. Capabilities</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-implementation-defined">
-   <a href="https://infra.spec.whatwg.org/#implementation-defined">https://infra.spec.whatwg.org/#implementation-defined</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-fd74d8159933c4a74d0b23390bed43e3" class="dfn-panel" data-for="fd74d8159933c4a74d0b23390bed43e3" id="infopanel-for-fd74d8159933c4a74d0b23390bed43e3">
+   <span id="infopaneltitle-for-fd74d8159933c4a74d0b23390bed43e3" style="display:none">Info about the 'implementation-defined' external reference.</span><a href="https://infra.spec.whatwg.org/#implementation-defined">https://infra.spec.whatwg.org/#implementation-defined</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-implementation-defined">5.2. Capabilities</a>
     <li><a href="#ref-for-implementation-defined①">5.8. Security checks</a> <a href="#ref-for-implementation-defined②">(2)</a> <a href="#ref-for-implementation-defined③">(3)</a>
@@ -1820,66 +1827,66 @@ parameters</var>.</p>
     <li><a href="#ref-for-implementation-defined①①">7.3.3.1. The interaction.pressKeys Command</a> <a href="#ref-for-implementation-defined①②">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-list">
-   <a href="https://infra.spec.whatwg.org/#list">https://infra.spec.whatwg.org/#list</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-fafd38d2108e357bcc9a6fd7f3cd04a7" class="dfn-panel" data-for="fafd38d2108e357bcc9a6fd7f3cd04a7" id="infopanel-for-fafd38d2108e357bcc9a6fd7f3cd04a7">
+   <span id="infopaneltitle-for-fafd38d2108e357bcc9a6fd7f3cd04a7" style="display:none">Info about the 'list' external reference.</span><a href="https://infra.spec.whatwg.org/#list">https://infra.spec.whatwg.org/#list</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-list">7.2. The &lt;vendor>:settings Module</a> <a href="#ref-for-list①">(2)</a>
     <li><a href="#ref-for-list②">7.2.3.3. The &lt;vendor>settings.getSupportedSettings Command</a>
     <li><a href="#ref-for-list③">7.3.3.1. The interaction.pressKeys Command</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-ordered-map">
-   <a href="https://infra.spec.whatwg.org/#ordered-map">https://infra.spec.whatwg.org/#ordered-map</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-4bf12d0cddf322a1e2a9fb52f4d85843" class="dfn-panel" data-for="4bf12d0cddf322a1e2a9fb52f4d85843" id="infopanel-for-4bf12d0cddf322a1e2a9fb52f4d85843">
+   <span id="infopaneltitle-for-4bf12d0cddf322a1e2a9fb52f4d85843" style="display:none">Info about the 'map' external reference.</span><a href="https://infra.spec.whatwg.org/#ordered-map">https://infra.spec.whatwg.org/#ordered-map</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-ordered-map">5.2. Capabilities</a>
-    <li><a href="#ref-for-ordered-map①">6. Transport</a> <a href="#ref-for-ordered-map②">(2)</a> <a href="#ref-for-ordered-map③">(3)</a>
-    <li><a href="#ref-for-ordered-map④">7.1.3.1. The session.new Command</a>
-    <li><a href="#ref-for-ordered-map⑤">7.2. The &lt;vendor>:settings Module</a> <a href="#ref-for-ordered-map⑥">(2)</a>
-    <li><a href="#ref-for-ordered-map⑦">7.2.3.1. The &lt;vendor>:settings.setSettings Command</a>
-    <li><a href="#ref-for-ordered-map⑧">7.3.3.1. The interaction.pressKeys Command</a>
-    <li><a href="#ref-for-ordered-map⑨">7.3.4. Events</a> <a href="#ref-for-ordered-map①⓪">(2)</a>
+    <li><a href="#ref-for-ordered-map">5.2. Capabilities</a> <a href="#ref-for-ordered-map①">(2)</a>
+    <li><a href="#ref-for-ordered-map②">6. Transport</a> <a href="#ref-for-ordered-map③">(2)</a> <a href="#ref-for-ordered-map④">(3)</a>
+    <li><a href="#ref-for-ordered-map⑤">7.1.3.1. The session.new Command</a>
+    <li><a href="#ref-for-ordered-map⑥">7.2. The &lt;vendor>:settings Module</a> <a href="#ref-for-ordered-map⑦">(2)</a>
+    <li><a href="#ref-for-ordered-map⑧">7.2.3.1. The &lt;vendor>:settings.setSettings Command</a>
+    <li><a href="#ref-for-ordered-map⑨">7.3.3.1. The interaction.pressKeys Command</a>
+    <li><a href="#ref-for-ordered-map①⓪">7.3.4. Events</a> <a href="#ref-for-ordered-map①①">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-parse-a-json-string-to-an-infra-value">
-   <a href="https://infra.spec.whatwg.org/#parse-a-json-string-to-an-infra-value">https://infra.spec.whatwg.org/#parse-a-json-string-to-an-infra-value</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-4b944ac25c4d8b0b79b2296641fde4e4" class="dfn-panel" data-for="4b944ac25c4d8b0b79b2296641fde4e4" id="infopanel-for-4b944ac25c4d8b0b79b2296641fde4e4">
+   <span id="infopaneltitle-for-4b944ac25c4d8b0b79b2296641fde4e4" style="display:none">Info about the 'parse json into infra values' external reference.</span><a href="https://infra.spec.whatwg.org/#parse-a-json-string-to-an-infra-value">https://infra.spec.whatwg.org/#parse-a-json-string-to-an-infra-value</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-parse-a-json-string-to-an-infra-value">6. Transport</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-scalar-value-string">
-   <a href="https://infra.spec.whatwg.org/#scalar-value-string">https://infra.spec.whatwg.org/#scalar-value-string</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-b7b72d2fc69ed8f4d3a40b061520e8d0" class="dfn-panel" data-for="b7b72d2fc69ed8f4d3a40b061520e8d0" id="infopanel-for-b7b72d2fc69ed8f4d3a40b061520e8d0">
+   <span id="infopaneltitle-for-b7b72d2fc69ed8f4d3a40b061520e8d0" style="display:none">Info about the 'scalar value string' external reference.</span><a href="https://infra.spec.whatwg.org/#scalar-value-string">https://infra.spec.whatwg.org/#scalar-value-string</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-scalar-value-string">6. Transport</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-serialize-an-infra-value-to-json-bytes">
-   <a href="https://infra.spec.whatwg.org/#serialize-an-infra-value-to-json-bytes">https://infra.spec.whatwg.org/#serialize-an-infra-value-to-json-bytes</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-f9cb9eb74e1b5fe09fd983e8e16a4f35" class="dfn-panel" data-for="f9cb9eb74e1b5fe09fd983e8e16a4f35" id="infopanel-for-f9cb9eb74e1b5fe09fd983e8e16a4f35">
+   <span id="infopaneltitle-for-f9cb9eb74e1b5fe09fd983e8e16a4f35" style="display:none">Info about the 'serialize an infra value to json bytes' external reference.</span><a href="https://infra.spec.whatwg.org/#serialize-an-infra-value-to-json-bytes">https://infra.spec.whatwg.org/#serialize-an-infra-value-to-json-bytes</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-serialize-an-infra-value-to-json-bytes">6. Transport</a> <a href="#ref-for-serialize-an-infra-value-to-json-bytes①">(2)</a> <a href="#ref-for-serialize-an-infra-value-to-json-bytes②">(3)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-ordered-set">
-   <a href="https://infra.spec.whatwg.org/#ordered-set">https://infra.spec.whatwg.org/#ordered-set</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-5aa6e24324342f15a3c253ca6a002759" class="dfn-panel" data-for="5aa6e24324342f15a3c253ca6a002759" id="infopanel-for-5aa6e24324342f15a3c253ca6a002759">
+   <span id="infopaneltitle-for-5aa6e24324342f15a3c253ca6a002759" style="display:none">Info about the 'set' external reference.</span><a href="https://infra.spec.whatwg.org/#ordered-set">https://infra.spec.whatwg.org/#ordered-set</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-ordered-set">5.5. Commands</a>
     <li><a href="#ref-for-ordered-set①">6. Transport</a> <a href="#ref-for-ordered-set②">(2)</a> <a href="#ref-for-ordered-set③">(3)</a>
     <li><a href="#ref-for-ordered-set④">7.2. The &lt;vendor>:settings Module</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-map-set">
-   <a href="https://infra.spec.whatwg.org/#map-set">https://infra.spec.whatwg.org/#map-set</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-5c3d3462610d78bc92b91000cc511bc4" class="dfn-panel" data-for="5c3d3462610d78bc92b91000cc511bc4" id="infopanel-for-5c3d3462610d78bc92b91000cc511bc4">
+   <span id="infopaneltitle-for-5c3d3462610d78bc92b91000cc511bc4" style="display:none">Info about the 'set (for map)' external reference.</span><a href="https://infra.spec.whatwg.org/#map-set">https://infra.spec.whatwg.org/#map-set</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-map-set">5.2. Capabilities</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-map-size">
-   <a href="https://infra.spec.whatwg.org/#map-size">https://infra.spec.whatwg.org/#map-size</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-cb6090a4148c3b79aef250d4d6625e39" class="dfn-panel" data-for="cb6090a4148c3b79aef250d4d6625e39" id="infopanel-for-cb6090a4148c3b79aef250d4d6625e39">
+   <span id="infopaneltitle-for-cb6090a4148c3b79aef250d4d6625e39" style="display:none">Info about the 'size' external reference.</span><a href="https://infra.spec.whatwg.org/#map-size">https://infra.spec.whatwg.org/#map-size</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-map-size">6. Transport</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-string">
-   <a href="https://infra.spec.whatwg.org/#string">https://infra.spec.whatwg.org/#string</a><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-40b59bc325bd4d66701dfd8b7f1847c0" class="dfn-panel" data-for="40b59bc325bd4d66701dfd8b7f1847c0" id="infopanel-for-40b59bc325bd4d66701dfd8b7f1847c0">
+   <span id="infopaneltitle-for-40b59bc325bd4d66701dfd8b7f1847c0" style="display:none">Info about the 'string' external reference.</span><a href="https://infra.spec.whatwg.org/#string">https://infra.spec.whatwg.org/#string</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-string">5.2. Capabilities</a> <a href="#ref-for-string①">(2)</a> <a href="#ref-for-string②">(3)</a> <a href="#ref-for-string③">(4)</a> <a href="#ref-for-string④">(5)</a> <a href="#ref-for-string⑤">(6)</a>
    </ul>
@@ -1889,31 +1896,31 @@ parameters</var>.</p>
    <li>
     <a data-link-type="biblio">[HTML]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-in-parallel">in parallel</span>
+     <li><span class="dfn-paneled" id="3a2763fcaa6bc82693554cf36780c0dd">in parallel</span>
     </ul>
    <li>
     <a data-link-type="biblio">[INFRA]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-list-append">append <small>(for list)</small></span>
-     <li><span class="dfn-paneled" id="term-for-set-append">append <small>(for set)</small></span>
-     <li><span class="dfn-paneled" id="term-for-ascii-lowercase">ascii lowercase</span>
-     <li><span class="dfn-paneled" id="term-for-assert">assert</span>
-     <li><span class="dfn-paneled" id="term-for-list-contain">contain <small>(for list)</small></span>
-     <li><span class="dfn-paneled" id="term-for-map-exists">contain <small>(for map)</small></span>
-     <li><span class="dfn-paneled" id="term-for-list-empty">empty</span>
-     <li><span class="dfn-paneled" id="term-for-map-exists①">exist</span>
-     <li><span class="dfn-paneled" id="term-for-list-iterate">for each <small>(for list)</small></span>
-     <li><span class="dfn-paneled" id="term-for-map-iterate">for each <small>(for map)</small></span>
-     <li><span class="dfn-paneled" id="term-for-implementation-defined">implementation-defined</span>
-     <li><span class="dfn-paneled" id="term-for-list">list</span>
-     <li><span class="dfn-paneled" id="term-for-ordered-map">map</span>
-     <li><span class="dfn-paneled" id="term-for-parse-a-json-string-to-an-infra-value">parse json into infra values</span>
-     <li><span class="dfn-paneled" id="term-for-scalar-value-string">scalar value string</span>
-     <li><span class="dfn-paneled" id="term-for-serialize-an-infra-value-to-json-bytes">serialize an infra value to json bytes</span>
-     <li><span class="dfn-paneled" id="term-for-ordered-set">set</span>
-     <li><span class="dfn-paneled" id="term-for-map-set">set <small>(for map)</small></span>
-     <li><span class="dfn-paneled" id="term-for-map-size">size</span>
-     <li><span class="dfn-paneled" id="term-for-string">string</span>
+     <li><span class="dfn-paneled" id="fcfc8b0ed220faa237969aed00e2586d">append <small>(for list)</small></span>
+     <li><span class="dfn-paneled" id="53c2c70bc752d6cf2a1f7deddc029549">append <small>(for set)</small></span>
+     <li><span class="dfn-paneled" id="988001f27648dc25e93a5a2a8e0d0a26">ascii lowercase</span>
+     <li><span class="dfn-paneled" id="7618b9a6d44febb7e784c8f39faac140">assert</span>
+     <li><span class="dfn-paneled" id="eb75379b05abc264a531a791358e1eba">contain <small>(for list)</small></span>
+     <li><span class="dfn-paneled" id="7aa70202d36f53e6295b249241561d26">contain <small>(for map)</small></span>
+     <li><span class="dfn-paneled" id="de8dad85bc31aef3359c7c7dbd918fe7">empty</span>
+     <li><span class="dfn-paneled" id="0d3ee326a162c16997e7bb20e8b7133c">exist</span>
+     <li><span class="dfn-paneled" id="8b9e78ceedde26e69095bd6f6cce47bf">for each <small>(for list)</small></span>
+     <li><span class="dfn-paneled" id="fa396dfe2ff99ebb3815418bc73c40fb">for each <small>(for map)</small></span>
+     <li><span class="dfn-paneled" id="fd74d8159933c4a74d0b23390bed43e3">implementation-defined</span>
+     <li><span class="dfn-paneled" id="fafd38d2108e357bcc9a6fd7f3cd04a7">list</span>
+     <li><span class="dfn-paneled" id="4bf12d0cddf322a1e2a9fb52f4d85843">map</span>
+     <li><span class="dfn-paneled" id="4b944ac25c4d8b0b79b2296641fde4e4">parse json into infra values</span>
+     <li><span class="dfn-paneled" id="b7b72d2fc69ed8f4d3a40b061520e8d0">scalar value string</span>
+     <li><span class="dfn-paneled" id="f9cb9eb74e1b5fe09fd983e8e16a4f35">serialize an infra value to json bytes</span>
+     <li><span class="dfn-paneled" id="5aa6e24324342f15a3c253ca6a002759">set</span>
+     <li><span class="dfn-paneled" id="5c3d3462610d78bc92b91000cc511bc4">set <small>(for map)</small></span>
+     <li><span class="dfn-paneled" id="cb6090a4148c3b79aef250d4d6625e39">size</span>
+     <li><span class="dfn-paneled" id="40b59bc325bd4d66701dfd8b7f1847c0">string</span>
     </ul>
   </ul>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
@@ -1945,40 +1952,41 @@ parameters</var>.</p>
    <div class="issue"> Require implementations to report failures in settings modification operations. <a class="issue-return" href="#issue-c41981a9" title="Jump to section">↵</a></div>
    <div class="issue"> Do we need a "setting changed" event? <a class="issue-return" href="#issue-0b79b3d5" title="Jump to section">↵</a></div>
    <div class="issue"> This command does not yet have a means for indicating a screen-reader specific modifier key (or keys). <a href="https://github.com/w3c/aria-at-automation/issues/34">[Issue #34]</a> <a class="issue-return" href="#issue-05fb1c8b" title="Jump to section">↵</a></div>
+   <div class="issue"> This algorithm only supports one specific kind of press/release sequence, and it is not clear if that is sufficient to express all keyboard commands in all implementations. <a href="https://github.com/w3c/aria-at-automation/issues/51">[Issue #51]</a> <a class="issue-return" href="#issue-1bd3afd8" title="Jump to section">↵</a></div>
    <div class="issue"> TODO sandbox (limit availability to information that apps usually can’t access, e.g. login screen). <a class="issue-return" href="#issue-f9e956aa" title="Jump to section">↵</a></div>
    <div class="issue"> TODO no HID level simulated keypresses. <a class="issue-return" href="#issue-0225dc78" title="Jump to section">↵</a></div>
    <div class="issue"> TODO exclude access to any security-sensitive settings. <a class="issue-return" href="#issue-fbd6fc51" title="Jump to section">↵</a></div>
    <div class="issue"> TODO exclude access to any security-sensitive commands. <a class="issue-return" href="#issue-398c181d" title="Jump to section">↵</a></div>
    <div class="issue"> The JSON Schema files are not yet generated from the CDDL and so might be out of date. <a href="https://github.com/w3c/aria-at-automation/issues/23">[Issue #23]</a> <a class="issue-return" href="#issue-f906273a" title="Jump to section">↵</a></div>
   </div>
-  <aside class="dfn-panel" data-for="uuid">
-   <b><a href="#uuid">#uuid</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-uuid" class="dfn-panel" data-for="uuid" id="infopanel-for-uuid">
+   <span id="infopaneltitle-for-uuid" style="display:none">Info about the 'Universally Unique Identifier (UUID)' definition.</span><b><a href="#uuid">#uuid</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-uuid">5.3. Session</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="generating-a-uuid">
-   <b><a href="#generating-a-uuid">#generating-a-uuid</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-generating-a-uuid" class="dfn-panel" data-for="generating-a-uuid" id="infopanel-for-generating-a-uuid">
+   <span id="infopaneltitle-for-generating-a-uuid" style="display:none">Info about the 'Generating a UUID' definition.</span><b><a href="#generating-a-uuid">#generating-a-uuid</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-generating-a-uuid">7.1.3.1. The session.new Command</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="success">
-   <b><a href="#success">#success</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-success" class="dfn-panel" data-for="success" id="infopanel-for-success">
+   <span id="infopaneltitle-for-success" style="display:none">Info about the 'success' definition.</span><b><a href="#success">#success</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-success">3. Infrastructure</a>
-    <li><a href="#ref-for-success①">5.2. Capabilities</a> <a href="#ref-for-success②">(2)</a> <a href="#ref-for-success③">(3)</a> <a href="#ref-for-success④">(4)</a> <a href="#ref-for-success⑤">(5)</a> <a href="#ref-for-success⑥">(6)</a>
-    <li><a href="#ref-for-success⑦">5.5. Commands</a>
-    <li><a href="#ref-for-success⑧">5.8. Security checks</a> <a href="#ref-for-success⑨">(2)</a>
-    <li><a href="#ref-for-success①⓪">7.1.3.1. The session.new Command</a>
-    <li><a href="#ref-for-success①①">7.2. The &lt;vendor>:settings Module</a> <a href="#ref-for-success①②">(2)</a>
-    <li><a href="#ref-for-success①③">7.2.3.1. The &lt;vendor>:settings.setSettings Command</a> <a href="#ref-for-success①④">(2)</a>
-    <li><a href="#ref-for-success①⑤">7.2.3.3. The &lt;vendor>settings.getSupportedSettings Command</a>
-    <li><a href="#ref-for-success①⑥">7.3.3.1. The interaction.pressKeys Command</a>
+    <li><a href="#ref-for-success①">5.2. Capabilities</a> <a href="#ref-for-success②">(2)</a> <a href="#ref-for-success③">(3)</a> <a href="#ref-for-success④">(4)</a>
+    <li><a href="#ref-for-success⑤">5.5. Commands</a>
+    <li><a href="#ref-for-success⑥">5.8. Security checks</a> <a href="#ref-for-success⑦">(2)</a>
+    <li><a href="#ref-for-success⑧">7.1.3.1. The session.new Command</a>
+    <li><a href="#ref-for-success⑨">7.2. The &lt;vendor>:settings Module</a> <a href="#ref-for-success①⓪">(2)</a>
+    <li><a href="#ref-for-success①①">7.2.3.1. The &lt;vendor>:settings.setSettings Command</a> <a href="#ref-for-success①②">(2)</a>
+    <li><a href="#ref-for-success①③">7.2.3.3. The &lt;vendor>settings.getSupportedSettings Command</a>
+    <li><a href="#ref-for-success①④">7.3.3.1. The interaction.pressKeys Command</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="error">
-   <b><a href="#error">#error</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-error" class="dfn-panel" data-for="error" id="infopanel-for-error">
+   <span id="infopaneltitle-for-error" style="display:none">Info about the 'error' definition.</span><b><a href="#error">#error</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-error">3. Infrastructure</a> <a href="#ref-for-error①">(2)</a>
     <li><a href="#ref-for-error②">5.5. Commands</a>
@@ -1988,17 +1996,17 @@ parameters</var>.</p>
     <li><a href="#ref-for-error①⓪">7.2. The &lt;vendor>:settings Module</a> <a href="#ref-for-error①①">(2)</a> <a href="#ref-for-error①②">(3)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="try">
-   <b><a href="#try">#try</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-try" class="dfn-panel" data-for="try" id="infopanel-for-try">
+   <span id="infopaneltitle-for-try" style="display:none">Info about the 'trying' definition.</span><b><a href="#try">#try</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-try">5.2. Capabilities</a> <a href="#ref-for-try①">(2)</a>
-    <li><a href="#ref-for-try②">7.1.3.1. The session.new Command</a>
-    <li><a href="#ref-for-try③">7.2.3.1. The &lt;vendor>:settings.setSettings Command</a>
-    <li><a href="#ref-for-try④">7.3.3.1. The interaction.pressKeys Command</a> <a href="#ref-for-try⑤">(2)</a>
+    <li><a href="#ref-for-try">5.2. Capabilities</a>
+    <li><a href="#ref-for-try①">7.1.3.1. The session.new Command</a>
+    <li><a href="#ref-for-try②">7.2.3.1. The &lt;vendor>:settings.setSettings Command</a>
+    <li><a href="#ref-for-try③">7.3.3.1. The interaction.pressKeys Command</a> <a href="#ref-for-try④">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="local-end">
-   <b><a href="#local-end">#local-end</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-local-end" class="dfn-panel" data-for="local-end" id="infopanel-for-local-end">
+   <span id="infopaneltitle-for-local-end" style="display:none">Info about the 'local end' definition.</span><b><a href="#local-end">#local-end</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-local-end">5. Protocol</a> <a href="#ref-for-local-end①">(2)</a>
     <li><a href="#ref-for-local-end②">5.2. Capabilities</a>
@@ -2007,8 +2015,8 @@ parameters</var>.</p>
     <li><a href="#ref-for-local-end⑧">5.6. Events</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="remote-end">
-   <b><a href="#remote-end">#remote-end</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-remote-end" class="dfn-panel" data-for="remote-end" id="infopanel-for-remote-end">
+   <span id="infopaneltitle-for-remote-end" style="display:none">Info about the 'remote end' definition.</span><b><a href="#remote-end">#remote-end</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-remote-end">5. Protocol</a> <a href="#ref-for-remote-end①">(2)</a>
     <li><a href="#ref-for-remote-end②">5.2. Capabilities</a> <a href="#ref-for-remote-end③">(2)</a> <a href="#ref-for-remote-end④">(3)</a> <a href="#ref-for-remote-end⑤">(4)</a> <a href="#ref-for-remote-end⑥">(5)</a> <a href="#ref-for-remote-end⑦">(6)</a>
@@ -2023,8 +2031,8 @@ parameters</var>.</p>
     <li><a href="#ref-for-remote-end②⑥">8. Privacy</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="remote-end-definition">
-   <b><a href="#remote-end-definition">#remote-end-definition</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-remote-end-definition" class="dfn-panel" data-for="remote-end-definition" id="infopanel-for-remote-end-definition">
+   <span id="infopaneltitle-for-remote-end-definition" style="display:none">Info about the 'remote end definition' definition.</span><b><a href="#remote-end-definition">#remote-end-definition</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-remote-end-definition">5.1. Definition</a>
     <li><a href="#ref-for-remote-end-definition①">5.4. Modules</a> <a href="#ref-for-remote-end-definition②">(2)</a>
@@ -2037,8 +2045,8 @@ parameters</var>.</p>
     <li><a href="#ref-for-remote-end-definition⑨">Appendix A: Schemas</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="local-end-definition">
-   <b><a href="#local-end-definition">#local-end-definition</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-local-end-definition" class="dfn-panel" data-for="local-end-definition" id="infopanel-for-local-end-definition">
+   <span id="infopaneltitle-for-local-end-definition" style="display:none">Info about the 'local end definition' definition.</span><b><a href="#local-end-definition">#local-end-definition</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-local-end-definition">5.1. Definition</a>
     <li><a href="#ref-for-local-end-definition①">5.4. Modules</a>
@@ -2054,26 +2062,26 @@ parameters</var>.</p>
     <li><a href="#ref-for-local-end-definition①②">Appendix A: Schemas</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="extension-capabilities">
-   <b><a href="#extension-capabilities">#extension-capabilities</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-extension-capabilities" class="dfn-panel" data-for="extension-capabilities" id="infopanel-for-extension-capabilities">
+   <span id="infopaneltitle-for-extension-capabilities" style="display:none">Info about the 'extension capabilities' definition.</span><b><a href="#extension-capabilities">#extension-capabilities</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-extension-capabilities">5.2. Capabilities</a> <a href="#ref-for-extension-capabilities①">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="process-capabilities">
-   <b><a href="#process-capabilities">#process-capabilities</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-process-capabilities" class="dfn-panel" data-for="process-capabilities" id="infopanel-for-process-capabilities">
+   <span id="infopaneltitle-for-process-capabilities" style="display:none">Info about the 'process capabilities' definition.</span><b><a href="#process-capabilities">#process-capabilities</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-process-capabilities">7.1.3.1. The session.new Command</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="match-capabilities">
-   <b><a href="#match-capabilities">#match-capabilities</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-match-capabilities" class="dfn-panel" data-for="match-capabilities" id="infopanel-for-match-capabilities">
+   <span id="infopaneltitle-for-match-capabilities" style="display:none">Info about the 'match capabilities' definition.</span><b><a href="#match-capabilities">#match-capabilities</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-match-capabilities">5.2. Capabilities</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="session">
-   <b><a href="#session">#session</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-session" class="dfn-panel" data-for="session" id="infopanel-for-session">
+   <span id="infopaneltitle-for-session" style="display:none">Info about the 'session' definition.</span><b><a href="#session">#session</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-session">2. Explainer</a> <a href="#ref-for-session①">(2)</a>
     <li><a href="#ref-for-session②">5.2. Capabilities</a> <a href="#ref-for-session③">(2)</a>
@@ -2084,8 +2092,8 @@ parameters</var>.</p>
     <li><a href="#ref-for-session①⑥">7.1.3.1. The session.new Command</a> <a href="#ref-for-session①⑦">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="remote-end-active-sessions">
-   <b><a href="#remote-end-active-sessions">#remote-end-active-sessions</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-remote-end-active-sessions" class="dfn-panel" data-for="remote-end-active-sessions" id="infopanel-for-remote-end-active-sessions">
+   <span id="infopaneltitle-for-remote-end-active-sessions" style="display:none">Info about the 'active sessions' definition.</span><b><a href="#remote-end-active-sessions">#remote-end-active-sessions</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-remote-end-active-sessions">5.3. Session</a>
     <li><a href="#ref-for-remote-end-active-sessions①">6. Transport</a> <a href="#ref-for-remote-end-active-sessions②">(2)</a>
@@ -2093,43 +2101,43 @@ parameters</var>.</p>
     <li><a href="#ref-for-remote-end-active-sessions⑤">7.3.4. Events</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="session-session-id">
-   <b><a href="#session-session-id">#session-session-id</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-session-session-id" class="dfn-panel" data-for="session-session-id" id="infopanel-for-session-session-id">
+   <span id="infopaneltitle-for-session-session-id" style="display:none">Info about the 'session ID' definition.</span><b><a href="#session-session-id">#session-session-id</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-session-session-id">6. Transport</a>
     <li><a href="#ref-for-session-session-id①">7.1.3.1. The session.new Command</a> <a href="#ref-for-session-session-id②">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="module">
-   <b><a href="#module">#module</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-module" class="dfn-panel" data-for="module" id="infopanel-for-module">
+   <span id="infopaneltitle-for-module" style="display:none">Info about the 'module' definition.</span><b><a href="#module">#module</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-module">2. Explainer</a>
     <li><a href="#ref-for-module①">7.2. The &lt;vendor>:settings Module</a> <a href="#ref-for-module②">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="module-name">
-   <b><a href="#module-name">#module-name</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-module-name" class="dfn-panel" data-for="module-name" id="infopanel-for-module-name">
+   <span id="infopaneltitle-for-module-name" style="display:none">Info about the 'module name' definition.</span><b><a href="#module-name">#module-name</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-module-name">5.4. Modules</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="extension-modules">
-   <b><a href="#extension-modules">#extension-modules</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-extension-modules" class="dfn-panel" data-for="extension-modules" id="infopanel-for-extension-modules">
+   <span id="infopaneltitle-for-extension-modules" style="display:none">Info about the 'extension modules' definition.</span><b><a href="#extension-modules">#extension-modules</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-extension-modules">5.5. Commands</a>
     <li><a href="#ref-for-extension-modules①">7.2. The &lt;vendor>:settings Module</a> <a href="#ref-for-extension-modules②">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="command">
-   <b><a href="#command">#command</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-command" class="dfn-panel" data-for="command" id="infopanel-for-command">
+   <span id="infopaneltitle-for-command" style="display:none">Info about the 'command' definition.</span><b><a href="#command">#command</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-command">5.4. Modules</a> <a href="#ref-for-command①">(2)</a> <a href="#ref-for-command②">(3)</a>
     <li><a href="#ref-for-command③">5.5. Commands</a>
     <li><a href="#ref-for-command④">5.7. Errors</a> <a href="#ref-for-command⑤">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="command-type">
-   <b><a href="#command-type">#command-type</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-command-type" class="dfn-panel" data-for="command-type" id="infopanel-for-command-type">
+   <span id="infopaneltitle-for-command-type" style="display:none">Info about the 'command type' definition.</span><b><a href="#command-type">#command-type</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-command-type">7.1.3.1. The session.new Command</a>
     <li><a href="#ref-for-command-type①">7.2.3.1. The &lt;vendor>:settings.setSettings Command</a>
@@ -2138,23 +2146,23 @@ parameters</var>.</p>
     <li><a href="#ref-for-command-type④">7.3.3.1. The interaction.pressKeys Command</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="command-name">
-   <b><a href="#command-name">#command-name</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-command-name" class="dfn-panel" data-for="command-name" id="infopanel-for-command-name">
+   <span id="infopaneltitle-for-command-name" style="display:none">Info about the 'command name' definition.</span><b><a href="#command-name">#command-name</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-command-name">5.4. Modules</a>
     <li><a href="#ref-for-command-name①">5.5. Commands</a>
     <li><a href="#ref-for-command-name②">6. Transport</a> <a href="#ref-for-command-name③">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="command-parameters">
-   <b><a href="#command-parameters">#command-parameters</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-command-parameters" class="dfn-panel" data-for="command-parameters" id="infopanel-for-command-parameters">
+   <span id="infopaneltitle-for-command-parameters" style="display:none">Info about the 'command parameters' definition.</span><b><a href="#command-parameters">#command-parameters</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-command-parameters">5.5. Commands</a>
     <li><a href="#ref-for-command-parameters①">6. Transport</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="result-type">
-   <b><a href="#result-type">#result-type</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-result-type" class="dfn-panel" data-for="result-type" id="infopanel-for-result-type">
+   <span id="infopaneltitle-for-result-type" style="display:none">Info about the 'result type' definition.</span><b><a href="#result-type">#result-type</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-result-type">5.5. Commands</a>
     <li><a href="#ref-for-result-type①">6. Transport</a>
@@ -2164,8 +2172,8 @@ parameters</var>.</p>
     <li><a href="#ref-for-result-type⑤">7.2.3.3. The &lt;vendor>settings.getSupportedSettings Command</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="remote-end-steps">
-   <b><a href="#remote-end-steps">#remote-end-steps</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-remote-end-steps" class="dfn-panel" data-for="remote-end-steps" id="infopanel-for-remote-end-steps">
+   <span id="infopaneltitle-for-remote-end-steps" style="display:none">Info about the 'remote end steps' definition.</span><b><a href="#remote-end-steps">#remote-end-steps</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-remote-end-steps">6. Transport</a>
     <li><a href="#ref-for-remote-end-steps①">7.1.3.1. The session.new Command</a>
@@ -2175,45 +2183,45 @@ parameters</var>.</p>
     <li><a href="#ref-for-remote-end-steps⑤">7.3.3.1. The interaction.pressKeys Command</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="static-command">
-   <b><a href="#static-command">#static-command</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-static-command" class="dfn-panel" data-for="static-command" id="infopanel-for-static-command">
+   <span id="infopaneltitle-for-static-command" style="display:none">Info about the 'static command' definition.</span><b><a href="#static-command">#static-command</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-static-command">6. Transport</a>
     <li><a href="#ref-for-static-command①">7.1.3.1. The session.new Command</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="set-of-all-command-names">
-   <b><a href="#set-of-all-command-names">#set-of-all-command-names</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-set-of-all-command-names" class="dfn-panel" data-for="set-of-all-command-names" id="infopanel-for-set-of-all-command-names">
+   <span id="infopaneltitle-for-set-of-all-command-names" style="display:none">Info about the 'set of all command names' definition.</span><b><a href="#set-of-all-command-names">#set-of-all-command-names</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-set-of-all-command-names">6. Transport</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="event">
-   <b><a href="#event">#event</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-event" class="dfn-panel" data-for="event" id="infopanel-for-event">
+   <span id="infopaneltitle-for-event" style="display:none">Info about the 'event' definition.</span><b><a href="#event">#event</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-event">5.4. Modules</a> <a href="#ref-for-event①">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="event-type">
-   <b><a href="#event-type">#event-type</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-event-type" class="dfn-panel" data-for="event-type" id="infopanel-for-event-type">
+   <span id="infopaneltitle-for-event-type" style="display:none">Info about the 'event type' definition.</span><b><a href="#event-type">#event-type</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-event-type">5.6. Events</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="event-name">
-   <b><a href="#event-name">#event-name</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-event-name" class="dfn-panel" data-for="event-name" id="infopanel-for-event-name">
+   <span id="infopaneltitle-for-event-name" style="display:none">Info about the 'event name' definition.</span><b><a href="#event-name">#event-name</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-event-name">5.4. Modules</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="remote-end-event-trigger">
-   <b><a href="#remote-end-event-trigger">#remote-end-event-trigger</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-remote-end-event-trigger" class="dfn-panel" data-for="remote-end-event-trigger" id="infopanel-for-remote-end-event-trigger">
+   <span id="infopaneltitle-for-remote-end-event-trigger" style="display:none">Info about the 'remote end event trigger' definition.</span><b><a href="#remote-end-event-trigger">#remote-end-event-trigger</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-remote-end-event-trigger">7.3.4. Events</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="error-code">
-   <b><a href="#error-code">#error-code</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-error-code" class="dfn-panel" data-for="error-code" id="infopanel-for-error-code">
+   <span id="infopaneltitle-for-error-code" style="display:none">Info about the 'error code' definition.</span><b><a href="#error-code">#error-code</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-error-code">3. Infrastructure</a>
     <li><a href="#ref-for-error-code①">5.8. Security checks</a> <a href="#ref-for-error-code②">(2)</a>
@@ -2221,232 +2229,286 @@ parameters</var>.</p>
     <li><a href="#ref-for-error-code④">7.2. The &lt;vendor>:settings Module</a> <a href="#ref-for-error-code⑤">(2)</a> <a href="#ref-for-error-code⑥">(3)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="error-code-invalid-argument">
-   <b><a href="#error-code-invalid-argument">#error-code-invalid-argument</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-error-code-invalid-argument" class="dfn-panel" data-for="error-code-invalid-argument" id="infopanel-for-error-code-invalid-argument">
+   <span id="infopaneltitle-for-error-code-invalid-argument" style="display:none">Info about the 'invalid argument' definition.</span><b><a href="#error-code-invalid-argument">#error-code-invalid-argument</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-error-code-invalid-argument">6. Transport</a> <a href="#ref-for-error-code-invalid-argument①">(2)</a> <a href="#ref-for-error-code-invalid-argument②">(3)</a>
     <li><a href="#ref-for-error-code-invalid-argument③">7.2. The &lt;vendor>:settings Module</a> <a href="#ref-for-error-code-invalid-argument④">(2)</a> <a href="#ref-for-error-code-invalid-argument⑤">(3)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="error-code-invalid-session-id">
-   <b><a href="#error-code-invalid-session-id">#error-code-invalid-session-id</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-error-code-invalid-session-id" class="dfn-panel" data-for="error-code-invalid-session-id" id="infopanel-for-error-code-invalid-session-id">
+   <span id="infopaneltitle-for-error-code-invalid-session-id" style="display:none">Info about the 'invalid session id' definition.</span><b><a href="#error-code-invalid-session-id">#error-code-invalid-session-id</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-error-code-invalid-session-id">6. Transport</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="error-code-unknown-command">
-   <b><a href="#error-code-unknown-command">#error-code-unknown-command</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-error-code-unknown-command" class="dfn-panel" data-for="error-code-unknown-command" id="infopanel-for-error-code-unknown-command">
+   <span id="infopaneltitle-for-error-code-unknown-command" style="display:none">Info about the 'unknown command' definition.</span><b><a href="#error-code-unknown-command">#error-code-unknown-command</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-error-code-unknown-command">6. Transport</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="error-code-session-not-created">
-   <b><a href="#error-code-session-not-created">#error-code-session-not-created</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-error-code-session-not-created" class="dfn-panel" data-for="error-code-session-not-created" id="infopanel-for-error-code-session-not-created">
+   <span id="infopaneltitle-for-error-code-session-not-created" style="display:none">Info about the 'session not created' definition.</span><b><a href="#error-code-session-not-created">#error-code-session-not-created</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-error-code-session-not-created">7.1.3.1. The session.new Command</a> <a href="#ref-for-error-code-session-not-created①">(2)</a> <a href="#ref-for-error-code-session-not-created②">(3)</a> <a href="#ref-for-error-code-session-not-created③">(4)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="error-code-cannot-simulate-keyboard-interaction">
-   <b><a href="#error-code-cannot-simulate-keyboard-interaction">#error-code-cannot-simulate-keyboard-interaction</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-error-code-cannot-simulate-keyboard-interaction" class="dfn-panel" data-for="error-code-cannot-simulate-keyboard-interaction" id="infopanel-for-error-code-cannot-simulate-keyboard-interaction">
+   <span id="infopaneltitle-for-error-code-cannot-simulate-keyboard-interaction" style="display:none">Info about the 'cannot simulate keyboard interaction' definition.</span><b><a href="#error-code-cannot-simulate-keyboard-interaction">#error-code-cannot-simulate-keyboard-interaction</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-error-code-cannot-simulate-keyboard-interaction">5.8. Security checks</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="error-code-invalid-os-focus-state">
-   <b><a href="#error-code-invalid-os-focus-state">#error-code-invalid-os-focus-state</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-error-code-invalid-os-focus-state" class="dfn-panel" data-for="error-code-invalid-os-focus-state" id="infopanel-for-error-code-invalid-os-focus-state">
+   <span id="infopaneltitle-for-error-code-invalid-os-focus-state" style="display:none">Info about the 'invalid OS focus state' definition.</span><b><a href="#error-code-invalid-os-focus-state">#error-code-invalid-os-focus-state</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-error-code-invalid-os-focus-state">5.8. Security checks</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="check-that-keyboard-interaction-can-be-simulated">
-   <b><a href="#check-that-keyboard-interaction-can-be-simulated">#check-that-keyboard-interaction-can-be-simulated</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-check-that-keyboard-interaction-can-be-simulated" class="dfn-panel" data-for="check-that-keyboard-interaction-can-be-simulated" id="infopanel-for-check-that-keyboard-interaction-can-be-simulated">
+   <span id="infopaneltitle-for-check-that-keyboard-interaction-can-be-simulated" style="display:none">Info about the 'check that keyboard interaction can be simulated' definition.</span><b><a href="#check-that-keyboard-interaction-can-be-simulated">#check-that-keyboard-interaction-can-be-simulated</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-check-that-keyboard-interaction-can-be-simulated">7.3.3.1. The interaction.pressKeys Command</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="check-that-one-of-the-expected-applications-has-focus">
-   <b><a href="#check-that-one-of-the-expected-applications-has-focus">#check-that-one-of-the-expected-applications-has-focus</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-check-that-one-of-the-expected-applications-has-focus" class="dfn-panel" data-for="check-that-one-of-the-expected-applications-has-focus" id="infopanel-for-check-that-one-of-the-expected-applications-has-focus">
+   <span id="infopaneltitle-for-check-that-one-of-the-expected-applications-has-focus" style="display:none">Info about the 'check that one of the expected applications has focus' definition.</span><b><a href="#check-that-one-of-the-expected-applications-has-focus">#check-that-one-of-the-expected-applications-has-focus</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-check-that-one-of-the-expected-applications-has-focus">7.3.3.1. The interaction.pressKeys Command</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="should-be-withheld">
-   <b><a href="#should-be-withheld">#should-be-withheld</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-should-be-withheld" class="dfn-panel" data-for="should-be-withheld" id="infopanel-for-should-be-withheld">
+   <span id="infopaneltitle-for-should-be-withheld" style="display:none">Info about the 'should be withheld' definition.</span><b><a href="#should-be-withheld">#should-be-withheld</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-should-be-withheld">7.3.4. Events</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="websocket-listener">
-   <b><a href="#websocket-listener">#websocket-listener</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-websocket-listener" class="dfn-panel" data-for="websocket-listener" id="infopanel-for-websocket-listener">
+   <span id="infopaneltitle-for-websocket-listener" style="display:none">Info about the 'WebSocket listener' definition.</span><b><a href="#websocket-listener">#websocket-listener</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-websocket-listener">6. Transport</a> <a href="#ref-for-websocket-listener①">(2)</a> <a href="#ref-for-websocket-listener②">(3)</a> <a href="#ref-for-websocket-listener③">(4)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="websocket-listener-host">
-   <b><a href="#websocket-listener-host">#websocket-listener-host</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-websocket-listener-host" class="dfn-panel" data-for="websocket-listener-host" id="infopanel-for-websocket-listener-host">
+   <span id="infopaneltitle-for-websocket-listener-host" style="display:none">Info about the 'host' definition.</span><b><a href="#websocket-listener-host">#websocket-listener-host</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-websocket-listener-host">6. Transport</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="websocket-listener-port">
-   <b><a href="#websocket-listener-port">#websocket-listener-port</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-websocket-listener-port" class="dfn-panel" data-for="websocket-listener-port" id="infopanel-for-websocket-listener-port">
+   <span id="infopaneltitle-for-websocket-listener-port" style="display:none">Info about the 'port' definition.</span><b><a href="#websocket-listener-port">#websocket-listener-port</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-websocket-listener-port">6. Transport</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="websocket-listener-secure-flag">
-   <b><a href="#websocket-listener-secure-flag">#websocket-listener-secure-flag</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-websocket-listener-secure-flag" class="dfn-panel" data-for="websocket-listener-secure-flag" id="infopanel-for-websocket-listener-secure-flag">
+   <span id="infopaneltitle-for-websocket-listener-secure-flag" style="display:none">Info about the 'secure flag' definition.</span><b><a href="#websocket-listener-secure-flag">#websocket-listener-secure-flag</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-websocket-listener-secure-flag">6. Transport</a> <a href="#ref-for-websocket-listener-secure-flag①">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="remote-end-active-listeners">
-   <b><a href="#remote-end-active-listeners">#remote-end-active-listeners</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-remote-end-active-listeners" class="dfn-panel" data-for="remote-end-active-listeners" id="infopanel-for-remote-end-active-listeners">
+   <span id="infopaneltitle-for-remote-end-active-listeners" style="display:none">Info about the 'active listeners' definition.</span><b><a href="#remote-end-active-listeners">#remote-end-active-listeners</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-remote-end-active-listeners">6. Transport</a> <a href="#ref-for-remote-end-active-listeners①">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="remote-end-websocket-connections-not-associated-with-a-session">
-   <b><a href="#remote-end-websocket-connections-not-associated-with-a-session">#remote-end-websocket-connections-not-associated-with-a-session</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-remote-end-websocket-connections-not-associated-with-a-session" class="dfn-panel" data-for="remote-end-websocket-connections-not-associated-with-a-session" id="infopanel-for-remote-end-websocket-connections-not-associated-with-a-session">
+   <span id="infopaneltitle-for-remote-end-websocket-connections-not-associated-with-a-session" style="display:none">Info about the 'WebSocket connections not associated with a session' definition.</span><b><a href="#remote-end-websocket-connections-not-associated-with-a-session">#remote-end-websocket-connections-not-associated-with-a-session</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-remote-end-websocket-connections-not-associated-with-a-session">6. Transport</a> <a href="#ref-for-remote-end-websocket-connections-not-associated-with-a-session①">(2)</a> <a href="#ref-for-remote-end-websocket-connections-not-associated-with-a-session②">(3)</a> <a href="#ref-for-remote-end-websocket-connections-not-associated-with-a-session③">(4)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="websocket-connection">
-   <b><a href="#websocket-connection">#websocket-connection</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-websocket-connection" class="dfn-panel" data-for="websocket-connection" id="infopanel-for-websocket-connection">
+   <span id="infopaneltitle-for-websocket-connection" style="display:none">Info about the 'WebSocket connection' definition.</span><b><a href="#websocket-connection">#websocket-connection</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-websocket-connection">6. Transport</a> <a href="#ref-for-websocket-connection①">(2)</a> <a href="#ref-for-websocket-connection②">(3)</a> <a href="#ref-for-websocket-connection③">(4)</a> <a href="#ref-for-websocket-connection④">(5)</a> <a href="#ref-for-websocket-connection⑤">(6)</a> <a href="#ref-for-websocket-connection⑥">(7)</a> <a href="#ref-for-websocket-connection⑦">(8)</a> <a href="#ref-for-websocket-connection⑧">(9)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="session-session-websocket-connections">
-   <b><a href="#session-session-websocket-connections">#session-session-websocket-connections</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-session-session-websocket-connections" class="dfn-panel" data-for="session-session-websocket-connections" id="infopanel-for-session-session-websocket-connections">
+   <span id="infopaneltitle-for-session-session-websocket-connections" style="display:none">Info about the 'session WebSocket connections' definition.</span><b><a href="#session-session-websocket-connections">#session-session-websocket-connections</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-session-session-websocket-connections">6. Transport</a> <a href="#ref-for-session-session-websocket-connections①">(2)</a> <a href="#ref-for-session-session-websocket-connections②">(3)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="session-associated-with-connection">
-   <b><a href="#session-associated-with-connection">#session-associated-with-connection</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-session-associated-with-connection" class="dfn-panel" data-for="session-associated-with-connection" id="infopanel-for-session-associated-with-connection">
+   <span id="infopaneltitle-for-session-associated-with-connection" style="display:none">Info about the 'associated with connection' definition.</span><b><a href="#session-associated-with-connection">#session-associated-with-connection</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-session-associated-with-connection">6. Transport</a> <a href="#ref-for-session-associated-with-connection①">(2)</a> <a href="#ref-for-session-associated-with-connection②">(3)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="start-listening-for-a-websocket-connection">
-   <b><a href="#start-listening-for-a-websocket-connection">#start-listening-for-a-websocket-connection</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-start-listening-for-a-websocket-connection" class="dfn-panel" data-for="start-listening-for-a-websocket-connection" id="infopanel-for-start-listening-for-a-websocket-connection">
+   <span id="infopaneltitle-for-start-listening-for-a-websocket-connection" style="display:none">Info about the 'start listening for a WebSocket connection' definition.</span><b><a href="#start-listening-for-a-websocket-connection">#start-listening-for-a-websocket-connection</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-start-listening-for-a-websocket-connection">6.1. Establishing a Connection</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="handle-an-incoming-message">
-   <b><a href="#handle-an-incoming-message">#handle-an-incoming-message</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-handle-an-incoming-message" class="dfn-panel" data-for="handle-an-incoming-message" id="infopanel-for-handle-an-incoming-message">
+   <span id="infopaneltitle-for-handle-an-incoming-message" style="display:none">Info about the 'handle an incoming message' definition.</span><b><a href="#handle-an-incoming-message">#handle-an-incoming-message</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-handle-an-incoming-message">6. Transport</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="emit-an-event">
-   <b><a href="#emit-an-event">#emit-an-event</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-emit-an-event" class="dfn-panel" data-for="emit-an-event" id="infopanel-for-emit-an-event">
+   <span id="infopaneltitle-for-emit-an-event" style="display:none">Info about the 'emit an event' definition.</span><b><a href="#emit-an-event">#emit-an-event</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-emit-an-event">7.3.4. Events</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="send-an-error-response">
-   <b><a href="#send-an-error-response">#send-an-error-response</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-send-an-error-response" class="dfn-panel" data-for="send-an-error-response" id="infopanel-for-send-an-error-response">
+   <span id="infopaneltitle-for-send-an-error-response" style="display:none">Info about the 'send an error response' definition.</span><b><a href="#send-an-error-response">#send-an-error-response</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-send-an-error-response">6. Transport</a> <a href="#ref-for-send-an-error-response①">(2)</a> <a href="#ref-for-send-an-error-response②">(3)</a> <a href="#ref-for-send-an-error-response③">(4)</a> <a href="#ref-for-send-an-error-response④">(5)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="handle-a-connection-closing">
-   <b><a href="#handle-a-connection-closing">#handle-a-connection-closing</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-handle-a-connection-closing" class="dfn-panel" data-for="handle-a-connection-closing" id="infopanel-for-handle-a-connection-closing">
+   <span id="infopaneltitle-for-handle-a-connection-closing" style="display:none">Info about the 'handle a connection closing' definition.</span><b><a href="#handle-a-connection-closing">#handle-a-connection-closing</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-handle-a-connection-closing">6. Transport</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="remote-end-supported-settings">
-   <b><a href="#remote-end-supported-settings">#remote-end-supported-settings</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-remote-end-supported-settings" class="dfn-panel" data-for="remote-end-supported-settings" id="infopanel-for-remote-end-supported-settings">
+   <span id="infopaneltitle-for-remote-end-supported-settings" style="display:none">Info about the 'supported settings' definition.</span><b><a href="#remote-end-supported-settings">#remote-end-supported-settings</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-remote-end-supported-settings">7.2. The &lt;vendor>:settings Module</a> <a href="#ref-for-remote-end-supported-settings①">(2)</a>
     <li><a href="#ref-for-remote-end-supported-settings②">7.2.3.3. The &lt;vendor>settings.getSupportedSettings Command</a> <a href="#ref-for-remote-end-supported-settings③">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="setting-name-is-invalid">
-   <b><a href="#setting-name-is-invalid">#setting-name-is-invalid</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-setting-name-is-invalid" class="dfn-panel" data-for="setting-name-is-invalid" id="infopanel-for-setting-name-is-invalid">
+   <span id="infopaneltitle-for-setting-name-is-invalid" style="display:none">Info about the 'setting name is invalid' definition.</span><b><a href="#setting-name-is-invalid">#setting-name-is-invalid</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-setting-name-is-invalid">7.2. The &lt;vendor>:settings Module</a> <a href="#ref-for-setting-name-is-invalid①">(2)</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="get-settings">
-   <b><a href="#get-settings">#get-settings</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-get-settings" class="dfn-panel" data-for="get-settings" id="infopanel-for-get-settings">
+   <span id="infopaneltitle-for-get-settings" style="display:none">Info about the 'get settings' definition.</span><b><a href="#get-settings">#get-settings</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-get-settings">7.2.3.2. The &lt;vendor>settings.getSettings Command</a>
     <li><a href="#ref-for-get-settings①">7.2.3.3. The &lt;vendor>settings.getSupportedSettings Command</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="modify-setting">
-   <b><a href="#modify-setting">#modify-setting</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-modify-setting" class="dfn-panel" data-for="modify-setting" id="infopanel-for-modify-setting">
+   <span id="infopaneltitle-for-modify-setting" style="display:none">Info about the 'modify setting' definition.</span><b><a href="#modify-setting">#modify-setting</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-modify-setting">7.2.3.1. The &lt;vendor>:settings.setSettings Command</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="vendorsettingssetsettings">
-   <b><a href="#vendorsettingssetsettings">#vendorsettingssetsettings</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-vendorsettingssetsettings" class="dfn-panel" data-for="vendorsettingssetsettings" id="infopanel-for-vendorsettingssetsettings">
+   <span id="infopaneltitle-for-vendorsettingssetsettings" style="display:none">Info about the '&lt;vendor>:settings.setSettings' definition.</span><b><a href="#vendorsettingssetsettings">#vendorsettingssetsettings</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-vendorsettingssetsettings">7.2.3.1. The &lt;vendor>:settings.setSettings Command</a>
    </ul>
   </aside>
 <script>/* script-dfn-panel */
-
-document.body.addEventListener("click", function(e) {
-    var queryAll = function(sel) { return [].slice.call(document.querySelectorAll(sel)); }
-    // Find the dfn element or panel, if any, that was clicked on.
-    var el = e.target;
-    var target;
-    var hitALink = false;
-    while(el.parentElement) {
-        if(el.tagName == "A") {
-            // Clicking on a link in a <dfn> shouldn't summon the panel
-            hitALink = true;
-        }
-        if(el.classList.contains("dfn-paneled")) {
-            target = "dfn";
-            break;
-        }
-        if(el.classList.contains("dfn-panel")) {
-            target = "dfn-panel";
-            break;
-        }
-        el = el.parentElement;
+"use strict";
+{
+    function queryAll(sel) {
+        return [].slice.call(document.querySelectorAll(sel));
     }
-    if(target != "dfn-panel") {
+
+    // Add popup behavior to all dfns to show the corresponding dfn-panel.
+    var dfns = document.querySelectorAll('.dfn-paneled');
+    for (let dfn of dfns) { insertDfnPopupAction(dfn); }
+
+    document.body.addEventListener("click", (e) => {
+        // If not handled already, just hide all dfn panels.
+        hideAllDfnPanels();
+    });
+
+    function hideAllDfnPanels() {
         // Turn off any currently "on" or "activated" panels.
-        queryAll(".dfn-panel.on, .dfn-panel.activated").forEach(function(el){
-            el.classList.remove("on");
-            el.classList.remove("activated");
-        });
-    }
-    if(target == "dfn" && !hitALink) {
-        // open the panel
-        var dfnPanel = document.querySelector(".dfn-panel[data-for='" + el.id + "']");
-        if(dfnPanel) {
-            dfnPanel.classList.add("on");
-            var rect = el.getBoundingClientRect();
-            dfnPanel.style.left = window.scrollX + rect.right + 5 + "px";
-            dfnPanel.style.top = window.scrollY + rect.top + "px";
-            var panelRect = dfnPanel.getBoundingClientRect();
-            var panelWidth = panelRect.right - panelRect.left;
-            if(panelRect.right > document.body.scrollWidth && (rect.left - (panelWidth + 5)) > 0) {
-                // Reposition, because the panel is overflowing
-                dfnPanel.style.left = window.scrollX + rect.left - (panelWidth + 5) + "px";
-            }
-        } else {
-            console.log("Couldn't find .dfn-panel[data-for='" + el.id + "']");
-        }
-    } else if(target == "dfn-panel") {
-        // Switch it to "activated" state, which pins it.
-        el.classList.add("activated");
-        el.style.left = null;
-        el.style.top = null;
+        queryAll(".dfn-panel.on, .dfn-panel.activated").forEach(el=>hideDfnPanel(el));
     }
 
-});
+    function showDfnPanel(dfnPanel, dfn) {
+        hideAllDfnPanels(); // Only display one at this time.
+        dfn.setAttribute("aria-expanded", "true");
+        dfnPanel.classList.add("on");
+        dfnPanel.style.left = "5px";
+        dfnPanel.style.top = "0px";
+        const panelRect = dfnPanel.getBoundingClientRect();
+        const panelWidth = panelRect.right - panelRect.left;
+        if (panelRect.right > document.body.scrollWidth) {
+            // Panel's overflowing the screen.
+            // Just drop it below the dfn and flip it rightward instead.
+            // This still wont' fix things if the screen is *really* wide,
+            // but fixing that's a lot harder without 'anchor()'.
+            dfnPanel.style.top = "1.5em";
+            dfnPanel.style.left = "auto";
+            dfnPanel.style.right = "0px";
+        }
+    }
+
+    function pinDfnPanel(dfnPanel) {
+        // Switch it to "activated" state, which pins it.
+        dfnPanel.classList.add("activated");
+        dfnPanel.style.left = null;
+        dfnPanel.style.top = null;
+    }
+
+    function hideDfnPanel(dfnPanel, dfn) {
+        if(!dfn) {
+            dfn = document.getElementById(dfnPanel.getAttribute("data-for"));
+        }
+        dfn.setAttribute("aria-expanded", "false")
+        dfnPanel.classList.remove("on");
+        dfnPanel.classList.remove("activated");
+    }
+
+    function toggleDfnPanel(dfnPanel, dfn) {
+        if(dfnPanel.classList.contains("on")) {
+            hideDfnPanel(dfnPanel, dfn);
+        } else {
+            showDfnPanel(dfnPanel, dfn);
+        }
+    }
+
+    function insertDfnPopupAction(dfn) {
+        // Find dfn panel
+        const dfnPanel = document.querySelector(`.dfn-panel[data-for='${dfn.id}']`);
+        if (dfnPanel) {
+            const panelWrapper = document.createElement('span');
+            panelWrapper.appendChild(dfnPanel);
+            panelWrapper.style.position = "relative";
+            panelWrapper.style.height = "0px";
+            dfn.insertAdjacentElement("afterend", panelWrapper);
+            dfn.setAttribute('role', 'button');
+            dfn.setAttribute('aria-expanded', 'false')
+            dfn.tabIndex = 0;
+            dfn.classList.add('has-dfn-panel');
+            dfn.addEventListener('click', (event) => {
+                showDfnPanel(dfnPanel, dfn);
+                event.stopPropagation();
+            });
+            dfn.addEventListener('keypress', (event) => {
+                const kc = event.keyCode;
+                // 32->Space, 13->Enter
+                if(kc == 32 || kc == 13) {
+                    toggleDfnPanel(dfnPanel, dfn);
+                    event.stopPropagation();
+                    event.preventDefault();
+                }
+            });
+
+            dfnPanel.addEventListener('click', (event) => {
+                pinDfnPanel(dfnPanel);
+                event.stopPropagation();
+            });
+
+            dfnPanel.addEventListener('keydown', (event) => {
+                if(event.keyCode == 27) { // Escape key
+                    hideDfnPanel(dfnPanel, dfn);
+                    event.stopPropagation();
+                    event.preventDefault();
+                }
+            })
+
+        } else {
+            console.log("Couldn't find .dfn-panel[data-for='" + dfn.id + "']");
+        }
+    }
+}
 </script>
 <script>/* script-var-click-highlighting */
 
