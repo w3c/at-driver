@@ -8,7 +8,7 @@ Repository: w3c/aria-at-automation
 URL: https://w3c.github.io/aria-at-automation/
 Editor: Mike Pennisi, Bocoup https://bocoup.com, mike@bocoup.com
 Former Editor: Simon Pieters, Bocoup https://bocoup.com, simon@bocoup.com
-Abstract: A protocol for introspection and remove control of assistive technology software
+Abstract: A protocol for introspection and remote control of assistive technology software
 Markup Shorthands: markdown yes
 </xmp>
 
@@ -56,7 +56,7 @@ A connection can have 0 or more [=sessions=]. Each session corresponds to an ins
 
 When a remote end supports multiple sessions, it does not necessarily mean that there will be multiple ATs running at the same time in the same instance of an OS. Some ATs might not be able to function properly if there are other ATs running at the same time. The AT Driver [=session=] concept can still be used by having the remote end run in a separate environment and each AT is run in its own OS instance (for example in a virtual machine), and the remote end proxies messages in some fashion.
 
-Commands are grouped into modules. The modules could be: Sessions, Settings, Actions.
+Commands are grouped into [=modules=]. The modules could be: Sessions, Settings, Actions.
 
 Message transport is provided using the WebSocket protocol.
 
@@ -121,10 +121,14 @@ This section gives the initial contents of the remote end definition and local e
 [=Remote end definition=]
 
 <xmp class="cddl remote-cddl">
+Extensible = {
+  *text => any
+}
+
 Command = {
   id: uint,
   CommandData,
-  *text => any,
+  Extensible,
 }
 
 CommandData = (
@@ -133,12 +137,16 @@ CommandData = (
   InteractionCommand
 )
 
-EmptyParams = { *text => any }
+EmptyParams = { Extensible }
 </xmp>
 
 [=Local end definition=]:
 
 <xmp class="cddl local-cddl">
+Extensible = {
+  *text => any
+}
+
 Message = (
   CommandResponse //
   ErrorResponse //
@@ -148,7 +156,7 @@ Message = (
 CommandResponse = {
   id: uint,
   result: ResultData,
-  *text => any
+  Extensible,
 }
 
 ErrorResponse = {
@@ -156,7 +164,7 @@ ErrorResponse = {
   error: "unknown error" / "unknown command" / "invalid argument" / "session not created",
   message: text,
   ?stacktrace: text,
-  *text => any
+  Extensible,
 }
 
 ResultData = (
@@ -169,7 +177,7 @@ EmptyResult = {}
 
 Event = {
   EventData,
-  *text => any
+  Extensible,
 }
 
 EventData = (
@@ -214,11 +222,11 @@ The following table of <dfn>standard capabilities</dfn> enumerates the capabilit
 
 To <dfn>process capabilities</dfn> with argument |parameters|, the [=remote end=] must:
 
-1. Let |capabilities request| be |parameters|["`capabilities`"] if it <a for=map>exists</a>, else null.
-2. Let |required capabilities| be |capabilities request|["`alwaysMatch`"] if it <a for=map>exists</a>, else null.
-3. Let |matched capabilities| be the result of [=trying=] to [=match capabilities=] given |required capabilities|.
-4. If |matched capabilities| is not null, then return [=success=] with data |matched capabilities|.
-5. Return [=success=] with data null.
+1. If |parameters|["`capabilities`"] [=map/exists=] and |parameters|["`capabilities`"]["`alwaysMatch`"] [=map/exists=]:
+    1. Let |required capabilities| be |parameters|["`capabilities`"]["`alwaysMatch`"].
+2. Otherwise:
+    1. Let |required capabilities| be a new [=map=].
+3. Return the result of [=match capabilities=] given |required capabilities|.
 
 </div>
 
@@ -409,32 +417,32 @@ Note: a future iteration of this specification may allow multiple connections, t
 
 To <dfn>handle an incoming message</dfn> given a [=WebSocket connection=] |connection|, type |type| and data |data|:
 
-1. If |type| is not [text](https://tools.ietf.org/html/rfc6455#section-5.2), [=respond with an error=] given |connection|, null, and [=invalid argument=], and finally return.
-2. [=Assert=]: |data| is a [=scalar value string=], because the [WebSocket handling errors in UTF-8-encoded data=](https://tools.ietf.org/html/rfc6455#section-8.1) would already have [failed the WebSocket connection](https://tools.ietf.org/html/rfc6455#section-7.1.7) otherwise.
+1. If |type| is not [text](https://tools.ietf.org/html/rfc6455#section-5.2), [=send an error response=] given |connection|, null, and <a for="error code">invalid argument</a>, and finally return.
+2. [=Assert=]: |data| is a [=scalar value string=], because the [WebSocket handling errors in UTF-8-encoded data](https://tools.ietf.org/html/rfc6455#section-8.1) would already have [failed the WebSocket connection](https://tools.ietf.org/html/rfc6455#section-7.1.7) otherwise.
 3. If there is a [=session=] [=associated with connection=] |connection|, let |session| be that session. Otherwise if |connection| is in the set of [=WebSocket connections not associated with a session=], let |session| be null. Otherwise, return.
-4. Let |parsed| be the result of [=parsing JSON into Infra values=] given |data|. If this throws an exception, then [=respond with an error=] given |connection|, null, and [=invalid argument=], and finally return.
-5. Match parsed against the [=remote end definition=]. If this results in a match:
+4. Let |parsed| be the result of [=parsing JSON into Infra values=] given |data|. If this throws an exception, then [=send an error response=] given |connection|, null, and <a for="error code">invalid argument</a>, and finally return.
+5. Match |parsed| against the [=remote end definition=]. If this results in a match:
     1. Let |matched| be the map representing the matched data.
     2. [=Assert=]: |matched| <a for=map>contains</a> "`id`", "`method`", and "`params`".
     3. Let |command id| be |matched|["`id`"].
     4. Let |method| be |matched|["`method`"].
     5. Let |command| be the command with [=command name=] |method|.
-    6. If |session| is null and |command| is not a [=static command=], then [=respond with an error=] given |connection|, |command id|, and [=invalid session id=], and return.
+    6. If |session| is null and |command| is not a [=static command=], then [=send an error response=] given |connection|, |command id|, and [=invalid session id=], and return.
     7. Run the following steps [=in parallel=]:
         1. Let |result| be the result of running the [=remote end steps=] for |command| given |session| and [=command parameters=] |matched|["`params`"].
-        2. If |result| is an [=error=], then [=respond with an error=] given |connection|, |command id|, and |result|'s [=error code=], and finally return.
+        2. If |result| is an [=error=], then [=send an error response=] given |connection|, |command id|, and |result|'s [=error code=], and finally return.
         3. Let |value| be |result|'s data.
         4. [=Assert=]: |value| matches the definition for the [=result type=] corresponding to the command with [=command name=] |method|.
-        5. If |method| is "`session.new`", let [=session=] be the entry in the list of [=active sessions=] whose [=session ID=] is equal to the "`sessionId`" property of |value|, let |session|'s [=WebSocket connection=] be |connection|, and remove |connection| from the set of [=WebSocket connections not associated with a session=].
+        5. If |method| is "`session.new`", let |session| be the entry in the list of [=active sessions=] whose [=session ID=] is equal to the "`sessionId`" property of |value|, let |session|'s [=WebSocket connection=] be |connection|, and remove |connection| from the set of [=WebSocket connections not associated with a session=].
         6. Let |response| be a new map matching the `CommandResponse` production in the [=local end definition=] with the `id` field set to |command id| and the `value` field set to |value|.
         7. Let |serialized| be the result of [=serialize an infra value to JSON bytes=] given |response|.
         8. [Send a WebSocket message](https://tools.ietf.org/html/rfc6455#section-6.1) comprised of |serialized| over |connection|.
 6. Otherwise:
     1. Let |command id| be null.
     2. If |parsed| is a [=map=] and |parsed|["`id`"] <a for=map>exists</a> and is an integer greater than or equal to zero, set |command id| to that integer.
-    3. Let |error code| be [=invalid argument=].
+    3. Let |error code| be <a for="error code">invalid argument</a>.
     4. If |parsed| is a [=map=] and |parsed|["`method`"] <a for=map>exists</a> and is a string, but |parsed|["`method`"] is not in the [=set of all command names=], set |error code| to [=unknown command=].
-    5. [=Respond with an error=] given |connection|, |command id|, and |error code|.
+    5. [=Send an error response=] given |connection|, |command id|, and |error code|.
 
 </div>
 
@@ -452,11 +460,12 @@ To <dfn>emit an event</dfn> given |session|, and |body|:
 
 <div algorithm>
 
-To <dfn>respond with an error</dfn> given a [=WebSocket connection=] |connection|, |command id|, and |error code|:
+To <dfn>send an error response</dfn> given a [=WebSocket connection=] |connection|, |command id|, and |error code|:
 
   1. Let |error data| be a new [=map=] matching the `ErrorResponse` production in the [=local end definition=], with the `id` field set to |command id|, the `error` field set to |error code|, the `message` field set to an [=implementation-defined=] string containing a human-readable definition of the error that occurred and the `stacktrace` field optionally set to an [=implementation-defined=] string containing a stack trace report of the active stack frames at the time when the error occurred.
   2. Let |response| be the result of [=serialize an infra value to JSON bytes=] given |error data|.
-      Note: command id can be null, in which case the id field will also be set to null, not omitted from response.
+
+     Note: |command id| can be null, in which case the `id` field will also be set to null, not omitted from |response|.
   3. [Send a WebSocket message](https://tools.ietf.org/html/rfc6455#section-6.1) comprised of |response| over |connection|.
 
 </div>
@@ -468,9 +477,9 @@ To <dfn>handle a connection closing</dfn> given a [=WebSocket connection=] |conn
   1. If there is a [=session=] [=associated with connection=] |connection|:
       1. Let |session| be the [=session=] [=associated with connection=] |connection|.
       2. Remove |connection| from |session|'s [=session WebSocket connections=].
+      3. If |session|'s [=session WebSocket connections=] is [=list/empty=]:
+          1. Remove |session| from [=active sessions=].
   2. Otherwise, if the set of [=WebSocket connections not associated with a session=] contains |connection|, remove |connection| from that set.
-
-Issue: As in WebDriver BiDi, this does not end any session. Not sure if we want to allow reconnecting to the same session, or implicitly end the session.
 
 </div>
 
@@ -513,7 +522,7 @@ CapabilitiesRequest = {
   ?atName: text,
   ?atVersion: text,
   ?platformName: text,
-  *text => any
+  Extensible,
 }
 </xmp>
 
@@ -526,7 +535,7 @@ The `CapabilitiesRequest` type represents capabilities requested for a session.
 The <dfn>session.new</dfn> command allows creating a new [=session=]. This is a [=static command=].
 
 <dl>
-  <dt>Command Type
+  <dt>[=Command Type=]
   <dd>
 
   <xmp class="cddl remote-cddl">
@@ -552,7 +561,7 @@ The <dfn>session.new</dfn> command allows creating a new [=session=]. This is a 
       atName: text,
       atVersion: text,
       platformName: text,
-      *text => any
+      Extensible,
     }
   }
   </xmp>
@@ -607,7 +616,7 @@ To <dfn>get settings</dfn> given a [=list=] of strings |names|:
 1. Let |items| be a new [=list=].
 2. [=list/For each=] |name| of |names|:
     1. If [=validate setting name=] given |name| is `"invalid"`:
-        1. Return an [=error=] with [=error code=] [=invalid argument=].
+        1. Return an [=error=] with [=error code=] <a for="error code">invalid argument</a>.
     2. Let |value| be the value of the setting named |name|.
     3. Let |item| be a new [=map=] matching the `VendorSettingsGetSettingsResultItem` production in the [=local end definition=] with the `name` field set to |name| and the `value` field set to |value|.
     4. [=list/Append=] |item| to |items|.
@@ -621,10 +630,10 @@ To <dfn>get settings</dfn> given a [=list=] of strings |names|:
 To <dfn>modify setting</dfn> given string |name| and |value|:
 
 1. If [=validate setting name=] given |name| is `"invalid"`:
-    1. Return an [=error=] with [=error code=] [=invalid argument=].
+    1. Return an [=error=] with [=error code=] <a for="error code">invalid argument</a>.
 2. Take any [=implementation-defined=] steps to change the [=remote end=] setting named |name| to the value |value|.
 3. If there is any [=implementation-defined=] indication that the setting named |name| does not hold the value |value|:
-    1. Return an [=error=] with [=error code=] [=invalid argument=].
+    1. Return an [=error=] with [=error code=] <a for="error code">invalid argument</a>.
 4. Return [=success=] with data null.
 
 </div>
@@ -667,7 +676,7 @@ VendorSettingsGetSettingsResult = {
 VendorSettingsGetSettingsResultItem = {
   name: text,
   value: any,
-  *text => any
+  Extensible,
 }
 </xmp>
 
@@ -677,14 +686,14 @@ The `VendorSettingsGetSettingsResult` type contains a list of settings and their
 
 #### The &lt;vendor>:settings.setSettings Command #### {#command-vendor-settings-set-settings}
 
-The <dfn>&lt;vendor>:settings.setSettings</dfn> command  sets the values of one or more settings.
+The <dfn>&lt;vendor>:settings.setSettings</dfn> command sets the values of one or more settings.
 
 Note: Today's implementations may not be able to detect failed modification operations. [=&lt;vendor>:settings.setSettings=] is designed to reflect that reality. Clients should therefore interpret [=successes=] with some skepticism as such results do not necessarily indicate that the referenced setting has the desired value.
 
 Issue: Require implementations to report failures in settings modification operations.
 
 <dl>
-  <dt>Command Type</dt>
+  <dt>[=Command Type=]</dt>
   <dd>
     <xmp class="cddl remote-cddl">
     VendorSettingsSetSettingsCommand = {
@@ -693,13 +702,13 @@ Issue: Require implementations to report failures in settings modification opera
     }
 
     VendorSettingsSetSettingsParameters = {
-      settings: [1* VendorSettingSetSettingsParametersItem ],
+      settings: [1* VendorSettingsSetSettingsParametersItem ],
     }
 
-    VendorSettingSetSettingsParametersItem = {
+    VendorSettingsSetSettingsParametersItem = {
       name: text,
       value: any,
-      *text => any
+      Extensible,
     }
     </xmp>
   </dd>
@@ -725,12 +734,12 @@ The [=remote end steps=] given <var ignore>session</var> and |command parameters
 
 </div>
 
-#### The &lt;vendor>settings.getSettings Command #### {#command-vendor-settings-get-settings}
+#### The &lt;vendor>:settings.getSettings Command #### {#command-vendor-settings-get-settings}
 
 The <dfn>&lt;vendor>:settings.getSettings command</dfn> returns a list of the requested settings and their values.
 
 <dl>
-  <dt>Command Type</dt>
+  <dt>[=Command Type=]</dt>
   <dd>
     <xmp class="cddl remote-cddl">
     VendorSettingsGetSettingsCommand = {
@@ -744,7 +753,7 @@ The <dfn>&lt;vendor>:settings.getSettings command</dfn> returns a list of the re
 
     VendorSettingsGetSettingsParametersItem = {
       name: text,
-      *text => any
+      Extensible,
     }
     </xmp>
   </dd>
@@ -765,12 +774,12 @@ The <a>remote end steps</a> given <var ignore>session</var> and |command paramet
 
 </div>
 
-#### The &lt;vendor>settings.getSupportedSettings Command #### {#command-vendor-settings-get-supported-settings}
+#### The &lt;vendor>:settings.getSupportedSettings Command #### {#command-vendor-settings-get-supported-settings}
 
 The <dfn>&lt;vendor>:settings.getSupportedSettings command</dfn> returns a list of all settings that the [=remote end=] supports, and their values.
 
 <dl>
-  <dt>Command Type</dt>
+  <dt>[=Command Type=]</dt>
   <dd>
     <xmp class="cddl remote-cddl">
     VendorSettingsGetSupportedSettingsCommand = {
@@ -802,7 +811,7 @@ The <a>remote end steps</a> given <var ignore>session</var> and <var ignore>comm
 
 </div>
 
-#### Events #### {#module-vendor-settings-events}
+### Events ### {#module-vendor-settings-events}
 
 Issue: Do we need a "setting changed" event?
 
@@ -830,7 +839,7 @@ InteractionEvent = (InteractionCapturedOutputEvent)
 <xmp class="cddl local-cddl">
 InteractionCapturedOutputParameters = {
   data: text,
-  *text => any
+  Extensible,
 }
 </xmp>
 
@@ -842,8 +851,10 @@ The <dfn>interaction.pressKeys</dfn> command simulates pressing a key combinatio
 
 Issue(34): This command does not yet have a means for indicating a screen-reader specific modifier key (or keys).
 
+Issue(51): This algorithm only supports one specific kind of press/release sequence, and it is not clear if that is sufficient to express all keyboard commands in all implementations.
+
 <dl>
-  <dt>Command Type
+  <dt>[=Command Type=]
   <dd>
 
   <pre class="cddl remote-cddl">
@@ -854,7 +865,7 @@ Issue(34): This command does not yet have a means for indicating a screen-reader
 
   InteractionPressKeysParameters = {
     "keys" => KeyCombination,
-    *text => any
+    Extensible,
   }
 
   KeyCombination = [
@@ -887,9 +898,12 @@ The [=remote end steps=] given |session| and |command parameters| are:
     1. Run [=implementation-defined=] steps to simulate depressing |key|.
 5. [=list/For each=] |key| of |keys| in reverse [=List=] order:
     1. Run [=implementation-defined=] steps to simulate releasing |key|.
-6. Return a new map matching the `EmptyResult` production.
+6. Let |body| be a new [=map=].
+7. Return [=success=] with data |body|.
 
 ### Events ### {#module-interaction-events}
+
+#### The interaction.capturedOutput Event #### {#event-interaction-capturedOutput}
 
 <dl>
   <dt>Event Type
