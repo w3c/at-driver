@@ -1,3 +1,7 @@
+Extensible = {
+  *text => any
+}
+
 Message = (
   CommandResponse //
   ErrorResponse //
@@ -7,7 +11,7 @@ Message = (
 CommandResponse = {
   id: uint,
   result: ResultData,
-  *text => any
+  Extensible,
 }
 
 ErrorResponse = {
@@ -15,7 +19,7 @@ ErrorResponse = {
   error: "unknown error" / "unknown command" / "invalid argument" / "session not created",
   message: text,
   ?stacktrace: text,
-  *text => any
+  Extensible,
 }
 
 ResultData = (
@@ -28,7 +32,7 @@ EmptyResult = {}
 
 Event = {
   EventData,
-  *text => any
+  Extensible,
 }
 
 EventData = (
@@ -41,7 +45,7 @@ CapabilitiesRequest = {
   ?atName: text,
   ?atVersion: text,
   ?platformName: text,
-  *text => any
+  Extensible,
 }
 
 SessionNewResult = {
@@ -50,7 +54,7 @@ SessionNewResult = {
     atName: text,
     atVersion: text,
     platformName: text,
-    *text => any
+    Extensible,
   }
 }
 
@@ -65,14 +69,14 @@ VendorSettingsGetSettingsResult = {
 VendorSettingsGetSettingsResultItem = {
   name: text,
   value: any,
-  *text => any
+  Extensible,
 }
 
 InteractionEvent = (InteractionCapturedOutputEvent)
 
 InteractionCapturedOutputParameters = {
   data: text,
-  *text => any
+  Extensible,
 }
 
 InteractionCapturedOutputEvent = {
