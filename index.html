@@ -8,7 +8,7 @@
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
   <meta content="Bikeshed version d9bd89757, updated Thu Mar 23 10:06:53 2023 -0700" name="generator">
   <link href="https://w3c.github.io/aria-at-automation/" rel="canonical">
-  <meta content="a662f9403f1056cbc62107b11e9bda8bb6bfb30b" name="document-revision">
+  <meta content="227f29a71452439cb4facf00f4aced21329e6816" name="document-revision">
 <style>
 table { border-collapse: collapse; border-style: hidden hidden none hidden; }
 table thead, table tbody { border-bottom: solid; }
@@ -1282,23 +1282,23 @@ CapabilitiesRequestParameters = {
    <h3 class="heading settled" data-level="7.2" id="module-settings"><span class="secno">7.2. </span><span class="content">The settings Module</span><a class="self-link" href="#module-settings"></a></h3>
    <p>Currently, there are no standardized settings. Implementations are strongly encouraged to review the security implications of each setting they offer to end users, and only expose the settings that they deem safe. This specification does not define what constitutes a setting, but the settings module is designed to control user preferences such as the default voice, or the default rate of speech.</p>
    <p>A <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②③">remote end</a> has an associated set of <dfn class="dfn-paneled" data-dfn-for="remote end" data-dfn-type="dfn" data-noexport id="remote-end-supported-settings">supported settings</dfn>, which is either null or a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-set" id="ref-for-ordered-set④">set</a> of strings which contains the name of every setting that may be referenced by this <a data-link-type="dfn" href="#module" id="ref-for-module①">module</a>.</p>
-   <div class="algorithm" data-algorithm="setting name is invalid">
-    <p>To determine if a <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="setting-name-is-invalid">setting name is invalid</dfn> given string <var>name</var>:</p>
+   <div class="algorithm" data-algorithm="validate setting name">
+    <p>To <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="validate-setting-name">validate setting name</dfn> given string <var>name</var>:</p>
     <ol>
      <li data-md>
       <p>If <a data-link-type="dfn" href="#remote-end-supported-settings" id="ref-for-remote-end-supported-settings">supported settings</a> is null:</p>
       <ol>
        <li data-md>
-        <p>Return false.</p>
+        <p>Return <code>"unknown"</code>.</p>
       </ol>
      <li data-md>
       <p>If <a data-link-type="dfn" href="#remote-end-supported-settings" id="ref-for-remote-end-supported-settings①">supported settings</a> <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-contain" id="ref-for-list-contain">contains</a> <var>name</var>:</p>
       <ol>
        <li data-md>
-        <p>Return false.</p>
+        <p>Return <code>"valid"</code>.</p>
       </ol>
      <li data-md>
-      <p>Return true.</p>
+      <p>Return <code>"invalid"</code>.</p>
     </ol>
    </div>
    <div class="algorithm" data-algorithm="get settings">
@@ -1310,7 +1310,7 @@ CapabilitiesRequestParameters = {
       <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-iterate" id="ref-for-list-iterate①">For each</a> <var>name</var> of <var>names</var>:</p>
       <ol>
        <li data-md>
-        <p>If <a data-link-type="dfn" href="#setting-name-is-invalid" id="ref-for-setting-name-is-invalid">setting name is invalid</a> given <var>name</var>:</p>
+        <p>If <a data-link-type="dfn" href="#validate-setting-name" id="ref-for-validate-setting-name">validate setting name</a> given <var>name</var> is <code>"invalid"</code>:</p>
         <ol>
          <li data-md>
           <p>Return an <a data-link-type="dfn" href="#error" id="ref-for-error①⓪">error</a> with <a data-link-type="dfn" href="#error-code" id="ref-for-error-code④">error code</a> <a data-link-type="dfn" href="#error-code-invalid-argument" id="ref-for-error-code-invalid-argument③">invalid argument</a>.</p>
@@ -1332,7 +1332,7 @@ CapabilitiesRequestParameters = {
     <p>To <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="modify-setting">modify setting</dfn> given string <var>name</var> and <var>value</var>:</p>
     <ol>
      <li data-md>
-      <p>If <a data-link-type="dfn" href="#setting-name-is-invalid" id="ref-for-setting-name-is-invalid①">setting name is invalid</a> given <var>name</var>:</p>
+      <p>If <a data-link-type="dfn" href="#validate-setting-name" id="ref-for-validate-setting-name①">validate setting name</a> given <var>name</var> is <code>"invalid"</code>:</p>
       <ol>
        <li data-md>
         <p>Return an <a data-link-type="dfn" href="#error" id="ref-for-error①①">error</a> with <a data-link-type="dfn" href="#error-code" id="ref-for-error-code⑤">error code</a> <a data-link-type="dfn" href="#error-code-invalid-argument" id="ref-for-error-code-invalid-argument④">invalid argument</a>.</p>
@@ -1730,7 +1730,6 @@ parameters</var>.</p>
    <li><a href="#error-code-session-not-created">session not created</a><span>, in § 5.7</span>
    <li><a href="#session-session-websocket-connections">session WebSocket connections</a><span>, in § 6</span>
    <li><a href="#set-of-all-command-names">set of all command names</a><span>, in § 5.5</span>
-   <li><a href="#setting-name-is-invalid">setting name is invalid</a><span>, in § 7.2</span>
    <li><a href="#settingsgetsettings-command">settings.getSettings command</a><span>, in § 7.2.3.2</span>
    <li><a href="#settingsgetsupportedsettings-command">settings.getSupportedSettings command</a><span>, in § 7.2.3.3</span>
    <li><a href="#settingssetsettings">settings.setSettings</a><span>, in § 7.2.3.1</span>
@@ -1744,6 +1743,7 @@ parameters</var>.</p>
    <li><a href="#try">trying</a><span>, in § 3</span>
    <li><a href="#error-code-unknown-command">unknown command</a><span>, in § 5.7</span>
    <li><a href="#uuid">UUID</a><span>, in § 3</span>
+   <li><a href="#validate-setting-name">validate setting name</a><span>, in § 7.2</span>
    <li><a href="#websocket-connection">WebSocket connection</a><span>, in § 6</span>
    <li><a href="#remote-end-websocket-connections-not-associated-with-a-session">WebSocket connections not associated with a session</a><span>, in § 6</span>
    <li><a href="#websocket-listener">WebSocket listener</a><span>, in § 6</span>
@@ -2378,10 +2378,10 @@ parameters</var>.</p>
     <li><a href="#ref-for-remote-end-supported-settings②">7.2.3.3. The settings.getSupportedSettings Command</a> <a href="#ref-for-remote-end-supported-settings③">(2)</a>
    </ul>
   </aside>
-  <aside aria-labelledby="infopaneltitle-for-setting-name-is-invalid" class="dfn-panel" data-for="setting-name-is-invalid" id="infopanel-for-setting-name-is-invalid">
-   <span id="infopaneltitle-for-setting-name-is-invalid" style="display:none">Info about the 'setting name is invalid' definition.</span><b><a href="#setting-name-is-invalid">#setting-name-is-invalid</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-validate-setting-name" class="dfn-panel" data-for="validate-setting-name" id="infopanel-for-validate-setting-name">
+   <span id="infopaneltitle-for-validate-setting-name" style="display:none">Info about the 'validate setting name' definition.</span><b><a href="#validate-setting-name">#validate-setting-name</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-setting-name-is-invalid">7.2. The settings Module</a> <a href="#ref-for-setting-name-is-invalid①">(2)</a>
+    <li><a href="#ref-for-validate-setting-name">7.2. The settings Module</a> <a href="#ref-for-validate-setting-name①">(2)</a>
    </ul>
   </aside>
   <aside aria-labelledby="infopaneltitle-for-get-settings" class="dfn-panel" data-for="get-settings" id="infopanel-for-get-settings">
