@@ -1,7 +1,11 @@
+Extensible = {
+  *text => any
+}
+
 Command = {
   id: uint,
   CommandData,
-  *text => any,
+  Extensible,
 }
 
 CommandData = (
@@ -10,7 +14,7 @@ CommandData = (
   InteractionCommand
 )
 
-EmptyParams = { *text => any }
+EmptyParams = { Extensible }
 
 SessionCommand = (SessionNewCommand)
 
@@ -18,7 +22,7 @@ CapabilitiesRequest = {
   ?atName: text,
   ?atVersion: text,
   ?platformName: text,
-  *text => any
+  Extensible,
 }
 
 SessionNewCommand = {
@@ -42,13 +46,13 @@ VendorSettingsSetSettingsCommand = {
 }
 
 VendorSettingsSetSettingsParameters = {
-  settings: [1* VendorSettingSetSettingsParametersItem ],
+  settings: [1* VendorSettingsSetSettingsParametersItem ],
 }
 
-VendorSettingSetSettingsParametersItem = {
+VendorSettingsSetSettingsParametersItem = {
   name: text,
   value: any,
-  *text => any
+  Extensible,
 }
 
 VendorSettingsGetSettingsCommand = {
@@ -62,7 +66,7 @@ VendorSettingsGetSettingsParameters = {
 
 VendorSettingsGetSettingsParametersItem = {
   name: text,
-  *text => any
+  Extensible,
 }
 
 VendorSettingsGetSupportedSettingsCommand = {
@@ -79,7 +83,7 @@ InteractionPressKeysCommand = {
 
 InteractionPressKeysParameters = {
   "keys" => KeyCombination,
-  *text => any
+  Extensible,
 }
 
 KeyCombination = [
