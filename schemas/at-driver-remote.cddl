@@ -10,7 +10,7 @@ Command = {
 
 CommandData = (
   SessionCommand //
-  VendorSettingsCommand //
+  SettingsCommand //
   InteractionCommand
 )
 
@@ -34,43 +34,43 @@ CapabilitiesRequestParameters = {
   ?alwaysMatch: CapabilitiesRequest,
 }
 
-VendorSettingsCommand = {
-  VendorSettingsSetSettingsCommand //
-  VendorSettingsGetSettingsCommand //
-  VendorSettingsGetSupportedSettingsCommand
+SettingsCommand = {
+  SettingsSetSettingsCommand //
+  SettingsGetSettingsCommand //
+  SettingsGetSupportedSettingsCommand
 }
 
-VendorSettingsSetSettingsCommand = {
-  method: "<vendor>:settings.setSettings",
-  params: VendorSettingsSetSettingsParameters
+SettingsSetSettingsCommand = {
+  method: "settings.setSettings",
+  params: SettingsSetSettingsParameters
 }
 
-VendorSettingsSetSettingsParameters = {
-  settings: [1* VendorSettingsSetSettingsParametersItem ],
+SettingsSetSettingsParameters = {
+  settings: [1* SettingsSetSettingsParametersItem ],
 }
 
-VendorSettingsSetSettingsParametersItem = {
+SettingsSetSettingsParametersItem = {
   name: text,
   value: any,
   Extensible,
 }
 
-VendorSettingsGetSettingsCommand = {
-  method: "<vendor>:settings.getSettings",
-  params: VendorSettingsGetSettingsParameters
+SettingsGetSettingsCommand = {
+  method: "settings.getSettings",
+  params: SettingsGetSettingsParameters
 }
 
-VendorSettingsGetSettingsParameters = {
-  settings: [1* VendorSettingsGetSettingsParametersItem ],
+SettingsGetSettingsParameters = {
+  settings: [1* SettingsGetSettingsParametersItem ],
 }
 
-VendorSettingsGetSettingsParametersItem = {
+SettingsGetSettingsParametersItem = {
   name: text,
   Extensible,
 }
 
-VendorSettingsGetSupportedSettingsCommand = {
-  method: "<vendor>:settings.getSupportedSettings",
+SettingsGetSupportedSettingsCommand = {
+  method: "settings.getSupportedSettings",
   params: EmptyParams
 }
 

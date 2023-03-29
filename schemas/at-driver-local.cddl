@@ -25,7 +25,7 @@ ErrorResponse = {
 ResultData = (
   EmptyResult //
   SessionResult //
-  VendorSettingsResult
+  SettingsResult
 )
 
 EmptyResult = {}
@@ -58,15 +58,15 @@ SessionNewResult = {
   }
 }
 
-VendorSettingsResult = {
-  VendorSettingsGetSettingsResult
+SettingsResult = {
+  SettingsGetSettingsResult
 }
 
-VendorSettingsGetSettingsResult = {
-  settings: [1* VendorSettingsGetSettingsResultItem ],
+SettingsGetSettingsResult = {
+  settings: [1* SettingsGetSettingsResultItem ],
 }
 
-VendorSettingsGetSettingsResultItem = {
+SettingsGetSettingsResultItem = {
   name: text,
   value: any,
   Extensible,

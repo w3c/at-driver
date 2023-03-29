@@ -8,7 +8,7 @@
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
   <meta content="Bikeshed version d9bd89757, updated Thu Mar 23 10:06:53 2023 -0700" name="generator">
   <link href="https://w3c.github.io/aria-at-automation/" rel="canonical">
-  <meta content="acbf00da475becca8d17a8c5f1e6290398adceaf" name="document-revision">
+  <meta content="87adb10464418f22fa63a6d21414fe15211af1c8" name="document-revision">
 <style>
 table { border-collapse: collapse; border-style: hidden hidden none hidden; }
 table thead, table tbody { border-bottom: solid; }
@@ -610,7 +610,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">ARIA-AT Automation</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-DRAFT">Draft Community Group Report</a>, <time class="dt-updated" datetime="2023-03-28">28 March 2023</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-DRAFT">Draft Community Group Report</a>, <time class="dt-updated" datetime="2023-03-29">29 March 2023</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -687,22 +687,22 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
          </ol>
        </ol>
       <li>
-       <a href="#module-vendor-settings"><span class="secno">7.2</span> <span class="content">The &lt;vendor>:settings Module</span></a>
+       <a href="#module-settings"><span class="secno">7.2</span> <span class="content">The settings Module</span></a>
        <ol class="toc">
-        <li><a href="#module-vendor-settings-definition"><span class="secno">7.2.1</span> <span class="content">Definition</span></a>
+        <li><a href="#module-settings-definition"><span class="secno">7.2.1</span> <span class="content">Definition</span></a>
         <li>
-         <a href="#module-vendor-settings-types"><span class="secno">7.2.2</span> <span class="content">Types</span></a>
+         <a href="#module-settings-types"><span class="secno">7.2.2</span> <span class="content">Types</span></a>
          <ol class="toc">
-          <li><a href="#module-vendor-settings-get-settings-result"><span class="secno">7.2.2.1</span> <span class="content">The VendorSettingsGetSettingsResult type</span></a>
+          <li><a href="#module-settings-get-settings-result"><span class="secno">7.2.2.1</span> <span class="content">The SettingsGetSettingsResult type</span></a>
          </ol>
         <li>
          <a href="#module-settings-commands"><span class="secno">7.2.3</span> <span class="content">Commands</span></a>
          <ol class="toc">
-          <li><a href="#command-vendor-settings-set-settings"><span class="secno">7.2.3.1</span> <span class="content">The &lt;vendor>:settings.setSettings Command</span></a>
-          <li><a href="#command-vendor-settings-get-settings"><span class="secno">7.2.3.2</span> <span class="content">The &lt;vendor>:settings.getSettings Command</span></a>
-          <li><a href="#command-vendor-settings-get-supported-settings"><span class="secno">7.2.3.3</span> <span class="content">The &lt;vendor>:settings.getSupportedSettings Command</span></a>
+          <li><a href="#command-settings-set-settings"><span class="secno">7.2.3.1</span> <span class="content">The settings.setSettings Command</span></a>
+          <li><a href="#command-settings-get-settings"><span class="secno">7.2.3.2</span> <span class="content">The settings.getSettings Command</span></a>
+          <li><a href="#command-settings-get-supported-settings"><span class="secno">7.2.3.3</span> <span class="content">The settings.getSupportedSettings Command</span></a>
          </ol>
-        <li><a href="#module-vendor-settings-events"><span class="secno">7.2.4</span> <span class="content">Events</span></a>
+        <li><a href="#module-settings-events"><span class="secno">7.2.4</span> <span class="content">Events</span></a>
        </ol>
       <li>
        <a href="#module-interaction"><span class="secno">7.3</span> <span class="content">The Interaction Module</span></a>
@@ -805,7 +805,7 @@ Command = {
 
 CommandData = (
   SessionCommand //
-  VendorSettingsCommand //
+  SettingsCommand //
   InteractionCommand
 )
 
@@ -839,7 +839,7 @@ ErrorResponse = {
 ResultData = (
   EmptyResult //
   SessionResult //
-  VendorSettingsResult
+  SettingsResult
 )
 
 EmptyResult = {}
@@ -1279,10 +1279,8 @@ CapabilitiesRequestParameters = {
       <p>Return <a data-link-type="dfn" href="#success" id="ref-for-success⑧">success</a> with data <var>body</var>.</p>
     </ol>
    </div>
-   <h3 class="heading settled" data-level="7.2" id="module-vendor-settings"><span class="secno">7.2. </span><span class="content">The &lt;vendor>:settings Module</span><a class="self-link" href="#module-vendor-settings"></a></h3>
-   <p>Currently, there are no standardized settings. Implementations that wish to allow controlling and reading settings through the protocol defined in this specification must support settings as an <a data-link-type="dfn" href="#extension-modules" id="ref-for-extension-modules①">extension module</a>, with the structure defined in this section. Implementations are strongly encouraged to review the security implications of each setting, and only support the settings that are deemed safe. It is not defined what constitutes a setting, however, it is intended to represent user preferences such as the default voice, or the default rate of speech.</p>
-   <p>In the schema definitions in this section, <code>&lt;vendor></code> is a placeholder for an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined⑧">implementation-defined</a> prefix for the <a data-link-type="dfn" href="#extension-modules" id="ref-for-extension-modules②">extension module</a>. The value of the prefix should be the name of the vendor or the assistive technology product, as appropriate.</p>
-   <p class="note" role="note"><span class="marker">Note:</span> The prefix could be, for example, <code>nvda</code>, <code>jaws</code>, or <code>macOSVoiceOver</code>.</p>
+   <h3 class="heading settled" data-level="7.2" id="module-settings"><span class="secno">7.2. </span><span class="content">The settings Module</span><a class="self-link" href="#module-settings"></a></h3>
+   <p>Currently, there are no standardized settings. Implementations are strongly encouraged to review the security implications of each setting they offer to end users, and only expose the settings that they deem safe. This specification does not define what constitutes a setting, but the settings module is designed to control user preferences such as the default voice, or the default rate of speech.</p>
    <p>A <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②③">remote end</a> has an associated set of <dfn class="dfn-paneled" data-dfn-for="remote end" data-dfn-type="dfn" data-noexport id="remote-end-supported-settings">supported settings</dfn>, which is either null or a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-set" id="ref-for-ordered-set④">set</a> of strings which contains the name of every setting that may be referenced by this <a data-link-type="dfn" href="#module" id="ref-for-module①">module</a>.</p>
    <div class="algorithm" data-algorithm="setting name is invalid">
     <p>To determine if a <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="setting-name-is-invalid">setting name is invalid</dfn> given string <var>name</var>:</p>
@@ -1320,12 +1318,12 @@ CapabilitiesRequestParameters = {
        <li data-md>
         <p>Let <var>value</var> be the value of the setting named <var>name</var>.</p>
        <li data-md>
-        <p>Let <var>item</var> be a new <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map⑥">map</a> matching the <code>VendorSettingsGetSettingsResultItem</code> production in the <a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition⑧">local end definition</a> with the <code>name</code> field set to <var>name</var> and the <code>value</code> field set to <var>value</var>.</p>
+        <p>Let <var>item</var> be a new <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map⑥">map</a> matching the <code>SettingsGetSettingsResultItem</code> production in the <a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition⑧">local end definition</a> with the <code>name</code> field set to <var>name</var> and the <code>value</code> field set to <var>value</var>.</p>
        <li data-md>
         <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-append" id="ref-for-list-append">Append</a> <var>item</var> to <var>items</var>.</p>
       </ol>
      <li data-md>
-      <p>Let <var>body</var> be a new <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map⑦">map</a> matching the <code>VendorSettingsGetSettingsResult</code> production, with the <code>settings</code> field set to <var>items</var>.</p>
+      <p>Let <var>body</var> be a new <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map⑦">map</a> matching the <code>SettingsGetSettingsResult</code> production, with the <code>settings</code> field set to <var>items</var>.</p>
      <li data-md>
       <p>Return <a data-link-type="dfn" href="#success" id="ref-for-success⑨">success</a> with data <var>body</var>.</p>
     </ol>
@@ -1340,9 +1338,9 @@ CapabilitiesRequestParameters = {
         <p>Return an <a data-link-type="dfn" href="#error" id="ref-for-error①①">error</a> with <a data-link-type="dfn" href="#error-code" id="ref-for-error-code⑤">error code</a> <a data-link-type="dfn" href="#error-code-invalid-argument" id="ref-for-error-code-invalid-argument④">invalid argument</a>.</p>
       </ol>
      <li data-md>
-      <p>Take any <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined⑨">implementation-defined</a> steps to change the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②④">remote end</a> setting named <var>name</var> to the value <var>value</var>.</p>
+      <p>Take any <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined⑧">implementation-defined</a> steps to change the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②④">remote end</a> setting named <var>name</var> to the value <var>value</var>.</p>
      <li data-md>
-      <p>If there is any <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined①⓪">implementation-defined</a> indication that the setting named <var>name</var> does not hold the value <var>value</var>:</p>
+      <p>If there is any <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined⑨">implementation-defined</a> indication that the setting named <var>name</var> does not hold the value <var>value</var>:</p>
       <ol>
        <li data-md>
         <p>Return an <a data-link-type="dfn" href="#error" id="ref-for-error①②">error</a> with <a data-link-type="dfn" href="#error-code" id="ref-for-error-code⑥">error code</a> <a data-link-type="dfn" href="#error-code-invalid-argument" id="ref-for-error-code-invalid-argument⑤">invalid argument</a>.</p>
@@ -1353,51 +1351,51 @@ CapabilitiesRequestParameters = {
    </div>
    <p class="note" role="note"><span class="marker">Note:</span> Today’s implementations may not be able to detect invalid setting names or values, limiting their ability to report when operations do not model authentic interactions with the internal state. The algorithms in this <a data-link-type="dfn" href="#module" id="ref-for-module②">module</a> are designed to reflect this.</p>
    <p class="issue" id="issue-b4b3c071"><a class="self-link" href="#issue-b4b3c071"></a> Require implementations to maintain a static list of supported settings.</p>
-   <h4 class="heading settled" data-level="7.2.1" id="module-vendor-settings-definition"><span class="secno">7.2.1. </span><span class="content">Definition</span><a class="self-link" href="#module-vendor-settings-definition"></a></h4>
+   <h4 class="heading settled" data-level="7.2.1" id="module-settings-definition"><span class="secno">7.2.1. </span><span class="content">Definition</span><a class="self-link" href="#module-settings-definition"></a></h4>
    <p><a data-link-type="dfn" href="#remote-end-definition" id="ref-for-remote-end-definition⑦">Remote end definition</a></p>
-<pre class="cddl remote-cddl">VendorSettingsCommand = {
-  VendorSettingsSetSettingsCommand //
-  VendorSettingsGetSettingsCommand //
-  VendorSettingsGetSupportedSettingsCommand
+<pre class="cddl remote-cddl">SettingsCommand = {
+  SettingsSetSettingsCommand //
+  SettingsGetSettingsCommand //
+  SettingsGetSupportedSettingsCommand
 }
 </pre>
    <p><a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition⑨">Local end definition</a></p>
-<pre class="cddl local-cddl">VendorSettingsResult = {
-  VendorSettingsGetSettingsResult
+<pre class="cddl local-cddl">SettingsResult = {
+  SettingsGetSettingsResult
 }
 </pre>
-   <h4 class="heading settled" data-level="7.2.2" id="module-vendor-settings-types"><span class="secno">7.2.2. </span><span class="content">Types</span><a class="self-link" href="#module-vendor-settings-types"></a></h4>
-   <h5 class="heading settled" data-level="7.2.2.1" id="module-vendor-settings-get-settings-result"><span class="secno">7.2.2.1. </span><span class="content">The VendorSettingsGetSettingsResult type</span><a class="self-link" href="#module-vendor-settings-get-settings-result"></a></h5>
+   <h4 class="heading settled" data-level="7.2.2" id="module-settings-types"><span class="secno">7.2.2. </span><span class="content">Types</span><a class="self-link" href="#module-settings-types"></a></h4>
+   <h5 class="heading settled" data-level="7.2.2.1" id="module-settings-get-settings-result"><span class="secno">7.2.2.1. </span><span class="content">The SettingsGetSettingsResult type</span><a class="self-link" href="#module-settings-get-settings-result"></a></h5>
    <p><a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition①⓪">Local end definition</a>:</p>
-<pre class="cddl local-cddl">VendorSettingsGetSettingsResult = {
-  settings: [1* VendorSettingsGetSettingsResultItem ],
+<pre class="cddl local-cddl">SettingsGetSettingsResult = {
+  settings: [1* SettingsGetSettingsResultItem ],
 }
 
-VendorSettingsGetSettingsResultItem = {
+SettingsGetSettingsResultItem = {
   name: text,
   value: any,
   Extensible,
 }
 </pre>
-   <p>The <code>VendorSettingsGetSettingsResult</code> type contains a list of settings and their values.</p>
+   <p>The <code>SettingsGetSettingsResult</code> type contains a list of settings and their values.</p>
    <h4 class="heading settled" data-level="7.2.3" id="module-settings-commands"><span class="secno">7.2.3. </span><span class="content">Commands</span><a class="self-link" href="#module-settings-commands"></a></h4>
-   <h5 class="heading settled" data-level="7.2.3.1" id="command-vendor-settings-set-settings"><span class="secno">7.2.3.1. </span><span class="content">The &lt;vendor>:settings.setSettings Command</span><a class="self-link" href="#command-vendor-settings-set-settings"></a></h5>
-   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="vendorsettingssetsettings">&lt;vendor>:settings.setSettings</dfn> command sets the values of one or more settings.</p>
-   <p class="note" role="note"><span class="marker">Note:</span> Today’s implementations may not be able to detect failed modification operations. <a data-link-type="dfn" href="#vendorsettingssetsettings" id="ref-for-vendorsettingssetsettings">&lt;vendor>:settings.setSettings</a> is designed to reflect that reality. Clients should therefore interpret <a data-link-type="dfn" href="#success" id="ref-for-success①①">successes</a> with some skepticism as such results do not necessarily indicate that the referenced setting has the desired value.</p>
+   <h5 class="heading settled" data-level="7.2.3.1" id="command-settings-set-settings"><span class="secno">7.2.3.1. </span><span class="content">The settings.setSettings Command</span><a class="self-link" href="#command-settings-set-settings"></a></h5>
+   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="settingssetsettings">settings.setSettings</dfn> command sets the values of one or more settings.</p>
+   <p class="note" role="note"><span class="marker">Note:</span> Today’s implementations may not be able to detect failed modification operations. <a data-link-type="dfn" href="#settingssetsettings" id="ref-for-settingssetsettings">settings.setSettings</a> is designed to reflect that reality. Clients should therefore interpret <a data-link-type="dfn" href="#success" id="ref-for-success①①">successes</a> with some skepticism as such results do not necessarily indicate that the referenced setting has the desired value.</p>
    <p class="issue" id="issue-c41981a9"><a class="self-link" href="#issue-c41981a9"></a> Require implementations to report failures in settings modification operations.</p>
    <dl>
     <dt><a data-link-type="dfn" href="#command-type" id="ref-for-command-type①">Command Type</a>
     <dd>
-<pre class="cddl remote-cddl">VendorSettingsSetSettingsCommand = {
-  method: "&lt;vendor>:settings.setSettings",
-  params: VendorSettingsSetSettingsParameters
+<pre class="cddl remote-cddl">SettingsSetSettingsCommand = {
+  method: "settings.setSettings",
+  params: SettingsSetSettingsParameters
 }
 
-VendorSettingsSetSettingsParameters = {
-  settings: [1* VendorSettingsSetSettingsParametersItem ],
+SettingsSetSettingsParameters = {
+  settings: [1* SettingsSetSettingsParametersItem ],
 }
 
-VendorSettingsSetSettingsParametersItem = {
+SettingsSetSettingsParametersItem = {
   name: text,
   value: any,
   Extensible,
@@ -1408,7 +1406,7 @@ VendorSettingsSetSettingsParametersItem = {
 <pre class="cddl">EmptyResult
 </pre>
    </dl>
-   <div class="algorithm" data-algorithm="remote end steps for <vendor>:settings.setSettings">
+   <div class="algorithm" data-algorithm="remote end steps for settings.setSettings">
     <p>The <a data-link-type="dfn" href="#remote-end-steps" id="ref-for-remote-end-steps②">remote end steps</a> given <var>session</var> and <var>command parameters</var> are:</p>
     <ol>
      <li data-md>
@@ -1429,31 +1427,31 @@ VendorSettingsSetSettingsParametersItem = {
       <p>Return <a data-link-type="dfn" href="#success" id="ref-for-success①②">success</a> with data <var>body</var>.</p>
     </ol>
    </div>
-   <h5 class="heading settled" data-level="7.2.3.2" id="command-vendor-settings-get-settings"><span class="secno">7.2.3.2. </span><span class="content">The &lt;vendor>:settings.getSettings Command</span><a class="self-link" href="#command-vendor-settings-get-settings"></a></h5>
-   <p>The <dfn data-dfn-type="dfn" data-noexport id="vendorsettingsgetsettings-command">&lt;vendor>:settings.getSettings command<a class="self-link" href="#vendorsettingsgetsettings-command"></a></dfn> returns a list of the requested settings and their values.</p>
+   <h5 class="heading settled" data-level="7.2.3.2" id="command-settings-get-settings"><span class="secno">7.2.3.2. </span><span class="content">The settings.getSettings Command</span><a class="self-link" href="#command-settings-get-settings"></a></h5>
+   <p>The <dfn data-dfn-type="dfn" data-noexport id="settingsgetsettings-command">settings.getSettings command<a class="self-link" href="#settingsgetsettings-command"></a></dfn> returns a list of the requested settings and their values.</p>
    <dl>
     <dt><a data-link-type="dfn" href="#command-type" id="ref-for-command-type②">Command Type</a>
     <dd>
-<pre class="cddl remote-cddl">VendorSettingsGetSettingsCommand = {
-  method: "&lt;vendor>:settings.getSettings",
-  params: VendorSettingsGetSettingsParameters
+<pre class="cddl remote-cddl">SettingsGetSettingsCommand = {
+  method: "settings.getSettings",
+  params: SettingsGetSettingsParameters
 }
 
-VendorSettingsGetSettingsParameters = {
-  settings: [1* VendorSettingsGetSettingsParametersItem ],
+SettingsGetSettingsParameters = {
+  settings: [1* SettingsGetSettingsParametersItem ],
 }
 
-VendorSettingsGetSettingsParametersItem = {
+SettingsGetSettingsParametersItem = {
   name: text,
   Extensible,
 }
 </pre>
     <dt><a data-link-type="dfn" href="#result-type" id="ref-for-result-type④">Result Type</a>
     <dd>
-<pre class="cddl">VendorSettingsGetSettingsResult
+<pre class="cddl">SettingsGetSettingsResult
 </pre>
    </dl>
-   <div class="algorithm" data-algorithm="remote end steps for <vendor>:settings.getSettings">
+   <div class="algorithm" data-algorithm="remote end steps for settings.getSettings">
     <p>The <a data-link-type="dfn" href="#remote-end-steps" id="ref-for-remote-end-steps③">remote end steps</a> given <var>session</var> and <var>command parameters</var> are:</p>
     <ol>
      <li data-md>
@@ -1462,22 +1460,22 @@ VendorSettingsGetSettingsParametersItem = {
       <p>Return the result of <a data-link-type="dfn" href="#get-settings" id="ref-for-get-settings">get settings</a> with <var>names</var>.</p>
     </ol>
    </div>
-   <h5 class="heading settled" data-level="7.2.3.3" id="command-vendor-settings-get-supported-settings"><span class="secno">7.2.3.3. </span><span class="content">The &lt;vendor>:settings.getSupportedSettings Command</span><a class="self-link" href="#command-vendor-settings-get-supported-settings"></a></h5>
-   <p>The <dfn data-dfn-type="dfn" data-noexport id="vendorsettingsgetsupportedsettings-command">&lt;vendor>:settings.getSupportedSettings command<a class="self-link" href="#vendorsettingsgetsupportedsettings-command"></a></dfn> returns a list of all settings that the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②⑤">remote end</a> supports, and their values.</p>
+   <h5 class="heading settled" data-level="7.2.3.3" id="command-settings-get-supported-settings"><span class="secno">7.2.3.3. </span><span class="content">The settings.getSupportedSettings Command</span><a class="self-link" href="#command-settings-get-supported-settings"></a></h5>
+   <p>The <dfn data-dfn-type="dfn" data-noexport id="settingsgetsupportedsettings-command">settings.getSupportedSettings command<a class="self-link" href="#settingsgetsupportedsettings-command"></a></dfn> returns a list of all settings that the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②⑤">remote end</a> supports, and their values.</p>
    <dl>
     <dt><a data-link-type="dfn" href="#command-type" id="ref-for-command-type③">Command Type</a>
     <dd>
-<pre class="cddl remote-cddl">VendorSettingsGetSupportedSettingsCommand = {
-  method: "&lt;vendor>:settings.getSupportedSettings",
+<pre class="cddl remote-cddl">SettingsGetSupportedSettingsCommand = {
+  method: "settings.getSupportedSettings",
   params: EmptyParams
 }
 </pre>
     <dt><a data-link-type="dfn" href="#result-type" id="ref-for-result-type⑤">Result Type</a>
     <dd>
-<pre class="cddl">VendorSettingsGetSettingsResult
+<pre class="cddl">SettingsGetSettingsResult
 </pre>
    </dl>
-   <div class="algorithm" data-algorithm="remote end steps for <vendor>:settings.getSupportedSettings">
+   <div class="algorithm" data-algorithm="remote end steps for settings.getSupportedSettings">
     <p>The <a data-link-type="dfn" href="#remote-end-steps" id="ref-for-remote-end-steps④">remote end steps</a> given <var>session</var> and <var>command parameters</var> are:</p>
     <ol>
      <li data-md>
@@ -1500,7 +1498,7 @@ VendorSettingsGetSettingsParametersItem = {
       <p>Return <var>result</var>.</p>
     </ol>
    </div>
-   <h4 class="heading settled" data-level="7.2.4" id="module-vendor-settings-events"><span class="secno">7.2.4. </span><span class="content">Events</span><a class="self-link" href="#module-vendor-settings-events"></a></h4>
+   <h4 class="heading settled" data-level="7.2.4" id="module-settings-events"><span class="secno">7.2.4. </span><span class="content">Events</span><a class="self-link" href="#module-settings-events"></a></h4>
    <p class="issue" id="issue-0b79b3d5"><a class="self-link" href="#issue-0b79b3d5"></a> Do we need a "setting changed" event?</p>
    <h3 class="heading settled" data-level="7.3" id="module-interaction"><span class="secno">7.3. </span><span class="content">The Interaction Module</span><a class="self-link" href="#module-interaction"></a></h3>
    <h4 class="heading settled" data-level="7.3.1" id="module-interaction-definition"><span class="secno">7.3.1. </span><span class="content">Definition</span><a class="self-link" href="#module-interaction-definition"></a></h4>
@@ -1562,13 +1560,13 @@ parameters</var>.</p>
      <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-iterate" id="ref-for-list-iterate②">For each</a> <var>key</var> of <var>keys</var>:</p>
      <ol>
       <li data-md>
-       <p>Run <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined①①">implementation-defined</a> steps to simulate depressing <var>key</var>.</p>
+       <p>Run <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined①⓪">implementation-defined</a> steps to simulate depressing <var>key</var>.</p>
      </ol>
     <li data-md>
      <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-iterate" id="ref-for-list-iterate③">For each</a> <var>key</var> of <var>keys</var> in reverse <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list" id="ref-for-list③">List</a> order:</p>
      <ol>
       <li data-md>
-       <p>Run <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined①②">implementation-defined</a> steps to simulate releasing <var>key</var>.</p>
+       <p>Run <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined①①">implementation-defined</a> steps to simulate releasing <var>key</var>.</p>
      </ol>
     <li data-md>
      <p>Let <var>body</var> be a new <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map⑨">map</a>.</p>
@@ -1733,6 +1731,9 @@ parameters</var>.</p>
    <li><a href="#session-session-websocket-connections">session WebSocket connections</a><span>, in § 6</span>
    <li><a href="#set-of-all-command-names">set of all command names</a><span>, in § 5.5</span>
    <li><a href="#setting-name-is-invalid">setting name is invalid</a><span>, in § 7.2</span>
+   <li><a href="#settingsgetsettings-command">settings.getSettings command</a><span>, in § 7.2.3.2</span>
+   <li><a href="#settingsgetsupportedsettings-command">settings.getSupportedSettings command</a><span>, in § 7.2.3.3</span>
+   <li><a href="#settingssetsettings">settings.setSettings</a><span>, in § 7.2.3.1</span>
    <li><a href="#should-be-withheld">should be withheld</a><span>, in § 5.8</span>
    <li><a href="#standard-capabilities">standard capabilities</a><span>, in § 5.2</span>
    <li><a href="#start-listening-for-a-websocket-connection">start listening for a WebSocket connection</a><span>, in § 6</span>
@@ -1743,9 +1744,6 @@ parameters</var>.</p>
    <li><a href="#try">trying</a><span>, in § 3</span>
    <li><a href="#error-code-unknown-command">unknown command</a><span>, in § 5.7</span>
    <li><a href="#uuid">UUID</a><span>, in § 3</span>
-   <li><a href="#vendorsettingsgetsettings-command">&lt;vendor>:settings.getSettings command</a><span>, in § 7.2.3.2</span>
-   <li><a href="#vendorsettingsgetsupportedsettings-command">&lt;vendor>:settings.getSupportedSettings command</a><span>, in § 7.2.3.3</span>
-   <li><a href="#vendorsettingssetsettings">&lt;vendor>:settings.setSettings</a><span>, in § 7.2.3.1</span>
    <li><a href="#websocket-connection">WebSocket connection</a><span>, in § 6</span>
    <li><a href="#remote-end-websocket-connections-not-associated-with-a-session">WebSocket connections not associated with a session</a><span>, in § 6</span>
    <li><a href="#websocket-listener">WebSocket listener</a><span>, in § 6</span>
@@ -1759,7 +1757,7 @@ parameters</var>.</p>
   <aside aria-labelledby="infopaneltitle-for-fcfc8b0ed220faa237969aed00e2586d" class="dfn-panel" data-for="fcfc8b0ed220faa237969aed00e2586d" id="infopanel-for-fcfc8b0ed220faa237969aed00e2586d">
    <span id="infopaneltitle-for-fcfc8b0ed220faa237969aed00e2586d" style="display:none">Info about the 'append (for list)' external reference.</span><a href="https://infra.spec.whatwg.org/#list-append">https://infra.spec.whatwg.org/#list-append</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-list-append">7.2. The &lt;vendor>:settings Module</a>
+    <li><a href="#ref-for-list-append">7.2. The settings Module</a>
    </ul>
   </aside>
   <aside aria-labelledby="infopaneltitle-for-53c2c70bc752d6cf2a1f7deddc029549" class="dfn-panel" data-for="53c2c70bc752d6cf2a1f7deddc029549" id="infopanel-for-53c2c70bc752d6cf2a1f7deddc029549">
@@ -1778,13 +1776,13 @@ parameters</var>.</p>
    <span id="infopaneltitle-for-7618b9a6d44febb7e784c8f39faac140" style="display:none">Info about the 'assert' external reference.</span><a href="https://infra.spec.whatwg.org/#assert">https://infra.spec.whatwg.org/#assert</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-assert">6. Transport</a> <a href="#ref-for-assert①">(2)</a> <a href="#ref-for-assert②">(3)</a> <a href="#ref-for-assert③">(4)</a>
-    <li><a href="#ref-for-assert④">7.2.3.3. The &lt;vendor>:settings.getSupportedSettings Command</a>
+    <li><a href="#ref-for-assert④">7.2.3.3. The settings.getSupportedSettings Command</a>
    </ul>
   </aside>
   <aside aria-labelledby="infopaneltitle-for-eb75379b05abc264a531a791358e1eba" class="dfn-panel" data-for="eb75379b05abc264a531a791358e1eba" id="infopanel-for-eb75379b05abc264a531a791358e1eba">
    <span id="infopaneltitle-for-eb75379b05abc264a531a791358e1eba" style="display:none">Info about the 'contain (for list)' external reference.</span><a href="https://infra.spec.whatwg.org/#list-contain">https://infra.spec.whatwg.org/#list-contain</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-list-contain">7.2. The &lt;vendor>:settings Module</a>
+    <li><a href="#ref-for-list-contain">7.2. The settings Module</a>
    </ul>
   </aside>
   <aside aria-labelledby="infopaneltitle-for-7aa70202d36f53e6295b249241561d26" class="dfn-panel" data-for="7aa70202d36f53e6295b249241561d26" id="infopanel-for-7aa70202d36f53e6295b249241561d26">
@@ -1810,8 +1808,8 @@ parameters</var>.</p>
   <aside aria-labelledby="infopaneltitle-for-8b9e78ceedde26e69095bd6f6cce47bf" class="dfn-panel" data-for="8b9e78ceedde26e69095bd6f6cce47bf" id="infopanel-for-8b9e78ceedde26e69095bd6f6cce47bf">
    <span id="infopaneltitle-for-8b9e78ceedde26e69095bd6f6cce47bf" style="display:none">Info about the 'for each (for list)' external reference.</span><a href="https://infra.spec.whatwg.org/#list-iterate">https://infra.spec.whatwg.org/#list-iterate</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-list-iterate">7.2. The &lt;vendor>:settings Module</a>
-    <li><a href="#ref-for-list-iterate①">7.2.3.1. The &lt;vendor>:settings.setSettings Command</a>
+    <li><a href="#ref-for-list-iterate">7.2. The settings Module</a>
+    <li><a href="#ref-for-list-iterate①">7.2.3.1. The settings.setSettings Command</a>
     <li><a href="#ref-for-list-iterate②">7.3.3.1. The interaction.pressKeys Command</a> <a href="#ref-for-list-iterate③">(2)</a>
     <li><a href="#ref-for-list-iterate④">7.3.4.1. The interaction.capturedOutput Event</a>
    </ul>
@@ -1828,15 +1826,15 @@ parameters</var>.</p>
     <li><a href="#ref-for-implementation-defined">5.2. Capabilities</a>
     <li><a href="#ref-for-implementation-defined①">5.8. Security checks</a> <a href="#ref-for-implementation-defined②">(2)</a> <a href="#ref-for-implementation-defined③">(3)</a>
     <li><a href="#ref-for-implementation-defined④">6. Transport</a> <a href="#ref-for-implementation-defined⑤">(2)</a> <a href="#ref-for-implementation-defined⑥">(3)</a> <a href="#ref-for-implementation-defined⑦">(4)</a>
-    <li><a href="#ref-for-implementation-defined⑧">7.2. The &lt;vendor>:settings Module</a> <a href="#ref-for-implementation-defined⑨">(2)</a> <a href="#ref-for-implementation-defined①⓪">(3)</a>
-    <li><a href="#ref-for-implementation-defined①①">7.3.3.1. The interaction.pressKeys Command</a> <a href="#ref-for-implementation-defined①②">(2)</a>
+    <li><a href="#ref-for-implementation-defined⑧">7.2. The settings Module</a> <a href="#ref-for-implementation-defined⑨">(2)</a>
+    <li><a href="#ref-for-implementation-defined①⓪">7.3.3.1. The interaction.pressKeys Command</a> <a href="#ref-for-implementation-defined①①">(2)</a>
    </ul>
   </aside>
   <aside aria-labelledby="infopaneltitle-for-fafd38d2108e357bcc9a6fd7f3cd04a7" class="dfn-panel" data-for="fafd38d2108e357bcc9a6fd7f3cd04a7" id="infopanel-for-fafd38d2108e357bcc9a6fd7f3cd04a7">
    <span id="infopaneltitle-for-fafd38d2108e357bcc9a6fd7f3cd04a7" style="display:none">Info about the 'list' external reference.</span><a href="https://infra.spec.whatwg.org/#list">https://infra.spec.whatwg.org/#list</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-list">7.2. The &lt;vendor>:settings Module</a> <a href="#ref-for-list①">(2)</a>
-    <li><a href="#ref-for-list②">7.2.3.3. The &lt;vendor>:settings.getSupportedSettings Command</a>
+    <li><a href="#ref-for-list">7.2. The settings Module</a> <a href="#ref-for-list①">(2)</a>
+    <li><a href="#ref-for-list②">7.2.3.3. The settings.getSupportedSettings Command</a>
     <li><a href="#ref-for-list③">7.3.3.1. The interaction.pressKeys Command</a>
    </ul>
   </aside>
@@ -1846,8 +1844,8 @@ parameters</var>.</p>
     <li><a href="#ref-for-ordered-map">5.2. Capabilities</a> <a href="#ref-for-ordered-map①">(2)</a>
     <li><a href="#ref-for-ordered-map②">6. Transport</a> <a href="#ref-for-ordered-map③">(2)</a> <a href="#ref-for-ordered-map④">(3)</a>
     <li><a href="#ref-for-ordered-map⑤">7.1.3.1. The session.new Command</a>
-    <li><a href="#ref-for-ordered-map⑥">7.2. The &lt;vendor>:settings Module</a> <a href="#ref-for-ordered-map⑦">(2)</a>
-    <li><a href="#ref-for-ordered-map⑧">7.2.3.1. The &lt;vendor>:settings.setSettings Command</a>
+    <li><a href="#ref-for-ordered-map⑥">7.2. The settings Module</a> <a href="#ref-for-ordered-map⑦">(2)</a>
+    <li><a href="#ref-for-ordered-map⑧">7.2.3.1. The settings.setSettings Command</a>
     <li><a href="#ref-for-ordered-map⑨">7.3.3.1. The interaction.pressKeys Command</a>
     <li><a href="#ref-for-ordered-map①⓪">7.3.4.1. The interaction.capturedOutput Event</a> <a href="#ref-for-ordered-map①①">(2)</a>
    </ul>
@@ -1875,7 +1873,7 @@ parameters</var>.</p>
    <ul>
     <li><a href="#ref-for-ordered-set">5.5. Commands</a>
     <li><a href="#ref-for-ordered-set①">6. Transport</a> <a href="#ref-for-ordered-set②">(2)</a> <a href="#ref-for-ordered-set③">(3)</a>
-    <li><a href="#ref-for-ordered-set④">7.2. The &lt;vendor>:settings Module</a>
+    <li><a href="#ref-for-ordered-set④">7.2. The settings Module</a>
    </ul>
   </aside>
   <aside aria-labelledby="infopaneltitle-for-5c3d3462610d78bc92b91000cc511bc4" class="dfn-panel" data-for="5c3d3462610d78bc92b91000cc511bc4" id="infopanel-for-5c3d3462610d78bc92b91000cc511bc4">
@@ -1984,9 +1982,9 @@ parameters</var>.</p>
     <li><a href="#ref-for-success⑤">5.5. Commands</a>
     <li><a href="#ref-for-success⑥">5.8. Security checks</a> <a href="#ref-for-success⑦">(2)</a>
     <li><a href="#ref-for-success⑧">7.1.3.1. The session.new Command</a>
-    <li><a href="#ref-for-success⑨">7.2. The &lt;vendor>:settings Module</a> <a href="#ref-for-success①⓪">(2)</a>
-    <li><a href="#ref-for-success①①">7.2.3.1. The &lt;vendor>:settings.setSettings Command</a> <a href="#ref-for-success①②">(2)</a>
-    <li><a href="#ref-for-success①③">7.2.3.3. The &lt;vendor>:settings.getSupportedSettings Command</a>
+    <li><a href="#ref-for-success⑨">7.2. The settings Module</a> <a href="#ref-for-success①⓪">(2)</a>
+    <li><a href="#ref-for-success①①">7.2.3.1. The settings.setSettings Command</a> <a href="#ref-for-success①②">(2)</a>
+    <li><a href="#ref-for-success①③">7.2.3.3. The settings.getSupportedSettings Command</a>
     <li><a href="#ref-for-success①④">7.3.3.1. The interaction.pressKeys Command</a>
    </ul>
   </aside>
@@ -1998,7 +1996,7 @@ parameters</var>.</p>
     <li><a href="#ref-for-error③">5.8. Security checks</a> <a href="#ref-for-error④">(2)</a>
     <li><a href="#ref-for-error⑤">6. Transport</a>
     <li><a href="#ref-for-error⑥">7.1.3.1. The session.new Command</a> <a href="#ref-for-error⑦">(2)</a> <a href="#ref-for-error⑧">(3)</a> <a href="#ref-for-error⑨">(4)</a>
-    <li><a href="#ref-for-error①⓪">7.2. The &lt;vendor>:settings Module</a> <a href="#ref-for-error①①">(2)</a> <a href="#ref-for-error①②">(3)</a>
+    <li><a href="#ref-for-error①⓪">7.2. The settings Module</a> <a href="#ref-for-error①①">(2)</a> <a href="#ref-for-error①②">(3)</a>
    </ul>
   </aside>
   <aside aria-labelledby="infopaneltitle-for-try" class="dfn-panel" data-for="try" id="infopanel-for-try">
@@ -2006,7 +2004,7 @@ parameters</var>.</p>
    <ul>
     <li><a href="#ref-for-try">5.2. Capabilities</a>
     <li><a href="#ref-for-try①">7.1.3.1. The session.new Command</a>
-    <li><a href="#ref-for-try②">7.2.3.1. The &lt;vendor>:settings.setSettings Command</a>
+    <li><a href="#ref-for-try②">7.2.3.1. The settings.setSettings Command</a>
     <li><a href="#ref-for-try③">7.3.3.1. The interaction.pressKeys Command</a> <a href="#ref-for-try④">(2)</a>
    </ul>
   </aside>
@@ -2031,8 +2029,8 @@ parameters</var>.</p>
     <li><a href="#ref-for-remote-end①④">5.7. Errors</a> <a href="#ref-for-remote-end①⑤">(2)</a>
     <li><a href="#ref-for-remote-end①⑥">5.8. Security checks</a>
     <li><a href="#ref-for-remote-end①⑦">6. Transport</a> <a href="#ref-for-remote-end①⑧">(2)</a> <a href="#ref-for-remote-end①⑨">(3)</a> <a href="#ref-for-remote-end②⓪">(4)</a> <a href="#ref-for-remote-end②①">(5)</a> <a href="#ref-for-remote-end②②">(6)</a>
-    <li><a href="#ref-for-remote-end②③">7.2. The &lt;vendor>:settings Module</a> <a href="#ref-for-remote-end②④">(2)</a>
-    <li><a href="#ref-for-remote-end②⑤">7.2.3.3. The &lt;vendor>:settings.getSupportedSettings Command</a>
+    <li><a href="#ref-for-remote-end②③">7.2. The settings Module</a> <a href="#ref-for-remote-end②④">(2)</a>
+    <li><a href="#ref-for-remote-end②⑤">7.2.3.3. The settings.getSupportedSettings Command</a>
     <li><a href="#ref-for-remote-end②⑥">8. Privacy</a>
    </ul>
   </aside>
@@ -2060,9 +2058,9 @@ parameters</var>.</p>
     <li><a href="#ref-for-local-end-definition④">6. Transport</a> <a href="#ref-for-local-end-definition⑤">(2)</a>
     <li><a href="#ref-for-local-end-definition⑥">7.1.1. Definition</a>
     <li><a href="#ref-for-local-end-definition⑦">7.1.2.1. The session.CapabilitiesRequest Type</a>
-    <li><a href="#ref-for-local-end-definition⑧">7.2. The &lt;vendor>:settings Module</a>
+    <li><a href="#ref-for-local-end-definition⑧">7.2. The settings Module</a>
     <li><a href="#ref-for-local-end-definition⑨">7.2.1. Definition</a>
-    <li><a href="#ref-for-local-end-definition①⓪">7.2.2.1. The VendorSettingsGetSettingsResult type</a>
+    <li><a href="#ref-for-local-end-definition①⓪">7.2.2.1. The SettingsGetSettingsResult type</a>
     <li><a href="#ref-for-local-end-definition①①">7.3.1. Definition</a>
     <li><a href="#ref-for-local-end-definition①②">Appendix A: Schemas</a>
    </ul>
@@ -2117,7 +2115,7 @@ parameters</var>.</p>
    <span id="infopaneltitle-for-module" style="display:none">Info about the 'module' definition.</span><b><a href="#module">#module</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-module">2. Explainer</a>
-    <li><a href="#ref-for-module①">7.2. The &lt;vendor>:settings Module</a> <a href="#ref-for-module②">(2)</a>
+    <li><a href="#ref-for-module①">7.2. The settings Module</a> <a href="#ref-for-module②">(2)</a>
    </ul>
   </aside>
   <aside aria-labelledby="infopaneltitle-for-module-name" class="dfn-panel" data-for="module-name" id="infopanel-for-module-name">
@@ -2130,7 +2128,6 @@ parameters</var>.</p>
    <span id="infopaneltitle-for-extension-modules" style="display:none">Info about the 'extension modules' definition.</span><b><a href="#extension-modules">#extension-modules</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-extension-modules">5.5. Commands</a>
-    <li><a href="#ref-for-extension-modules①">7.2. The &lt;vendor>:settings Module</a> <a href="#ref-for-extension-modules②">(2)</a>
    </ul>
   </aside>
   <aside aria-labelledby="infopaneltitle-for-command" class="dfn-panel" data-for="command" id="infopanel-for-command">
@@ -2145,9 +2142,9 @@ parameters</var>.</p>
    <span id="infopaneltitle-for-command-type" style="display:none">Info about the 'command type' definition.</span><b><a href="#command-type">#command-type</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-command-type">7.1.3.1. The session.new Command</a>
-    <li><a href="#ref-for-command-type①">7.2.3.1. The &lt;vendor>:settings.setSettings Command</a>
-    <li><a href="#ref-for-command-type②">7.2.3.2. The &lt;vendor>:settings.getSettings Command</a>
-    <li><a href="#ref-for-command-type③">7.2.3.3. The &lt;vendor>:settings.getSupportedSettings Command</a>
+    <li><a href="#ref-for-command-type①">7.2.3.1. The settings.setSettings Command</a>
+    <li><a href="#ref-for-command-type②">7.2.3.2. The settings.getSettings Command</a>
+    <li><a href="#ref-for-command-type③">7.2.3.3. The settings.getSupportedSettings Command</a>
     <li><a href="#ref-for-command-type④">7.3.3.1. The interaction.pressKeys Command</a>
    </ul>
   </aside>
@@ -2172,9 +2169,9 @@ parameters</var>.</p>
     <li><a href="#ref-for-result-type">5.5. Commands</a>
     <li><a href="#ref-for-result-type①">6. Transport</a>
     <li><a href="#ref-for-result-type②">7.1.3.1. The session.new Command</a>
-    <li><a href="#ref-for-result-type③">7.2.3.1. The &lt;vendor>:settings.setSettings Command</a>
-    <li><a href="#ref-for-result-type④">7.2.3.2. The &lt;vendor>:settings.getSettings Command</a>
-    <li><a href="#ref-for-result-type⑤">7.2.3.3. The &lt;vendor>:settings.getSupportedSettings Command</a>
+    <li><a href="#ref-for-result-type③">7.2.3.1. The settings.setSettings Command</a>
+    <li><a href="#ref-for-result-type④">7.2.3.2. The settings.getSettings Command</a>
+    <li><a href="#ref-for-result-type⑤">7.2.3.3. The settings.getSupportedSettings Command</a>
    </ul>
   </aside>
   <aside aria-labelledby="infopaneltitle-for-remote-end-steps" class="dfn-panel" data-for="remote-end-steps" id="infopanel-for-remote-end-steps">
@@ -2182,9 +2179,9 @@ parameters</var>.</p>
    <ul>
     <li><a href="#ref-for-remote-end-steps">6. Transport</a>
     <li><a href="#ref-for-remote-end-steps①">7.1.3.1. The session.new Command</a>
-    <li><a href="#ref-for-remote-end-steps②">7.2.3.1. The &lt;vendor>:settings.setSettings Command</a>
-    <li><a href="#ref-for-remote-end-steps③">7.2.3.2. The &lt;vendor>:settings.getSettings Command</a>
-    <li><a href="#ref-for-remote-end-steps④">7.2.3.3. The &lt;vendor>:settings.getSupportedSettings Command</a>
+    <li><a href="#ref-for-remote-end-steps②">7.2.3.1. The settings.setSettings Command</a>
+    <li><a href="#ref-for-remote-end-steps③">7.2.3.2. The settings.getSettings Command</a>
+    <li><a href="#ref-for-remote-end-steps④">7.2.3.3. The settings.getSupportedSettings Command</a>
     <li><a href="#ref-for-remote-end-steps⑤">7.3.3.1. The interaction.pressKeys Command</a>
    </ul>
   </aside>
@@ -2231,14 +2228,14 @@ parameters</var>.</p>
     <li><a href="#ref-for-error-code">3. Infrastructure</a>
     <li><a href="#ref-for-error-code①">5.8. Security checks</a> <a href="#ref-for-error-code②">(2)</a>
     <li><a href="#ref-for-error-code③">6. Transport</a>
-    <li><a href="#ref-for-error-code④">7.2. The &lt;vendor>:settings Module</a> <a href="#ref-for-error-code⑤">(2)</a> <a href="#ref-for-error-code⑥">(3)</a>
+    <li><a href="#ref-for-error-code④">7.2. The settings Module</a> <a href="#ref-for-error-code⑤">(2)</a> <a href="#ref-for-error-code⑥">(3)</a>
    </ul>
   </aside>
   <aside aria-labelledby="infopaneltitle-for-error-code-invalid-argument" class="dfn-panel" data-for="error-code-invalid-argument" id="infopanel-for-error-code-invalid-argument">
    <span id="infopaneltitle-for-error-code-invalid-argument" style="display:none">Info about the 'invalid argument' definition.</span><b><a href="#error-code-invalid-argument">#error-code-invalid-argument</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-error-code-invalid-argument">6. Transport</a> <a href="#ref-for-error-code-invalid-argument①">(2)</a> <a href="#ref-for-error-code-invalid-argument②">(3)</a>
-    <li><a href="#ref-for-error-code-invalid-argument③">7.2. The &lt;vendor>:settings Module</a> <a href="#ref-for-error-code-invalid-argument④">(2)</a> <a href="#ref-for-error-code-invalid-argument⑤">(3)</a>
+    <li><a href="#ref-for-error-code-invalid-argument③">7.2. The settings Module</a> <a href="#ref-for-error-code-invalid-argument④">(2)</a> <a href="#ref-for-error-code-invalid-argument⑤">(3)</a>
    </ul>
   </aside>
   <aside aria-labelledby="infopaneltitle-for-error-code-invalid-session-id" class="dfn-panel" data-for="error-code-invalid-session-id" id="infopanel-for-error-code-invalid-session-id">
@@ -2376,33 +2373,33 @@ parameters</var>.</p>
   <aside aria-labelledby="infopaneltitle-for-remote-end-supported-settings" class="dfn-panel" data-for="remote-end-supported-settings" id="infopanel-for-remote-end-supported-settings">
    <span id="infopaneltitle-for-remote-end-supported-settings" style="display:none">Info about the 'supported settings' definition.</span><b><a href="#remote-end-supported-settings">#remote-end-supported-settings</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-remote-end-supported-settings">7.2. The &lt;vendor>:settings Module</a> <a href="#ref-for-remote-end-supported-settings①">(2)</a>
-    <li><a href="#ref-for-remote-end-supported-settings②">7.2.3.3. The &lt;vendor>:settings.getSupportedSettings Command</a> <a href="#ref-for-remote-end-supported-settings③">(2)</a>
+    <li><a href="#ref-for-remote-end-supported-settings">7.2. The settings Module</a> <a href="#ref-for-remote-end-supported-settings①">(2)</a>
+    <li><a href="#ref-for-remote-end-supported-settings②">7.2.3.3. The settings.getSupportedSettings Command</a> <a href="#ref-for-remote-end-supported-settings③">(2)</a>
    </ul>
   </aside>
   <aside aria-labelledby="infopaneltitle-for-setting-name-is-invalid" class="dfn-panel" data-for="setting-name-is-invalid" id="infopanel-for-setting-name-is-invalid">
    <span id="infopaneltitle-for-setting-name-is-invalid" style="display:none">Info about the 'setting name is invalid' definition.</span><b><a href="#setting-name-is-invalid">#setting-name-is-invalid</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-setting-name-is-invalid">7.2. The &lt;vendor>:settings Module</a> <a href="#ref-for-setting-name-is-invalid①">(2)</a>
+    <li><a href="#ref-for-setting-name-is-invalid">7.2. The settings Module</a> <a href="#ref-for-setting-name-is-invalid①">(2)</a>
    </ul>
   </aside>
   <aside aria-labelledby="infopaneltitle-for-get-settings" class="dfn-panel" data-for="get-settings" id="infopanel-for-get-settings">
    <span id="infopaneltitle-for-get-settings" style="display:none">Info about the 'get settings' definition.</span><b><a href="#get-settings">#get-settings</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-get-settings">7.2.3.2. The &lt;vendor>:settings.getSettings Command</a>
-    <li><a href="#ref-for-get-settings①">7.2.3.3. The &lt;vendor>:settings.getSupportedSettings Command</a>
+    <li><a href="#ref-for-get-settings">7.2.3.2. The settings.getSettings Command</a>
+    <li><a href="#ref-for-get-settings①">7.2.3.3. The settings.getSupportedSettings Command</a>
    </ul>
   </aside>
   <aside aria-labelledby="infopaneltitle-for-modify-setting" class="dfn-panel" data-for="modify-setting" id="infopanel-for-modify-setting">
    <span id="infopaneltitle-for-modify-setting" style="display:none">Info about the 'modify setting' definition.</span><b><a href="#modify-setting">#modify-setting</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-modify-setting">7.2.3.1. The &lt;vendor>:settings.setSettings Command</a>
+    <li><a href="#ref-for-modify-setting">7.2.3.1. The settings.setSettings Command</a>
    </ul>
   </aside>
-  <aside aria-labelledby="infopaneltitle-for-vendorsettingssetsettings" class="dfn-panel" data-for="vendorsettingssetsettings" id="infopanel-for-vendorsettingssetsettings">
-   <span id="infopaneltitle-for-vendorsettingssetsettings" style="display:none">Info about the '&lt;vendor>:settings.setSettings' definition.</span><b><a href="#vendorsettingssetsettings">#vendorsettingssetsettings</a></b><b>Referenced in:</b>
+  <aside aria-labelledby="infopaneltitle-for-settingssetsettings" class="dfn-panel" data-for="settingssetsettings" id="infopanel-for-settingssetsettings">
+   <span id="infopaneltitle-for-settingssetsettings" style="display:none">Info about the 'settings.setSettings' definition.</span><b><a href="#settingssetsettings">#settingssetsettings</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-vendorsettingssetsettings">7.2.3.1. The &lt;vendor>:settings.setSettings Command</a>
+    <li><a href="#ref-for-settingssetsettings">7.2.3.1. The settings.setSettings Command</a>
    </ul>
   </aside>
 <script>/* script-dfn-panel */
