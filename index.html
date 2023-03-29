@@ -8,7 +8,7 @@
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
   <meta content="Bikeshed version d9bd89757, updated Thu Mar 23 10:06:53 2023 -0700" name="generator">
   <link href="https://w3c.github.io/aria-at-automation/" rel="canonical">
-  <meta content="87adb10464418f22fa63a6d21414fe15211af1c8" name="document-revision">
+  <meta content="a662f9403f1056cbc62107b11e9bda8bb6bfb30b" name="document-revision">
 <style>
 table { border-collapse: collapse; border-style: hidden hidden none hidden; }
 table thead, table tbody { border-bottom: solid; }
@@ -1124,7 +1124,7 @@ and a <dfn class="dfn-paneled" data-dfn-for="WebSocket listener" data-dfn-type="
          <li data-md>
           <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#assert" id="ref-for-assert②">Assert</a>: <var>value</var> matches the definition for the <a data-link-type="dfn" href="#result-type" id="ref-for-result-type①">result type</a> corresponding to the command with <a data-link-type="dfn" href="#command-name" id="ref-for-command-name③">command name</a> <var>method</var>.</p>
          <li data-md>
-          <p>If <var>method</var> is "<code>session.new</code>", let <var>session</var> be the entry in the list of <a data-link-type="dfn" href="#remote-end-active-sessions" id="ref-for-remote-end-active-sessions①">active sessions</a> whose <a data-link-type="dfn" href="#session-session-id" id="ref-for-session-session-id">session ID</a> is equal to the "<code>sessionId</code>" property of <var>value</var>, let <var>session</var>’s <a data-link-type="dfn" href="#websocket-connection" id="ref-for-websocket-connection⑤">WebSocket connection</a> be <var>connection</var>, and remove <var>connection</var> from the set of <a data-link-type="dfn" href="#remote-end-websocket-connections-not-associated-with-a-session" id="ref-for-remote-end-websocket-connections-not-associated-with-a-session②">WebSocket connections not associated with a session</a>.</p>
+          <p>If <var>method</var> is "<code>session.new</code>", let <var>session</var> be the entry in the list of <a data-link-type="dfn" href="#remote-end-active-sessions" id="ref-for-remote-end-active-sessions①">active sessions</a> whose <a data-link-type="dfn" href="#session-session-id" id="ref-for-session-session-id">session ID</a> is equal to the "<code>sessionId</code>" property of <var>value</var>, <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#set-append" id="ref-for-set-append①">append</a> <var>connection</var> to <var>session</var>’s <a data-link-type="dfn" href="#session-session-websocket-connections" id="ref-for-session-session-websocket-connections①">session WebSocket connections</a>, and remove <var>connection</var> from the set of <a data-link-type="dfn" href="#remote-end-websocket-connections-not-associated-with-a-session" id="ref-for-remote-end-websocket-connections-not-associated-with-a-session②">WebSocket connections not associated with a session</a>.</p>
          <li data-md>
           <p>Let <var>response</var> be a new map matching the <code>CommandResponse</code> production in the <a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition④">local end definition</a> with the <code>id</code> field set to <var>command id</var> and the <code>value</code> field set to <var>value</var>.</p>
          <li data-md>
@@ -1155,17 +1155,17 @@ and a <dfn class="dfn-paneled" data-dfn-for="WebSocket listener" data-dfn-type="
      <li data-md>
       <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#assert" id="ref-for-assert③">Assert</a>: <var>body</var> has <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#map-size" id="ref-for-map-size">size</a> 2 and <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#map-exists" id="ref-for-map-exists⑤">contains</a> "<code>method</code>" and "<code>params</code>".</p>
      <li data-md>
-      <p>Let <var>connection</var> be <var>session</var>’s <a data-link-type="dfn" href="#websocket-connection" id="ref-for-websocket-connection⑥">WebSocket connection</a>.</p>
-     <li data-md>
-      <p>If <var>connection</var> is null, return.</p>
-     <li data-md>
       <p>Let <var>serialized</var> be the result of <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#serialize-an-infra-value-to-json-bytes" id="ref-for-serialize-an-infra-value-to-json-bytes①">serialize an infra value to JSON bytes</a> given <var>body</var>.</p>
      <li data-md>
-      <p><a href="https://tools.ietf.org/html/rfc6455#section-6.1">Send a WebSocket message</a> comprised of <var>serialized</var> over <var>connection</var>.</p>
+      <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-iterate" id="ref-for-list-iterate">For each</a> <var>connection</var> in <var>session</var>’s <a data-link-type="dfn" href="#session-session-websocket-connections" id="ref-for-session-session-websocket-connections②">session WebSocket connections</a>:</p>
+      <ol>
+       <li data-md>
+        <p><a href="https://tools.ietf.org/html/rfc6455#section-6.1">Send a WebSocket message</a> comprised of <var>serialized</var> over <var>connection</var>.</p>
+      </ol>
     </ol>
    </div>
    <div class="algorithm" data-algorithm="send an error response">
-    <p>To <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="send-an-error-response">send an error response</dfn> given a <a data-link-type="dfn" href="#websocket-connection" id="ref-for-websocket-connection⑦">WebSocket connection</a> <var>connection</var>, <var>command id</var>, and <var>error code</var>:</p>
+    <p>To <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="send-an-error-response">send an error response</dfn> given a <a data-link-type="dfn" href="#websocket-connection" id="ref-for-websocket-connection⑤">WebSocket connection</a> <var>connection</var>, <var>command id</var>, and <var>error code</var>:</p>
     <ol>
      <li data-md>
       <p>Let <var>error data</var> be a new <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map④">map</a> matching the <code>ErrorResponse</code> production in the <a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition⑤">local end definition</a>, with the <code>id</code> field set to <var>command id</var>, the <code>error</code> field set to <var>error code</var>, the <code>message</code> field set to an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined⑥">implementation-defined</a> string containing a human-readable definition of the error that occurred and the <code>stacktrace</code> field optionally set to an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined⑦">implementation-defined</a> string containing a stack trace report of the active stack frames at the time when the error occurred.</p>
@@ -1177,7 +1177,7 @@ and a <dfn class="dfn-paneled" data-dfn-for="WebSocket listener" data-dfn-type="
     </ol>
    </div>
    <div class="algorithm" data-algorithm="handle a connection closing">
-    <p>To <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="handle-a-connection-closing">handle a connection closing</dfn> given a <a data-link-type="dfn" href="#websocket-connection" id="ref-for-websocket-connection⑧">WebSocket connection</a> <var>connection</var>:</p>
+    <p>To <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="handle-a-connection-closing">handle a connection closing</dfn> given a <a data-link-type="dfn" href="#websocket-connection" id="ref-for-websocket-connection⑥">WebSocket connection</a> <var>connection</var>:</p>
     <ol>
      <li data-md>
       <p>If there is a <a data-link-type="dfn" href="#session" id="ref-for-session①③">session</a> <a data-link-type="dfn" href="#session-associated-with-connection" id="ref-for-session-associated-with-connection①">associated with connection</a> <var>connection</var>:</p>
@@ -1185,9 +1185,9 @@ and a <dfn class="dfn-paneled" data-dfn-for="WebSocket listener" data-dfn-type="
        <li data-md>
         <p>Let <var>session</var> be the <a data-link-type="dfn" href="#session" id="ref-for-session①④">session</a> <a data-link-type="dfn" href="#session-associated-with-connection" id="ref-for-session-associated-with-connection②">associated with connection</a> <var>connection</var>.</p>
        <li data-md>
-        <p>Remove <var>connection</var> from <var>session</var>’s <a data-link-type="dfn" href="#session-session-websocket-connections" id="ref-for-session-session-websocket-connections①">session WebSocket connections</a>.</p>
+        <p>Remove <var>connection</var> from <var>session</var>’s <a data-link-type="dfn" href="#session-session-websocket-connections" id="ref-for-session-session-websocket-connections③">session WebSocket connections</a>.</p>
        <li data-md>
-        <p>If <var>session</var>’s <a data-link-type="dfn" href="#session-session-websocket-connections" id="ref-for-session-session-websocket-connections②">session WebSocket connections</a> is <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-empty" id="ref-for-list-empty">empty</a>:</p>
+        <p>If <var>session</var>’s <a data-link-type="dfn" href="#session-session-websocket-connections" id="ref-for-session-session-websocket-connections④">session WebSocket connections</a> is <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-empty" id="ref-for-list-empty">empty</a>:</p>
         <ol>
          <li data-md>
           <p>Remove <var>session</var> from <a data-link-type="dfn" href="#remote-end-active-sessions" id="ref-for-remote-end-active-sessions②">active sessions</a>.</p>
@@ -1307,7 +1307,7 @@ CapabilitiesRequestParameters = {
      <li data-md>
       <p>Let <var>items</var> be a new <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list" id="ref-for-list①">list</a>.</p>
      <li data-md>
-      <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-iterate" id="ref-for-list-iterate">For each</a> <var>name</var> of <var>names</var>:</p>
+      <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-iterate" id="ref-for-list-iterate①">For each</a> <var>name</var> of <var>names</var>:</p>
       <ol>
        <li data-md>
         <p>If <a data-link-type="dfn" href="#setting-name-is-invalid" id="ref-for-setting-name-is-invalid">setting name is invalid</a> given <var>name</var>:</p>
@@ -1412,7 +1412,7 @@ SettingsSetSettingsParametersItem = {
      <li data-md>
       <p>Let <var>settings</var> be the value of the <code>settings</code> field of <var>command parameters</var>.</p>
      <li data-md>
-      <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-iterate" id="ref-for-list-iterate①">For each</a> <var>setting</var> of <var>settings</var>:</p>
+      <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-iterate" id="ref-for-list-iterate②">For each</a> <var>setting</var> of <var>settings</var>:</p>
       <ol>
        <li data-md>
         <p>Let <var>name</var> be the value of the <code>name</code> field of <var>setting</var>.</p>
@@ -1557,13 +1557,13 @@ and pressing "a", and then releasing the left shift key. <a data-link-type="bibl
      <p>Let <var>keys</var> be the value of the <code>keys</code> field of <var>command
 parameters</var>.</p>
     <li data-md>
-     <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-iterate" id="ref-for-list-iterate②">For each</a> <var>key</var> of <var>keys</var>:</p>
+     <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-iterate" id="ref-for-list-iterate③">For each</a> <var>key</var> of <var>keys</var>:</p>
      <ol>
       <li data-md>
        <p>Run <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined①⓪">implementation-defined</a> steps to simulate depressing <var>key</var>.</p>
      </ol>
     <li data-md>
-     <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-iterate" id="ref-for-list-iterate③">For each</a> <var>key</var> of <var>keys</var> in reverse <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list" id="ref-for-list③">List</a> order:</p>
+     <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-iterate" id="ref-for-list-iterate④">For each</a> <var>key</var> of <var>keys</var> in reverse <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list" id="ref-for-list③">List</a> order:</p>
      <ol>
       <li data-md>
        <p>Run <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined①①">implementation-defined</a> steps to simulate releasing <var>key</var>.</p>
@@ -1599,7 +1599,7 @@ parameters</var>.</p>
      <li data-md>
       <p>Let <var>body</var> be a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map①①">map</a> matching the <code>InteractionCapturedOutputEvent</code> production with the <code>params</code> field set to <var>params</var>.</p>
      <li data-md>
-      <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-iterate" id="ref-for-list-iterate④">For each</a> <var>session</var> of <a data-link-type="dfn" href="#remote-end-active-sessions" id="ref-for-remote-end-active-sessions⑤">active sessions</a>:</p>
+      <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-iterate" id="ref-for-list-iterate⑤">For each</a> <var>session</var> of <a data-link-type="dfn" href="#remote-end-active-sessions" id="ref-for-remote-end-active-sessions⑤">active sessions</a>:</p>
       <ol>
        <li data-md>
         <p><a data-link-type="dfn" href="#emit-an-event" id="ref-for-emit-an-event">Emit an event</a> with <var>session</var> and <var>body</var>.</p>
@@ -1763,7 +1763,7 @@ parameters</var>.</p>
   <aside aria-labelledby="infopaneltitle-for-53c2c70bc752d6cf2a1f7deddc029549" class="dfn-panel" data-for="53c2c70bc752d6cf2a1f7deddc029549" id="infopanel-for-53c2c70bc752d6cf2a1f7deddc029549">
    <span id="infopaneltitle-for-53c2c70bc752d6cf2a1f7deddc029549" style="display:none">Info about the 'append (for set)' external reference.</span><a href="https://infra.spec.whatwg.org/#set-append">https://infra.spec.whatwg.org/#set-append</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-set-append">6. Transport</a>
+    <li><a href="#ref-for-set-append">6. Transport</a> <a href="#ref-for-set-append①">(2)</a>
    </ul>
   </aside>
   <aside aria-labelledby="infopaneltitle-for-988001f27648dc25e93a5a2a8e0d0a26" class="dfn-panel" data-for="988001f27648dc25e93a5a2a8e0d0a26" id="infopanel-for-988001f27648dc25e93a5a2a8e0d0a26">
@@ -1808,10 +1808,11 @@ parameters</var>.</p>
   <aside aria-labelledby="infopaneltitle-for-8b9e78ceedde26e69095bd6f6cce47bf" class="dfn-panel" data-for="8b9e78ceedde26e69095bd6f6cce47bf" id="infopanel-for-8b9e78ceedde26e69095bd6f6cce47bf">
    <span id="infopaneltitle-for-8b9e78ceedde26e69095bd6f6cce47bf" style="display:none">Info about the 'for each (for list)' external reference.</span><a href="https://infra.spec.whatwg.org/#list-iterate">https://infra.spec.whatwg.org/#list-iterate</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-list-iterate">7.2. The settings Module</a>
-    <li><a href="#ref-for-list-iterate①">7.2.3.1. The settings.setSettings Command</a>
-    <li><a href="#ref-for-list-iterate②">7.3.3.1. The interaction.pressKeys Command</a> <a href="#ref-for-list-iterate③">(2)</a>
-    <li><a href="#ref-for-list-iterate④">7.3.4.1. The interaction.capturedOutput Event</a>
+    <li><a href="#ref-for-list-iterate">6. Transport</a>
+    <li><a href="#ref-for-list-iterate①">7.2. The settings Module</a>
+    <li><a href="#ref-for-list-iterate②">7.2.3.1. The settings.setSettings Command</a>
+    <li><a href="#ref-for-list-iterate③">7.3.3.1. The interaction.pressKeys Command</a> <a href="#ref-for-list-iterate④">(2)</a>
+    <li><a href="#ref-for-list-iterate⑤">7.3.4.1. The interaction.capturedOutput Event</a>
    </ul>
   </aside>
   <aside aria-labelledby="infopaneltitle-for-fa396dfe2ff99ebb3815418bc73c40fb" class="dfn-panel" data-for="fa396dfe2ff99ebb3815418bc73c40fb" id="infopanel-for-fa396dfe2ff99ebb3815418bc73c40fb">
@@ -2325,13 +2326,13 @@ parameters</var>.</p>
   <aside aria-labelledby="infopaneltitle-for-websocket-connection" class="dfn-panel" data-for="websocket-connection" id="infopanel-for-websocket-connection">
    <span id="infopaneltitle-for-websocket-connection" style="display:none">Info about the 'WebSocket connection' definition.</span><b><a href="#websocket-connection">#websocket-connection</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-websocket-connection">6. Transport</a> <a href="#ref-for-websocket-connection①">(2)</a> <a href="#ref-for-websocket-connection②">(3)</a> <a href="#ref-for-websocket-connection③">(4)</a> <a href="#ref-for-websocket-connection④">(5)</a> <a href="#ref-for-websocket-connection⑤">(6)</a> <a href="#ref-for-websocket-connection⑥">(7)</a> <a href="#ref-for-websocket-connection⑦">(8)</a> <a href="#ref-for-websocket-connection⑧">(9)</a>
+    <li><a href="#ref-for-websocket-connection">6. Transport</a> <a href="#ref-for-websocket-connection①">(2)</a> <a href="#ref-for-websocket-connection②">(3)</a> <a href="#ref-for-websocket-connection③">(4)</a> <a href="#ref-for-websocket-connection④">(5)</a> <a href="#ref-for-websocket-connection⑤">(6)</a> <a href="#ref-for-websocket-connection⑥">(7)</a>
    </ul>
   </aside>
   <aside aria-labelledby="infopaneltitle-for-session-session-websocket-connections" class="dfn-panel" data-for="session-session-websocket-connections" id="infopanel-for-session-session-websocket-connections">
    <span id="infopaneltitle-for-session-session-websocket-connections" style="display:none">Info about the 'session WebSocket connections' definition.</span><b><a href="#session-session-websocket-connections">#session-session-websocket-connections</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-session-session-websocket-connections">6. Transport</a> <a href="#ref-for-session-session-websocket-connections①">(2)</a> <a href="#ref-for-session-session-websocket-connections②">(3)</a>
+    <li><a href="#ref-for-session-session-websocket-connections">6. Transport</a> <a href="#ref-for-session-session-websocket-connections①">(2)</a> <a href="#ref-for-session-session-websocket-connections②">(3)</a> <a href="#ref-for-session-session-websocket-connections③">(4)</a> <a href="#ref-for-session-session-websocket-connections④">(5)</a>
    </ul>
   </aside>
   <aside aria-labelledby="infopaneltitle-for-session-associated-with-connection" class="dfn-panel" data-for="session-associated-with-connection" id="infopanel-for-session-associated-with-connection">
