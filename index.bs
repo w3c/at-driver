@@ -417,7 +417,9 @@ Note: a future iteration of this specification may allow multiple connections, t
 
 To <dfn>handle an incoming message</dfn> given a [=WebSocket connection=] |connection|, type |type| and data |data|:
 
-1. If |type| is not [text](https://tools.ietf.org/html/rfc6455#section-5.2), [=send an error response=] given |connection|, null, and <a for="error code">invalid argument</a>, and finally return.
+1. If |type| is not [text](https://tools.ietf.org/html/rfc6455#section-5.2):
+    1. [=Send an error response=] given |connection|, null, and <a for="error code">invalid argument</a>.
+    2. Return.
 2. [=Assert=]: |data| is a [=scalar value string=], because the [WebSocket handling errors in UTF-8-encoded data](https://tools.ietf.org/html/rfc6455#section-8.1) would already have [failed the WebSocket connection](https://tools.ietf.org/html/rfc6455#section-7.1.7) otherwise.
 3. If there is a [=session=] [=associated with connection=] |connection|, let |session| be that session. Otherwise if |connection| is in the set of [=WebSocket connections not associated with a session=], let |session| be null. Otherwise, return.
 4. Let |parsed| be the result of [=parsing JSON into Infra values=] given |data|. If this throws an exception, then [=send an error response=] given |connection|, null, and <a for="error code">invalid argument</a>, and finally return.
@@ -427,13 +429,20 @@ To <dfn>handle an incoming message</dfn> given a [=WebSocket connection=] |conne
     3. Let |command id| be |matched|["`id`"].
     4. Let |method| be |matched|["`method`"].
     5. Let |command| be the command with [=command name=] |method|.
-    6. If |session| is null and |command| is not a [=static command=], then [=send an error response=] given |connection|, |command id|, and [=invalid session id=], and return.
+    6. If |session| is null and |command| is not a [=static command=]:
+        1. [=Send an error response=] given |connection|, |command id|, and [=invalid session id=].
+        2. Return.
     7. Run the following steps [=in parallel=]:
         1. Let |result| be the result of running the [=remote end steps=] for |command| given |session| and [=command parameters=] |matched|["`params`"].
-        2. If |result| is an [=error=], then [=send an error response=] given |connection|, |command id|, and |result|'s [=error code=], and finally return.
+        2. If |result| is an [=error=]:
+            1. [=Send an error response=] given |connection|, |command id|, and |result|'s [=error code=].
+            2. Return.
         3. Let |value| be |result|'s data.
         4. [=Assert=]: |value| matches the definition for the [=result type=] corresponding to the command with [=command name=] |method|.
-        5. If |method| is "`session.new`", let |session| be the entry in the list of [=active sessions=] whose [=session ID=] is equal to the "`sessionId`" property of |value|, [=set/append=] |connection| to |session|'s [=session WebSocket connections=], and remove |connection| from the set of [=WebSocket connections not associated with a session=].
+        5. If |method| is "`session.new`":
+            1. Let |session| be the entry in the list of [=active sessions=] whose [=session ID=] is equal to the "`sessionId`" property of |value|.
+            2. [=set/Append=] |connection| to |session|'s [=session WebSocket connections=].
+            3. Remove |connection| from the set of [=WebSocket connections not associated with a session=].
         6. Let |response| be a new map matching the `CommandResponse` production in the [=local end definition=] with the `id` field set to |command id| and the `value` field set to |value|.
         7. Let |serialized| be the result of [=serialize an infra value to JSON bytes=] given |response|.
         8. [Send a WebSocket message](https://tools.ietf.org/html/rfc6455#section-6.1) comprised of |serialized| over |connection|.
