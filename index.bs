@@ -1,11 +1,11 @@
 <xmp class='metadata'>
-Title: ARIA-AT Automation
-Shortname: aria-at-automation
+Title: AT Driver
+Shortname: at-driver
 Level: 1
 Status: w3c/CG-DRAFT
 Group: ARIA-AT CG
-Repository: w3c/aria-at-automation
-URL: https://w3c.github.io/aria-at-automation/
+Repository: w3c/at-driver
+URL: https://w3c.github.io/at-driver/
 Editor: Mike Pennisi, Bocoup https://bocoup.com, mike@bocoup.com
 Former Editor: Simon Pieters, Bocoup https://bocoup.com, simon@bocoup.com
 Abstract: A protocol for introspection and remote control of assistive technology software
