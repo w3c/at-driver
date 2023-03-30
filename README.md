@@ -1,6 +1,6 @@
-# ARIA-AT Automation API Explainer
+# AT Driver API Explainer
 
-**aria-at-automation** &middot; [aria-at-automation-harness](https://github.com/w3c/aria-at-automation-harness) &middot; [aria-at-automation-driver](https://github.com/w3c/aria-at-automation-driver) &middot; [aria-at-automation-results-viewer](https://github.com/w3c/aria-at-automation-results-viewer)
+**at-driver** &middot; [at-driver-harness](https://github.com/w3c/at-driver-harness) &middot; [at-driver-driver](https://github.com/w3c/at-driver-driver) &middot; [at-driver-results-viewer](https://github.com/w3c/at-driver-results-viewer)
 
 ## Authors
 
@@ -70,7 +70,7 @@ The WebDriver protocol already provides a mechanism for altering characteristics
 
 Web developers will need to simulate keyboard key presses which can be received by a screen reader.
 
-Although the WebDriver protocol already provides two commands for simulating key presses (["Element Send Keys"](https://w3c.github.io/webdriver/#element-send-keys) and ["Perform Actions"](https://w3c.github.io/webdriver/#dfn-perform-actions)), those commands are unsuitable for the purposes of ARIA-AT automation because they operate by simulating input within the web browser instance. The operating system and screen reader cannot observe keyboard interaction simulated using these commands.
+Although the WebDriver protocol already provides two commands for simulating key presses (["Element Send Keys"](https://w3c.github.io/webdriver/#element-send-keys) and ["Perform Actions"](https://w3c.github.io/webdriver/#dfn-perform-actions)), those commands are unsuitable for the purposes of AT Driver because they operate by simulating input within the web browser instance. The operating system and screen reader cannot observe keyboard interaction simulated using these commands.
 
 ### Inspect screen reader internal state
 
@@ -118,7 +118,7 @@ We have chosen not to proceed in this direction because while we are interested 
 
 Some of the required functionality could be provided by a tool that does not integrate with screen reader directly. Such a tool could give instructions to the screen reader by simulating keyboard key presses at the level of the operating system (OS). Also at the OS-level, the tool could implement a text-to-speech "voice" which exposes the vocalizations as a stream of textual data. A general audience could benefit from this work if the source code and documentation were published under a free-and-open-source-software license.
 
-It is unclear whether some requirements (namely, configuring screen readers and observing their state) could be satisfied using this approach because there are no consistent operating-system-level facilities for these features. Even within the subset of required capabilities which can be realized via these means, the absence of a standard would undermine stability, and the commitment to a concrete implementation would limit adoption. While we recognize that this approach may yield helpful implementation experience in advance of consensus around a standard (see [the aria-at-automation-driver project](https://github.com/w3c/aria-at-automation-driver)), we recognize that it is fundamentally insufficient.
+It is unclear whether some requirements (namely, configuring screen readers and observing their state) could be satisfied using this approach because there are no consistent operating-system-level facilities for these features. Even within the subset of required capabilities which can be realized via these means, the absence of a standard would undermine stability, and the commitment to a concrete implementation would limit adoption. While we recognize that this approach may yield helpful implementation experience in advance of consensus around a standard (see [the at-driver-driver project](https://github.com/w3c/at-driver-driver)), we recognize that it is fundamentally insufficient.
 
 
 ### Promote nascent standard for introspecting accessibility properties
@@ -135,15 +135,15 @@ We have chosen not to proceed in this direction because we believe developers wo
 
 ---
 
-### aria-at-automation
+### at-driver
 
 A collection of projects for automating assistive technology tests from [w3c/aria-at](https://github.com/w3c/aria-at) and beyond
 
-**[aria-at-automation-harness](https://github.com/w3c/aria-at-automation-harness)**
-A command-line utility for executing test plans from [w3c/aria-at](https://github.com/w3c/aria-at) without human intervention using [the aria-at-automation-driver](https://github.com/w3c/aria-at-automation-driver)
+**[at-driver-harness](https://github.com/w3c/at-driver-harness)**
+A command-line utility for executing test plans from [w3c/aria-at](https://github.com/w3c/aria-at) without human intervention using [the at-driver-driver](https://github.com/w3c/at-driver-driver)
 
-**[aria-at-automation-driver](https://github.com/w3c/aria-at-automation-driver)**
+**[at-driver-driver](https://github.com/w3c/at-driver-driver)**
 A WebSocket server which allows clients to observe the text enunciated by a screen reader and to simulate user input
 
-**[aria-at-automation-results-viewer](https://github.com/w3c/aria-at-automation-results-viewer)**
-A tool which translates the JSON-formatted data produced by the [aria-at-automation-harness](https://github.com/w3c/aria-at-automation-harness) into a human-readable form
+**[at-driver-results-viewer](https://github.com/w3c/at-driver-results-viewer)**
+A tool which translates the JSON-formatted data produced by the [at-driver-harness](https://github.com/w3c/at-driver-harness) into a human-readable form
