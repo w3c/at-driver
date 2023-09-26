@@ -1,6 +1,6 @@
 # AT Driver API Explainer
 
-**at-driver** &middot; [at-driver-harness](https://github.com/w3c/at-driver-harness) &middot; [at-driver-driver](https://github.com/w3c/at-driver-driver) &middot; [at-driver-results-viewer](https://github.com/w3c/at-driver-results-viewer)
+**at-driver** &middot; [aria-at-automation-harness](https://github.com/w3c/aria-at-automation-harness) &middot; [aria-at-automation-driver](https://github.com/w3c/aria-at-automation-driver) &middot; [aria-at-automation-results-viewer](https://github.com/w3c/aria-at-automation-results-viewer)
 
 ## Authors
 
@@ -139,11 +139,11 @@ We have chosen not to proceed in this direction because we believe developers wo
 
 A collection of projects for automating assistive technology tests from [w3c/aria-at](https://github.com/w3c/aria-at) and beyond
 
-**[at-driver-harness](https://github.com/w3c/at-driver-harness)**
-A command-line utility for executing test plans from [w3c/aria-at](https://github.com/w3c/aria-at) without human intervention using [the at-driver-driver](https://github.com/w3c/at-driver-driver)
+**[aria-at-automation-harness](https://github.com/w3c/aria-at-automation-harness)**
+A command-line utility for executing test plans from [w3c/aria-at](https://github.com/w3c/aria-at) without human intervention using [the aria-at-automation-driver](https://github.com/w3c/aria-at-automation-driver)
 
-**[at-driver-driver](https://github.com/w3c/at-driver-driver)**
+**[aria-at-automation-driver](https://github.com/w3c/aria-at-automation-driver)**
 A WebSocket server which allows clients to observe the text enunciated by a screen reader and to simulate user input
 
-**[at-driver-results-viewer](https://github.com/w3c/at-driver-results-viewer)**
-A tool which translates the JSON-formatted data produced by the [at-driver-harness](https://github.com/w3c/at-driver-harness) into a human-readable form
+**[aria-at-automation-results-viewer](https://github.com/w3c/aria-at-automation-results-viewer)**
+A tool which translates the JSON-formatted data produced by the [aria-at-automation-harness](https://github.com/w3c/aria-at-automation-harness) into a human-readable form
