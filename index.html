@@ -5,10 +5,10 @@
   <title>AT Driver</title>
   <meta content="w3c/CG-DRAFT" name="w3c-status">
   <link href="https://www.w3.org/StyleSheets/TR/2021/cg-draft" rel="stylesheet">
-  <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
-  <meta content="Bikeshed version d9bd89757, updated Thu Mar 23 10:06:53 2023 -0700" name="generator">
+  <meta content="Bikeshed version 82ce88815, updated Thu Sep 7 16:33:55 2023 -0700" name="generator">
   <link href="https://w3c.github.io/at-driver/" rel="canonical">
-  <meta content="afd8162d77cadb082128f055f21f97b860741827" name="document-revision">
+  <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
+  <meta content="12796176f9a0b0e29ac1d6078c0bd6a75a367553" name="document-revision">
 <style>
 table { border-collapse: collapse; border-style: hidden hidden none hidden; }
 table thead, table tbody { border-bottom: solid; }
@@ -23,7 +23,7 @@ table tbody th { text-align: left; }
 table tbody th:first-child { border-left: solid; }
 table td, table th { border-left: solid; border-right: solid; border-bottom: solid thin; vertical-align: top; padding: 0.2em; }
 </style>
-<style>/* style-autolinks */
+<style>/* Boilerplate: style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
     font-size: inherit;
@@ -84,8 +84,16 @@ pre .property::before, pre .property::after {
 [data-link-type=biblio] {
     white-space: pre;
 }
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --selflink-text: black;
+        --selflink-bg: silver;
+        --selflink-hover-text: white;
+    }
+}
 </style>
-<style>/* style-colors */
+<style>/* Boilerplate: style-colors */
 
 /* Any --*-text not paired with a --*-bg is assumed to have a transparent bg */
 :root {
@@ -194,227 +202,6 @@ pre .property::before, pre .property::after {
 
     --editedrec-bg: darkorange;
 }
-</style>
-<style>/* style-counters */
-body {
-    counter-reset: example figure issue;
-}
-.issue {
-    counter-increment: issue;
-}
-.issue:not(.no-marker)::before {
-    content: "Issue " counter(issue);
-}
-
-.example {
-    counter-increment: example;
-}
-.example:not(.no-marker)::before {
-    content: "Example " counter(example);
-}
-.invalid.example:not(.no-marker)::before,
-.illegal.example:not(.no-marker)::before {
-    content: "Invalid Example" counter(example);
-}
-
-figcaption {
-    counter-increment: figure;
-}
-figcaption:not(.no-marker)::before {
-    content: "Figure " counter(figure) " ";
-}
-</style>
-<style>/* style-dfn-panel */
-:root {
-    --dfnpanel-bg: #ddd;
-    --dfnpanel-text: var(--text);
-}
-.dfn-panel {
-    position: absolute;
-    z-index: 35;
-    width: 20em;
-    min-width: min-content;
-    max-width: 300px;
-    height: auto;
-    max-height: 500px;
-    overflow: auto;
-    padding: 0.5em 0.75em;
-    font: small Helvetica Neue, sans-serif, Droid Sans Fallback;
-    background: var(--dfnpanel-bg);
-    color: var(--dfnpanel-text);
-    border: outset 0.2em;
-    white-space: normal; /* in case it's moved into a pre */
-}
-.dfn-panel:not(.on) { display: none; }
-.dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
-.dfn-panel > b { display: block; }
-.dfn-panel a { color: var(--dfnpanel-text); }
-.dfn-panel a:not(:hover) { text-decoration: none !important; border-bottom: none !important; }
-.dfn-panel > b + b { margin-top: 0.25em; }
-.dfn-panel ul { padding: 0; }
-.dfn-panel li { list-style: inside; }
-.dfn-panel.activated {
-    display: inline-block;
-    position: fixed;
-    left: .5em;
-    bottom: 2em;
-    margin: 0 auto;
-    max-width: calc(100vw - 1.5em - .4em - .5em);
-    max-height: 30vh;
-}
-
-.dfn-paneled { cursor: pointer; }
-</style>
-<style>/* style-issues */
-a[href].issue-return {
-    float: right;
-    float: inline-end;
-    color: var(--issueheading-text);
-    font-weight: bold;
-    text-decoration: none;
-}
-</style>
-<style>/* style-md-lists */
-/* This is a weird hack for me not yet following the commonmark spec
-   regarding paragraph and lists. */
-[data-md] > :first-child {
-    margin-top: 0;
-}
-[data-md] > :last-child {
-    margin-bottom: 0;
-}
-</style>
-<style>/* style-selflinks */
-
-:root {
-    --selflink-text: white;
-    --selflink-bg: gray;
-    --selflink-hover-text: black;
-}
-.heading, .issue, .note, .example, li, dt {
-    position: relative;
-}
-a.self-link {
-    position: absolute;
-    top: 0;
-    left: calc(-1 * (3.5rem - 26px));
-    width: calc(3.5rem - 26px);
-    height: 2em;
-    text-align: center;
-    border: none;
-    transition: opacity .2s;
-    opacity: .5;
-}
-a.self-link:hover {
-    opacity: 1;
-}
-.heading > a.self-link {
-    font-size: 83%;
-}
-.example > a.self-link,
-.note > a.self-link,
-.issue > a.self-link {
-    /* These blocks are overflow:auto, so positioning outside
-       doesn't work. */
-    left: auto;
-    right: 0;
-}
-li > a.self-link {
-    left: calc(-1 * (3.5rem - 26px) - 2em);
-}
-dfn > a.self-link {
-    top: auto;
-    left: auto;
-    opacity: 0;
-    width: 1.5em;
-    height: 1.5em;
-    background: var(--selflink-bg);
-    color: var(--selflink-text);
-    font-style: normal;
-    transition: opacity .2s, background-color .2s, color .2s;
-}
-dfn:hover > a.self-link {
-    opacity: 1;
-}
-dfn > a.self-link:hover {
-    color: var(--selflink-hover-text);
-}
-
-a.self-link::before            { content: "¶"; }
-.heading > a.self-link::before { content: "§"; }
-dfn > a.self-link::before      { content: "#"; }
-</style>
-<style>/* style-syntax-highlighting */
-
-code.highlight { padding: .1em; border-radius: .3em; }
-pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em 0; overflow: auto; border-radius: 0; }
-
-.highlight:not(.idl) { background: rgba(0, 0, 0, .03); }
-c-[a] { color: #990055 } /* Keyword.Declaration */
-c-[b] { color: #990055 } /* Keyword.Type */
-c-[c] { color: #708090 } /* Comment */
-c-[d] { color: #708090 } /* Comment.Multiline */
-c-[e] { color: #0077aa } /* Name.Attribute */
-c-[f] { color: #669900 } /* Name.Tag */
-c-[g] { color: #222222 } /* Name.Variable */
-c-[k] { color: #990055 } /* Keyword */
-c-[l] { color: #000000 } /* Literal */
-c-[m] { color: #000000 } /* Literal.Number */
-c-[n] { color: #0077aa } /* Name */
-c-[o] { color: #999999 } /* Operator */
-c-[p] { color: #999999 } /* Punctuation */
-c-[s] { color: #a67f59 } /* Literal.String */
-c-[t] { color: #a67f59 } /* Literal.String.Single */
-c-[u] { color: #a67f59 } /* Literal.String.Double */
-c-[cp] { color: #708090 } /* Comment.Preproc */
-c-[c1] { color: #708090 } /* Comment.Single */
-c-[cs] { color: #708090 } /* Comment.Special */
-c-[kc] { color: #990055 } /* Keyword.Constant */
-c-[kn] { color: #990055 } /* Keyword.Namespace */
-c-[kp] { color: #990055 } /* Keyword.Pseudo */
-c-[kr] { color: #990055 } /* Keyword.Reserved */
-c-[ld] { color: #000000 } /* Literal.Date */
-c-[nc] { color: #0077aa } /* Name.Class */
-c-[no] { color: #0077aa } /* Name.Constant */
-c-[nd] { color: #0077aa } /* Name.Decorator */
-c-[ni] { color: #0077aa } /* Name.Entity */
-c-[ne] { color: #0077aa } /* Name.Exception */
-c-[nf] { color: #0077aa } /* Name.Function */
-c-[nl] { color: #0077aa } /* Name.Label */
-c-[nn] { color: #0077aa } /* Name.Namespace */
-c-[py] { color: #0077aa } /* Name.Property */
-c-[ow] { color: #999999 } /* Operator.Word */
-c-[mb] { color: #000000 } /* Literal.Number.Bin */
-c-[mf] { color: #000000 } /* Literal.Number.Float */
-c-[mh] { color: #000000 } /* Literal.Number.Hex */
-c-[mi] { color: #000000 } /* Literal.Number.Integer */
-c-[mo] { color: #000000 } /* Literal.Number.Oct */
-c-[sb] { color: #a67f59 } /* Literal.String.Backtick */
-c-[sc] { color: #a67f59 } /* Literal.String.Char */
-c-[sd] { color: #a67f59 } /* Literal.String.Doc */
-c-[se] { color: #a67f59 } /* Literal.String.Escape */
-c-[sh] { color: #a67f59 } /* Literal.String.Heredoc */
-c-[si] { color: #a67f59 } /* Literal.String.Interpol */
-c-[sx] { color: #a67f59 } /* Literal.String.Other */
-c-[sr] { color: #a67f59 } /* Literal.String.Regex */
-c-[ss] { color: #a67f59 } /* Literal.String.Symbol */
-c-[vc] { color: #0077aa } /* Name.Variable.Class */
-c-[vg] { color: #0077aa } /* Name.Variable.Global */
-c-[vi] { color: #0077aa } /* Name.Variable.Instance */
-c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
-</style>
-<style>/* style-var-click-highlighting */
-
-    var { cursor: pointer; }
-    var.selected0 { background-color: #F4D200; box-shadow: 0 0 0 2px #F4D200; }
-    var.selected1 { background-color: #FF87A2; box-shadow: 0 0 0 2px #FF87A2; }
-    var.selected2 { background-color: #96E885; box-shadow: 0 0 0 2px #96E885; }
-    var.selected3 { background-color: #3EEED2; box-shadow: 0 0 0 2px #3EEED2; }
-    var.selected4 { background-color: #EACFB6; box-shadow: 0 0 0 2px #EACFB6; }
-    var.selected5 { background-color: #82DDFF; box-shadow: 0 0 0 2px #82DDFF; }
-    var.selected6 { background-color: #FFBCF2; box-shadow: 0 0 0 2px #FFBCF2; }
-    </style>
-<style>/* style-darkmode */
 
 @media (prefers-color-scheme: dark) {
     :root {
@@ -527,21 +314,280 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
        which is quite common in practice... */
     img { background: white; }
 }
-
-@media (prefers-color-scheme: dark) {
-    :root {
-        --selflink-text: black;
-        --selflink-bg: silver;
-        --selflink-hover-text: white;
-    }
+</style>
+<style>/* Boilerplate: style-counters */
+body {
+    counter-reset: example figure issue;
+}
+.issue {
+    counter-increment: issue;
+}
+.issue:not(.no-marker)::before {
+    content: "Issue " counter(issue);
 }
 
+.example {
+    counter-increment: example;
+}
+.example:not(.no-marker)::before {
+    content: "Example " counter(example);
+}
+.invalid.example:not(.no-marker)::before,
+.illegal.example:not(.no-marker)::before {
+    content: "Invalid Example" counter(example);
+}
+
+figcaption {
+    counter-increment: figure;
+}
+figcaption:not(.no-marker)::before {
+    content: "Figure " counter(figure) " ";
+}
+</style>
+<style>/* Boilerplate: style-dfn-panel */
+:root {
+    --dfnpanel-bg: #ddd;
+    --dfnpanel-text: var(--text);
+}
 @media (prefers-color-scheme: dark) {
     :root {
         --dfnpanel-bg: #222;
         --dfnpanel-text: var(--text);
     }
 }
+.dfn-panel {
+    position: absolute;
+    z-index: 35;
+    width: 20em;
+    width: 300px;
+    height: auto;
+    max-height: 500px;
+    overflow: auto;
+    padding: 0.5em 0.75em;
+    font: small Helvetica Neue, sans-serif, Droid Sans Fallback;
+    background: var(--dfnpanel-bg);
+    color: var(--dfnpanel-text);
+    border: outset 0.2em;
+    white-space: normal; /* in case it's moved into a pre */
+}
+.dfn-panel:not(.on) { display: none; }
+.dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
+.dfn-panel > b { display: block; }
+.dfn-panel a { color: var(--dfnpanel-text); }
+.dfn-panel a:not(:hover) { text-decoration: none !important; border-bottom: none !important; }
+.dfn-panel > b + b { margin-top: 0.25em; }
+.dfn-panel ul { padding: 0 0 0 1em; list-style: none; }
+.dfn-panel li a {
+    white-space: pre;
+    display: inline-block;
+    max-width: calc(300px - 1.5em - 1em);
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dfn-panel.activated {
+    display: inline-block;
+    position: fixed;
+    left: .5em;
+    bottom: 2em;
+    margin: 0 auto;
+    max-width: calc(100vw - 1.5em - .4em - .5em);
+    max-height: 30vh;
+}
+
+.dfn-paneled[role="button"] { cursor: pointer; }
+</style>
+<style>/* Boilerplate: style-dfn-panel */
+:root {
+    --dfnpanel-bg: #ddd;
+    --dfnpanel-text: var(--text);
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --dfnpanel-bg: #222;
+        --dfnpanel-text: var(--text);
+    }
+}
+.dfn-panel {
+    position: absolute;
+    z-index: 35;
+    width: 20em;
+    width: 300px;
+    height: auto;
+    max-height: 500px;
+    overflow: auto;
+    padding: 0.5em 0.75em;
+    font: small Helvetica Neue, sans-serif, Droid Sans Fallback;
+    background: var(--dfnpanel-bg);
+    color: var(--dfnpanel-text);
+    border: outset 0.2em;
+    white-space: normal; /* in case it's moved into a pre */
+}
+.dfn-panel:not(.on) { display: none; }
+.dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
+.dfn-panel > b { display: block; }
+.dfn-panel a { color: var(--dfnpanel-text); }
+.dfn-panel a:not(:hover) { text-decoration: none !important; border-bottom: none !important; }
+.dfn-panel > b + b { margin-top: 0.25em; }
+.dfn-panel ul { padding: 0 0 0 1em; list-style: none; }
+.dfn-panel li a {
+    white-space: pre;
+    display: inline-block;
+    max-width: calc(300px - 1.5em - 1em);
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dfn-panel.activated {
+    display: inline-block;
+    position: fixed;
+    left: .5em;
+    bottom: 2em;
+    margin: 0 auto;
+    max-width: calc(100vw - 1.5em - .4em - .5em);
+    max-height: 30vh;
+}
+
+.dfn-paneled[role="button"] { cursor: pointer; }
+</style>
+<style>/* Boilerplate: style-issues */
+a[href].issue-return {
+    float: right;
+    float: inline-end;
+    color: var(--issueheading-text);
+    font-weight: bold;
+    text-decoration: none;
+}
+</style>
+<style>/* Boilerplate: style-md-lists */
+/* This is a weird hack for me not yet following the commonmark spec
+   regarding paragraph and lists. */
+[data-md] > :first-child {
+    margin-top: 0;
+}
+[data-md] > :last-child {
+    margin-bottom: 0;
+}
+</style>
+<style>/* Boilerplate: style-selflinks */
+
+:root {
+    --selflink-text: white;
+    --selflink-bg: gray;
+    --selflink-hover-text: black;
+}
+.heading, .issue, .note, .example, li, dt {
+    position: relative;
+}
+a.self-link {
+    position: absolute;
+    top: 0;
+    left: calc(-1 * (3.5rem - 26px));
+    width: calc(3.5rem - 26px);
+    height: 2em;
+    text-align: center;
+    border: none;
+    transition: opacity .2s;
+    opacity: .5;
+}
+a.self-link:hover {
+    opacity: 1;
+}
+.heading > a.self-link {
+    font-size: 83%;
+}
+.example > a.self-link,
+.note > a.self-link,
+.issue > a.self-link {
+    /* These blocks are overflow:auto, so positioning outside
+       doesn't work. */
+    left: auto;
+    right: 0;
+}
+li > a.self-link {
+    left: calc(-1 * (3.5rem - 26px) - 2em);
+}
+dfn > a.self-link {
+    top: auto;
+    left: auto;
+    opacity: 0;
+    width: 1.5em;
+    height: 1.5em;
+    background: var(--selflink-bg);
+    color: var(--selflink-text);
+    font-style: normal;
+    transition: opacity .2s, background-color .2s, color .2s;
+}
+dfn:hover > a.self-link {
+    opacity: 1;
+}
+dfn > a.self-link:hover {
+    color: var(--selflink-hover-text);
+}
+
+a.self-link::before            { content: "¶"; }
+.heading > a.self-link::before { content: "§"; }
+dfn > a.self-link::before      { content: "#"; }
+</style>
+<style>/* Boilerplate: style-syntax-highlighting */
+
+code.highlight { padding: .1em; border-radius: .3em; }
+pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em 0; overflow: auto; border-radius: 0; }
+
+.highlight:not(.idl) { background: rgba(0, 0, 0, .03); }
+c-[a] { color: #990055 } /* Keyword.Declaration */
+c-[b] { color: #990055 } /* Keyword.Type */
+c-[c] { color: #708090 } /* Comment */
+c-[d] { color: #708090 } /* Comment.Multiline */
+c-[e] { color: #0077aa } /* Name.Attribute */
+c-[f] { color: #669900 } /* Name.Tag */
+c-[g] { color: #222222 } /* Name.Variable */
+c-[k] { color: #990055 } /* Keyword */
+c-[l] { color: #000000 } /* Literal */
+c-[m] { color: #000000 } /* Literal.Number */
+c-[n] { color: #0077aa } /* Name */
+c-[o] { color: #999999 } /* Operator */
+c-[p] { color: #999999 } /* Punctuation */
+c-[s] { color: #a67f59 } /* Literal.String */
+c-[t] { color: #a67f59 } /* Literal.String.Single */
+c-[u] { color: #a67f59 } /* Literal.String.Double */
+c-[cp] { color: #708090 } /* Comment.Preproc */
+c-[c1] { color: #708090 } /* Comment.Single */
+c-[cs] { color: #708090 } /* Comment.Special */
+c-[kc] { color: #990055 } /* Keyword.Constant */
+c-[kn] { color: #990055 } /* Keyword.Namespace */
+c-[kp] { color: #990055 } /* Keyword.Pseudo */
+c-[kr] { color: #990055 } /* Keyword.Reserved */
+c-[ld] { color: #000000 } /* Literal.Date */
+c-[nc] { color: #0077aa } /* Name.Class */
+c-[no] { color: #0077aa } /* Name.Constant */
+c-[nd] { color: #0077aa } /* Name.Decorator */
+c-[ni] { color: #0077aa } /* Name.Entity */
+c-[ne] { color: #0077aa } /* Name.Exception */
+c-[nf] { color: #0077aa } /* Name.Function */
+c-[nl] { color: #0077aa } /* Name.Label */
+c-[nn] { color: #0077aa } /* Name.Namespace */
+c-[py] { color: #0077aa } /* Name.Property */
+c-[ow] { color: #999999 } /* Operator.Word */
+c-[mb] { color: #000000 } /* Literal.Number.Bin */
+c-[mf] { color: #000000 } /* Literal.Number.Float */
+c-[mh] { color: #000000 } /* Literal.Number.Hex */
+c-[mi] { color: #000000 } /* Literal.Number.Integer */
+c-[mo] { color: #000000 } /* Literal.Number.Oct */
+c-[sb] { color: #a67f59 } /* Literal.String.Backtick */
+c-[sc] { color: #a67f59 } /* Literal.String.Char */
+c-[sd] { color: #a67f59 } /* Literal.String.Doc */
+c-[se] { color: #a67f59 } /* Literal.String.Escape */
+c-[sh] { color: #a67f59 } /* Literal.String.Heredoc */
+c-[si] { color: #a67f59 } /* Literal.String.Interpol */
+c-[sx] { color: #a67f59 } /* Literal.String.Other */
+c-[sr] { color: #a67f59 } /* Literal.String.Regex */
+c-[ss] { color: #a67f59 } /* Literal.String.Symbol */
+c-[vc] { color: #0077aa } /* Name.Variable.Class */
+c-[vg] { color: #0077aa } /* Name.Variable.Global */
+c-[vi] { color: #0077aa } /* Name.Variable.Instance */
+c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
+
 
 @media (prefers-color-scheme: dark) {
     .highlight:not(.idl) { background: rgba(255, 255, 255, .05); }
@@ -606,11 +652,32 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
     c-[il] { color: #657b83 } /* Literal.Number.Integer.Long */
 }
 </style>
+<style>/* Boilerplate: style-var-click-highlighting */
+/*
+Colors were chosen in Lab using https://nixsensor.com/free-color-converter/
+D50 2deg illuminant, L in [0,100], a and b in [-128, 128]
+0 = lab(85,0,85)
+1 = lab(85,80,30)
+2 = lab(85,-40,40)
+3 = lab(85,-50,0)
+4 = lab(85,5,15)
+5 = lab(85,-10,-50)
+6 = lab(85,35,-15)
+*/
+var { cursor: pointer; }
+var.selected0 { background-color: #F4D200; box-shadow: 0 0 0 2px #F4D200; }
+var.selected1 { background-color: #FF87A2; box-shadow: 0 0 0 2px #FF87A2; }
+var.selected2 { background-color: #96E885; box-shadow: 0 0 0 2px #96E885; }
+var.selected3 { background-color: #3EEED2; box-shadow: 0 0 0 2px #3EEED2; }
+var.selected4 { background-color: #EACFB6; box-shadow: 0 0 0 2px #EACFB6; }
+var.selected5 { background-color: #82DDFF; box-shadow: 0 0 0 2px #82DDFF; }
+var.selected6 { background-color: #FFBCF2; box-shadow: 0 0 0 2px #FFBCF2; }
+</style>
  <body class="h-entry">
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">AT Driver</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-DRAFT">Draft Community Group Report</a>, <time class="dt-updated" datetime="2023-04-05">5 April 2023</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-DRAFT">Draft Community Group Report</a>, <time class="dt-updated" datetime="2023-09-26">26 September 2023</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -628,7 +695,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
     </div>
    </details>
    <div data-fill-with="warning"></div>
-   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2023 <a href="https://www.w3.org/">World Wide Web Consortium</a>. <abbr title="World Wide Web Consortium">W3C</abbr><sup>®</sup> <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document" rel="license">permissive document license</a> rules apply. </p>
+   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2023 <a href="https://www.w3.org/">World Wide Web Consortium</a>. <abbr title="World Wide Web Consortium">W3C</abbr><sup>®</sup> <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/Consortium/Legal/copyright-software" rel="license" title="W3C Software and Document License">permissive document license</a> rules apply. </p>
    <hr title="Separator for header">
   </div>
   <div class="p-summary" data-fill-with="abstract">
@@ -728,7 +795,6 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
      <a href="#w3c-conformance"><span class="secno"></span> <span class="content">Conformance</span></a>
      <ol class="toc">
       <li><a href="#w3c-conventions"><span class="secno"></span> <span class="content">Document conventions</span></a>
-      <li><a href="#w3c-conformant-algorithms"><span class="secno"></span> <span class="content">Conformant Algorithms</span></a>
      </ol>
     <li>
      <a href="#index"><span class="secno"></span> <span class="content">Index</span></a>
@@ -1684,20 +1750,6 @@ parameters</var>.</p>
     with <code>class="note"</code>,
     like this: </p>
    <p class="note" role="note">Note, this is an informative note.</p>
-   <h3 class="no-ref no-num heading settled" id="w3c-conformant-algorithms"><span class="content">Conformant Algorithms</span><a class="self-link" href="#w3c-conformant-algorithms"></a></h3>
-   <p>Requirements phrased in the imperative as part of algorithms
-    (such as "strip any leading space characters"
-    or "return false and abort these steps")
-    are to be interpreted with the meaning of the key word
-    ("must", "should", "may", etc)
-    used in introducing the algorithm. </p>
-   <p>Conformance requirements phrased as algorithms or specific steps
-    can be implemented in any manner,
-    so long as the end result is equivalent.
-    In particular, the algorithms defined in this specification
-    are intended to be easy to understand
-    and are not intended to be performant.
-    Implementers are encouraged to optimize. </p>
   </div>
 <script src="https://www.w3.org/scripts/TR/2021/fixup.js"></script>
   <h2 class="no-num no-ref heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
@@ -1774,183 +1826,36 @@ parameters</var>.</p>
    <li><a href="#remote-end-websocket-connections-not-associated-with-a-session">WebSocket connections not associated with a session</a><span>, in § 6</span>
    <li><a href="#websocket-listener">WebSocket listener</a><span>, in § 6</span>
   </ul>
-  <aside aria-labelledby="infopaneltitle-for-3a2763fcaa6bc82693554cf36780c0dd" class="dfn-panel" data-for="3a2763fcaa6bc82693554cf36780c0dd" id="infopanel-for-3a2763fcaa6bc82693554cf36780c0dd">
-   <span id="infopaneltitle-for-3a2763fcaa6bc82693554cf36780c0dd" style="display:none">Info about the 'in parallel' external reference.</span><a href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-in-parallel">6. Transport</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-fcfc8b0ed220faa237969aed00e2586d" class="dfn-panel" data-for="fcfc8b0ed220faa237969aed00e2586d" id="infopanel-for-fcfc8b0ed220faa237969aed00e2586d">
-   <span id="infopaneltitle-for-fcfc8b0ed220faa237969aed00e2586d" style="display:none">Info about the 'append (for list)' external reference.</span><a href="https://infra.spec.whatwg.org/#list-append">https://infra.spec.whatwg.org/#list-append</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-list-append">7.2. The settings Module</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-53c2c70bc752d6cf2a1f7deddc029549" class="dfn-panel" data-for="53c2c70bc752d6cf2a1f7deddc029549" id="infopanel-for-53c2c70bc752d6cf2a1f7deddc029549">
-   <span id="infopaneltitle-for-53c2c70bc752d6cf2a1f7deddc029549" style="display:none">Info about the 'append (for set)' external reference.</span><a href="https://infra.spec.whatwg.org/#set-append">https://infra.spec.whatwg.org/#set-append</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-set-append">6. Transport</a> <a href="#ref-for-set-append①">(2)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-988001f27648dc25e93a5a2a8e0d0a26" class="dfn-panel" data-for="988001f27648dc25e93a5a2a8e0d0a26" id="infopanel-for-988001f27648dc25e93a5a2a8e0d0a26">
-   <span id="infopaneltitle-for-988001f27648dc25e93a5a2a8e0d0a26" style="display:none">Info about the 'ascii lowercase' external reference.</span><a href="https://infra.spec.whatwg.org/#ascii-lowercase">https://infra.spec.whatwg.org/#ascii-lowercase</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-ascii-lowercase">5.2. Capabilities</a> <a href="#ref-for-ascii-lowercase①">(2)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-7618b9a6d44febb7e784c8f39faac140" class="dfn-panel" data-for="7618b9a6d44febb7e784c8f39faac140" id="infopanel-for-7618b9a6d44febb7e784c8f39faac140">
-   <span id="infopaneltitle-for-7618b9a6d44febb7e784c8f39faac140" style="display:none">Info about the 'assert' external reference.</span><a href="https://infra.spec.whatwg.org/#assert">https://infra.spec.whatwg.org/#assert</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-assert">6. Transport</a> <a href="#ref-for-assert①">(2)</a> <a href="#ref-for-assert②">(3)</a> <a href="#ref-for-assert③">(4)</a>
-    <li><a href="#ref-for-assert④">7.2.3.3. The settings.getSupportedSettings Command</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-eb75379b05abc264a531a791358e1eba" class="dfn-panel" data-for="eb75379b05abc264a531a791358e1eba" id="infopanel-for-eb75379b05abc264a531a791358e1eba">
-   <span id="infopaneltitle-for-eb75379b05abc264a531a791358e1eba" style="display:none">Info about the 'contain (for list)' external reference.</span><a href="https://infra.spec.whatwg.org/#list-contain">https://infra.spec.whatwg.org/#list-contain</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-list-contain">7.2. The settings Module</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-7aa70202d36f53e6295b249241561d26" class="dfn-panel" data-for="7aa70202d36f53e6295b249241561d26" id="infopanel-for-7aa70202d36f53e6295b249241561d26">
-   <span id="infopaneltitle-for-7aa70202d36f53e6295b249241561d26" style="display:none">Info about the 'contain (for map)' external reference.</span><a href="https://infra.spec.whatwg.org/#map-exists">https://infra.spec.whatwg.org/#map-exists</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-map-exists">5.2. Capabilities</a> <a href="#ref-for-map-exists①">(2)</a>
-    <li><a href="#ref-for-map-exists②">6. Transport</a> <a href="#ref-for-map-exists③">(2)</a> <a href="#ref-for-map-exists④">(3)</a> <a href="#ref-for-map-exists⑤">(4)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-de8dad85bc31aef3359c7c7dbd918fe7" class="dfn-panel" data-for="de8dad85bc31aef3359c7c7dbd918fe7" id="infopanel-for-de8dad85bc31aef3359c7c7dbd918fe7">
-   <span id="infopaneltitle-for-de8dad85bc31aef3359c7c7dbd918fe7" style="display:none">Info about the 'empty' external reference.</span><a href="https://infra.spec.whatwg.org/#list-empty">https://infra.spec.whatwg.org/#list-empty</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-list-empty">6. Transport</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-0d3ee326a162c16997e7bb20e8b7133c" class="dfn-panel" data-for="0d3ee326a162c16997e7bb20e8b7133c" id="infopanel-for-0d3ee326a162c16997e7bb20e8b7133c">
-   <span id="infopaneltitle-for-0d3ee326a162c16997e7bb20e8b7133c" style="display:none">Info about the 'exist' external reference.</span><a href="https://infra.spec.whatwg.org/#map-exists">https://infra.spec.whatwg.org/#map-exists</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-map-exists">5.2. Capabilities</a> <a href="#ref-for-map-exists①">(2)</a>
-    <li><a href="#ref-for-map-exists②">6. Transport</a> <a href="#ref-for-map-exists③">(2)</a> <a href="#ref-for-map-exists④">(3)</a> <a href="#ref-for-map-exists⑤">(4)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-8b9e78ceedde26e69095bd6f6cce47bf" class="dfn-panel" data-for="8b9e78ceedde26e69095bd6f6cce47bf" id="infopanel-for-8b9e78ceedde26e69095bd6f6cce47bf">
-   <span id="infopaneltitle-for-8b9e78ceedde26e69095bd6f6cce47bf" style="display:none">Info about the 'for each (for list)' external reference.</span><a href="https://infra.spec.whatwg.org/#list-iterate">https://infra.spec.whatwg.org/#list-iterate</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-list-iterate">6. Transport</a>
-    <li><a href="#ref-for-list-iterate①">7.2. The settings Module</a>
-    <li><a href="#ref-for-list-iterate②">7.2.3.1. The settings.setSettings Command</a>
-    <li><a href="#ref-for-list-iterate③">7.3.3.1. The interaction.pressKeys Command</a> <a href="#ref-for-list-iterate④">(2)</a>
-    <li><a href="#ref-for-list-iterate⑤">7.3.4.1. The interaction.capturedOutput Event</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-fa396dfe2ff99ebb3815418bc73c40fb" class="dfn-panel" data-for="fa396dfe2ff99ebb3815418bc73c40fb" id="infopanel-for-fa396dfe2ff99ebb3815418bc73c40fb">
-   <span id="infopaneltitle-for-fa396dfe2ff99ebb3815418bc73c40fb" style="display:none">Info about the 'for each (for map)' external reference.</span><a href="https://infra.spec.whatwg.org/#map-iterate">https://infra.spec.whatwg.org/#map-iterate</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-map-iterate">5.2. Capabilities</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-fd74d8159933c4a74d0b23390bed43e3" class="dfn-panel" data-for="fd74d8159933c4a74d0b23390bed43e3" id="infopanel-for-fd74d8159933c4a74d0b23390bed43e3">
-   <span id="infopaneltitle-for-fd74d8159933c4a74d0b23390bed43e3" style="display:none">Info about the 'implementation-defined' external reference.</span><a href="https://infra.spec.whatwg.org/#implementation-defined">https://infra.spec.whatwg.org/#implementation-defined</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-implementation-defined">5.2. Capabilities</a>
-    <li><a href="#ref-for-implementation-defined①">5.8. Security checks</a> <a href="#ref-for-implementation-defined②">(2)</a> <a href="#ref-for-implementation-defined③">(3)</a>
-    <li><a href="#ref-for-implementation-defined④">6. Transport</a> <a href="#ref-for-implementation-defined⑤">(2)</a> <a href="#ref-for-implementation-defined⑥">(3)</a> <a href="#ref-for-implementation-defined⑦">(4)</a>
-    <li><a href="#ref-for-implementation-defined⑧">7.2. The settings Module</a> <a href="#ref-for-implementation-defined⑨">(2)</a>
-    <li><a href="#ref-for-implementation-defined①⓪">7.3.3.1. The interaction.pressKeys Command</a> <a href="#ref-for-implementation-defined①①">(2)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-fafd38d2108e357bcc9a6fd7f3cd04a7" class="dfn-panel" data-for="fafd38d2108e357bcc9a6fd7f3cd04a7" id="infopanel-for-fafd38d2108e357bcc9a6fd7f3cd04a7">
-   <span id="infopaneltitle-for-fafd38d2108e357bcc9a6fd7f3cd04a7" style="display:none">Info about the 'list' external reference.</span><a href="https://infra.spec.whatwg.org/#list">https://infra.spec.whatwg.org/#list</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-list">7.2. The settings Module</a> <a href="#ref-for-list①">(2)</a>
-    <li><a href="#ref-for-list②">7.2.3.3. The settings.getSupportedSettings Command</a>
-    <li><a href="#ref-for-list③">7.3.3.1. The interaction.pressKeys Command</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-4bf12d0cddf322a1e2a9fb52f4d85843" class="dfn-panel" data-for="4bf12d0cddf322a1e2a9fb52f4d85843" id="infopanel-for-4bf12d0cddf322a1e2a9fb52f4d85843">
-   <span id="infopaneltitle-for-4bf12d0cddf322a1e2a9fb52f4d85843" style="display:none">Info about the 'map' external reference.</span><a href="https://infra.spec.whatwg.org/#ordered-map">https://infra.spec.whatwg.org/#ordered-map</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-ordered-map">5.2. Capabilities</a> <a href="#ref-for-ordered-map①">(2)</a>
-    <li><a href="#ref-for-ordered-map②">6. Transport</a> <a href="#ref-for-ordered-map③">(2)</a> <a href="#ref-for-ordered-map④">(3)</a>
-    <li><a href="#ref-for-ordered-map⑤">7.1.3.1. The session.new Command</a>
-    <li><a href="#ref-for-ordered-map⑥">7.2. The settings Module</a> <a href="#ref-for-ordered-map⑦">(2)</a>
-    <li><a href="#ref-for-ordered-map⑧">7.2.3.1. The settings.setSettings Command</a>
-    <li><a href="#ref-for-ordered-map⑨">7.3.3.1. The interaction.pressKeys Command</a>
-    <li><a href="#ref-for-ordered-map①⓪">7.3.4.1. The interaction.capturedOutput Event</a> <a href="#ref-for-ordered-map①①">(2)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-4b944ac25c4d8b0b79b2296641fde4e4" class="dfn-panel" data-for="4b944ac25c4d8b0b79b2296641fde4e4" id="infopanel-for-4b944ac25c4d8b0b79b2296641fde4e4">
-   <span id="infopaneltitle-for-4b944ac25c4d8b0b79b2296641fde4e4" style="display:none">Info about the 'parse json into infra values' external reference.</span><a href="https://infra.spec.whatwg.org/#parse-a-json-string-to-an-infra-value">https://infra.spec.whatwg.org/#parse-a-json-string-to-an-infra-value</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-parse-a-json-string-to-an-infra-value">6. Transport</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-b7b72d2fc69ed8f4d3a40b061520e8d0" class="dfn-panel" data-for="b7b72d2fc69ed8f4d3a40b061520e8d0" id="infopanel-for-b7b72d2fc69ed8f4d3a40b061520e8d0">
-   <span id="infopaneltitle-for-b7b72d2fc69ed8f4d3a40b061520e8d0" style="display:none">Info about the 'scalar value string' external reference.</span><a href="https://infra.spec.whatwg.org/#scalar-value-string">https://infra.spec.whatwg.org/#scalar-value-string</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-scalar-value-string">6. Transport</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-f9cb9eb74e1b5fe09fd983e8e16a4f35" class="dfn-panel" data-for="f9cb9eb74e1b5fe09fd983e8e16a4f35" id="infopanel-for-f9cb9eb74e1b5fe09fd983e8e16a4f35">
-   <span id="infopaneltitle-for-f9cb9eb74e1b5fe09fd983e8e16a4f35" style="display:none">Info about the 'serialize an infra value to json bytes' external reference.</span><a href="https://infra.spec.whatwg.org/#serialize-an-infra-value-to-json-bytes">https://infra.spec.whatwg.org/#serialize-an-infra-value-to-json-bytes</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-serialize-an-infra-value-to-json-bytes">6. Transport</a> <a href="#ref-for-serialize-an-infra-value-to-json-bytes①">(2)</a> <a href="#ref-for-serialize-an-infra-value-to-json-bytes②">(3)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-5aa6e24324342f15a3c253ca6a002759" class="dfn-panel" data-for="5aa6e24324342f15a3c253ca6a002759" id="infopanel-for-5aa6e24324342f15a3c253ca6a002759">
-   <span id="infopaneltitle-for-5aa6e24324342f15a3c253ca6a002759" style="display:none">Info about the 'set' external reference.</span><a href="https://infra.spec.whatwg.org/#ordered-set">https://infra.spec.whatwg.org/#ordered-set</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-ordered-set">5.5. Commands</a>
-    <li><a href="#ref-for-ordered-set①">6. Transport</a> <a href="#ref-for-ordered-set②">(2)</a> <a href="#ref-for-ordered-set③">(3)</a>
-    <li><a href="#ref-for-ordered-set④">7.2. The settings Module</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-5c3d3462610d78bc92b91000cc511bc4" class="dfn-panel" data-for="5c3d3462610d78bc92b91000cc511bc4" id="infopanel-for-5c3d3462610d78bc92b91000cc511bc4">
-   <span id="infopaneltitle-for-5c3d3462610d78bc92b91000cc511bc4" style="display:none">Info about the 'set (for map)' external reference.</span><a href="https://infra.spec.whatwg.org/#map-set">https://infra.spec.whatwg.org/#map-set</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-map-set">5.2. Capabilities</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-cb6090a4148c3b79aef250d4d6625e39" class="dfn-panel" data-for="cb6090a4148c3b79aef250d4d6625e39" id="infopanel-for-cb6090a4148c3b79aef250d4d6625e39">
-   <span id="infopaneltitle-for-cb6090a4148c3b79aef250d4d6625e39" style="display:none">Info about the 'size' external reference.</span><a href="https://infra.spec.whatwg.org/#map-size">https://infra.spec.whatwg.org/#map-size</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-map-size">6. Transport</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-40b59bc325bd4d66701dfd8b7f1847c0" class="dfn-panel" data-for="40b59bc325bd4d66701dfd8b7f1847c0" id="infopanel-for-40b59bc325bd4d66701dfd8b7f1847c0">
-   <span id="infopaneltitle-for-40b59bc325bd4d66701dfd8b7f1847c0" style="display:none">Info about the 'string' external reference.</span><a href="https://infra.spec.whatwg.org/#string">https://infra.spec.whatwg.org/#string</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-string">5.2. Capabilities</a> <a href="#ref-for-string①">(2)</a> <a href="#ref-for-string②">(3)</a> <a href="#ref-for-string③">(4)</a> <a href="#ref-for-string④">(5)</a> <a href="#ref-for-string⑤">(6)</a>
-   </ul>
-  </aside>
   <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
   <ul class="index">
    <li>
     <a data-link-type="biblio">[HTML]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="3a2763fcaa6bc82693554cf36780c0dd">in parallel</span>
+     <li><span class="dfn-paneled" id="a72449dd">in parallel</span>
     </ul>
    <li>
     <a data-link-type="biblio">[INFRA]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="fcfc8b0ed220faa237969aed00e2586d">append <small>(for list)</small></span>
-     <li><span class="dfn-paneled" id="53c2c70bc752d6cf2a1f7deddc029549">append <small>(for set)</small></span>
-     <li><span class="dfn-paneled" id="988001f27648dc25e93a5a2a8e0d0a26">ascii lowercase</span>
-     <li><span class="dfn-paneled" id="7618b9a6d44febb7e784c8f39faac140">assert</span>
-     <li><span class="dfn-paneled" id="eb75379b05abc264a531a791358e1eba">contain <small>(for list)</small></span>
-     <li><span class="dfn-paneled" id="7aa70202d36f53e6295b249241561d26">contain <small>(for map)</small></span>
-     <li><span class="dfn-paneled" id="de8dad85bc31aef3359c7c7dbd918fe7">empty</span>
-     <li><span class="dfn-paneled" id="0d3ee326a162c16997e7bb20e8b7133c">exist</span>
-     <li><span class="dfn-paneled" id="8b9e78ceedde26e69095bd6f6cce47bf">for each <small>(for list)</small></span>
-     <li><span class="dfn-paneled" id="fa396dfe2ff99ebb3815418bc73c40fb">for each <small>(for map)</small></span>
-     <li><span class="dfn-paneled" id="fd74d8159933c4a74d0b23390bed43e3">implementation-defined</span>
-     <li><span class="dfn-paneled" id="fafd38d2108e357bcc9a6fd7f3cd04a7">list</span>
-     <li><span class="dfn-paneled" id="4bf12d0cddf322a1e2a9fb52f4d85843">map</span>
-     <li><span class="dfn-paneled" id="4b944ac25c4d8b0b79b2296641fde4e4">parse json into infra values</span>
-     <li><span class="dfn-paneled" id="b7b72d2fc69ed8f4d3a40b061520e8d0">scalar value string</span>
-     <li><span class="dfn-paneled" id="f9cb9eb74e1b5fe09fd983e8e16a4f35">serialize an infra value to json bytes</span>
-     <li><span class="dfn-paneled" id="5aa6e24324342f15a3c253ca6a002759">set</span>
-     <li><span class="dfn-paneled" id="5c3d3462610d78bc92b91000cc511bc4">set <small>(for map)</small></span>
-     <li><span class="dfn-paneled" id="cb6090a4148c3b79aef250d4d6625e39">size</span>
-     <li><span class="dfn-paneled" id="40b59bc325bd4d66701dfd8b7f1847c0">string</span>
+     <li><span class="dfn-paneled" id="53275e46">append <small>(for list)</small></span>
+     <li><span class="dfn-paneled" id="a3b18719">append <small>(for set)</small></span>
+     <li><span class="dfn-paneled" id="6f2dfa22">ascii lowercase</span>
+     <li><span class="dfn-paneled" id="77b4c09a">assert</span>
+     <li><span class="dfn-paneled" id="ae8def21">contain <small>(for list)</small></span>
+     <li><span class="dfn-paneled" id="a326add7">contain <small>(for map)</small></span>
+     <li><span class="dfn-paneled" id="03afaf9c">empty</span>
+     <li><span class="dfn-paneled" id="1243a891">exist</span>
+     <li><span class="dfn-paneled" id="16d07e10">for each <small>(for list)</small></span>
+     <li><span class="dfn-paneled" id="45209803">for each <small>(for map)</small></span>
+     <li><span class="dfn-paneled" id="860300d4">implementation-defined</span>
+     <li><span class="dfn-paneled" id="649608b9">list</span>
+     <li><span class="dfn-paneled" id="3fca5a9e">map</span>
+     <li><span class="dfn-paneled" id="8e8decb4">parse json into infra values</span>
+     <li><span class="dfn-paneled" id="762869d3">scalar value string</span>
+     <li><span class="dfn-paneled" id="4c07280e">serialize an infra value to json bytes</span>
+     <li><span class="dfn-paneled" id="15e48c39">set</span>
+     <li><span class="dfn-paneled" id="0e6b2056">set <small>(for map)</small></span>
+     <li><span class="dfn-paneled" id="653d0848">size</span>
+     <li><span class="dfn-paneled" id="0698d556">string</span>
     </ul>
   </ul>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
@@ -1989,461 +1894,68 @@ parameters</var>.</p>
    <div class="issue"> TODO exclude access to any security-sensitive commands. <a class="issue-return" href="#issue-398c181d" title="Jump to section">↵</a></div>
    <div class="issue"> The JSON Schema files are not yet generated from the CDDL and so might be out of date. <a href="https://github.com/w3c/at-driver/issues/23">[Issue #23]</a> <a class="issue-return" href="#issue-f906273a" title="Jump to section">↵</a></div>
   </div>
-  <aside aria-labelledby="infopaneltitle-for-uuid" class="dfn-panel" data-for="uuid" id="infopanel-for-uuid">
-   <span id="infopaneltitle-for-uuid" style="display:none">Info about the 'Universally Unique Identifier (UUID)' definition.</span><b><a href="#uuid">#uuid</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-uuid">5.3. Session</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-generating-a-uuid" class="dfn-panel" data-for="generating-a-uuid" id="infopanel-for-generating-a-uuid">
-   <span id="infopaneltitle-for-generating-a-uuid" style="display:none">Info about the 'Generating a UUID' definition.</span><b><a href="#generating-a-uuid">#generating-a-uuid</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-generating-a-uuid">7.1.3.1. The session.new Command</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-success" class="dfn-panel" data-for="success" id="infopanel-for-success">
-   <span id="infopaneltitle-for-success" style="display:none">Info about the 'success' definition.</span><b><a href="#success">#success</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-success">3. Infrastructure</a>
-    <li><a href="#ref-for-success①">5.2. Capabilities</a> <a href="#ref-for-success②">(2)</a> <a href="#ref-for-success③">(3)</a> <a href="#ref-for-success④">(4)</a>
-    <li><a href="#ref-for-success⑤">5.5. Commands</a>
-    <li><a href="#ref-for-success⑥">5.8. Security checks</a> <a href="#ref-for-success⑦">(2)</a>
-    <li><a href="#ref-for-success⑧">7.1.3.1. The session.new Command</a>
-    <li><a href="#ref-for-success⑨">7.2. The settings Module</a> <a href="#ref-for-success①⓪">(2)</a>
-    <li><a href="#ref-for-success①①">7.2.3.1. The settings.setSettings Command</a> <a href="#ref-for-success①②">(2)</a>
-    <li><a href="#ref-for-success①③">7.2.3.3. The settings.getSupportedSettings Command</a>
-    <li><a href="#ref-for-success①④">7.3.3.1. The interaction.pressKeys Command</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-error" class="dfn-panel" data-for="error" id="infopanel-for-error">
-   <span id="infopaneltitle-for-error" style="display:none">Info about the 'error' definition.</span><b><a href="#error">#error</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-error">3. Infrastructure</a> <a href="#ref-for-error①">(2)</a>
-    <li><a href="#ref-for-error②">5.5. Commands</a>
-    <li><a href="#ref-for-error③">5.8. Security checks</a> <a href="#ref-for-error④">(2)</a>
-    <li><a href="#ref-for-error⑤">6. Transport</a>
-    <li><a href="#ref-for-error⑥">7.1.3.1. The session.new Command</a> <a href="#ref-for-error⑦">(2)</a> <a href="#ref-for-error⑧">(3)</a> <a href="#ref-for-error⑨">(4)</a>
-    <li><a href="#ref-for-error①⓪">7.2. The settings Module</a> <a href="#ref-for-error①①">(2)</a> <a href="#ref-for-error①②">(3)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-try" class="dfn-panel" data-for="try" id="infopanel-for-try">
-   <span id="infopaneltitle-for-try" style="display:none">Info about the 'trying' definition.</span><b><a href="#try">#try</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-try">5.2. Capabilities</a>
-    <li><a href="#ref-for-try①">7.1.3.1. The session.new Command</a>
-    <li><a href="#ref-for-try②">7.2.3.1. The settings.setSettings Command</a>
-    <li><a href="#ref-for-try③">7.3.3.1. The interaction.pressKeys Command</a> <a href="#ref-for-try④">(2)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-local-end" class="dfn-panel" data-for="local-end" id="infopanel-for-local-end">
-   <span id="infopaneltitle-for-local-end" style="display:none">Info about the 'local end' definition.</span><b><a href="#local-end">#local-end</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-local-end">5. Protocol</a> <a href="#ref-for-local-end①">(2)</a>
-    <li><a href="#ref-for-local-end②">5.2. Capabilities</a>
-    <li><a href="#ref-for-local-end③">5.3. Session</a>
-    <li><a href="#ref-for-local-end④">5.5. Commands</a> <a href="#ref-for-local-end⑤">(2)</a> <a href="#ref-for-local-end⑥">(3)</a> <a href="#ref-for-local-end⑦">(4)</a>
-    <li><a href="#ref-for-local-end⑧">5.6. Events</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-remote-end" class="dfn-panel" data-for="remote-end" id="infopanel-for-remote-end">
-   <span id="infopaneltitle-for-remote-end" style="display:none">Info about the 'remote end' definition.</span><b><a href="#remote-end">#remote-end</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-remote-end">5. Protocol</a> <a href="#ref-for-remote-end①">(2)</a>
-    <li><a href="#ref-for-remote-end②">5.2. Capabilities</a> <a href="#ref-for-remote-end③">(2)</a> <a href="#ref-for-remote-end④">(3)</a> <a href="#ref-for-remote-end⑤">(4)</a> <a href="#ref-for-remote-end⑥">(5)</a> <a href="#ref-for-remote-end⑦">(6)</a>
-    <li><a href="#ref-for-remote-end⑧">5.3. Session</a> <a href="#ref-for-remote-end⑨">(2)</a>
-    <li><a href="#ref-for-remote-end①⓪">5.5. Commands</a> <a href="#ref-for-remote-end①①">(2)</a>
-    <li><a href="#ref-for-remote-end①②">5.6. Events</a> <a href="#ref-for-remote-end①③">(2)</a>
-    <li><a href="#ref-for-remote-end①④">5.7. Errors</a> <a href="#ref-for-remote-end①⑤">(2)</a>
-    <li><a href="#ref-for-remote-end①⑥">5.8. Security checks</a>
-    <li><a href="#ref-for-remote-end①⑦">6. Transport</a> <a href="#ref-for-remote-end①⑧">(2)</a> <a href="#ref-for-remote-end①⑨">(3)</a> <a href="#ref-for-remote-end②⓪">(4)</a> <a href="#ref-for-remote-end②①">(5)</a> <a href="#ref-for-remote-end②②">(6)</a>
-    <li><a href="#ref-for-remote-end②③">7.2. The settings Module</a> <a href="#ref-for-remote-end②④">(2)</a>
-    <li><a href="#ref-for-remote-end②⑤">7.2.3.3. The settings.getSupportedSettings Command</a>
-    <li><a href="#ref-for-remote-end②⑥">8. Privacy</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-remote-end-definition" class="dfn-panel" data-for="remote-end-definition" id="infopanel-for-remote-end-definition">
-   <span id="infopaneltitle-for-remote-end-definition" style="display:none">Info about the 'remote end definition' definition.</span><b><a href="#remote-end-definition">#remote-end-definition</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-remote-end-definition">5.1. Definition</a>
-    <li><a href="#ref-for-remote-end-definition①">5.4. Modules</a> <a href="#ref-for-remote-end-definition②">(2)</a>
-    <li><a href="#ref-for-remote-end-definition③">5.5. Commands</a>
-    <li><a href="#ref-for-remote-end-definition④">6. Transport</a>
-    <li><a href="#ref-for-remote-end-definition⑤">7.1.1. Definition</a>
-    <li><a href="#ref-for-remote-end-definition⑥">7.1.2.1. The session.CapabilitiesRequest Type</a>
-    <li><a href="#ref-for-remote-end-definition⑦">7.2.1. Definition</a>
-    <li><a href="#ref-for-remote-end-definition⑧">7.3.1. Definition</a>
-    <li><a href="#ref-for-remote-end-definition⑨">Appendix A: Schemas</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-local-end-definition" class="dfn-panel" data-for="local-end-definition" id="infopanel-for-local-end-definition">
-   <span id="infopaneltitle-for-local-end-definition" style="display:none">Info about the 'local end definition' definition.</span><b><a href="#local-end-definition">#local-end-definition</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-local-end-definition">5.1. Definition</a>
-    <li><a href="#ref-for-local-end-definition①">5.4. Modules</a>
-    <li><a href="#ref-for-local-end-definition②">5.5. Commands</a>
-    <li><a href="#ref-for-local-end-definition③">5.6. Events</a>
-    <li><a href="#ref-for-local-end-definition④">6. Transport</a> <a href="#ref-for-local-end-definition⑤">(2)</a>
-    <li><a href="#ref-for-local-end-definition⑥">7.1.1. Definition</a>
-    <li><a href="#ref-for-local-end-definition⑦">7.1.2.1. The session.CapabilitiesRequest Type</a>
-    <li><a href="#ref-for-local-end-definition⑧">7.2. The settings Module</a>
-    <li><a href="#ref-for-local-end-definition⑨">7.2.1. Definition</a>
-    <li><a href="#ref-for-local-end-definition①⓪">7.2.2.1. The SettingsGetSettingsResult type</a>
-    <li><a href="#ref-for-local-end-definition①①">7.3.1. Definition</a>
-    <li><a href="#ref-for-local-end-definition①②">Appendix A: Schemas</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-extension-capabilities" class="dfn-panel" data-for="extension-capabilities" id="infopanel-for-extension-capabilities">
-   <span id="infopaneltitle-for-extension-capabilities" style="display:none">Info about the 'extension capabilities' definition.</span><b><a href="#extension-capabilities">#extension-capabilities</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-extension-capabilities">5.2. Capabilities</a> <a href="#ref-for-extension-capabilities①">(2)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-process-capabilities" class="dfn-panel" data-for="process-capabilities" id="infopanel-for-process-capabilities">
-   <span id="infopaneltitle-for-process-capabilities" style="display:none">Info about the 'process capabilities' definition.</span><b><a href="#process-capabilities">#process-capabilities</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-process-capabilities">7.1.3.1. The session.new Command</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-match-capabilities" class="dfn-panel" data-for="match-capabilities" id="infopanel-for-match-capabilities">
-   <span id="infopaneltitle-for-match-capabilities" style="display:none">Info about the 'match capabilities' definition.</span><b><a href="#match-capabilities">#match-capabilities</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-match-capabilities">5.2. Capabilities</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-session" class="dfn-panel" data-for="session" id="infopanel-for-session">
-   <span id="infopaneltitle-for-session" style="display:none">Info about the 'session' definition.</span><b><a href="#session">#session</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-session">2. Explainer</a> <a href="#ref-for-session①">(2)</a>
-    <li><a href="#ref-for-session②">5.2. Capabilities</a> <a href="#ref-for-session③">(2)</a>
-    <li><a href="#ref-for-session④">5.3. Session</a> <a href="#ref-for-session⑤">(2)</a>
-    <li><a href="#ref-for-session⑥">5.5. Commands</a>
-    <li><a href="#ref-for-session⑦">5.7. Errors</a> <a href="#ref-for-session⑧">(2)</a>
-    <li><a href="#ref-for-session⑨">6. Transport</a> <a href="#ref-for-session①⓪">(2)</a> <a href="#ref-for-session①①">(3)</a> <a href="#ref-for-session①②">(4)</a> <a href="#ref-for-session①③">(5)</a> <a href="#ref-for-session①④">(6)</a>
-    <li><a href="#ref-for-session①⑤">7.1.3.1. The session.new Command</a> <a href="#ref-for-session①⑥">(2)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-remote-end-active-sessions" class="dfn-panel" data-for="remote-end-active-sessions" id="infopanel-for-remote-end-active-sessions">
-   <span id="infopaneltitle-for-remote-end-active-sessions" style="display:none">Info about the 'active sessions' definition.</span><b><a href="#remote-end-active-sessions">#remote-end-active-sessions</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-remote-end-active-sessions">5.3. Session</a>
-    <li><a href="#ref-for-remote-end-active-sessions①">6. Transport</a> <a href="#ref-for-remote-end-active-sessions②">(2)</a>
-    <li><a href="#ref-for-remote-end-active-sessions③">7.1.3.1. The session.new Command</a> <a href="#ref-for-remote-end-active-sessions④">(2)</a>
-    <li><a href="#ref-for-remote-end-active-sessions⑤">7.3.4.1. The interaction.capturedOutput Event</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-session-session-id" class="dfn-panel" data-for="session-session-id" id="infopanel-for-session-session-id">
-   <span id="infopaneltitle-for-session-session-id" style="display:none">Info about the 'session ID' definition.</span><b><a href="#session-session-id">#session-session-id</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-session-session-id">6. Transport</a>
-    <li><a href="#ref-for-session-session-id①">7.1.3.1. The session.new Command</a> <a href="#ref-for-session-session-id②">(2)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-module" class="dfn-panel" data-for="module" id="infopanel-for-module">
-   <span id="infopaneltitle-for-module" style="display:none">Info about the 'module' definition.</span><b><a href="#module">#module</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-module">2. Explainer</a>
-    <li><a href="#ref-for-module①">7.2. The settings Module</a> <a href="#ref-for-module②">(2)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-module-name" class="dfn-panel" data-for="module-name" id="infopanel-for-module-name">
-   <span id="infopaneltitle-for-module-name" style="display:none">Info about the 'module name' definition.</span><b><a href="#module-name">#module-name</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-module-name">5.4. Modules</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-extension-modules" class="dfn-panel" data-for="extension-modules" id="infopanel-for-extension-modules">
-   <span id="infopaneltitle-for-extension-modules" style="display:none">Info about the 'extension modules' definition.</span><b><a href="#extension-modules">#extension-modules</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-extension-modules">5.5. Commands</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-command" class="dfn-panel" data-for="command" id="infopanel-for-command">
-   <span id="infopaneltitle-for-command" style="display:none">Info about the 'command' definition.</span><b><a href="#command">#command</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-command">5.4. Modules</a> <a href="#ref-for-command①">(2)</a> <a href="#ref-for-command②">(3)</a>
-    <li><a href="#ref-for-command③">5.5. Commands</a>
-    <li><a href="#ref-for-command④">5.7. Errors</a> <a href="#ref-for-command⑤">(2)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-command-type" class="dfn-panel" data-for="command-type" id="infopanel-for-command-type">
-   <span id="infopaneltitle-for-command-type" style="display:none">Info about the 'command type' definition.</span><b><a href="#command-type">#command-type</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-command-type">7.1.3.1. The session.new Command</a>
-    <li><a href="#ref-for-command-type①">7.2.3.1. The settings.setSettings Command</a>
-    <li><a href="#ref-for-command-type②">7.2.3.2. The settings.getSettings Command</a>
-    <li><a href="#ref-for-command-type③">7.2.3.3. The settings.getSupportedSettings Command</a>
-    <li><a href="#ref-for-command-type④">7.3.3.1. The interaction.pressKeys Command</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-command-name" class="dfn-panel" data-for="command-name" id="infopanel-for-command-name">
-   <span id="infopaneltitle-for-command-name" style="display:none">Info about the 'command name' definition.</span><b><a href="#command-name">#command-name</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-command-name">5.4. Modules</a>
-    <li><a href="#ref-for-command-name①">5.5. Commands</a>
-    <li><a href="#ref-for-command-name②">6. Transport</a> <a href="#ref-for-command-name③">(2)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-command-parameters" class="dfn-panel" data-for="command-parameters" id="infopanel-for-command-parameters">
-   <span id="infopaneltitle-for-command-parameters" style="display:none">Info about the 'command parameters' definition.</span><b><a href="#command-parameters">#command-parameters</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-command-parameters">5.5. Commands</a>
-    <li><a href="#ref-for-command-parameters①">6. Transport</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-result-type" class="dfn-panel" data-for="result-type" id="infopanel-for-result-type">
-   <span id="infopaneltitle-for-result-type" style="display:none">Info about the 'result type' definition.</span><b><a href="#result-type">#result-type</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-result-type">5.5. Commands</a>
-    <li><a href="#ref-for-result-type①">6. Transport</a>
-    <li><a href="#ref-for-result-type②">7.1.3.1. The session.new Command</a>
-    <li><a href="#ref-for-result-type③">7.2.3.1. The settings.setSettings Command</a>
-    <li><a href="#ref-for-result-type④">7.2.3.2. The settings.getSettings Command</a>
-    <li><a href="#ref-for-result-type⑤">7.2.3.3. The settings.getSupportedSettings Command</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-remote-end-steps" class="dfn-panel" data-for="remote-end-steps" id="infopanel-for-remote-end-steps">
-   <span id="infopaneltitle-for-remote-end-steps" style="display:none">Info about the 'remote end steps' definition.</span><b><a href="#remote-end-steps">#remote-end-steps</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-remote-end-steps">6. Transport</a>
-    <li><a href="#ref-for-remote-end-steps①">7.1.3.1. The session.new Command</a>
-    <li><a href="#ref-for-remote-end-steps②">7.2.3.1. The settings.setSettings Command</a>
-    <li><a href="#ref-for-remote-end-steps③">7.2.3.2. The settings.getSettings Command</a>
-    <li><a href="#ref-for-remote-end-steps④">7.2.3.3. The settings.getSupportedSettings Command</a>
-    <li><a href="#ref-for-remote-end-steps⑤">7.3.3.1. The interaction.pressKeys Command</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-static-command" class="dfn-panel" data-for="static-command" id="infopanel-for-static-command">
-   <span id="infopaneltitle-for-static-command" style="display:none">Info about the 'static command' definition.</span><b><a href="#static-command">#static-command</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-static-command">6. Transport</a>
-    <li><a href="#ref-for-static-command①">7.1.3.1. The session.new Command</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-set-of-all-command-names" class="dfn-panel" data-for="set-of-all-command-names" id="infopanel-for-set-of-all-command-names">
-   <span id="infopaneltitle-for-set-of-all-command-names" style="display:none">Info about the 'set of all command names' definition.</span><b><a href="#set-of-all-command-names">#set-of-all-command-names</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-set-of-all-command-names">6. Transport</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-event" class="dfn-panel" data-for="event" id="infopanel-for-event">
-   <span id="infopaneltitle-for-event" style="display:none">Info about the 'event' definition.</span><b><a href="#event">#event</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-event">5.4. Modules</a> <a href="#ref-for-event①">(2)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-event-type" class="dfn-panel" data-for="event-type" id="infopanel-for-event-type">
-   <span id="infopaneltitle-for-event-type" style="display:none">Info about the 'event type' definition.</span><b><a href="#event-type">#event-type</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-event-type">5.6. Events</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-event-name" class="dfn-panel" data-for="event-name" id="infopanel-for-event-name">
-   <span id="infopaneltitle-for-event-name" style="display:none">Info about the 'event name' definition.</span><b><a href="#event-name">#event-name</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-event-name">5.4. Modules</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-remote-end-event-trigger" class="dfn-panel" data-for="remote-end-event-trigger" id="infopanel-for-remote-end-event-trigger">
-   <span id="infopaneltitle-for-remote-end-event-trigger" style="display:none">Info about the 'remote end event trigger' definition.</span><b><a href="#remote-end-event-trigger">#remote-end-event-trigger</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-remote-end-event-trigger">7.3.4.1. The interaction.capturedOutput Event</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-error-code" class="dfn-panel" data-for="error-code" id="infopanel-for-error-code">
-   <span id="infopaneltitle-for-error-code" style="display:none">Info about the 'error code' definition.</span><b><a href="#error-code">#error-code</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-error-code">3. Infrastructure</a>
-    <li><a href="#ref-for-error-code①">5.8. Security checks</a> <a href="#ref-for-error-code②">(2)</a>
-    <li><a href="#ref-for-error-code③">6. Transport</a>
-    <li><a href="#ref-for-error-code④">7.2. The settings Module</a> <a href="#ref-for-error-code⑤">(2)</a> <a href="#ref-for-error-code⑥">(3)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-error-code-invalid-argument" class="dfn-panel" data-for="error-code-invalid-argument" id="infopanel-for-error-code-invalid-argument">
-   <span id="infopaneltitle-for-error-code-invalid-argument" style="display:none">Info about the 'invalid argument' definition.</span><b><a href="#error-code-invalid-argument">#error-code-invalid-argument</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-error-code-invalid-argument">6. Transport</a> <a href="#ref-for-error-code-invalid-argument①">(2)</a> <a href="#ref-for-error-code-invalid-argument②">(3)</a>
-    <li><a href="#ref-for-error-code-invalid-argument③">7.2. The settings Module</a> <a href="#ref-for-error-code-invalid-argument④">(2)</a> <a href="#ref-for-error-code-invalid-argument⑤">(3)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-error-code-invalid-session-id" class="dfn-panel" data-for="error-code-invalid-session-id" id="infopanel-for-error-code-invalid-session-id">
-   <span id="infopaneltitle-for-error-code-invalid-session-id" style="display:none">Info about the 'invalid session id' definition.</span><b><a href="#error-code-invalid-session-id">#error-code-invalid-session-id</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-error-code-invalid-session-id">6. Transport</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-error-code-unknown-command" class="dfn-panel" data-for="error-code-unknown-command" id="infopanel-for-error-code-unknown-command">
-   <span id="infopaneltitle-for-error-code-unknown-command" style="display:none">Info about the 'unknown command' definition.</span><b><a href="#error-code-unknown-command">#error-code-unknown-command</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-error-code-unknown-command">6. Transport</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-error-code-session-not-created" class="dfn-panel" data-for="error-code-session-not-created" id="infopanel-for-error-code-session-not-created">
-   <span id="infopaneltitle-for-error-code-session-not-created" style="display:none">Info about the 'session not created' definition.</span><b><a href="#error-code-session-not-created">#error-code-session-not-created</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-error-code-session-not-created">7.1.3.1. The session.new Command</a> <a href="#ref-for-error-code-session-not-created①">(2)</a> <a href="#ref-for-error-code-session-not-created②">(3)</a> <a href="#ref-for-error-code-session-not-created③">(4)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-error-code-cannot-simulate-keyboard-interaction" class="dfn-panel" data-for="error-code-cannot-simulate-keyboard-interaction" id="infopanel-for-error-code-cannot-simulate-keyboard-interaction">
-   <span id="infopaneltitle-for-error-code-cannot-simulate-keyboard-interaction" style="display:none">Info about the 'cannot simulate keyboard interaction' definition.</span><b><a href="#error-code-cannot-simulate-keyboard-interaction">#error-code-cannot-simulate-keyboard-interaction</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-error-code-cannot-simulate-keyboard-interaction">5.8. Security checks</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-error-code-invalid-os-focus-state" class="dfn-panel" data-for="error-code-invalid-os-focus-state" id="infopanel-for-error-code-invalid-os-focus-state">
-   <span id="infopaneltitle-for-error-code-invalid-os-focus-state" style="display:none">Info about the 'invalid OS focus state' definition.</span><b><a href="#error-code-invalid-os-focus-state">#error-code-invalid-os-focus-state</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-error-code-invalid-os-focus-state">5.8. Security checks</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-check-that-keyboard-interaction-can-be-simulated" class="dfn-panel" data-for="check-that-keyboard-interaction-can-be-simulated" id="infopanel-for-check-that-keyboard-interaction-can-be-simulated">
-   <span id="infopaneltitle-for-check-that-keyboard-interaction-can-be-simulated" style="display:none">Info about the 'check that keyboard interaction can be simulated' definition.</span><b><a href="#check-that-keyboard-interaction-can-be-simulated">#check-that-keyboard-interaction-can-be-simulated</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-check-that-keyboard-interaction-can-be-simulated">7.3.3.1. The interaction.pressKeys Command</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-check-that-one-of-the-expected-applications-has-focus" class="dfn-panel" data-for="check-that-one-of-the-expected-applications-has-focus" id="infopanel-for-check-that-one-of-the-expected-applications-has-focus">
-   <span id="infopaneltitle-for-check-that-one-of-the-expected-applications-has-focus" style="display:none">Info about the 'check that one of the expected applications has focus' definition.</span><b><a href="#check-that-one-of-the-expected-applications-has-focus">#check-that-one-of-the-expected-applications-has-focus</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-check-that-one-of-the-expected-applications-has-focus">7.3.3.1. The interaction.pressKeys Command</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-should-be-withheld" class="dfn-panel" data-for="should-be-withheld" id="infopanel-for-should-be-withheld">
-   <span id="infopaneltitle-for-should-be-withheld" style="display:none">Info about the 'should be withheld' definition.</span><b><a href="#should-be-withheld">#should-be-withheld</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-should-be-withheld">7.3.4.1. The interaction.capturedOutput Event</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-websocket-listener" class="dfn-panel" data-for="websocket-listener" id="infopanel-for-websocket-listener">
-   <span id="infopaneltitle-for-websocket-listener" style="display:none">Info about the 'WebSocket listener' definition.</span><b><a href="#websocket-listener">#websocket-listener</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-websocket-listener">6. Transport</a> <a href="#ref-for-websocket-listener①">(2)</a> <a href="#ref-for-websocket-listener②">(3)</a> <a href="#ref-for-websocket-listener③">(4)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-websocket-listener-host" class="dfn-panel" data-for="websocket-listener-host" id="infopanel-for-websocket-listener-host">
-   <span id="infopaneltitle-for-websocket-listener-host" style="display:none">Info about the 'host' definition.</span><b><a href="#websocket-listener-host">#websocket-listener-host</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-websocket-listener-host">6. Transport</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-websocket-listener-port" class="dfn-panel" data-for="websocket-listener-port" id="infopanel-for-websocket-listener-port">
-   <span id="infopaneltitle-for-websocket-listener-port" style="display:none">Info about the 'port' definition.</span><b><a href="#websocket-listener-port">#websocket-listener-port</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-websocket-listener-port">6. Transport</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-websocket-listener-secure-flag" class="dfn-panel" data-for="websocket-listener-secure-flag" id="infopanel-for-websocket-listener-secure-flag">
-   <span id="infopaneltitle-for-websocket-listener-secure-flag" style="display:none">Info about the 'secure flag' definition.</span><b><a href="#websocket-listener-secure-flag">#websocket-listener-secure-flag</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-websocket-listener-secure-flag">6. Transport</a> <a href="#ref-for-websocket-listener-secure-flag①">(2)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-remote-end-active-listeners" class="dfn-panel" data-for="remote-end-active-listeners" id="infopanel-for-remote-end-active-listeners">
-   <span id="infopaneltitle-for-remote-end-active-listeners" style="display:none">Info about the 'active listeners' definition.</span><b><a href="#remote-end-active-listeners">#remote-end-active-listeners</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-remote-end-active-listeners">6. Transport</a> <a href="#ref-for-remote-end-active-listeners①">(2)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-remote-end-websocket-connections-not-associated-with-a-session" class="dfn-panel" data-for="remote-end-websocket-connections-not-associated-with-a-session" id="infopanel-for-remote-end-websocket-connections-not-associated-with-a-session">
-   <span id="infopaneltitle-for-remote-end-websocket-connections-not-associated-with-a-session" style="display:none">Info about the 'WebSocket connections not associated with a session' definition.</span><b><a href="#remote-end-websocket-connections-not-associated-with-a-session">#remote-end-websocket-connections-not-associated-with-a-session</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-remote-end-websocket-connections-not-associated-with-a-session">6. Transport</a> <a href="#ref-for-remote-end-websocket-connections-not-associated-with-a-session①">(2)</a> <a href="#ref-for-remote-end-websocket-connections-not-associated-with-a-session②">(3)</a> <a href="#ref-for-remote-end-websocket-connections-not-associated-with-a-session③">(4)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-websocket-connection" class="dfn-panel" data-for="websocket-connection" id="infopanel-for-websocket-connection">
-   <span id="infopaneltitle-for-websocket-connection" style="display:none">Info about the 'WebSocket connection' definition.</span><b><a href="#websocket-connection">#websocket-connection</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-websocket-connection">6. Transport</a> <a href="#ref-for-websocket-connection①">(2)</a> <a href="#ref-for-websocket-connection②">(3)</a> <a href="#ref-for-websocket-connection③">(4)</a> <a href="#ref-for-websocket-connection④">(5)</a> <a href="#ref-for-websocket-connection⑤">(6)</a> <a href="#ref-for-websocket-connection⑥">(7)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-session-session-websocket-connections" class="dfn-panel" data-for="session-session-websocket-connections" id="infopanel-for-session-session-websocket-connections">
-   <span id="infopaneltitle-for-session-session-websocket-connections" style="display:none">Info about the 'session WebSocket connections' definition.</span><b><a href="#session-session-websocket-connections">#session-session-websocket-connections</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-session-session-websocket-connections">6. Transport</a> <a href="#ref-for-session-session-websocket-connections①">(2)</a> <a href="#ref-for-session-session-websocket-connections②">(3)</a> <a href="#ref-for-session-session-websocket-connections③">(4)</a> <a href="#ref-for-session-session-websocket-connections④">(5)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-session-associated-with-connection" class="dfn-panel" data-for="session-associated-with-connection" id="infopanel-for-session-associated-with-connection">
-   <span id="infopaneltitle-for-session-associated-with-connection" style="display:none">Info about the 'associated with connection' definition.</span><b><a href="#session-associated-with-connection">#session-associated-with-connection</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-session-associated-with-connection">6. Transport</a> <a href="#ref-for-session-associated-with-connection①">(2)</a> <a href="#ref-for-session-associated-with-connection②">(3)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-start-listening-for-a-websocket-connection" class="dfn-panel" data-for="start-listening-for-a-websocket-connection" id="infopanel-for-start-listening-for-a-websocket-connection">
-   <span id="infopaneltitle-for-start-listening-for-a-websocket-connection" style="display:none">Info about the 'start listening for a WebSocket connection' definition.</span><b><a href="#start-listening-for-a-websocket-connection">#start-listening-for-a-websocket-connection</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-start-listening-for-a-websocket-connection">6.1. Establishing a Connection</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-handle-an-incoming-message" class="dfn-panel" data-for="handle-an-incoming-message" id="infopanel-for-handle-an-incoming-message">
-   <span id="infopaneltitle-for-handle-an-incoming-message" style="display:none">Info about the 'handle an incoming message' definition.</span><b><a href="#handle-an-incoming-message">#handle-an-incoming-message</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-handle-an-incoming-message">6. Transport</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-emit-an-event" class="dfn-panel" data-for="emit-an-event" id="infopanel-for-emit-an-event">
-   <span id="infopaneltitle-for-emit-an-event" style="display:none">Info about the 'emit an event' definition.</span><b><a href="#emit-an-event">#emit-an-event</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-emit-an-event">7.3.4.1. The interaction.capturedOutput Event</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-send-an-error-response" class="dfn-panel" data-for="send-an-error-response" id="infopanel-for-send-an-error-response">
-   <span id="infopaneltitle-for-send-an-error-response" style="display:none">Info about the 'send an error response' definition.</span><b><a href="#send-an-error-response">#send-an-error-response</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-send-an-error-response">6. Transport</a> <a href="#ref-for-send-an-error-response①">(2)</a> <a href="#ref-for-send-an-error-response②">(3)</a> <a href="#ref-for-send-an-error-response③">(4)</a> <a href="#ref-for-send-an-error-response④">(5)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-handle-a-connection-closing" class="dfn-panel" data-for="handle-a-connection-closing" id="infopanel-for-handle-a-connection-closing">
-   <span id="infopaneltitle-for-handle-a-connection-closing" style="display:none">Info about the 'handle a connection closing' definition.</span><b><a href="#handle-a-connection-closing">#handle-a-connection-closing</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-handle-a-connection-closing">6. Transport</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-remote-end-supported-settings" class="dfn-panel" data-for="remote-end-supported-settings" id="infopanel-for-remote-end-supported-settings">
-   <span id="infopaneltitle-for-remote-end-supported-settings" style="display:none">Info about the 'supported settings' definition.</span><b><a href="#remote-end-supported-settings">#remote-end-supported-settings</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-remote-end-supported-settings">7.2. The settings Module</a> <a href="#ref-for-remote-end-supported-settings①">(2)</a>
-    <li><a href="#ref-for-remote-end-supported-settings②">7.2.3.3. The settings.getSupportedSettings Command</a> <a href="#ref-for-remote-end-supported-settings③">(2)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-validate-setting-name" class="dfn-panel" data-for="validate-setting-name" id="infopanel-for-validate-setting-name">
-   <span id="infopaneltitle-for-validate-setting-name" style="display:none">Info about the 'validate setting name' definition.</span><b><a href="#validate-setting-name">#validate-setting-name</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-validate-setting-name">7.2. The settings Module</a> <a href="#ref-for-validate-setting-name①">(2)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-get-settings" class="dfn-panel" data-for="get-settings" id="infopanel-for-get-settings">
-   <span id="infopaneltitle-for-get-settings" style="display:none">Info about the 'get settings' definition.</span><b><a href="#get-settings">#get-settings</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-get-settings">7.2.3.2. The settings.getSettings Command</a>
-    <li><a href="#ref-for-get-settings①">7.2.3.3. The settings.getSupportedSettings Command</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-modify-setting" class="dfn-panel" data-for="modify-setting" id="infopanel-for-modify-setting">
-   <span id="infopaneltitle-for-modify-setting" style="display:none">Info about the 'modify setting' definition.</span><b><a href="#modify-setting">#modify-setting</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-modify-setting">7.2.3.1. The settings.setSettings Command</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-settingssetsettings" class="dfn-panel" data-for="settingssetsettings" id="infopanel-for-settingssetsettings">
-   <span id="infopaneltitle-for-settingssetsettings" style="display:none">Info about the 'settings.setSettings' definition.</span><b><a href="#settingssetsettings">#settingssetsettings</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-settingssetsettings">7.2.3.1. The settings.setSettings Command</a>
-   </ul>
-  </aside>
-<script>/* script-dfn-panel */
+<script>/* Boilerplate: script-dfn-panel */
 "use strict";
 {
-    function queryAll(sel) {
-        return [].slice.call(document.querySelectorAll(sel));
+    const dfnsJson = window.dfnsJson || {};
+
+    function genDfnPanel({dfnID, url, dfnText, refSections, external}) {
+        return mk.aside({
+            class: "dfn-panel",
+            id: `infopanel-for-${dfnID}`,
+            "data-for": dfnID,
+            "aria-labelled-by":`infopaneltitle-for-${dfnID}`,
+            },
+            mk.span({id:`infopaneltitle-for-${dfnID}`, style:"display:none"},
+                `Info about the '${dfnText}' ${external?"external":""} reference.`),
+            mk.a({href:url}, url),
+            mk.b({}, "Referenced in:"),
+            mk.ul({},
+                ...refSections.map(section=>
+                    mk.li({},
+                        ...section.refs.map((ref, refI)=>
+                            [
+                                mk.a({
+                                    href: `#${ref.id}`
+                                    },
+                                    (refI == 0) ? section.title : `(${refI + 1})`
+                                ),
+                                " ",
+                            ]
+                        ),
+                    ),
+                ),
+            ),
+        );
     }
 
-    // Add popup behavior to all dfns to show the corresponding dfn-panel.
-    var dfns = document.querySelectorAll('.dfn-paneled');
-    for (let dfn of dfns) { insertDfnPopupAction(dfn); }
+    function genAllDfnPanels() {
+        for(const panelData of Object.values(window.dfnpanelData)) {
+            const dfnID = panelData.dfnID;
+            const dfn = document.getElementById(dfnID);
+            if(!dfn) {
+                console.log(`Can't find dfn#${dfnID}.`, panelData);
+            } else {
+                const panel = genDfnPanel(panelData);
+                append(document.body, panel);
+                insertDfnPopupAction(dfn, panel)
+            }
+        }
+    }
 
-    document.body.addEventListener("click", (e) => {
-        // If not handled already, just hide all dfn panels.
-        hideAllDfnPanels();
-    });
+    document.addEventListener("DOMContentLoaded", ()=>{
+        genAllDfnPanels();
+
+        // Add popup behavior to all dfns to show the corresponding dfn-panel.
+        var dfns = queryAll('.dfn-paneled');
+        for(let dfn of dfns) { ; }
+
+        document.body.addEventListener("click", (e) => {
+            // If not handled already, just hide all dfn panels.
+            hideAllDfnPanels();
+        });
+    })
+
 
     function hideAllDfnPanels() {
         // Turn off any currently "on" or "activated" panels.
@@ -2493,134 +2005,575 @@ parameters</var>.</p>
         }
     }
 
-    function insertDfnPopupAction(dfn) {
+    function insertDfnPopupAction(dfn, dfnPanel) {
         // Find dfn panel
-        const dfnPanel = document.querySelector(`.dfn-panel[data-for='${dfn.id}']`);
-        if (dfnPanel) {
-            const panelWrapper = document.createElement('span');
-            panelWrapper.appendChild(dfnPanel);
-            panelWrapper.style.position = "relative";
-            panelWrapper.style.height = "0px";
-            dfn.insertAdjacentElement("afterend", panelWrapper);
-            dfn.setAttribute('role', 'button');
-            dfn.setAttribute('aria-expanded', 'false')
-            dfn.tabIndex = 0;
-            dfn.classList.add('has-dfn-panel');
-            dfn.addEventListener('click', (event) => {
-                showDfnPanel(dfnPanel, dfn);
+        const panelWrapper = document.createElement('span');
+        panelWrapper.appendChild(dfnPanel);
+        panelWrapper.style.position = "relative";
+        panelWrapper.style.height = "0px";
+        dfn.insertAdjacentElement("afterend", panelWrapper);
+        dfn.setAttribute('role', 'button');
+        dfn.setAttribute('aria-expanded', 'false')
+        dfn.tabIndex = 0;
+        dfn.classList.add('has-dfn-panel');
+        dfn.addEventListener('click', (event) => {
+            showDfnPanel(dfnPanel, dfn);
+            event.stopPropagation();
+        });
+        dfn.addEventListener('keypress', (event) => {
+            const kc = event.keyCode;
+            // 32->Space, 13->Enter
+            if(kc == 32 || kc == 13) {
+                toggleDfnPanel(dfnPanel, dfn);
                 event.stopPropagation();
-            });
-            dfn.addEventListener('keypress', (event) => {
-                const kc = event.keyCode;
-                // 32->Space, 13->Enter
-                if(kc == 32 || kc == 13) {
-                    toggleDfnPanel(dfnPanel, dfn);
-                    event.stopPropagation();
-                    event.preventDefault();
-                }
-            });
+                event.preventDefault();
+            }
+        });
 
-            dfnPanel.addEventListener('click', (event) => {
+        dfnPanel.addEventListener('click', (event) => {
+            if (event.target.nodeName == 'A') {
                 pinDfnPanel(dfnPanel);
+            }
+            event.stopPropagation();
+        });
+
+        dfnPanel.addEventListener('keydown', (event) => {
+            if(event.keyCode == 27) { // Escape key
+                hideDfnPanel(dfnPanel, dfn);
                 event.stopPropagation();
-            });
-
-            dfnPanel.addEventListener('keydown', (event) => {
-                if(event.keyCode == 27) { // Escape key
-                    hideDfnPanel(dfnPanel, dfn);
-                    event.stopPropagation();
-                    event.preventDefault();
-                }
-            })
-
-        } else {
-            console.log("Couldn't find .dfn-panel[data-for='" + dfn.id + "']");
-        }
+                event.preventDefault();
+            }
+        })
     }
 }
 </script>
-<script>/* script-var-click-highlighting */
+<script>/* Boilerplate: script-dfn-panel */
+"use strict";
+{
+    const dfnsJson = window.dfnsJson || {};
 
-    "use strict";
-    {
-        document.addEventListener("click", e=>{
-            if(e.target.nodeName == "VAR") {
-                highlightSameAlgoVars(e.target);
-            }
-        });
-        const indexCounts = new Map();
-        const indexNames = new Map();
-        function highlightSameAlgoVars(v) {
-            // Find the algorithm container.
-            let algoContainer = null;
-            let searchEl = v;
-            while(algoContainer == null && searchEl != document.body) {
-                searchEl = searchEl.parentNode;
-                if(searchEl.hasAttribute("data-algorithm")) {
-                    algoContainer = searchEl;
-                }
-            }
+    function genDfnPanel({dfnID, url, dfnText, refSections, external}) {
+        return mk.aside({
+            class: "dfn-panel",
+            id: `infopanel-for-${dfnID}`,
+            "data-for": dfnID,
+            "aria-labelled-by":`infopaneltitle-for-${dfnID}`,
+            },
+            mk.span({id:`infopaneltitle-for-${dfnID}`, style:"display:none"},
+                `Info about the '${dfnText}' ${external?"external":""} reference.`),
+            mk.a({href:url}, url),
+            mk.b({}, "Referenced in:"),
+            mk.ul({},
+                ...refSections.map(section=>
+                    mk.li({},
+                        ...section.refs.map((ref, refI)=>
+                            [
+                                mk.a({
+                                    href: `#${ref.id}`
+                                    },
+                                    (refI == 0) ? section.title : `(${refI + 1})`
+                                ),
+                                " ",
+                            ]
+                        ),
+                    ),
+                ),
+            ),
+        );
+    }
 
-            // Not highlighting document-global vars,
-            // too likely to be unrelated.
-            if(algoContainer == null) return;
-
-            const algoName = algoContainer.getAttribute("data-algorithm");
-            const varName = getVarName(v);
-            const addClass = !v.classList.contains("selected");
-            let highlightClass = null;
-            if(addClass) {
-                const index = chooseHighlightIndex(algoName, varName);
-                indexCounts.get(algoName)[index] += 1;
-                indexNames.set(algoName+"///"+varName, index);
-                highlightClass = nameFromIndex(index);
+    function genAllDfnPanels() {
+        for(const panelData of Object.values(window.dfnpanelData)) {
+            const dfnID = panelData.dfnID;
+            const dfn = document.getElementById(dfnID);
+            if(!dfn) {
+                console.log(`Can't find dfn#${dfnID}.`, panelData);
             } else {
-                const index = previousHighlightIndex(algoName, varName);
-                indexCounts.get(algoName)[index] -= 1;
-                highlightClass = nameFromIndex(index);
+                const panel = genDfnPanel(panelData);
+                append(document.body, panel);
+                insertDfnPopupAction(dfn, panel)
             }
-
-            // Find all same-name vars, and toggle their class appropriately.
-            for(const el of algoContainer.querySelectorAll("var")) {
-                if(getVarName(el) == varName) {
-                    el.classList.toggle("selected", addClass);
-                    el.classList.toggle(highlightClass, addClass);
-                }
-            }
-        }
-        function getVarName(el) {
-            return el.textContent.replace(/(\s|\xa0)+/, " ").trim();
-        }
-        function chooseHighlightIndex(algoName, varName) {
-            let indexes = null;
-            if(indexCounts.has(algoName)) {
-                indexes = indexCounts.get(algoName);
-            } else {
-                // 7 classes right now
-                indexes = [0,0,0,0,0,0,0];
-                indexCounts.set(algoName, indexes);
-            }
-
-            // If the element was recently unclicked,
-            // *and* that color is still unclaimed,
-            // give it back the same color.
-            const lastIndex = previousHighlightIndex(algoName, varName);
-            if(indexes[lastIndex] === 0) return lastIndex;
-
-            // Find the earliest index with the lowest count.
-            const minCount = Math.min.apply(null, indexes);
-            let index = null;
-            for(var i = 0; i < indexes.length; i++) {
-                if(indexes[i] == minCount) {
-                    return i;
-                }
-            }
-        }
-        function previousHighlightIndex(algoName, varName) {
-            return indexNames.get(algoName+"///"+varName);
-        }
-        function nameFromIndex(index) {
-            return "selected" + index;
         }
     }
-    </script>
+
+    document.addEventListener("DOMContentLoaded", ()=>{
+        genAllDfnPanels();
+
+        // Add popup behavior to all dfns to show the corresponding dfn-panel.
+        var dfns = queryAll('.dfn-paneled');
+        for(let dfn of dfns) { ; }
+
+        document.body.addEventListener("click", (e) => {
+            // If not handled already, just hide all dfn panels.
+            hideAllDfnPanels();
+        });
+    })
+
+
+    function hideAllDfnPanels() {
+        // Turn off any currently "on" or "activated" panels.
+        queryAll(".dfn-panel.on, .dfn-panel.activated").forEach(el=>hideDfnPanel(el));
+    }
+
+    function showDfnPanel(dfnPanel, dfn) {
+        hideAllDfnPanels(); // Only display one at this time.
+        dfn.setAttribute("aria-expanded", "true");
+        dfnPanel.classList.add("on");
+        dfnPanel.style.left = "5px";
+        dfnPanel.style.top = "0px";
+        const panelRect = dfnPanel.getBoundingClientRect();
+        const panelWidth = panelRect.right - panelRect.left;
+        if (panelRect.right > document.body.scrollWidth) {
+            // Panel's overflowing the screen.
+            // Just drop it below the dfn and flip it rightward instead.
+            // This still wont' fix things if the screen is *really* wide,
+            // but fixing that's a lot harder without 'anchor()'.
+            dfnPanel.style.top = "1.5em";
+            dfnPanel.style.left = "auto";
+            dfnPanel.style.right = "0px";
+        }
+    }
+
+    function pinDfnPanel(dfnPanel) {
+        // Switch it to "activated" state, which pins it.
+        dfnPanel.classList.add("activated");
+        dfnPanel.style.left = null;
+        dfnPanel.style.top = null;
+    }
+
+    function hideDfnPanel(dfnPanel, dfn) {
+        if(!dfn) {
+            dfn = document.getElementById(dfnPanel.getAttribute("data-for"));
+        }
+        dfn.setAttribute("aria-expanded", "false")
+        dfnPanel.classList.remove("on");
+        dfnPanel.classList.remove("activated");
+    }
+
+    function toggleDfnPanel(dfnPanel, dfn) {
+        if(dfnPanel.classList.contains("on")) {
+            hideDfnPanel(dfnPanel, dfn);
+        } else {
+            showDfnPanel(dfnPanel, dfn);
+        }
+    }
+
+    function insertDfnPopupAction(dfn, dfnPanel) {
+        // Find dfn panel
+        const panelWrapper = document.createElement('span');
+        panelWrapper.appendChild(dfnPanel);
+        panelWrapper.style.position = "relative";
+        panelWrapper.style.height = "0px";
+        dfn.insertAdjacentElement("afterend", panelWrapper);
+        dfn.setAttribute('role', 'button');
+        dfn.setAttribute('aria-expanded', 'false')
+        dfn.tabIndex = 0;
+        dfn.classList.add('has-dfn-panel');
+        dfn.addEventListener('click', (event) => {
+            showDfnPanel(dfnPanel, dfn);
+            event.stopPropagation();
+        });
+        dfn.addEventListener('keypress', (event) => {
+            const kc = event.keyCode;
+            // 32->Space, 13->Enter
+            if(kc == 32 || kc == 13) {
+                toggleDfnPanel(dfnPanel, dfn);
+                event.stopPropagation();
+                event.preventDefault();
+            }
+        });
+
+        dfnPanel.addEventListener('click', (event) => {
+            if (event.target.nodeName == 'A') {
+                pinDfnPanel(dfnPanel);
+            }
+            event.stopPropagation();
+        });
+
+        dfnPanel.addEventListener('keydown', (event) => {
+            if(event.keyCode == 27) { // Escape key
+                hideDfnPanel(dfnPanel, dfn);
+                event.stopPropagation();
+                event.preventDefault();
+            }
+        })
+    }
+}
+</script>
+<script>/* Boilerplate: script-dfn-panel-json */
+window.dfnpanelData = {};
+window.dfnpanelData['a72449dd'] = {"dfnID": "a72449dd", "url": "https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel", "dfnText": "in parallel", "refSections": [{"refs": [{"id": "ref-for-in-parallel"}], "title": "6. Transport"}], "external": true};
+window.dfnpanelData['53275e46'] = {"dfnID": "53275e46", "url": "https://infra.spec.whatwg.org/#list-append", "dfnText": "append (for list)", "refSections": [{"refs": [{"id": "ref-for-list-append"}], "title": "7.2. The settings Module"}], "external": true};
+window.dfnpanelData['a3b18719'] = {"dfnID": "a3b18719", "url": "https://infra.spec.whatwg.org/#set-append", "dfnText": "append (for set)", "refSections": [{"refs": [{"id": "ref-for-set-append"}, {"id": "ref-for-set-append\u2460"}], "title": "6. Transport"}], "external": true};
+window.dfnpanelData['6f2dfa22'] = {"dfnID": "6f2dfa22", "url": "https://infra.spec.whatwg.org/#ascii-lowercase", "dfnText": "ascii lowercase", "refSections": [{"refs": [{"id": "ref-for-ascii-lowercase"}, {"id": "ref-for-ascii-lowercase\u2460"}], "title": "5.2. Capabilities"}], "external": true};
+window.dfnpanelData['77b4c09a'] = {"dfnID": "77b4c09a", "url": "https://infra.spec.whatwg.org/#assert", "dfnText": "assert", "refSections": [{"refs": [{"id": "ref-for-assert"}, {"id": "ref-for-assert\u2460"}, {"id": "ref-for-assert\u2461"}, {"id": "ref-for-assert\u2462"}], "title": "6. Transport"}, {"refs": [{"id": "ref-for-assert\u2463"}], "title": "7.2.3.3. The settings.getSupportedSettings Command"}], "external": true};
+window.dfnpanelData['ae8def21'] = {"dfnID": "ae8def21", "url": "https://infra.spec.whatwg.org/#list-contain", "dfnText": "contain (for list)", "refSections": [{"refs": [{"id": "ref-for-list-contain"}], "title": "7.2. The settings Module"}], "external": true};
+window.dfnpanelData['a326add7'] = {"dfnID": "a326add7", "url": "https://infra.spec.whatwg.org/#map-exists", "dfnText": "contain (for map)", "refSections": [{"refs": [{"id": "ref-for-map-exists"}, {"id": "ref-for-map-exists\u2460"}], "title": "5.2. Capabilities"}, {"refs": [{"id": "ref-for-map-exists\u2461"}, {"id": "ref-for-map-exists\u2462"}, {"id": "ref-for-map-exists\u2463"}, {"id": "ref-for-map-exists\u2464"}], "title": "6. Transport"}], "external": true};
+window.dfnpanelData['03afaf9c'] = {"dfnID": "03afaf9c", "url": "https://infra.spec.whatwg.org/#list-empty", "dfnText": "empty", "refSections": [{"refs": [{"id": "ref-for-list-empty"}], "title": "6. Transport"}], "external": true};
+window.dfnpanelData['1243a891'] = {"dfnID": "1243a891", "url": "https://infra.spec.whatwg.org/#map-exists", "dfnText": "exist", "refSections": [{"refs": [{"id": "ref-for-map-exists"}, {"id": "ref-for-map-exists\u2460"}], "title": "5.2. Capabilities"}, {"refs": [{"id": "ref-for-map-exists\u2461"}, {"id": "ref-for-map-exists\u2462"}, {"id": "ref-for-map-exists\u2463"}, {"id": "ref-for-map-exists\u2464"}], "title": "6. Transport"}], "external": true};
+window.dfnpanelData['16d07e10'] = {"dfnID": "16d07e10", "url": "https://infra.spec.whatwg.org/#list-iterate", "dfnText": "for each (for list)", "refSections": [{"refs": [{"id": "ref-for-list-iterate"}], "title": "6. Transport"}, {"refs": [{"id": "ref-for-list-iterate\u2460"}], "title": "7.2. The settings Module"}, {"refs": [{"id": "ref-for-list-iterate\u2461"}], "title": "7.2.3.1. The settings.setSettings Command"}, {"refs": [{"id": "ref-for-list-iterate\u2462"}, {"id": "ref-for-list-iterate\u2463"}], "title": "7.3.3.1. The interaction.pressKeys Command"}, {"refs": [{"id": "ref-for-list-iterate\u2464"}], "title": "7.3.4.1. The interaction.capturedOutput Event"}], "external": true};
+window.dfnpanelData['45209803'] = {"dfnID": "45209803", "url": "https://infra.spec.whatwg.org/#map-iterate", "dfnText": "for each (for map)", "refSections": [{"refs": [{"id": "ref-for-map-iterate"}], "title": "5.2. Capabilities"}], "external": true};
+window.dfnpanelData['860300d4'] = {"dfnID": "860300d4", "url": "https://infra.spec.whatwg.org/#implementation-defined", "dfnText": "implementation-defined", "refSections": [{"refs": [{"id": "ref-for-implementation-defined"}], "title": "5.2. Capabilities"}, {"refs": [{"id": "ref-for-implementation-defined\u2460"}, {"id": "ref-for-implementation-defined\u2461"}, {"id": "ref-for-implementation-defined\u2462"}], "title": "5.8. Security checks"}, {"refs": [{"id": "ref-for-implementation-defined\u2463"}, {"id": "ref-for-implementation-defined\u2464"}, {"id": "ref-for-implementation-defined\u2465"}, {"id": "ref-for-implementation-defined\u2466"}], "title": "6. Transport"}, {"refs": [{"id": "ref-for-implementation-defined\u2467"}, {"id": "ref-for-implementation-defined\u2468"}], "title": "7.2. The settings Module"}, {"refs": [{"id": "ref-for-implementation-defined\u2460\u24ea"}, {"id": "ref-for-implementation-defined\u2460\u2460"}], "title": "7.3.3.1. The interaction.pressKeys Command"}], "external": true};
+window.dfnpanelData['649608b9'] = {"dfnID": "649608b9", "url": "https://infra.spec.whatwg.org/#list", "dfnText": "list", "refSections": [{"refs": [{"id": "ref-for-list"}, {"id": "ref-for-list\u2460"}], "title": "7.2. The settings Module"}, {"refs": [{"id": "ref-for-list\u2461"}], "title": "7.2.3.3. The settings.getSupportedSettings Command"}, {"refs": [{"id": "ref-for-list\u2462"}], "title": "7.3.3.1. The interaction.pressKeys Command"}], "external": true};
+window.dfnpanelData['3fca5a9e'] = {"dfnID": "3fca5a9e", "url": "https://infra.spec.whatwg.org/#ordered-map", "dfnText": "map", "refSections": [{"refs": [{"id": "ref-for-ordered-map"}, {"id": "ref-for-ordered-map\u2460"}], "title": "5.2. Capabilities"}, {"refs": [{"id": "ref-for-ordered-map\u2461"}, {"id": "ref-for-ordered-map\u2462"}, {"id": "ref-for-ordered-map\u2463"}], "title": "6. Transport"}, {"refs": [{"id": "ref-for-ordered-map\u2464"}], "title": "7.1.3.1. The session.new Command"}, {"refs": [{"id": "ref-for-ordered-map\u2465"}, {"id": "ref-for-ordered-map\u2466"}], "title": "7.2. The settings Module"}, {"refs": [{"id": "ref-for-ordered-map\u2467"}], "title": "7.2.3.1. The settings.setSettings Command"}, {"refs": [{"id": "ref-for-ordered-map\u2468"}], "title": "7.3.3.1. The interaction.pressKeys Command"}, {"refs": [{"id": "ref-for-ordered-map\u2460\u24ea"}, {"id": "ref-for-ordered-map\u2460\u2460"}], "title": "7.3.4.1. The interaction.capturedOutput Event"}], "external": true};
+window.dfnpanelData['8e8decb4'] = {"dfnID": "8e8decb4", "url": "https://infra.spec.whatwg.org/#parse-a-json-string-to-an-infra-value", "dfnText": "parse json into infra values", "refSections": [{"refs": [{"id": "ref-for-parse-a-json-string-to-an-infra-value"}], "title": "6. Transport"}], "external": true};
+window.dfnpanelData['762869d3'] = {"dfnID": "762869d3", "url": "https://infra.spec.whatwg.org/#scalar-value-string", "dfnText": "scalar value string", "refSections": [{"refs": [{"id": "ref-for-scalar-value-string"}], "title": "6. Transport"}], "external": true};
+window.dfnpanelData['4c07280e'] = {"dfnID": "4c07280e", "url": "https://infra.spec.whatwg.org/#serialize-an-infra-value-to-json-bytes", "dfnText": "serialize an infra value to json bytes", "refSections": [{"refs": [{"id": "ref-for-serialize-an-infra-value-to-json-bytes"}, {"id": "ref-for-serialize-an-infra-value-to-json-bytes\u2460"}, {"id": "ref-for-serialize-an-infra-value-to-json-bytes\u2461"}], "title": "6. Transport"}], "external": true};
+window.dfnpanelData['15e48c39'] = {"dfnID": "15e48c39", "url": "https://infra.spec.whatwg.org/#ordered-set", "dfnText": "set", "refSections": [{"refs": [{"id": "ref-for-ordered-set"}], "title": "5.5. Commands"}, {"refs": [{"id": "ref-for-ordered-set\u2460"}, {"id": "ref-for-ordered-set\u2461"}, {"id": "ref-for-ordered-set\u2462"}], "title": "6. Transport"}, {"refs": [{"id": "ref-for-ordered-set\u2463"}], "title": "7.2. The settings Module"}], "external": true};
+window.dfnpanelData['0e6b2056'] = {"dfnID": "0e6b2056", "url": "https://infra.spec.whatwg.org/#map-set", "dfnText": "set (for map)", "refSections": [{"refs": [{"id": "ref-for-map-set"}], "title": "5.2. Capabilities"}], "external": true};
+window.dfnpanelData['653d0848'] = {"dfnID": "653d0848", "url": "https://infra.spec.whatwg.org/#map-size", "dfnText": "size", "refSections": [{"refs": [{"id": "ref-for-map-size"}], "title": "6. Transport"}], "external": true};
+window.dfnpanelData['0698d556'] = {"dfnID": "0698d556", "url": "https://infra.spec.whatwg.org/#string", "dfnText": "string", "refSections": [{"refs": [{"id": "ref-for-string"}, {"id": "ref-for-string\u2460"}, {"id": "ref-for-string\u2461"}, {"id": "ref-for-string\u2462"}, {"id": "ref-for-string\u2463"}, {"id": "ref-for-string\u2464"}], "title": "5.2. Capabilities"}], "external": true};
+window.dfnpanelData['uuid'] = {"dfnID": "uuid", "url": "#uuid", "dfnText": "Universally Unique Identifier (UUID)", "refSections": [{"refs": [{"id": "ref-for-uuid"}], "title": "5.3. Session"}], "external": false};
+window.dfnpanelData['generating-a-uuid'] = {"dfnID": "generating-a-uuid", "url": "#generating-a-uuid", "dfnText": "Generating a UUID", "refSections": [{"refs": [{"id": "ref-for-generating-a-uuid"}], "title": "7.1.3.1. The session.new Command"}], "external": false};
+window.dfnpanelData['success'] = {"dfnID": "success", "url": "#success", "dfnText": "success", "refSections": [{"refs": [{"id": "ref-for-success"}], "title": "3. Infrastructure"}, {"refs": [{"id": "ref-for-success\u2460"}, {"id": "ref-for-success\u2461"}, {"id": "ref-for-success\u2462"}, {"id": "ref-for-success\u2463"}], "title": "5.2. Capabilities"}, {"refs": [{"id": "ref-for-success\u2464"}], "title": "5.5. Commands"}, {"refs": [{"id": "ref-for-success\u2465"}, {"id": "ref-for-success\u2466"}], "title": "5.8. Security checks"}, {"refs": [{"id": "ref-for-success\u2467"}], "title": "7.1.3.1. The session.new Command"}, {"refs": [{"id": "ref-for-success\u2468"}, {"id": "ref-for-success\u2460\u24ea"}], "title": "7.2. The settings Module"}, {"refs": [{"id": "ref-for-success\u2460\u2460"}, {"id": "ref-for-success\u2460\u2461"}], "title": "7.2.3.1. The settings.setSettings Command"}, {"refs": [{"id": "ref-for-success\u2460\u2462"}], "title": "7.2.3.3. The settings.getSupportedSettings Command"}, {"refs": [{"id": "ref-for-success\u2460\u2463"}], "title": "7.3.3.1. The interaction.pressKeys Command"}], "external": false};
+window.dfnpanelData['error'] = {"dfnID": "error", "url": "#error", "dfnText": "error", "refSections": [{"refs": [{"id": "ref-for-error"}, {"id": "ref-for-error\u2460"}], "title": "3. Infrastructure"}, {"refs": [{"id": "ref-for-error\u2461"}], "title": "5.5. Commands"}, {"refs": [{"id": "ref-for-error\u2462"}, {"id": "ref-for-error\u2463"}], "title": "5.8. Security checks"}, {"refs": [{"id": "ref-for-error\u2464"}], "title": "6. Transport"}, {"refs": [{"id": "ref-for-error\u2465"}, {"id": "ref-for-error\u2466"}, {"id": "ref-for-error\u2467"}, {"id": "ref-for-error\u2468"}], "title": "7.1.3.1. The session.new Command"}, {"refs": [{"id": "ref-for-error\u2460\u24ea"}, {"id": "ref-for-error\u2460\u2460"}, {"id": "ref-for-error\u2460\u2461"}], "title": "7.2. The settings Module"}], "external": false};
+window.dfnpanelData['try'] = {"dfnID": "try", "url": "#try", "dfnText": "trying", "refSections": [{"refs": [{"id": "ref-for-try"}], "title": "5.2. Capabilities"}, {"refs": [{"id": "ref-for-try\u2460"}], "title": "7.1.3.1. The session.new Command"}, {"refs": [{"id": "ref-for-try\u2461"}], "title": "7.2.3.1. The settings.setSettings Command"}, {"refs": [{"id": "ref-for-try\u2462"}, {"id": "ref-for-try\u2463"}], "title": "7.3.3.1. The interaction.pressKeys Command"}], "external": false};
+window.dfnpanelData['local-end'] = {"dfnID": "local-end", "url": "#local-end", "dfnText": "local end", "refSections": [{"refs": [{"id": "ref-for-local-end"}, {"id": "ref-for-local-end\u2460"}], "title": "5. Protocol"}, {"refs": [{"id": "ref-for-local-end\u2461"}], "title": "5.2. Capabilities"}, {"refs": [{"id": "ref-for-local-end\u2462"}], "title": "5.3. Session"}, {"refs": [{"id": "ref-for-local-end\u2463"}, {"id": "ref-for-local-end\u2464"}, {"id": "ref-for-local-end\u2465"}, {"id": "ref-for-local-end\u2466"}], "title": "5.5. Commands"}, {"refs": [{"id": "ref-for-local-end\u2467"}], "title": "5.6. Events"}], "external": false};
+window.dfnpanelData['remote-end'] = {"dfnID": "remote-end", "url": "#remote-end", "dfnText": "remote end", "refSections": [{"refs": [{"id": "ref-for-remote-end"}, {"id": "ref-for-remote-end\u2460"}], "title": "5. Protocol"}, {"refs": [{"id": "ref-for-remote-end\u2461"}, {"id": "ref-for-remote-end\u2462"}, {"id": "ref-for-remote-end\u2463"}, {"id": "ref-for-remote-end\u2464"}, {"id": "ref-for-remote-end\u2465"}, {"id": "ref-for-remote-end\u2466"}], "title": "5.2. Capabilities"}, {"refs": [{"id": "ref-for-remote-end\u2467"}, {"id": "ref-for-remote-end\u2468"}], "title": "5.3. Session"}, {"refs": [{"id": "ref-for-remote-end\u2460\u24ea"}, {"id": "ref-for-remote-end\u2460\u2460"}], "title": "5.5. Commands"}, {"refs": [{"id": "ref-for-remote-end\u2460\u2461"}, {"id": "ref-for-remote-end\u2460\u2462"}], "title": "5.6. Events"}, {"refs": [{"id": "ref-for-remote-end\u2460\u2463"}, {"id": "ref-for-remote-end\u2460\u2464"}], "title": "5.7. Errors"}, {"refs": [{"id": "ref-for-remote-end\u2460\u2465"}], "title": "5.8. Security checks"}, {"refs": [{"id": "ref-for-remote-end\u2460\u2466"}, {"id": "ref-for-remote-end\u2460\u2467"}, {"id": "ref-for-remote-end\u2460\u2468"}, {"id": "ref-for-remote-end\u2461\u24ea"}, {"id": "ref-for-remote-end\u2461\u2460"}, {"id": "ref-for-remote-end\u2461\u2461"}], "title": "6. Transport"}, {"refs": [{"id": "ref-for-remote-end\u2461\u2462"}, {"id": "ref-for-remote-end\u2461\u2463"}], "title": "7.2. The settings Module"}, {"refs": [{"id": "ref-for-remote-end\u2461\u2464"}], "title": "7.2.3.3. The settings.getSupportedSettings Command"}, {"refs": [{"id": "ref-for-remote-end\u2461\u2465"}], "title": "8. Privacy"}], "external": false};
+window.dfnpanelData['remote-end-definition'] = {"dfnID": "remote-end-definition", "url": "#remote-end-definition", "dfnText": "remote end definition", "refSections": [{"refs": [{"id": "ref-for-remote-end-definition"}], "title": "5.1. Definition"}, {"refs": [{"id": "ref-for-remote-end-definition\u2460"}, {"id": "ref-for-remote-end-definition\u2461"}], "title": "5.4. Modules"}, {"refs": [{"id": "ref-for-remote-end-definition\u2462"}], "title": "5.5. Commands"}, {"refs": [{"id": "ref-for-remote-end-definition\u2463"}], "title": "6. Transport"}, {"refs": [{"id": "ref-for-remote-end-definition\u2464"}], "title": "7.1.1. Definition"}, {"refs": [{"id": "ref-for-remote-end-definition\u2465"}], "title": "7.1.2.1. The session.CapabilitiesRequest Type"}, {"refs": [{"id": "ref-for-remote-end-definition\u2466"}], "title": "7.2.1. Definition"}, {"refs": [{"id": "ref-for-remote-end-definition\u2467"}], "title": "7.3.1. Definition"}, {"refs": [{"id": "ref-for-remote-end-definition\u2468"}], "title": "Appendix A: Schemas"}], "external": false};
+window.dfnpanelData['local-end-definition'] = {"dfnID": "local-end-definition", "url": "#local-end-definition", "dfnText": "local end definition", "refSections": [{"refs": [{"id": "ref-for-local-end-definition"}], "title": "5.1. Definition"}, {"refs": [{"id": "ref-for-local-end-definition\u2460"}], "title": "5.4. Modules"}, {"refs": [{"id": "ref-for-local-end-definition\u2461"}], "title": "5.5. Commands"}, {"refs": [{"id": "ref-for-local-end-definition\u2462"}], "title": "5.6. Events"}, {"refs": [{"id": "ref-for-local-end-definition\u2463"}, {"id": "ref-for-local-end-definition\u2464"}], "title": "6. Transport"}, {"refs": [{"id": "ref-for-local-end-definition\u2465"}], "title": "7.1.1. Definition"}, {"refs": [{"id": "ref-for-local-end-definition\u2466"}], "title": "7.1.2.1. The session.CapabilitiesRequest Type"}, {"refs": [{"id": "ref-for-local-end-definition\u2467"}], "title": "7.2. The settings Module"}, {"refs": [{"id": "ref-for-local-end-definition\u2468"}], "title": "7.2.1. Definition"}, {"refs": [{"id": "ref-for-local-end-definition\u2460\u24ea"}], "title": "7.2.2.1. The SettingsGetSettingsResult type"}, {"refs": [{"id": "ref-for-local-end-definition\u2460\u2460"}], "title": "7.3.1. Definition"}, {"refs": [{"id": "ref-for-local-end-definition\u2460\u2461"}], "title": "Appendix A: Schemas"}], "external": false};
+window.dfnpanelData['extension-capabilities'] = {"dfnID": "extension-capabilities", "url": "#extension-capabilities", "dfnText": "extension capabilities", "refSections": [{"refs": [{"id": "ref-for-extension-capabilities"}, {"id": "ref-for-extension-capabilities\u2460"}], "title": "5.2. Capabilities"}], "external": false};
+window.dfnpanelData['process-capabilities'] = {"dfnID": "process-capabilities", "url": "#process-capabilities", "dfnText": "process capabilities", "refSections": [{"refs": [{"id": "ref-for-process-capabilities"}], "title": "7.1.3.1. The session.new Command"}], "external": false};
+window.dfnpanelData['match-capabilities'] = {"dfnID": "match-capabilities", "url": "#match-capabilities", "dfnText": "match capabilities", "refSections": [{"refs": [{"id": "ref-for-match-capabilities"}], "title": "5.2. Capabilities"}], "external": false};
+window.dfnpanelData['session'] = {"dfnID": "session", "url": "#session", "dfnText": "session", "refSections": [{"refs": [{"id": "ref-for-session"}, {"id": "ref-for-session\u2460"}], "title": "2. Explainer"}, {"refs": [{"id": "ref-for-session\u2461"}, {"id": "ref-for-session\u2462"}], "title": "5.2. Capabilities"}, {"refs": [{"id": "ref-for-session\u2463"}, {"id": "ref-for-session\u2464"}], "title": "5.3. Session"}, {"refs": [{"id": "ref-for-session\u2465"}], "title": "5.5. Commands"}, {"refs": [{"id": "ref-for-session\u2466"}, {"id": "ref-for-session\u2467"}], "title": "5.7. Errors"}, {"refs": [{"id": "ref-for-session\u2468"}, {"id": "ref-for-session\u2460\u24ea"}, {"id": "ref-for-session\u2460\u2460"}, {"id": "ref-for-session\u2460\u2461"}, {"id": "ref-for-session\u2460\u2462"}, {"id": "ref-for-session\u2460\u2463"}], "title": "6. Transport"}, {"refs": [{"id": "ref-for-session\u2460\u2464"}, {"id": "ref-for-session\u2460\u2465"}], "title": "7.1.3.1. The session.new Command"}], "external": false};
+window.dfnpanelData['remote-end-active-sessions'] = {"dfnID": "remote-end-active-sessions", "url": "#remote-end-active-sessions", "dfnText": "active sessions", "refSections": [{"refs": [{"id": "ref-for-remote-end-active-sessions"}], "title": "5.3. Session"}, {"refs": [{"id": "ref-for-remote-end-active-sessions\u2460"}, {"id": "ref-for-remote-end-active-sessions\u2461"}], "title": "6. Transport"}, {"refs": [{"id": "ref-for-remote-end-active-sessions\u2462"}, {"id": "ref-for-remote-end-active-sessions\u2463"}], "title": "7.1.3.1. The session.new Command"}, {"refs": [{"id": "ref-for-remote-end-active-sessions\u2464"}], "title": "7.3.4.1. The interaction.capturedOutput Event"}], "external": false};
+window.dfnpanelData['session-session-id'] = {"dfnID": "session-session-id", "url": "#session-session-id", "dfnText": "session ID", "refSections": [{"refs": [{"id": "ref-for-session-session-id"}], "title": "6. Transport"}, {"refs": [{"id": "ref-for-session-session-id\u2460"}, {"id": "ref-for-session-session-id\u2461"}], "title": "7.1.3.1. The session.new Command"}], "external": false};
+window.dfnpanelData['module'] = {"dfnID": "module", "url": "#module", "dfnText": "module", "refSections": [{"refs": [{"id": "ref-for-module"}], "title": "2. Explainer"}, {"refs": [{"id": "ref-for-module\u2460"}, {"id": "ref-for-module\u2461"}], "title": "7.2. The settings Module"}], "external": false};
+window.dfnpanelData['module-name'] = {"dfnID": "module-name", "url": "#module-name", "dfnText": "module name", "refSections": [{"refs": [{"id": "ref-for-module-name"}], "title": "5.4. Modules"}], "external": false};
+window.dfnpanelData['extension-modules'] = {"dfnID": "extension-modules", "url": "#extension-modules", "dfnText": "extension modules", "refSections": [{"refs": [{"id": "ref-for-extension-modules"}], "title": "5.5. Commands"}], "external": false};
+window.dfnpanelData['command'] = {"dfnID": "command", "url": "#command", "dfnText": "command", "refSections": [{"refs": [{"id": "ref-for-command"}, {"id": "ref-for-command\u2460"}, {"id": "ref-for-command\u2461"}], "title": "5.4. Modules"}, {"refs": [{"id": "ref-for-command\u2462"}], "title": "5.5. Commands"}, {"refs": [{"id": "ref-for-command\u2463"}, {"id": "ref-for-command\u2464"}], "title": "5.7. Errors"}], "external": false};
+window.dfnpanelData['command-type'] = {"dfnID": "command-type", "url": "#command-type", "dfnText": "command type", "refSections": [{"refs": [{"id": "ref-for-command-type"}], "title": "7.1.3.1. The session.new Command"}, {"refs": [{"id": "ref-for-command-type\u2460"}], "title": "7.2.3.1. The settings.setSettings Command"}, {"refs": [{"id": "ref-for-command-type\u2461"}], "title": "7.2.3.2. The settings.getSettings Command"}, {"refs": [{"id": "ref-for-command-type\u2462"}], "title": "7.2.3.3. The settings.getSupportedSettings Command"}, {"refs": [{"id": "ref-for-command-type\u2463"}], "title": "7.3.3.1. The interaction.pressKeys Command"}], "external": false};
+window.dfnpanelData['command-name'] = {"dfnID": "command-name", "url": "#command-name", "dfnText": "command name", "refSections": [{"refs": [{"id": "ref-for-command-name"}], "title": "5.4. Modules"}, {"refs": [{"id": "ref-for-command-name\u2460"}], "title": "5.5. Commands"}, {"refs": [{"id": "ref-for-command-name\u2461"}, {"id": "ref-for-command-name\u2462"}], "title": "6. Transport"}], "external": false};
+window.dfnpanelData['command-parameters'] = {"dfnID": "command-parameters", "url": "#command-parameters", "dfnText": "command parameters", "refSections": [{"refs": [{"id": "ref-for-command-parameters"}], "title": "5.5. Commands"}, {"refs": [{"id": "ref-for-command-parameters\u2460"}], "title": "6. Transport"}], "external": false};
+window.dfnpanelData['result-type'] = {"dfnID": "result-type", "url": "#result-type", "dfnText": "result type", "refSections": [{"refs": [{"id": "ref-for-result-type"}], "title": "5.5. Commands"}, {"refs": [{"id": "ref-for-result-type\u2460"}], "title": "6. Transport"}, {"refs": [{"id": "ref-for-result-type\u2461"}], "title": "7.1.3.1. The session.new Command"}, {"refs": [{"id": "ref-for-result-type\u2462"}], "title": "7.2.3.1. The settings.setSettings Command"}, {"refs": [{"id": "ref-for-result-type\u2463"}], "title": "7.2.3.2. The settings.getSettings Command"}, {"refs": [{"id": "ref-for-result-type\u2464"}], "title": "7.2.3.3. The settings.getSupportedSettings Command"}], "external": false};
+window.dfnpanelData['remote-end-steps'] = {"dfnID": "remote-end-steps", "url": "#remote-end-steps", "dfnText": "remote end steps", "refSections": [{"refs": [{"id": "ref-for-remote-end-steps"}], "title": "6. Transport"}, {"refs": [{"id": "ref-for-remote-end-steps\u2460"}], "title": "7.1.3.1. The session.new Command"}, {"refs": [{"id": "ref-for-remote-end-steps\u2461"}], "title": "7.2.3.1. The settings.setSettings Command"}, {"refs": [{"id": "ref-for-remote-end-steps\u2462"}], "title": "7.2.3.2. The settings.getSettings Command"}, {"refs": [{"id": "ref-for-remote-end-steps\u2463"}], "title": "7.2.3.3. The settings.getSupportedSettings Command"}, {"refs": [{"id": "ref-for-remote-end-steps\u2464"}], "title": "7.3.3.1. The interaction.pressKeys Command"}], "external": false};
+window.dfnpanelData['static-command'] = {"dfnID": "static-command", "url": "#static-command", "dfnText": "static command", "refSections": [{"refs": [{"id": "ref-for-static-command"}], "title": "6. Transport"}, {"refs": [{"id": "ref-for-static-command\u2460"}], "title": "7.1.3.1. The session.new Command"}], "external": false};
+window.dfnpanelData['set-of-all-command-names'] = {"dfnID": "set-of-all-command-names", "url": "#set-of-all-command-names", "dfnText": "set of all command names", "refSections": [{"refs": [{"id": "ref-for-set-of-all-command-names"}], "title": "6. Transport"}], "external": false};
+window.dfnpanelData['event'] = {"dfnID": "event", "url": "#event", "dfnText": "event", "refSections": [{"refs": [{"id": "ref-for-event"}, {"id": "ref-for-event\u2460"}], "title": "5.4. Modules"}], "external": false};
+window.dfnpanelData['event-type'] = {"dfnID": "event-type", "url": "#event-type", "dfnText": "event type", "refSections": [{"refs": [{"id": "ref-for-event-type"}], "title": "5.6. Events"}], "external": false};
+window.dfnpanelData['event-name'] = {"dfnID": "event-name", "url": "#event-name", "dfnText": "event name", "refSections": [{"refs": [{"id": "ref-for-event-name"}], "title": "5.4. Modules"}], "external": false};
+window.dfnpanelData['remote-end-event-trigger'] = {"dfnID": "remote-end-event-trigger", "url": "#remote-end-event-trigger", "dfnText": "remote end event trigger", "refSections": [{"refs": [{"id": "ref-for-remote-end-event-trigger"}], "title": "7.3.4.1. The interaction.capturedOutput Event"}], "external": false};
+window.dfnpanelData['error-code'] = {"dfnID": "error-code", "url": "#error-code", "dfnText": "error code", "refSections": [{"refs": [{"id": "ref-for-error-code"}], "title": "3. Infrastructure"}, {"refs": [{"id": "ref-for-error-code\u2460"}, {"id": "ref-for-error-code\u2461"}], "title": "5.8. Security checks"}, {"refs": [{"id": "ref-for-error-code\u2462"}], "title": "6. Transport"}, {"refs": [{"id": "ref-for-error-code\u2463"}, {"id": "ref-for-error-code\u2464"}, {"id": "ref-for-error-code\u2465"}], "title": "7.2. The settings Module"}], "external": false};
+window.dfnpanelData['error-code-invalid-argument'] = {"dfnID": "error-code-invalid-argument", "url": "#error-code-invalid-argument", "dfnText": "invalid argument", "refSections": [{"refs": [{"id": "ref-for-error-code-invalid-argument"}, {"id": "ref-for-error-code-invalid-argument\u2460"}, {"id": "ref-for-error-code-invalid-argument\u2461"}], "title": "6. Transport"}, {"refs": [{"id": "ref-for-error-code-invalid-argument\u2462"}, {"id": "ref-for-error-code-invalid-argument\u2463"}, {"id": "ref-for-error-code-invalid-argument\u2464"}], "title": "7.2. The settings Module"}], "external": false};
+window.dfnpanelData['error-code-invalid-session-id'] = {"dfnID": "error-code-invalid-session-id", "url": "#error-code-invalid-session-id", "dfnText": "invalid session id", "refSections": [{"refs": [{"id": "ref-for-error-code-invalid-session-id"}], "title": "6. Transport"}], "external": false};
+window.dfnpanelData['error-code-unknown-command'] = {"dfnID": "error-code-unknown-command", "url": "#error-code-unknown-command", "dfnText": "unknown command", "refSections": [{"refs": [{"id": "ref-for-error-code-unknown-command"}], "title": "6. Transport"}], "external": false};
+window.dfnpanelData['error-code-session-not-created'] = {"dfnID": "error-code-session-not-created", "url": "#error-code-session-not-created", "dfnText": "session not created", "refSections": [{"refs": [{"id": "ref-for-error-code-session-not-created"}, {"id": "ref-for-error-code-session-not-created\u2460"}, {"id": "ref-for-error-code-session-not-created\u2461"}, {"id": "ref-for-error-code-session-not-created\u2462"}], "title": "7.1.3.1. The session.new Command"}], "external": false};
+window.dfnpanelData['error-code-cannot-simulate-keyboard-interaction'] = {"dfnID": "error-code-cannot-simulate-keyboard-interaction", "url": "#error-code-cannot-simulate-keyboard-interaction", "dfnText": "cannot simulate keyboard interaction", "refSections": [{"refs": [{"id": "ref-for-error-code-cannot-simulate-keyboard-interaction"}], "title": "5.8. Security checks"}], "external": false};
+window.dfnpanelData['error-code-invalid-os-focus-state'] = {"dfnID": "error-code-invalid-os-focus-state", "url": "#error-code-invalid-os-focus-state", "dfnText": "invalid OS focus state", "refSections": [{"refs": [{"id": "ref-for-error-code-invalid-os-focus-state"}], "title": "5.8. Security checks"}], "external": false};
+window.dfnpanelData['check-that-keyboard-interaction-can-be-simulated'] = {"dfnID": "check-that-keyboard-interaction-can-be-simulated", "url": "#check-that-keyboard-interaction-can-be-simulated", "dfnText": "check that keyboard interaction can be simulated", "refSections": [{"refs": [{"id": "ref-for-check-that-keyboard-interaction-can-be-simulated"}], "title": "7.3.3.1. The interaction.pressKeys Command"}], "external": false};
+window.dfnpanelData['check-that-one-of-the-expected-applications-has-focus'] = {"dfnID": "check-that-one-of-the-expected-applications-has-focus", "url": "#check-that-one-of-the-expected-applications-has-focus", "dfnText": "check that one of the expected applications has focus", "refSections": [{"refs": [{"id": "ref-for-check-that-one-of-the-expected-applications-has-focus"}], "title": "7.3.3.1. The interaction.pressKeys Command"}], "external": false};
+window.dfnpanelData['should-be-withheld'] = {"dfnID": "should-be-withheld", "url": "#should-be-withheld", "dfnText": "should be withheld", "refSections": [{"refs": [{"id": "ref-for-should-be-withheld"}], "title": "7.3.4.1. The interaction.capturedOutput Event"}], "external": false};
+window.dfnpanelData['websocket-listener'] = {"dfnID": "websocket-listener", "url": "#websocket-listener", "dfnText": "WebSocket listener", "refSections": [{"refs": [{"id": "ref-for-websocket-listener"}, {"id": "ref-for-websocket-listener\u2460"}, {"id": "ref-for-websocket-listener\u2461"}, {"id": "ref-for-websocket-listener\u2462"}], "title": "6. Transport"}], "external": false};
+window.dfnpanelData['websocket-listener-host'] = {"dfnID": "websocket-listener-host", "url": "#websocket-listener-host", "dfnText": "host", "refSections": [{"refs": [{"id": "ref-for-websocket-listener-host"}], "title": "6. Transport"}], "external": false};
+window.dfnpanelData['websocket-listener-port'] = {"dfnID": "websocket-listener-port", "url": "#websocket-listener-port", "dfnText": "port", "refSections": [{"refs": [{"id": "ref-for-websocket-listener-port"}], "title": "6. Transport"}], "external": false};
+window.dfnpanelData['websocket-listener-secure-flag'] = {"dfnID": "websocket-listener-secure-flag", "url": "#websocket-listener-secure-flag", "dfnText": "secure flag", "refSections": [{"refs": [{"id": "ref-for-websocket-listener-secure-flag"}, {"id": "ref-for-websocket-listener-secure-flag\u2460"}], "title": "6. Transport"}], "external": false};
+window.dfnpanelData['remote-end-active-listeners'] = {"dfnID": "remote-end-active-listeners", "url": "#remote-end-active-listeners", "dfnText": "active listeners", "refSections": [{"refs": [{"id": "ref-for-remote-end-active-listeners"}, {"id": "ref-for-remote-end-active-listeners\u2460"}], "title": "6. Transport"}], "external": false};
+window.dfnpanelData['remote-end-websocket-connections-not-associated-with-a-session'] = {"dfnID": "remote-end-websocket-connections-not-associated-with-a-session", "url": "#remote-end-websocket-connections-not-associated-with-a-session", "dfnText": "WebSocket connections not associated with a session", "refSections": [{"refs": [{"id": "ref-for-remote-end-websocket-connections-not-associated-with-a-session"}, {"id": "ref-for-remote-end-websocket-connections-not-associated-with-a-session\u2460"}, {"id": "ref-for-remote-end-websocket-connections-not-associated-with-a-session\u2461"}, {"id": "ref-for-remote-end-websocket-connections-not-associated-with-a-session\u2462"}], "title": "6. Transport"}], "external": false};
+window.dfnpanelData['websocket-connection'] = {"dfnID": "websocket-connection", "url": "#websocket-connection", "dfnText": "WebSocket connection", "refSections": [{"refs": [{"id": "ref-for-websocket-connection"}, {"id": "ref-for-websocket-connection\u2460"}, {"id": "ref-for-websocket-connection\u2461"}, {"id": "ref-for-websocket-connection\u2462"}, {"id": "ref-for-websocket-connection\u2463"}, {"id": "ref-for-websocket-connection\u2464"}, {"id": "ref-for-websocket-connection\u2465"}], "title": "6. Transport"}], "external": false};
+window.dfnpanelData['session-session-websocket-connections'] = {"dfnID": "session-session-websocket-connections", "url": "#session-session-websocket-connections", "dfnText": "session WebSocket connections", "refSections": [{"refs": [{"id": "ref-for-session-session-websocket-connections"}, {"id": "ref-for-session-session-websocket-connections\u2460"}, {"id": "ref-for-session-session-websocket-connections\u2461"}, {"id": "ref-for-session-session-websocket-connections\u2462"}, {"id": "ref-for-session-session-websocket-connections\u2463"}], "title": "6. Transport"}], "external": false};
+window.dfnpanelData['session-associated-with-connection'] = {"dfnID": "session-associated-with-connection", "url": "#session-associated-with-connection", "dfnText": "associated with connection", "refSections": [{"refs": [{"id": "ref-for-session-associated-with-connection"}, {"id": "ref-for-session-associated-with-connection\u2460"}, {"id": "ref-for-session-associated-with-connection\u2461"}], "title": "6. Transport"}], "external": false};
+window.dfnpanelData['start-listening-for-a-websocket-connection'] = {"dfnID": "start-listening-for-a-websocket-connection", "url": "#start-listening-for-a-websocket-connection", "dfnText": "start listening for a WebSocket connection", "refSections": [{"refs": [{"id": "ref-for-start-listening-for-a-websocket-connection"}], "title": "6.1. Establishing a Connection"}], "external": false};
+window.dfnpanelData['handle-an-incoming-message'] = {"dfnID": "handle-an-incoming-message", "url": "#handle-an-incoming-message", "dfnText": "handle an incoming message", "refSections": [{"refs": [{"id": "ref-for-handle-an-incoming-message"}], "title": "6. Transport"}], "external": false};
+window.dfnpanelData['emit-an-event'] = {"dfnID": "emit-an-event", "url": "#emit-an-event", "dfnText": "emit an event", "refSections": [{"refs": [{"id": "ref-for-emit-an-event"}], "title": "7.3.4.1. The interaction.capturedOutput Event"}], "external": false};
+window.dfnpanelData['send-an-error-response'] = {"dfnID": "send-an-error-response", "url": "#send-an-error-response", "dfnText": "send an error response", "refSections": [{"refs": [{"id": "ref-for-send-an-error-response"}, {"id": "ref-for-send-an-error-response\u2460"}, {"id": "ref-for-send-an-error-response\u2461"}, {"id": "ref-for-send-an-error-response\u2462"}, {"id": "ref-for-send-an-error-response\u2463"}], "title": "6. Transport"}], "external": false};
+window.dfnpanelData['handle-a-connection-closing'] = {"dfnID": "handle-a-connection-closing", "url": "#handle-a-connection-closing", "dfnText": "handle a connection closing", "refSections": [{"refs": [{"id": "ref-for-handle-a-connection-closing"}], "title": "6. Transport"}], "external": false};
+window.dfnpanelData['remote-end-supported-settings'] = {"dfnID": "remote-end-supported-settings", "url": "#remote-end-supported-settings", "dfnText": "supported settings", "refSections": [{"refs": [{"id": "ref-for-remote-end-supported-settings"}, {"id": "ref-for-remote-end-supported-settings\u2460"}], "title": "7.2. The settings Module"}, {"refs": [{"id": "ref-for-remote-end-supported-settings\u2461"}, {"id": "ref-for-remote-end-supported-settings\u2462"}], "title": "7.2.3.3. The settings.getSupportedSettings Command"}], "external": false};
+window.dfnpanelData['validate-setting-name'] = {"dfnID": "validate-setting-name", "url": "#validate-setting-name", "dfnText": "validate setting name", "refSections": [{"refs": [{"id": "ref-for-validate-setting-name"}, {"id": "ref-for-validate-setting-name\u2460"}], "title": "7.2. The settings Module"}], "external": false};
+window.dfnpanelData['get-settings'] = {"dfnID": "get-settings", "url": "#get-settings", "dfnText": "get settings", "refSections": [{"refs": [{"id": "ref-for-get-settings"}], "title": "7.2.3.2. The settings.getSettings Command"}, {"refs": [{"id": "ref-for-get-settings\u2460"}], "title": "7.2.3.3. The settings.getSupportedSettings Command"}], "external": false};
+window.dfnpanelData['modify-setting'] = {"dfnID": "modify-setting", "url": "#modify-setting", "dfnText": "modify setting", "refSections": [{"refs": [{"id": "ref-for-modify-setting"}], "title": "7.2.3.1. The settings.setSettings Command"}], "external": false};
+window.dfnpanelData['settingssetsettings'] = {"dfnID": "settingssetsettings", "url": "#settingssetsettings", "dfnText": "settings.setSettings", "refSections": [{"refs": [{"id": "ref-for-settingssetsettings"}], "title": "7.2.3.1. The settings.setSettings Command"}], "external": false};
+</script>
+<script>/* Boilerplate: script-dom-helper */
+function query(sel) { return document.querySelector(sel); }
+
+function queryAll(sel) { return [...document.querySelectorAll(sel)]; }
+
+function iter(obj) {
+	if(!obj) return [];
+	var it = obj[Symbol.iterator];
+	if(it) return it;
+	return Object.entries(obj);
+}
+
+function mk(tagname, attrs, ...children) {
+	const el = document.createElement(tagname);
+	for(const [k,v] of iter(attrs)) {
+		if(k.slice(0,3) == "_on") {
+			const eventName = k.slice(3);
+			el.addEventListener(eventName, v);
+		} else if(k[0] == "_") {
+			// property, not attribute
+			el[k.slice(1)] = v;
+		} else {
+			if(v === false || v == null) {
+        continue;
+      } else if(v === true) {
+        el.setAttribute(k, "");
+        continue;
+      } else {
+  			el.setAttribute(k, v);
+      }
+		}
+	}
+	append(el, children);
+	return el;
+}
+
+/* Create shortcuts for every known HTML element */
+[
+  "a",
+  "abbr",
+  "acronym",
+  "address",
+  "applet",
+  "area",
+  "article",
+  "aside",
+  "audio",
+  "b",
+  "base",
+  "basefont",
+  "bdo",
+  "big",
+  "blockquote",
+  "body",
+  "br",
+  "button",
+  "canvas",
+  "caption",
+  "center",
+  "cite",
+  "code",
+  "col",
+  "colgroup",
+  "datalist",
+  "dd",
+  "del",
+  "details",
+  "dfn",
+  "dialog",
+  "div",
+  "dl",
+  "dt",
+  "em",
+  "embed",
+  "fieldset",
+  "figcaption",
+  "figure",
+  "font",
+  "footer",
+  "form",
+  "frame",
+  "frameset",
+  "head",
+  "header",
+  "h1",
+  "h2",
+  "h3",
+  "h4",
+  "h5",
+  "h6",
+  "hr",
+  "html",
+  "i",
+  "iframe",
+  "img",
+  "input",
+  "ins",
+  "kbd",
+  "label",
+  "legend",
+  "li",
+  "link",
+  "main",
+  "map",
+  "mark",
+  "meta",
+  "meter",
+  "nav",
+  "nobr",
+  "noscript",
+  "object",
+  "ol",
+  "optgroup",
+  "option",
+  "output",
+  "p",
+  "param",
+  "pre",
+  "progress",
+  "q",
+  "s",
+  "samp",
+  "script",
+  "section",
+  "select",
+  "small",
+  "source",
+  "span",
+  "strike",
+  "strong",
+  "style",
+  "sub",
+  "summary",
+  "sup",
+  "table",
+  "tbody",
+  "td",
+  "template",
+  "textarea",
+  "tfoot",
+  "th",
+  "thead",
+  "time",
+  "title",
+  "tr",
+  "u",
+  "ul",
+  "var",
+  "video",
+  "wbr",
+  "xmp",
+].forEach(tagname=>{
+	mk[tagname] = (...args) => mk(tagname, ...args);
+});
+
+function* nodesFromChildList(children) {
+	for(const child of children.flat(Infinity)) {
+		if(child instanceof Node) {
+			yield child;
+		} else {
+			yield new Text(child);
+		}
+	}
+}
+function append(el, ...children) {
+	for(const child of nodesFromChildList(children)) {
+		if(el instanceof Node) el.appendChild(child);
+		else el.push(child);
+	}
+	return el;
+}
+
+function insertAfter(el, ...children) {
+	for(const child of nodesFromChildList(children)) {
+		el.parentNode.insertBefore(child, el.nextSibling);
+	}
+	return el;
+}
+
+function clearContents(el) {
+	el.innerHTML = "";
+	return el;
+}
+
+function parseHTML(markup) {
+	if(markup.toLowerCase().trim().indexOf('<!doctype') === 0) {
+		const doc = document.implementation.createHTMLDocument("");
+		doc.documentElement.innerHTML = markup;
+		return doc;
+	} else {
+		const el = mk.template({});
+		el.innerHTML = markup;
+		return el.content;
+	}
+}
+</script>
+<script>/* Boilerplate: script-var-click-highlighting */
+/*
+Color-choosing design:
+
+Colors are ordered by goodness.
+Each color has a usage count (initially zero).
+Each variable has a last-used color.
+
+* If the var has a last-used color, and that color's usage is 0,
+    return that color.
+* Otherwise, return the lowest-indexed color with the lowest usage.
+    Increment the color's usage and set it as the last-used color
+    for that var.
+* On unclicking, decrement usage of the color.
+*/
+"use strict";
+{
+    document.addEventListener("click", e=>{
+        if(e.target.nodeName == "VAR") {
+            highlightSameAlgoVars(e.target);
+        }
+    });
+    const indexCounts = new Map();
+    const indexNames = new Map();
+    function highlightSameAlgoVars(v) {
+        // Find the algorithm container.
+        let algoContainer = null;
+        let searchEl = v;
+        while(algoContainer == null && searchEl != document.body) {
+            searchEl = searchEl.parentNode;
+            if(searchEl.hasAttribute("data-algorithm")) {
+                algoContainer = searchEl;
+            }
+        }
+
+        // Not highlighting document-global vars,
+        // too likely to be unrelated.
+        if(algoContainer == null) return;
+
+        const algoName = algoContainer.getAttribute("data-algorithm");
+        const varName = getVarName(v);
+        const addClass = !v.classList.contains("selected");
+        let highlightClass = null;
+        if(addClass) {
+            const index = chooseHighlightIndex(algoName, varName);
+            indexCounts.get(algoName)[index] += 1;
+            indexNames.set(algoName+"///"+varName, index);
+            highlightClass = nameFromIndex(index);
+        } else {
+            const index = previousHighlightIndex(algoName, varName);
+            indexCounts.get(algoName)[index] -= 1;
+            highlightClass = nameFromIndex(index);
+        }
+
+        // Find all same-name vars, and toggle their class appropriately.
+        for(const el of algoContainer.querySelectorAll("var")) {
+            if(getVarName(el) == varName) {
+                el.classList.toggle("selected", addClass);
+                el.classList.toggle(highlightClass, addClass);
+            }
+        }
+    }
+    function getVarName(el) {
+        return el.textContent.replace(/(\s|\xa0)+/, " ").trim();
+    }
+    function chooseHighlightIndex(algoName, varName) {
+        let indexes = null;
+        if(indexCounts.has(algoName)) {
+            indexes = indexCounts.get(algoName);
+        } else {
+            // 7 classes right now
+            indexes = [0,0,0,0,0,0,0];
+            indexCounts.set(algoName, indexes);
+        }
+
+        // If the element was recently unclicked,
+        // *and* that color is still unclaimed,
+        // give it back the same color.
+        const lastIndex = previousHighlightIndex(algoName, varName);
+        if(indexes[lastIndex] === 0) return lastIndex;
+
+        // Find the earliest index with the lowest count.
+        const minCount = Math.min.apply(null, indexes);
+        let index = null;
+        for(var i = 0; i < indexes.length; i++) {
+            if(indexes[i] == minCount) {
+                return i;
+            }
+        }
+    }
+    function previousHighlightIndex(algoName, varName) {
+        return indexNames.get(algoName+"///"+varName);
+    }
+    function nameFromIndex(index) {
+        return "selected" + index;
+    }
+}
+</script>
