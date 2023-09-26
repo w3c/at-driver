@@ -2,12 +2,6 @@
 
 **at-driver** &middot; [aria-at-automation-harness](https://github.com/w3c/aria-at-automation-harness) &middot; [aria-at-automation-driver](https://github.com/w3c/aria-at-automation-driver) &middot; [aria-at-automation-results-viewer](https://github.com/w3c/aria-at-automation-results-viewer)
 
-## Authors
-
-* Mike Pennisi
-* Simon Pieters
-
-
 ## Overview
 
 [The WebDriver protocol](https://w3c.github.io/webdriver/#extensions-0) is a [W3C](https://www.w3.org/) standard created for automating web browsers. The goal of [the ARIA-AT project](https://aria-at.w3.org/) is to enable the automation of screen readers and web browsers, and for that purpose, WebDriver is insufficient.
