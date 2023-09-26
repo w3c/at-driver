@@ -1,6 +1,5 @@
 # AT Driver API Explainer
 
-**at-driver** &middot; [aria-at-automation-harness](https://github.com/w3c/aria-at-automation-harness) &middot; [aria-at-automation-driver](https://github.com/w3c/aria-at-automation-driver) &middot; [aria-at-automation-results-viewer](https://github.com/w3c/aria-at-automation-results-viewer)
 
 ## Overview
 
@@ -127,17 +126,10 @@ We have chosen not to proceed in this direction because we believe developers wo
 * [ARIA-AT](https://aria-at.w3.org/)
 * [WebDriver](https://w3c.github.io/webdriver/)
 
----
+## Implementations
 
-### at-driver
+**[Generic Driver](https://github.com/w3c/aria-at-automation-driver)**
+A partial implementation which integrates with operating system APIs rather than any particular assistive technology.
 
-A collection of projects for automating assistive technology tests from [w3c/aria-at](https://github.com/w3c/aria-at) and beyond
-
-**[aria-at-automation-harness](https://github.com/w3c/aria-at-automation-harness)**
-A command-line utility for executing test plans from [w3c/aria-at](https://github.com/w3c/aria-at) without human intervention using [the aria-at-automation-driver](https://github.com/w3c/aria-at-automation-driver)
-
-**[aria-at-automation-driver](https://github.com/w3c/aria-at-automation-driver)**
-A WebSocket server which allows clients to observe the text enunciated by a screen reader and to simulate user input
-
-**[aria-at-automation-results-viewer](https://github.com/w3c/aria-at-automation-results-viewer)**
-A tool which translates the JSON-formatted data produced by the [aria-at-automation-harness](https://github.com/w3c/aria-at-automation-harness) into a human-readable form
+**[NVDA AT Automation](https://github.com/Prime-Access-Consulting/nvda-at-automation)**
+An implementation which integrates with [the NVDA screen reader](https://www.nvaccess.org/about-nvda/) via its "addon" system.
