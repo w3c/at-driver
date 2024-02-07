@@ -168,8 +168,8 @@ ErrorResponse = {
 }
 
 ResultData = (
-  EmptyResult //
-  SessionResult //
+  EmptyResult /
+  SessionResult /
   SettingsResult
 )
 
