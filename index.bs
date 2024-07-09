@@ -84,7 +84,7 @@ This specification depends on the Infra Standard. [[!INFRA]]
 
 Network protocol messages are defined using CDDL. [[!RFC8610]]
 
-A <dfn lt="UUID">Universally Unique Identifier (UUID)</dfn> is a 128 bits long URN that requires no central registration process. <dfn>Generating a UUID</dfn> means <i>Creating a UUID From Truly Random or Pseudo-Random Numbers</i>, and converting it to the string representation. [[!RFC4122]]
+A <dfn lt="UUID">Universally Unique Identifier (UUID)</dfn> is a 128 bits long URN that requires no central registration process. <dfn>Generating a UUID</dfn> means creating a <i>UUID Version 4</i> value and converting it to the string representation. [[!RFC9562]]
 
 Where algorithms that return values are fallible, they are written in terms of returning either <dfn>success</dfn> or <dfn>error</dfn>. A [=success=] value has an associated data field which encapsulates the value returned, whereas an [=error=] response has an associated [=error code=].
 
