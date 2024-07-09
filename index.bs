@@ -2,8 +2,8 @@
 Title: AT Driver
 Shortname: at-driver
 Level: 1
-Status: w3c/CG-DRAFT
-Group: ARIA-AT CG
+Status: ED
+Group: browser-testing-tools
 Repository: w3c/at-driver
 URL: https://w3c.github.io/at-driver/
 Editor: Mike Pennisi, Bocoup https://bocoup.com, mike@bocoup.com
