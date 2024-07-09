@@ -7,7 +7,7 @@
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
   <meta content="Bikeshed version 82ce88815, updated Thu Sep 7 16:33:55 2023 -0700" name="generator">
   <link href="https://w3c.github.io/at-driver/" rel="canonical">
-  <meta content="f34a9e7078d3332ca0cf1a3c9f5b4434a61e8261" name="document-revision">
+  <meta content="55c2268504fdff41d7139d66925c2aa13e83b91d" name="document-revision">
 <style>
 table { border-collapse: collapse; border-style: hidden hidden none hidden; }
 table thead, table tbody { border-bottom: solid; }
@@ -845,7 +845,7 @@ var.selected6 { background-color: #FFBCF2; box-shadow: 0 0 0 2px #FFBCF2; }
    <h2 class="heading settled" data-level="3" id="infra"><span class="secno">3. </span><span class="content">Infrastructure</span><a class="self-link" href="#infra"></a></h2>
    <p>This specification depends on the Infra Standard. <a data-link-type="biblio" href="#biblio-infra" title="Infra Standard">[INFRA]</a></p>
    <p>Network protocol messages are defined using CDDL. <a data-link-type="biblio" href="#biblio-rfc8610" title="Concise Data Definition Language (CDDL): A Notational Convention to Express Concise Binary Object Representation (CBOR) and JSON Data Structures">[RFC8610]</a></p>
-   <p>A <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="UUID" data-noexport id="uuid">Universally Unique Identifier (UUID)</dfn> is a 128 bits long URN that requires no central registration process. <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="generating-a-uuid">Generating a UUID</dfn> means <i>Creating a UUID From Truly Random or Pseudo-Random Numbers</i>, and converting it to the string representation. <a data-link-type="biblio" href="#biblio-rfc9562" title="Universally Unique IDentifiers (UUIDs)">[RFC9562]</a></p>
+   <p>A <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="UUID" data-noexport id="uuid">Universally Unique Identifier (UUID)</dfn> is a 128 bits long URN that requires no central registration process. <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="generating-a-uuid">Generating a UUID</dfn> means creating a <i>UUID Version 4</i> value and converting it to the string representation. <a data-link-type="biblio" href="#biblio-rfc9562" title="Universally Unique IDentifiers (UUIDs)">[RFC9562]</a></p>
    <p>Where algorithms that return values are fallible, they are written in terms of returning either <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="success">success</dfn> or <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="error">error</dfn>. A <a data-link-type="dfn" href="#success" id="ref-for-success">success</a> value has an associated data field which encapsulates the value returned, whereas an <a data-link-type="dfn" href="#error" id="ref-for-error">error</a> response has an associated <a data-link-type="dfn" href="#error-code" id="ref-for-error-code">error code</a>.</p>
    <p>When calling a fallible algorithm, the construct "Let <var>result</var> be the result of <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="try|trying" data-noexport id="try">trying</dfn> to call <var>algorithm</var>" is equivalent to:</p>
    <ol>
