@@ -949,7 +949,7 @@ The [=remote end steps=] given <var ignore>session</var> and |command parameters
     1. Let |algorithm| be the algorithm associated with user intent |name| in the [=table of extension user intents=].
 4. Otherwise:
     1. Return an [=error=] with [=error code=] [=unknown user intent=].
-5. [=Try=] to evaluate |algorithm| with parameters |command parameters|.
+5. Return the result of evaluating |algorithm| given |command parameters|.
 
 </div>
 
