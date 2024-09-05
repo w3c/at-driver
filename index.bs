@@ -909,9 +909,9 @@ The <dfn>interaction.userIntent</dfn> command simulates pressing a key combinati
   }
 
   InteractionUserIntentParameters = (
-    PressKeysIntentParameters //
+    PressKeysIntentParameters /
     ExtensionIntentParameters
-  }
+  )
 
   PressKeysIntentParameters = {
     "name" => "pressKeys",
