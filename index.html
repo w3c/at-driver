@@ -7,7 +7,7 @@
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
   <meta content="Bikeshed version 82ce88815, updated Thu Sep 7 16:33:55 2023 -0700" name="generator">
   <link href="https://w3c.github.io/at-driver/" rel="canonical">
-  <meta content="55c2268504fdff41d7139d66925c2aa13e83b91d" name="document-revision">
+  <meta content="44df4b8d82d8df2f29b34ef9d68ee142adeed75a" name="document-revision">
 <style>
 table { border-collapse: collapse; border-style: hidden hidden none hidden; }
 table thead, table tbody { border-bottom: solid; }
@@ -676,7 +676,7 @@ var.selected6 { background-color: #FFBCF2; box-shadow: 0 0 0 2px #FFBCF2; }
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">AT Driver</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2024-07-09">9 July 2024</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2024-09-19">19 September 2024</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -1115,6 +1115,7 @@ EventData = (
    <ol>
     <li data-md>
      <p>If the application that currently has OS focus (and so could act on simulated key presses from this API) is not one of the expected applications, then return an <a data-link-type="dfn" href="#error" id="ref-for-error④">error</a> with <a data-link-type="dfn" href="#error-code" id="ref-for-error-code②">error code</a> <a data-link-type="dfn" href="#error-code-invalid-os-focus-state" id="ref-for-error-code-invalid-os-focus-state">invalid OS focus state</a>. Which applications are expected is <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined②">implementation-defined</a>.</p>
+     <p class="issue" id="issue-e10bf837"><a class="self-link" href="#issue-e10bf837"></a> Is the "OS focus" check a viable security restriction for "send keys"? <a href="https://github.com/w3c/at-driver/issues/77">[Issue #77]</a></p>
     <li data-md>
      <p>Return <a data-link-type="dfn" href="#success" id="ref-for-success⑦">success</a> with data null.</p>
    </ol>
@@ -1911,6 +1912,7 @@ parameters</var>.</p>
   </dl>
   <h2 class="no-num no-ref heading settled" id="issues-index"><span class="content">Issues Index</span><a class="self-link" href="#issues-index"></a></h2>
   <div style="counter-reset:issue">
+   <div class="issue"> Is the "OS focus" check a viable security restriction for "send keys"? <a href="https://github.com/w3c/at-driver/issues/77">[Issue #77]</a> <a class="issue-return" href="#issue-e10bf837" title="Jump to section">↵</a></div>
    <div class="issue"> Require implementations to maintain a static list of supported settings. <a class="issue-return" href="#issue-b4b3c071" title="Jump to section">↵</a></div>
    <div class="issue"> Require implementations to report failures in settings modification operations. <a class="issue-return" href="#issue-c41981a9" title="Jump to section">↵</a></div>
    <div class="issue"> Do we need a "setting changed" event? <a class="issue-return" href="#issue-0b79b3d5" title="Jump to section">↵</a></div>
