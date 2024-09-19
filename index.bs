@@ -360,6 +360,8 @@ To <dfn>check that keyboard interaction can be simulated</dfn>:
 To <dfn>check that one of the expected applications has focus</dfn>:
 
 1. If the application that currently has OS focus (and so could act on simulated key presses from this API) is not one of the expected applications, then return an <a>error</a> with <a>error code</a> <a for="error code">invalid OS focus state</a>. Which applications are expected is <a>implementation-defined</a>.
+
+    Issue(77): Is the "OS focus" check a viable security restriction for "send keys"?
 2. Return <a>success</a> with data null.
 
 To determine whether a string |text| <dfn>should be withheld</dfn>:
