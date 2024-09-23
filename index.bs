@@ -338,6 +338,10 @@ The following table lists each <dfn>error code</dfn>, its associated JSON `error
     <td>`session not created`
     <td>A new [=session=] could not be created.
   <tr>
+    <td><dfn for="error code">unknown user intent</dfn>
+    <td>`unknown user intent`
+    <td>The remote end does not support a user intent with the provided name.
+  <tr>
     <td><dfn for="error code">cannot simulate keyboard interaction</dfn>
     <td>`cannot simulate keyboard interaction`
     <td>The [=remote end=] cannot simulate keyboard interaction.
@@ -824,12 +828,53 @@ Issue: Do we need a "setting changed" event?
 The Interaction Module {#module-interaction}
 --------------------------------------------
 
+The following <dfn>table of standard user intents</dfn> enumerates the user intents each implementation must support.
+
+<table>
+  <caption>Standard user intents</caption>
+  <tr>
+    <th>Name
+    <th>Algorithm
+  <tr>
+    <td>"`pressKeys`"
+    <td>[=press keys=]
+</table>
+
+A [=remote end=] has a <dfn for="remote end">table of extension user intents</dfn>, which is a mapping of zero or more string names of user intents and algorithms for simulating the named intents. Extension user intents' names must contain a "`:`" (colon) character, denoting an implementation specific namespace.
+
+<div algorithm>
+
+Note: Each string in `KeyCombination` represents a "raw key" consisting of a
+single code point with the same meaning as in <a
+href="https://w3c.github.io/webdriver/#keyboard-actions">WebDriver's keyboard
+actions</a>. For example, `["\uE008", "a"]` means holding the left shift key
+and pressing "a", and then releasing the left shift key. [[WEBDRIVER]]
+
+Issue(34): This algorithm does not yet have a means for indicating a screen-reader specific modifier key (or keys).
+
+Issue(51): This algorithm only supports one specific kind of press/release sequence, and it is not clear if that is sufficient to express all keyboard commands in all implementations.
+
+To <dfn>press keys</dfn> given |command parameters|:
+
+1. [=Try=] to [=check that keyboard interaction can be simulated=].
+2. [=Try=] to [=check that one of the expected applications has focus=].
+3. Let |keys| be the value of the <code>keys</code> field of |command
+    parameters|.
+4. [=list/For each=] |key| of |keys|:
+    1. Run [=implementation-defined=] steps to simulate depressing |key|.
+5. [=list/For each=] |key| of |keys| in reverse [=List=] order:
+    1. Run [=implementation-defined=] steps to simulate releasing |key|.
+6. Let |body| be a new [=map=].
+7. Return [=success=] with data |body|.
+
+</div>
+
 ### Definition ### {#module-interaction-definition}
 
 [=Remote end definition=]:
 
 <xmp class="cddl remote-cddl">
-InteractionCommand = (InteractionPressKeysCommand)
+InteractionCommand = (InteractionUserIntentCommand)
 </xmp>
 
 [=Local end definition=]:
@@ -851,32 +896,38 @@ InteractionCapturedOutputParameters = {
 
 ### Commands ### {#module-interaction-commands}
 
-#### The interaction.pressKeys Command #### {#module-interaction-presskeys}
+#### The interaction.userIntent Command #### {#module-interaction-userintent}
 
-The <dfn>interaction.pressKeys</dfn> command simulates pressing a key combination on a keyboard.
-
-Issue(34): This command does not yet have a means for indicating a screen-reader specific modifier key (or keys).
-
-Issue(51): This algorithm only supports one specific kind of press/release sequence, and it is not clear if that is sufficient to express all keyboard commands in all implementations.
+The <dfn>interaction.userIntent</dfn> command simulates pressing a key combination on a keyboard.
 
 <dl>
   <dt>[=Command Type=]
   <dd>
 
   <pre class="cddl remote-cddl">
-  InteractionPressKeysCommand = {
-    method: "interaction.pressKeys",
-    params: InteractionPressKeysParameters
+  InteractionUserIntentCommand = {
+    method: "interaction.userIntent",
+    params: InteractionUserIntentParameters
   }
 
-  InteractionPressKeysParameters = {
+  InteractionUserIntentParameters = (
+    PressKeysIntentParameters /
+    ExtensionIntentParameters
+  )
+
+  PressKeysIntentParameters = {
+    "name" => "pressKeys",
     "keys" => KeyCombination,
-    Extensible,
   }
 
   KeyCombination = [
     1* text
   ]
+
+  ExtensionIntentParameters = {
+    "name" => text,
+    Extensible,
+  }
   </pre>
 
   <dt>Result Type
@@ -888,24 +939,21 @@ Issue(51): This algorithm only supports one specific kind of press/release seque
 
 </dl>
 
-Note: Each string in `KeyCombination` represents a "raw key" consisting of a
-single code point with the same meaning as in <a
-href="https://w3c.github.io/webdriver/#keyboard-actions">WebDriver's keyboard
-actions</a>. For example, `["\uE008", "a"]` means holding the left shift key
-and pressing "a", and then releasing the left shift key. [[WEBDRIVER]]
+<div algorithm="remote end steps for interaction.userIntent">
 
-The [=remote end steps=] given |session| and |command parameters| are:
+The [=remote end steps=] given <var ignore>session</var> and |command parameters| are:
 
-1. [=Try=] to [=check that keyboard interaction can be simulated=].
-2. [=Try=] to [=check that one of the expected applications has focus=].
-3. Let |keys| be the value of the <code>keys</code> field of |command
+1. Let |name| be the value of the <code>name</code> field of |command
     parameters|.
-4. [=list/For each=] |key| of |keys|:
-    1. Run [=implementation-defined=] steps to simulate depressing |key|.
-5. [=list/For each=] |key| of |keys| in reverse [=List=] order:
-    1. Run [=implementation-defined=] steps to simulate releasing |key|.
-6. Let |body| be a new [=map=].
-7. Return [=success=] with data |body|.
+2. If there is an entry in the [=table of standard user intents=] with name |name|:
+    1. Let |algorithm| be the algorithm associated with user intent |name| in the [=table of standard user intents=].
+3. Otherwise, if there is an entry in the [=table of extension user intents=] with name |name|:
+    1. Let |algorithm| be the algorithm associated with user intent |name| in the [=table of extension user intents=].
+4. Otherwise:
+    1. Return an [=error=] with [=error code=] [=unknown user intent=].
+5. Return the result of evaluating |algorithm| given |command parameters|.
+
+</div>
 
 ### Events ### {#module-interaction-events}
 
