@@ -326,6 +326,10 @@ The following table lists each <dfn>error code</dfn>, its associated JSON `error
     <td>`invalid argument`
     <td>The arguments passed to a [=command=] are either invalid or malformed.
   <tr>
+    <td><dfn for="error code">invalid send text target</dfn>
+    <td>`invalid send text target`
+    <td>The [=remote end's=] [=virtual cursor=] is not capable of receiving text input.
+  <tr>
     <td><dfn for="error code">invalid session id</dfn>
     <td>`invalid session id`
     <td>The [=session=] either does not exist or it's not active.
@@ -838,9 +842,14 @@ The following <dfn>table of standard user intents</dfn> enumerates the user inte
   <tr>
     <td>"`pressKeys`"
     <td>[=press keys=]
+  <tr>
+    <td>"`sendText`"
+    <td>[=send text=]
 </table>
 
 A [=remote end=] has a <dfn for="remote end">table of extension user intents</dfn>, which is a mapping of zero or more string names of user intents and algorithms for simulating the named intents. Extension user intents' names must contain a "`:`" (colon) character, denoting an implementation specific namespace.
+
+A [=remote end=] has a <dfn for="remote end">virtual cursor</dfn> which approximates the user's attention at any given moment. It can an element, part of an element, or other region of the user interface managed by the remote end.
 
 <div algorithm>
 
@@ -866,6 +875,19 @@ To <dfn>press keys</dfn> given |command parameters|:
     1. Run [=implementation-defined=] steps to simulate releasing |key|.
 6. Let |body| be a new [=map=].
 7. Return [=success=] with data |body|.
+
+</div>
+
+<div algorithm>
+
+To <dfn>send text</dfn> given |command parameters|:
+
+1. Let |text| be the value of the <code>text</code> field of |command
+    parameters|.
+2. If the [=virtual cursor=] is not a [=html/focusable area=]:
+    1. Return an [=error=] with [=error code=] [=invalid send text target=].
+3. (Send the text.)
+3. Return [=success=] with data null.
 
 </div>
 
@@ -923,6 +945,11 @@ The <dfn>interaction.userIntent</dfn> command simulates pressing a key combinati
   KeyCombination = [
     1* text
   ]
+
+  SendTextIntentParameters = {
+    "name" => "sendText",
+    "text" => text,
+  }
 
   ExtensionIntentParameters = {
     "name" => text,
