@@ -12,6 +12,13 @@ Abstract: A protocol for introspection and remote control of assistive technolog
 Markup Shorthands: markdown yes
 </xmp>
 
+<pre class=anchors>
+spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
+    type: dfn
+        text: focusable area; url: interaction.html#focusable-area
+        text: DOM anchor; url: interaction.html#dom-anchor
+</pre>
+
 <xmp class='link-defaults'>
 spec:infra; type:dfn; for:/; text:set
 spec:infra; type:dfn; text:list
@@ -884,10 +891,12 @@ To <dfn>send text</dfn> given |command parameters|:
 
 1. Let |text| be the value of the <code>text</code> field of |command
     parameters|.
-2. If the [=virtual cursor=] is not a [=html/focusable area=]:
+2. If the [=virtual cursor=] is not a [=focusable area=]:
     1. Return an [=error=] with [=error code=] [=invalid send text target=].
-3. (Send the text.)
-3. Return [=success=] with data null.
+3. (Send |text| to the [=DOM anchor=] of [=virtual cursor=] a la <a href="https://w3c.github.io/webdriver/#element-send-keys">WebDriver's "Element Send Keys"</a>.)
+
+    Issue: is there any reason for "send text" to behave differently than "Element Send Keys"?
+4. Return [=success=] with data null.
 
 </div>
 
