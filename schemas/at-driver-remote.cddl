@@ -74,28 +74,18 @@ SettingsGetSupportedSettingsCommand = {
   params: EmptyParams
 }
 
-InteractionCommand = (InteractionUserIntentCommand)
+InteractionCommand = (InteractionPressKeysCommand)
 
-InteractionUserIntentCommand = {
-  method: "interaction.userIntent",
-  params: InteractionUserIntentParameters
+InteractionPressKeysCommand = {
+  method: "interaction.pressKeys",
+  params: InteractionPressKeysParameters
 }
 
-InteractionUserIntentParameters = (
-  PressKeysIntentParameters /
-  ExtensionIntentParameters
-)
-
-PressKeysIntentParameters = {
-  "name" => "pressKeys",
+InteractionPressKeysParameters = {
   "keys" => KeyCombination,
+  Extensible,
 }
 
 KeyCombination = [
   1* text
 ]
-
-ExtensionIntentParameters = {
-  "name" => text,
-  Extensible,
-}
