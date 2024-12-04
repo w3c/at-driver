@@ -838,6 +838,9 @@ The following <dfn>table of standard user intents</dfn> enumerates the user inte
   <tr>
     <td>"`pressKeys`"
     <td>[=press keys=]
+  <tr>
+    <td>"`activateElement`"
+    <td>[=activate element=]
 </table>
 
 A [=remote end=] has a <dfn for="remote end">table of extension user intents</dfn>, which is a mapping of zero or more string names of user intents and algorithms for simulating the named intents. Extension user intents' names must contain a "`:`" (colon) character, denoting an implementation specific namespace.
@@ -866,6 +869,23 @@ To <dfn>press keys</dfn> given |command parameters|:
     1. Run [=implementation-defined=] steps to simulate releasing |key|.
 6. Let |body| be a new [=map=].
 7. Return [=success=] with data |body|.
+
+</div>
+
+<div algorithm>
+
+Note: Remote ends which do not implement [=press keys=] might choose to
+implement other intents to facilitate navigation. Such implementations could
+possibly meet clients' needs for traversal and basic interaction, but they
+would be unable to facilitate the filling of form fields. For clients of such
+implementations who are targeting web applications, the following intent could
+be used in conjunction with the keyboard simulation faculties of [[WEBDRIVER]]
+or [[WEBDRIVER-BIDI]] in order to meet such needs.
+
+To <dfn>activate element</dfn> given <var ignore>command parameters</var>:
+
+1. Perform the default action for the item in the [=virtual cursor=].
+1. Return [=success=] with data null.
 
 </div>
 
