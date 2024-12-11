@@ -1,7 +1,3 @@
-Extensible = {
-  *text => any
-}
-
 Message = (
   CommandResponse //
   ErrorResponse //
@@ -38,6 +34,10 @@ Event = {
 EventData = (
   InteractionEvent
 )
+
+Extensible = {
+  *text => any
+}
 
 SessionResult = (SessionNewResult)
 
