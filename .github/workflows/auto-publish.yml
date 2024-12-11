@@ -6,9 +6,9 @@ on:
 jobs:
   main:
     name: Build, Validate and Deploy
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: w3c/spec-prod@v2
         with:
           GH_PAGES_BRANCH: gh-pages
@@ -16,10 +16,10 @@ jobs:
           BUILD_FAIL_ON: link-error
   check-cddl-consistency:
     name: Verify that the generated CDDL files are in sync with the inline CDDL
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 18.x
       - name: Extract CDDL
@@ -28,9 +28,9 @@ jobs:
         run: git diff --exit-code
   check-cddl-validity:
     name: Verify that the generated CDDL files are valid
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Get cddl version
         run: curl -s https://crates.io/api/v1/crates/cddl | python3 -c "import sys, json; print(json.load(sys.stdin)['crate']['max_stable_version'])" | tee cddl.txt
       - name: "Cache rust binaries"
@@ -53,10 +53,10 @@ jobs:
         run: ./scripts/test-cddl.sh
   check-json-schema-validity:
     name: Verify that the JSON schema files are valid
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 18
       - run: npm ci
