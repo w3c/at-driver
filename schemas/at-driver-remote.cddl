@@ -1,7 +1,3 @@
-Extensible = {
-  *text => any
-}
-
 Command = {
   id: uint,
   CommandData,
@@ -15,6 +11,10 @@ CommandData = (
 )
 
 EmptyParams = { Extensible }
+
+Extensible = {
+  *text => any
+}
 
 SessionCommand = (SessionNewCommand)
 
