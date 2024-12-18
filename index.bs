@@ -121,10 +121,6 @@ This section gives the initial contents of the remote end definition and local e
 [=Remote end definition=]
 
 <xmp class="cddl remote-cddl">
-Extensible = {
-  *text => any
-}
-
 Command = {
   id: uint,
   CommandData,
@@ -143,10 +139,6 @@ EmptyParams = { Extensible }
 [=Local end definition=]:
 
 <xmp class="cddl local-cddl">
-Extensible = {
-  *text => any
-}
-
 Message = (
   CommandResponse //
   ErrorResponse //
@@ -183,6 +175,14 @@ Event = {
 EventData = (
   InteractionEvent
 )
+</xmp>
+
+[=Remote end definition=] and [=local end definition=]:
+
+<xmp class="cddl remote-cddl local-cddl">
+Extensible = {
+  *text => any
+}
 </xmp>
 
 Capabilities {#protocol-capabilities}
