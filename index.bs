@@ -38,6 +38,12 @@ table tbody th:first-child { border-left: solid; }
 table td, table th { border-left: solid; border-right: solid; border-bottom: solid thin; vertical-align: top; padding: 0.2em; }
 </style>
 
+<pre class=anchors>
+spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
+    type: dfn
+        text: focused area of the document; url: document-sequences.html#focused-area-of-the-document
+</pre>
+
 Introduction {#intro}
 =====================
 
@@ -844,6 +850,11 @@ The following <dfn>table of standard user intents</dfn> enumerates the user inte
 </table>
 
 A [=remote end=] has a <dfn for="remote end">table of extension user intents</dfn>, which is a mapping of zero or more string names of user intents and algorithms for simulating the named intents. Extension user intents' names must contain a "`:`" (colon) character, denoting an implementation specific namespace.
+
+A [=remote end=] has a <dfn for="remote end">virtual cursor</dfn>, which describes the location of the user's focus.
+
+Note: The [=virtual cursor=] is not necessarily synchronized with any given
+applications' concept of "focus" (e.g. [=focused area of the document=]).
 
 <div algorithm>
 
