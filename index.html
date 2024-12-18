@@ -5,9 +5,12 @@
   <title>AT Driver</title>
   <meta content="ED" name="w3c-status">
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
-  <meta content="Bikeshed version 82ce88815, updated Thu Sep 7 16:33:55 2023 -0700" name="generator">
+  <meta content="Bikeshed version ac5ea272d, updated Fri Dec 6 15:45:15 2024 -0800" name="generator">
   <link href="https://w3c.github.io/at-driver/" rel="canonical">
-  <meta content="f13f715535191dd6735e6e29c7b61aed80fee7cd" name="document-revision">
+  <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
+  <meta content="fdb685b4c7c402b8a75f7b8ad2427fc111b3232e" name="revision">
+  <meta content="dark light" name="color-scheme">
+  <link href="https://www.w3.org/StyleSheets/TR/2021/dark.css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css">
 <style>
 table { border-collapse: collapse; border-style: hidden hidden none hidden; }
 table thead, table tbody { border-bottom: solid; }
@@ -93,7 +96,6 @@ pre .property::before, pre .property::after {
 }
 </style>
 <style>/* Boilerplate: style-colors */
-
 /* Any --*-text not paired with a --*-bg is assumed to have a transparent bg */
 :root {
     color-scheme: light dark;
@@ -347,11 +349,15 @@ figcaption:not(.no-marker)::before {
 :root {
     --dfnpanel-bg: #ddd;
     --dfnpanel-text: var(--text);
+    --dfnpanel-target-bg: #ffc;
+    --dfnpanel-target-outline: orange;
 }
 @media (prefers-color-scheme: dark) {
     :root {
         --dfnpanel-bg: #222;
         --dfnpanel-text: var(--text);
+        --dfnpanel-target-bg: #333;
+        --dfnpanel-target-outline: silver;
     }
 }
 .dfn-panel {
@@ -374,11 +380,13 @@ figcaption:not(.no-marker)::before {
 .dfn-panel > b { display: block; }
 .dfn-panel a { color: var(--dfnpanel-text); }
 .dfn-panel a:not(:hover) { text-decoration: none !important; border-bottom: none !important; }
+.dfn-panel a:focus {
+    outline: 5px auto Highlight;
+    outline: 5px auto -webkit-focus-ring-color;
+}
 .dfn-panel > b + b { margin-top: 0.25em; }
 .dfn-panel ul { padding: 0 0 0 1em; list-style: none; }
 .dfn-panel li a {
-    white-space: pre;
-    display: inline-block;
     max-width: calc(300px - 1.5em - 1em);
     overflow: hidden;
     text-overflow: ellipsis;
@@ -387,67 +395,79 @@ figcaption:not(.no-marker)::before {
 .dfn-panel.activated {
     display: inline-block;
     position: fixed;
-    left: .5em;
+    left: 8px;
     bottom: 2em;
     margin: 0 auto;
     max-width: calc(100vw - 1.5em - .4em - .5em);
     max-height: 30vh;
+    transition: left 1s ease-out, bottom 1s ease-out;
 }
 
-.dfn-paneled[role="button"] { cursor: pointer; }
-</style>
-<style>/* Boilerplate: style-dfn-panel */
-:root {
-    --dfnpanel-bg: #ddd;
-    --dfnpanel-text: var(--text);
+.dfn-panel .link-item:hover {
+    text-decoration: underline;
 }
-@media (prefers-color-scheme: dark) {
-    :root {
-        --dfnpanel-bg: #222;
-        --dfnpanel-text: var(--text);
+.dfn-panel .link-item .copy-icon {
+    opacity: 0;
+}
+.dfn-panel .link-item:hover .copy-icon,
+.dfn-panel .link-item .copy-icon:focus {
+    opacity: 1;
+}
+
+.dfn-panel .copy-icon {
+    display: inline-block;
+    margin-right: 0.5em;
+    width: 0.85em;
+    height: 1em;
+    border-radius: 3px;
+    background-color: #ccc;
+    cursor: pointer;
+}
+
+.dfn-panel .copy-icon .icon {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.dfn-panel .copy-icon .icon::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 1px solid black;
+    background-color: #ccc;
+    opacity: 0.25;
+    transform: translate(3px, -3px);
+}
+
+.dfn-panel .copy-icon:active .icon::before {
+    opacity: 1;
+}
+
+.dfn-paneled[role="button"] { cursor: help; }
+
+.highlighted {
+    animation: target-fade 3s;
+}
+
+@keyframes target-fade {
+    from {
+        background-color: var(--dfnpanel-target-bg);
+        outline: 5px solid var(--dfnpanel-target-outline);
+    }
+    to {
+        color: var(--a-normal-text);
+        background-color: transparent;
+        outline: transparent;
     }
 }
-.dfn-panel {
-    position: absolute;
-    z-index: 35;
-    width: 20em;
-    width: 300px;
-    height: auto;
-    max-height: 500px;
-    overflow: auto;
-    padding: 0.5em 0.75em;
-    font: small Helvetica Neue, sans-serif, Droid Sans Fallback;
-    background: var(--dfnpanel-bg);
-    color: var(--dfnpanel-text);
-    border: outset 0.2em;
-    white-space: normal; /* in case it's moved into a pre */
-}
-.dfn-panel:not(.on) { display: none; }
-.dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
-.dfn-panel > b { display: block; }
-.dfn-panel a { color: var(--dfnpanel-text); }
-.dfn-panel a:not(:hover) { text-decoration: none !important; border-bottom: none !important; }
-.dfn-panel > b + b { margin-top: 0.25em; }
-.dfn-panel ul { padding: 0 0 0 1em; list-style: none; }
-.dfn-panel li a {
-    white-space: pre;
-    display: inline-block;
-    max-width: calc(300px - 1.5em - 1em);
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.dfn-panel.activated {
-    display: inline-block;
-    position: fixed;
-    left: .5em;
-    bottom: 2em;
-    margin: 0 auto;
-    max-width: calc(100vw - 1.5em - .4em - .5em);
-    max-height: 30vh;
-}
-
-.dfn-paneled[role="button"] { cursor: pointer; }
 </style>
 <style>/* Boilerplate: style-issues */
 a[href].issue-return {
@@ -468,8 +488,40 @@ a[href].issue-return {
     margin-bottom: 0;
 }
 </style>
-<style>/* Boilerplate: style-selflinks */
+<style>/* Boilerplate: style-ref-hints */
+:root {
+    --ref-hint-bg: #ddd;
+    --ref-hint-text: var(--text);
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --ref-hint-bg: #222;
+        --ref-hint-text: var(--text);
+    }
+}
 
+.ref-hint {
+    display: inline-block;
+    position: absolute;
+    z-index: 35;
+    width: 20em;
+    width: 300px;
+    height: auto;
+    max-height: 500px;
+    overflow: auto;
+    padding: 0.5em 0.5em;
+    font: small Helvetica Neue, sans-serif, Droid Sans Fallback;
+    background: var(--ref-hint-bg);
+    color: var(--ref-hint-text);
+    border: outset 0.2em;
+    white-space: normal; /* in case it's moved into a pre */
+}
+
+.ref-hint * { margin: 0; padding: 0; text-indent: 0; }
+
+.ref-hint ul { padding: 0 0 0 1em; list-style: none; }
+</style>
+<style>/* Boilerplate: style-selflinks */
 :root {
     --selflink-text: white;
     --selflink-bg: gray;
@@ -529,7 +581,6 @@ a.self-link::before            { content: "¶"; }
 dfn > a.self-link::before      { content: "#"; }
 </style>
 <style>/* Boilerplate: style-syntax-highlighting */
-
 code.highlight { padding: .1em; border-radius: .3em; }
 pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em 0; overflow: auto; border-radius: 0; }
 
@@ -586,7 +637,6 @@ c-[vc] { color: #0077aa } /* Name.Variable.Class */
 c-[vg] { color: #0077aa } /* Name.Variable.Global */
 c-[vi] { color: #0077aa } /* Name.Variable.Instance */
 c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
-
 
 @media (prefers-color-scheme: dark) {
     .highlight:not(.idl) { background: rgba(255, 255, 255, .05); }
@@ -662,21 +712,43 @@ D50 2deg illuminant, L in [0,100], a and b in [-128, 128]
 4 = lab(85,5,15)
 5 = lab(85,-10,-50)
 6 = lab(85,35,-15)
+
+For darkmode:
+0 = oklab(50%   0%  108%)
+1 = oklab(50% -51%   51%)
+2 = oklab(50% -64%  -20%)
+3 = oklab(50%   6%   19%)
+4 = oklab(50% -12%  -64%)
+5 = oklab(50%  44%  -19%)  
+6 = oklab(50% 102%   38%)
 */
-var { cursor: pointer; }
-var.selected0 { background-color: #F4D200; box-shadow: 0 0 0 2px #F4D200; }
-var.selected1 { background-color: #FF87A2; box-shadow: 0 0 0 2px #FF87A2; }
-var.selected2 { background-color: #96E885; box-shadow: 0 0 0 2px #96E885; }
-var.selected3 { background-color: #3EEED2; box-shadow: 0 0 0 2px #3EEED2; }
-var.selected4 { background-color: #EACFB6; box-shadow: 0 0 0 2px #EACFB6; }
-var.selected5 { background-color: #82DDFF; box-shadow: 0 0 0 2px #82DDFF; }
-var.selected6 { background-color: #FFBCF2; box-shadow: 0 0 0 2px #FFBCF2; }
+
+[data-algorithm] var { cursor: pointer; }
+var[data-var-color] { background-color: var(--var-bg); box-shadow: 0 0 0 2px var(--var-bg); }
+
+var[data-var-color] { --var-bg: #F4D200; }
+var[data-var-color="1"] { --var-bg: #FF87A2; }
+var[data-var-color="2"] { --var-bg: #96E885; }
+var[data-var-color="3"] { --var-bg: #3EEED2; }
+var[data-var-color="4"] { --var-bg: #EACFB6; }
+var[data-var-color="5"] { --var-bg: #82DDFF; }
+var[data-var-color="6"] { --var-vg: #FFBCF2; }
+
+@media (prefers-color-scheme: dark) {
+	var[data-var-color] { --var-bg: #bc1a00; }
+	var[data-var-color="1"] { --var-bg: #007f00; }
+	var[data-var-color="2"] { --var-bg: #008698; }
+	var[data-var-color="3"] { --var-bg: #7f5b2b; }
+	var[data-var-color="4"] { --var-bg: #004df3; }
+	var[data-var-color="5"] { --var-bg: #a1248a; }
+	var[data-var-color="6"] { --var-vg: #ff0000; }
+}
 </style>
  <body class="h-entry">
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">AT Driver</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2024-10-08">8 October 2024</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types/#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2024-12-18">18 December 2024</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -703,17 +775,13 @@ var.selected6 { background-color: #FFBCF2; box-shadow: 0 0 0 2px #FFBCF2; }
   </div>
   <h2 class="no-num no-toc no-ref heading settled" id="sotd"><span class="content">Status of this document</span></h2>
   <div data-fill-with="status">
-   <p> This is a public copy of the editors’ draft.
-        It is provided for discussion only and may change at any moment.
-        Its publication here does not imply endorsement of its contents by W3C.
-        Don’t cite this document other than as work in progress. </p>
-   <p> <a href="https://github.com/w3c/at-driver/issues">GitHub Issues</a> are preferred for discussion of this specification. </p>
-   <p> This document was produced by the <a href="https://www.w3.org/groups/wg/browser-tools-testing">Browser Testing and Tools Working Group</a>. </p>
-   <p> This document was produced by a group operating under
-        the <a href="https://www.w3.org/Consortium/Patent-Policy-20170801/">W3C Patent Policy</a>.
-        W3C maintains a <a href="https://www.w3.org/2004/01/pp-impl/32061/status" rel="disclosure">public list of any patent disclosures</a> made in connection with the deliverables of the group;
-        that page also includes instructions for disclosing a patent.
-        An individual who has actual knowledge of a patent which the individual believes contains <a href="https://www.w3.org/Consortium/Patent-Policy-20170801/#def-essential">Essential Claim(s)</a> must disclose the information in accordance with <a href="https://www.w3.org/Consortium/Patent-Policy-20170801/#sec-Disclosure">section 6 of the W3C Patent Policy</a>. </p>
+   <p> <em>This section describes the status of this document at the time of its publication. A list of current <abbr title="World Wide Web Consortium">W3C</abbr> publications and the latest revision of this technical report can be found in the <a href="https://www.w3.org/TR/"><abbr title="World Wide Web Consortium">W3C</abbr> technical reports index</a> at https://www.w3.org/TR/.</em> </p>
+   <p> <a href="https://github.com/w3c/at-driver/issues">GitHub Issues</a> are preferred for discussion of this specification. Alternatively, you can send comments to the Browser Testing and Tools Working Group’s mailing list, <a href="mailto:public-browser-tools-testing@w3.org">public-browser-tools-testing@w3.org</a> (<a href="https://lists.w3.org/Archives/Public/public-browser-tools-testing/">archives</a>). </p>
+   <p> This document was published by the <a href="https://www.w3.org/groups/wg/browser-tools-testing/">Browser Testing and Tools Working Group</a> as an Editor’s Draft. </p>
+   <p> Publication as an Editor’s Draft does not imply endorsement by <abbr title="World Wide Web Consortium">W3C</abbr> and its Members. </p>
+   <p> This is a draft document and may be updated, replaced or obsoleted by other documents at any time.
+  It is inappropriate to cite this document as other than work in progress. </p>
+   <p> This document was produced by a group operating under the <a class="css" data-link-type="property" href="https://www.w3.org/policies/patent-policy/" id="sotd_patent">W3C Patent Policy</a>. <abbr title="World Wide Web Consortium">W3C</abbr> maintains a <a href="https://www.w3.org/groups/wg/browser-tools-testing/ipr/" rel="disclosure">public list of any patent disclosures</a> made in connection with the deliverables of the group; that page also includes instructions for disclosing a patent. An individual who has actual knowledge of a patent which the individual believes contains <a href="https://www.w3.org/policies/patent-policy/#def-essential">Essential Claim(s)</a> must disclose the information in accordance with <a href="https://www.w3.org/policies/patent-policy/#sec-Disclosure">section 6 of the <abbr title="World Wide Web Consortium">W3C</abbr> Patent Policy</a>. </p>
    <p> This document is governed by the <a href="https://www.w3.org/policies/process/20231103/" id="w3c_process_revision">03 November 2023 W3C Process Document</a>. </p>
    <p></p>
   </div>
@@ -932,8 +1000,8 @@ EventData = (
 )
 </pre>
    <h3 class="heading settled" data-level="5.2" id="protocol-capabilities"><span class="secno">5.2. </span><span class="content">Capabilities</span><a class="self-link" href="#protocol-capabilities"></a></h3>
-   <p><dfn data-dfn-type="dfn" data-noexport id="capabilities">Capabilities<a class="self-link" href="#capabilities"></a></dfn> are used to communicate the features supported by a given implementation. The <a data-link-type="dfn" href="#local-end" id="ref-for-local-end②">local end</a> may use capabilities to define which features it requires the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②">remote end</a> to satisfy when creating a new <a data-link-type="dfn" href="#session" id="ref-for-session②">session</a>. Likewise, the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end③">remote end</a> uses capabilities to describe the full feature set for a <a data-link-type="dfn" href="#session" id="ref-for-session③">session</a>.</p>
-   <p>The following table of <dfn data-dfn-type="dfn" data-noexport id="standard-capabilities">standard capabilities<a class="self-link" href="#standard-capabilities"></a></dfn> enumerates the capabilities each implementation must support.</p>
+   <p><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="capabilities">Capabilities</dfn> are used to communicate the features supported by a given implementation. The <a data-link-type="dfn" href="#local-end" id="ref-for-local-end②">local end</a> may use capabilities to define which features it requires the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②">remote end</a> to satisfy when creating a new <a data-link-type="dfn" href="#session" id="ref-for-session②">session</a>. Likewise, the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end③">remote end</a> uses capabilities to describe the full feature set for a <a data-link-type="dfn" href="#session" id="ref-for-session③">session</a>.</p>
+   <p>The following table of <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="standard-capabilities">standard capabilities</dfn> enumerates the capabilities each implementation must support.</p>
    <table>
     <caption>Standard capabilities</caption>
     <tbody>
@@ -943,17 +1011,17 @@ EventData = (
       <th>Value type 
       <th>Description 
      <tr>
-      <td><dfn data-dfn-for="standard capabilities" data-dfn-type="dfn" data-noexport id="standard-capabilities-at-name">AT name<a class="self-link" href="#standard-capabilities-at-name"></a></dfn> 
+      <td><dfn class="dfn-paneled" data-dfn-for="standard capabilities" data-dfn-type="dfn" data-noexport id="standard-capabilities-at-name">AT name</dfn> 
       <td>"<code>atName</code>" 
       <td><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#string" id="ref-for-string">string</a> 
       <td>Identifies the assistive technology. 
      <tr>
-      <td><dfn data-dfn-for="standard capabilities" data-dfn-type="dfn" data-noexport id="standard-capabilities-at-version">AT version<a class="self-link" href="#standard-capabilities-at-version"></a></dfn> 
+      <td><dfn class="dfn-paneled" data-dfn-for="standard capabilities" data-dfn-type="dfn" data-noexport id="standard-capabilities-at-version">AT version</dfn> 
       <td>"<code>atVersion</code>" 
       <td><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#string" id="ref-for-string①">string</a> 
       <td>Identifies the version of the assistive technology. 
      <tr>
-      <td><dfn data-dfn-for="standard capabilities" data-dfn-type="dfn" data-noexport id="standard-capabilities-platform">Platform<a class="self-link" href="#standard-capabilities-platform"></a></dfn> 
+      <td><dfn class="dfn-paneled" data-dfn-for="standard capabilities" data-dfn-type="dfn" data-noexport id="standard-capabilities-platform">Platform</dfn> 
       <td>"<code>platformName</code>" 
       <td><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#string" id="ref-for-string②">string</a> 
       <td>Identifies the operating system of the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end④">remote end</a>. 
@@ -1063,7 +1131,7 @@ EventData = (
       <li data-md>
        <p><code>method</code> which is a string literal of the form <code>[module name].[event name]</code>. This is the <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="event-name">event name</dfn>.</p>
       <li data-md>
-       <p><code>params</code> which defines a mapping containing event data. The populated value of this map is the <dfn data-dfn-type="dfn" data-noexport id="event-parameters">event parameters<a class="self-link" href="#event-parameters"></a></dfn>.</p>
+       <p><code>params</code> which defines a mapping containing event data. The populated value of this map is the <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="event-parameters">event parameters</dfn>.</p>
      </ul>
     <li data-md>
      <p>A <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="remote-end-event-trigger">remote end event trigger</dfn> which defines when the event is triggered and steps to construct the <a data-link-type="dfn" href="#event-type" id="ref-for-event-type">event type</a> data.</p>
@@ -1330,7 +1398,7 @@ and a <dfn class="dfn-paneled" data-dfn-for="WebSocket listener" data-dfn-type="
    <p>The <code>CapabilitiesRequest</code> type represents capabilities requested for a session.</p>
    <h4 class="heading settled" data-level="7.1.3" id="module-session-commands"><span class="secno">7.1.3. </span><span class="content">Commands</span><a class="self-link" href="#module-session-commands"></a></h4>
    <h5 class="heading settled" data-level="7.1.3.1" id="module-session-new"><span class="secno">7.1.3.1. </span><span class="content">The session.new Command</span><a class="self-link" href="#module-session-new"></a></h5>
-   <p>The <dfn data-dfn-type="dfn" data-noexport id="sessionnew">session.new<a class="self-link" href="#sessionnew"></a></dfn> command allows creating a new <a data-link-type="dfn" href="#session" id="ref-for-session①⑤">session</a>. This is a <a data-link-type="dfn" href="#static-command" id="ref-for-static-command①">static command</a>.</p>
+   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="sessionnew">session.new</dfn> command allows creating a new <a data-link-type="dfn" href="#session" id="ref-for-session①⑤">session</a>. This is a <a data-link-type="dfn" href="#static-command" id="ref-for-static-command①">static command</a>.</p>
    <dl>
     <dt><a data-link-type="dfn" href="#command-type" id="ref-for-command-type">Command Type</a> 
     <dd>
@@ -1533,7 +1601,7 @@ SettingsSetSettingsParametersItem = {
     </ol>
    </div>
    <h5 class="heading settled" data-level="7.2.3.2" id="command-settings-get-settings"><span class="secno">7.2.3.2. </span><span class="content">The settings.getSettings Command</span><a class="self-link" href="#command-settings-get-settings"></a></h5>
-   <p>The <dfn data-dfn-type="dfn" data-noexport id="settingsgetsettings-command">settings.getSettings command<a class="self-link" href="#settingsgetsettings-command"></a></dfn> returns a list of the requested settings and their values.</p>
+   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="settingsgetsettings-command">settings.getSettings command</dfn> returns a list of the requested settings and their values.</p>
    <dl>
     <dt><a data-link-type="dfn" href="#command-type" id="ref-for-command-type②">Command Type</a>
     <dd>
@@ -1566,7 +1634,7 @@ SettingsGetSettingsParametersItem = {
     </ol>
    </div>
    <h5 class="heading settled" data-level="7.2.3.3" id="command-settings-get-supported-settings"><span class="secno">7.2.3.3. </span><span class="content">The settings.getSupportedSettings Command</span><a class="self-link" href="#command-settings-get-supported-settings"></a></h5>
-   <p>The <dfn data-dfn-type="dfn" data-noexport id="settingsgetsupportedsettings-command">settings.getSupportedSettings command<a class="self-link" href="#settingsgetsupportedsettings-command"></a></dfn> returns a list of all settings that the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②⑤">remote end</a> supports, and their values.</p>
+   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="settingsgetsupportedsettings-command">settings.getSupportedSettings command</dfn> returns a list of all settings that the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②⑤">remote end</a> supports, and their values.</p>
    <dl>
     <dt><a data-link-type="dfn" href="#command-type" id="ref-for-command-type③">Command Type</a>
     <dd>
@@ -1623,7 +1691,7 @@ InteractionEvent = (InteractionCapturedOutputEvent)
 </pre>
    <h4 class="heading settled" data-level="7.3.3" id="module-interaction-commands"><span class="secno">7.3.3. </span><span class="content">Commands</span><a class="self-link" href="#module-interaction-commands"></a></h4>
    <h5 class="heading settled" data-level="7.3.3.1" id="module-interaction-presskeys"><span class="secno">7.3.3.1. </span><span class="content">The interaction.pressKeys Command</span><a class="self-link" href="#module-interaction-presskeys"></a></h5>
-   <p>The <dfn data-dfn-type="dfn" data-noexport id="interactionpresskeys">interaction.pressKeys<a class="self-link" href="#interactionpresskeys"></a></dfn> command simulates pressing a key combination on a keyboard.</p>
+   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="interactionpresskeys">interaction.pressKeys</dfn> command simulates pressing a key combination on a keyboard.</p>
    <p class="issue" id="issue-05fb1c8b"><a class="self-link" href="#issue-05fb1c8b"></a> This command does not yet have a means for indicating a screen-reader specific modifier key (or keys). <a href="https://github.com/w3c/at-driver/issues/34">[Issue #34]</a></p>
    <p class="issue" id="issue-1bd3afd8"><a class="self-link" href="#issue-1bd3afd8"></a> This algorithm only supports one specific kind of press/release sequence, and it is not clear if that is sufficient to express all keyboard commands in all implementations. <a href="https://github.com/w3c/at-driver/issues/51">[Issue #51]</a></p>
    <dl>
@@ -1780,7 +1848,7 @@ parameters</var>.</p>
     Implementers are encouraged to optimize. </p>
    </section>
   </div>
-<script src="https://www.w3.org/scripts/TR/2021/fixup.js"></script>
+  <script src="https://www.w3.org/scripts/TR/2021/fixup.js"></script>
   <h2 class="no-num no-ref heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
   <h3 class="no-num no-ref heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
   <ul class="index">
@@ -1867,7 +1935,7 @@ parameters</var>.</p>
     <ul>
      <li><span class="dfn-paneled" id="53275e46">append <small>(for list)</small></span>
      <li><span class="dfn-paneled" id="a3b18719">append <small>(for set)</small></span>
-     <li><span class="dfn-paneled" id="6f2dfa22">ascii lowercase</span>
+     <li><span class="dfn-paneled" id="6f2dfa22">ASCII lowercase</span>
      <li><span class="dfn-paneled" id="77b4c09a">assert</span>
      <li><span class="dfn-paneled" id="ae8def21">contain <small>(for list)</small></span>
      <li><span class="dfn-paneled" id="a326add7">contain <small>(for map)</small></span>
@@ -1878,9 +1946,9 @@ parameters</var>.</p>
      <li><span class="dfn-paneled" id="860300d4">implementation-defined</span>
      <li><span class="dfn-paneled" id="649608b9">list</span>
      <li><span class="dfn-paneled" id="3fca5a9e">map</span>
-     <li><span class="dfn-paneled" id="8e8decb4">parse json into infra values</span>
+     <li><span class="dfn-paneled" id="8e8decb4">parse JSON into Infra values</span>
      <li><span class="dfn-paneled" id="762869d3">scalar value string</span>
-     <li><span class="dfn-paneled" id="4c07280e">serialize an infra value to json bytes</span>
+     <li><span class="dfn-paneled" id="4c07280e">serialize an Infra value to JSON bytes</span>
      <li><span class="dfn-paneled" id="15e48c39">set</span>
      <li><span class="dfn-paneled" id="0e6b2056">set <small>(for map)</small></span>
      <li><span class="dfn-paneled" id="653d0848">size</span>
@@ -1924,396 +1992,8 @@ parameters</var>.</p>
    <div class="issue"> TODO exclude access to any security-sensitive commands. <a class="issue-return" href="#issue-398c181d" title="Jump to section">↵</a></div>
    <div class="issue"> The JSON Schema files are not yet generated from the CDDL and so might be out of date. <a href="https://github.com/w3c/at-driver/issues/23">[Issue #23]</a> <a class="issue-return" href="#issue-f906273a" title="Jump to section">↵</a></div>
   </div>
-<script>/* Boilerplate: script-dfn-panel */
-"use strict";
-{
-    const dfnsJson = window.dfnsJson || {};
-
-    function genDfnPanel({dfnID, url, dfnText, refSections, external}) {
-        return mk.aside({
-            class: "dfn-panel",
-            id: `infopanel-for-${dfnID}`,
-            "data-for": dfnID,
-            "aria-labelled-by":`infopaneltitle-for-${dfnID}`,
-            },
-            mk.span({id:`infopaneltitle-for-${dfnID}`, style:"display:none"},
-                `Info about the '${dfnText}' ${external?"external":""} reference.`),
-            mk.a({href:url}, url),
-            mk.b({}, "Referenced in:"),
-            mk.ul({},
-                ...refSections.map(section=>
-                    mk.li({},
-                        ...section.refs.map((ref, refI)=>
-                            [
-                                mk.a({
-                                    href: `#${ref.id}`
-                                    },
-                                    (refI == 0) ? section.title : `(${refI + 1})`
-                                ),
-                                " ",
-                            ]
-                        ),
-                    ),
-                ),
-            ),
-        );
-    }
-
-    function genAllDfnPanels() {
-        for(const panelData of Object.values(window.dfnpanelData)) {
-            const dfnID = panelData.dfnID;
-            const dfn = document.getElementById(dfnID);
-            if(!dfn) {
-                console.log(`Can't find dfn#${dfnID}.`, panelData);
-            } else {
-                const panel = genDfnPanel(panelData);
-                append(document.body, panel);
-                insertDfnPopupAction(dfn, panel)
-            }
-        }
-    }
-
-    document.addEventListener("DOMContentLoaded", ()=>{
-        genAllDfnPanels();
-
-        // Add popup behavior to all dfns to show the corresponding dfn-panel.
-        var dfns = queryAll('.dfn-paneled');
-        for(let dfn of dfns) { ; }
-
-        document.body.addEventListener("click", (e) => {
-            // If not handled already, just hide all dfn panels.
-            hideAllDfnPanels();
-        });
-    })
-
-
-    function hideAllDfnPanels() {
-        // Turn off any currently "on" or "activated" panels.
-        queryAll(".dfn-panel.on, .dfn-panel.activated").forEach(el=>hideDfnPanel(el));
-    }
-
-    function showDfnPanel(dfnPanel, dfn) {
-        hideAllDfnPanels(); // Only display one at this time.
-        dfn.setAttribute("aria-expanded", "true");
-        dfnPanel.classList.add("on");
-        dfnPanel.style.left = "5px";
-        dfnPanel.style.top = "0px";
-        const panelRect = dfnPanel.getBoundingClientRect();
-        const panelWidth = panelRect.right - panelRect.left;
-        if (panelRect.right > document.body.scrollWidth) {
-            // Panel's overflowing the screen.
-            // Just drop it below the dfn and flip it rightward instead.
-            // This still wont' fix things if the screen is *really* wide,
-            // but fixing that's a lot harder without 'anchor()'.
-            dfnPanel.style.top = "1.5em";
-            dfnPanel.style.left = "auto";
-            dfnPanel.style.right = "0px";
-        }
-    }
-
-    function pinDfnPanel(dfnPanel) {
-        // Switch it to "activated" state, which pins it.
-        dfnPanel.classList.add("activated");
-        dfnPanel.style.left = null;
-        dfnPanel.style.top = null;
-    }
-
-    function hideDfnPanel(dfnPanel, dfn) {
-        if(!dfn) {
-            dfn = document.getElementById(dfnPanel.getAttribute("data-for"));
-        }
-        dfn.setAttribute("aria-expanded", "false")
-        dfnPanel.classList.remove("on");
-        dfnPanel.classList.remove("activated");
-    }
-
-    function toggleDfnPanel(dfnPanel, dfn) {
-        if(dfnPanel.classList.contains("on")) {
-            hideDfnPanel(dfnPanel, dfn);
-        } else {
-            showDfnPanel(dfnPanel, dfn);
-        }
-    }
-
-    function insertDfnPopupAction(dfn, dfnPanel) {
-        // Find dfn panel
-        const panelWrapper = document.createElement('span');
-        panelWrapper.appendChild(dfnPanel);
-        panelWrapper.style.position = "relative";
-        panelWrapper.style.height = "0px";
-        dfn.insertAdjacentElement("afterend", panelWrapper);
-        dfn.setAttribute('role', 'button');
-        dfn.setAttribute('aria-expanded', 'false')
-        dfn.tabIndex = 0;
-        dfn.classList.add('has-dfn-panel');
-        dfn.addEventListener('click', (event) => {
-            showDfnPanel(dfnPanel, dfn);
-            event.stopPropagation();
-        });
-        dfn.addEventListener('keypress', (event) => {
-            const kc = event.keyCode;
-            // 32->Space, 13->Enter
-            if(kc == 32 || kc == 13) {
-                toggleDfnPanel(dfnPanel, dfn);
-                event.stopPropagation();
-                event.preventDefault();
-            }
-        });
-
-        dfnPanel.addEventListener('click', (event) => {
-            if (event.target.nodeName == 'A') {
-                pinDfnPanel(dfnPanel);
-            }
-            event.stopPropagation();
-        });
-
-        dfnPanel.addEventListener('keydown', (event) => {
-            if(event.keyCode == 27) { // Escape key
-                hideDfnPanel(dfnPanel, dfn);
-                event.stopPropagation();
-                event.preventDefault();
-            }
-        })
-    }
-}
-</script>
-<script>/* Boilerplate: script-dfn-panel */
-"use strict";
-{
-    const dfnsJson = window.dfnsJson || {};
-
-    function genDfnPanel({dfnID, url, dfnText, refSections, external}) {
-        return mk.aside({
-            class: "dfn-panel",
-            id: `infopanel-for-${dfnID}`,
-            "data-for": dfnID,
-            "aria-labelled-by":`infopaneltitle-for-${dfnID}`,
-            },
-            mk.span({id:`infopaneltitle-for-${dfnID}`, style:"display:none"},
-                `Info about the '${dfnText}' ${external?"external":""} reference.`),
-            mk.a({href:url}, url),
-            mk.b({}, "Referenced in:"),
-            mk.ul({},
-                ...refSections.map(section=>
-                    mk.li({},
-                        ...section.refs.map((ref, refI)=>
-                            [
-                                mk.a({
-                                    href: `#${ref.id}`
-                                    },
-                                    (refI == 0) ? section.title : `(${refI + 1})`
-                                ),
-                                " ",
-                            ]
-                        ),
-                    ),
-                ),
-            ),
-        );
-    }
-
-    function genAllDfnPanels() {
-        for(const panelData of Object.values(window.dfnpanelData)) {
-            const dfnID = panelData.dfnID;
-            const dfn = document.getElementById(dfnID);
-            if(!dfn) {
-                console.log(`Can't find dfn#${dfnID}.`, panelData);
-            } else {
-                const panel = genDfnPanel(panelData);
-                append(document.body, panel);
-                insertDfnPopupAction(dfn, panel)
-            }
-        }
-    }
-
-    document.addEventListener("DOMContentLoaded", ()=>{
-        genAllDfnPanels();
-
-        // Add popup behavior to all dfns to show the corresponding dfn-panel.
-        var dfns = queryAll('.dfn-paneled');
-        for(let dfn of dfns) { ; }
-
-        document.body.addEventListener("click", (e) => {
-            // If not handled already, just hide all dfn panels.
-            hideAllDfnPanels();
-        });
-    })
-
-
-    function hideAllDfnPanels() {
-        // Turn off any currently "on" or "activated" panels.
-        queryAll(".dfn-panel.on, .dfn-panel.activated").forEach(el=>hideDfnPanel(el));
-    }
-
-    function showDfnPanel(dfnPanel, dfn) {
-        hideAllDfnPanels(); // Only display one at this time.
-        dfn.setAttribute("aria-expanded", "true");
-        dfnPanel.classList.add("on");
-        dfnPanel.style.left = "5px";
-        dfnPanel.style.top = "0px";
-        const panelRect = dfnPanel.getBoundingClientRect();
-        const panelWidth = panelRect.right - panelRect.left;
-        if (panelRect.right > document.body.scrollWidth) {
-            // Panel's overflowing the screen.
-            // Just drop it below the dfn and flip it rightward instead.
-            // This still wont' fix things if the screen is *really* wide,
-            // but fixing that's a lot harder without 'anchor()'.
-            dfnPanel.style.top = "1.5em";
-            dfnPanel.style.left = "auto";
-            dfnPanel.style.right = "0px";
-        }
-    }
-
-    function pinDfnPanel(dfnPanel) {
-        // Switch it to "activated" state, which pins it.
-        dfnPanel.classList.add("activated");
-        dfnPanel.style.left = null;
-        dfnPanel.style.top = null;
-    }
-
-    function hideDfnPanel(dfnPanel, dfn) {
-        if(!dfn) {
-            dfn = document.getElementById(dfnPanel.getAttribute("data-for"));
-        }
-        dfn.setAttribute("aria-expanded", "false")
-        dfnPanel.classList.remove("on");
-        dfnPanel.classList.remove("activated");
-    }
-
-    function toggleDfnPanel(dfnPanel, dfn) {
-        if(dfnPanel.classList.contains("on")) {
-            hideDfnPanel(dfnPanel, dfn);
-        } else {
-            showDfnPanel(dfnPanel, dfn);
-        }
-    }
-
-    function insertDfnPopupAction(dfn, dfnPanel) {
-        // Find dfn panel
-        const panelWrapper = document.createElement('span');
-        panelWrapper.appendChild(dfnPanel);
-        panelWrapper.style.position = "relative";
-        panelWrapper.style.height = "0px";
-        dfn.insertAdjacentElement("afterend", panelWrapper);
-        dfn.setAttribute('role', 'button');
-        dfn.setAttribute('aria-expanded', 'false')
-        dfn.tabIndex = 0;
-        dfn.classList.add('has-dfn-panel');
-        dfn.addEventListener('click', (event) => {
-            showDfnPanel(dfnPanel, dfn);
-            event.stopPropagation();
-        });
-        dfn.addEventListener('keypress', (event) => {
-            const kc = event.keyCode;
-            // 32->Space, 13->Enter
-            if(kc == 32 || kc == 13) {
-                toggleDfnPanel(dfnPanel, dfn);
-                event.stopPropagation();
-                event.preventDefault();
-            }
-        });
-
-        dfnPanel.addEventListener('click', (event) => {
-            if (event.target.nodeName == 'A') {
-                pinDfnPanel(dfnPanel);
-            }
-            event.stopPropagation();
-        });
-
-        dfnPanel.addEventListener('keydown', (event) => {
-            if(event.keyCode == 27) { // Escape key
-                hideDfnPanel(dfnPanel, dfn);
-                event.stopPropagation();
-                event.preventDefault();
-            }
-        })
-    }
-}
-</script>
-<script>/* Boilerplate: script-dfn-panel-json */
-window.dfnpanelData = {};
-window.dfnpanelData['a72449dd'] = {"dfnID": "a72449dd", "url": "https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel", "dfnText": "in parallel", "refSections": [{"refs": [{"id": "ref-for-in-parallel"}], "title": "6. Transport"}], "external": true};
-window.dfnpanelData['53275e46'] = {"dfnID": "53275e46", "url": "https://infra.spec.whatwg.org/#list-append", "dfnText": "append (for list)", "refSections": [{"refs": [{"id": "ref-for-list-append"}], "title": "7.2. The settings Module"}], "external": true};
-window.dfnpanelData['a3b18719'] = {"dfnID": "a3b18719", "url": "https://infra.spec.whatwg.org/#set-append", "dfnText": "append (for set)", "refSections": [{"refs": [{"id": "ref-for-set-append"}, {"id": "ref-for-set-append\u2460"}], "title": "6. Transport"}], "external": true};
-window.dfnpanelData['6f2dfa22'] = {"dfnID": "6f2dfa22", "url": "https://infra.spec.whatwg.org/#ascii-lowercase", "dfnText": "ascii lowercase", "refSections": [{"refs": [{"id": "ref-for-ascii-lowercase"}, {"id": "ref-for-ascii-lowercase\u2460"}], "title": "5.2. Capabilities"}], "external": true};
-window.dfnpanelData['77b4c09a'] = {"dfnID": "77b4c09a", "url": "https://infra.spec.whatwg.org/#assert", "dfnText": "assert", "refSections": [{"refs": [{"id": "ref-for-assert"}, {"id": "ref-for-assert\u2460"}, {"id": "ref-for-assert\u2461"}, {"id": "ref-for-assert\u2462"}], "title": "6. Transport"}, {"refs": [{"id": "ref-for-assert\u2463"}], "title": "7.2.3.3. The settings.getSupportedSettings Command"}], "external": true};
-window.dfnpanelData['ae8def21'] = {"dfnID": "ae8def21", "url": "https://infra.spec.whatwg.org/#list-contain", "dfnText": "contain (for list)", "refSections": [{"refs": [{"id": "ref-for-list-contain"}], "title": "7.2. The settings Module"}], "external": true};
-window.dfnpanelData['a326add7'] = {"dfnID": "a326add7", "url": "https://infra.spec.whatwg.org/#map-exists", "dfnText": "contain (for map)", "refSections": [{"refs": [{"id": "ref-for-map-exists"}, {"id": "ref-for-map-exists\u2460"}], "title": "5.2. Capabilities"}, {"refs": [{"id": "ref-for-map-exists\u2461"}, {"id": "ref-for-map-exists\u2462"}, {"id": "ref-for-map-exists\u2463"}, {"id": "ref-for-map-exists\u2464"}], "title": "6. Transport"}], "external": true};
-window.dfnpanelData['03afaf9c'] = {"dfnID": "03afaf9c", "url": "https://infra.spec.whatwg.org/#list-empty", "dfnText": "empty", "refSections": [{"refs": [{"id": "ref-for-list-empty"}], "title": "6. Transport"}], "external": true};
-window.dfnpanelData['1243a891'] = {"dfnID": "1243a891", "url": "https://infra.spec.whatwg.org/#map-exists", "dfnText": "exist", "refSections": [{"refs": [{"id": "ref-for-map-exists"}, {"id": "ref-for-map-exists\u2460"}], "title": "5.2. Capabilities"}, {"refs": [{"id": "ref-for-map-exists\u2461"}, {"id": "ref-for-map-exists\u2462"}, {"id": "ref-for-map-exists\u2463"}, {"id": "ref-for-map-exists\u2464"}], "title": "6. Transport"}], "external": true};
-window.dfnpanelData['16d07e10'] = {"dfnID": "16d07e10", "url": "https://infra.spec.whatwg.org/#list-iterate", "dfnText": "for each (for list)", "refSections": [{"refs": [{"id": "ref-for-list-iterate"}], "title": "6. Transport"}, {"refs": [{"id": "ref-for-list-iterate\u2460"}], "title": "7.2. The settings Module"}, {"refs": [{"id": "ref-for-list-iterate\u2461"}], "title": "7.2.3.1. The settings.setSettings Command"}, {"refs": [{"id": "ref-for-list-iterate\u2462"}, {"id": "ref-for-list-iterate\u2463"}], "title": "7.3.3.1. The interaction.pressKeys Command"}, {"refs": [{"id": "ref-for-list-iterate\u2464"}], "title": "7.3.4.1. The interaction.capturedOutput Event"}], "external": true};
-window.dfnpanelData['45209803'] = {"dfnID": "45209803", "url": "https://infra.spec.whatwg.org/#map-iterate", "dfnText": "for each (for map)", "refSections": [{"refs": [{"id": "ref-for-map-iterate"}], "title": "5.2. Capabilities"}], "external": true};
-window.dfnpanelData['860300d4'] = {"dfnID": "860300d4", "url": "https://infra.spec.whatwg.org/#implementation-defined", "dfnText": "implementation-defined", "refSections": [{"refs": [{"id": "ref-for-implementation-defined"}], "title": "5.2. Capabilities"}, {"refs": [{"id": "ref-for-implementation-defined\u2460"}, {"id": "ref-for-implementation-defined\u2461"}, {"id": "ref-for-implementation-defined\u2462"}], "title": "5.8. Security checks"}, {"refs": [{"id": "ref-for-implementation-defined\u2463"}, {"id": "ref-for-implementation-defined\u2464"}, {"id": "ref-for-implementation-defined\u2465"}, {"id": "ref-for-implementation-defined\u2466"}], "title": "6. Transport"}, {"refs": [{"id": "ref-for-implementation-defined\u2467"}, {"id": "ref-for-implementation-defined\u2468"}], "title": "7.2. The settings Module"}, {"refs": [{"id": "ref-for-implementation-defined\u2460\u24ea"}, {"id": "ref-for-implementation-defined\u2460\u2460"}], "title": "7.3.3.1. The interaction.pressKeys Command"}], "external": true};
-window.dfnpanelData['649608b9'] = {"dfnID": "649608b9", "url": "https://infra.spec.whatwg.org/#list", "dfnText": "list", "refSections": [{"refs": [{"id": "ref-for-list"}, {"id": "ref-for-list\u2460"}], "title": "7.2. The settings Module"}, {"refs": [{"id": "ref-for-list\u2461"}], "title": "7.2.3.3. The settings.getSupportedSettings Command"}, {"refs": [{"id": "ref-for-list\u2462"}], "title": "7.3.3.1. The interaction.pressKeys Command"}], "external": true};
-window.dfnpanelData['3fca5a9e'] = {"dfnID": "3fca5a9e", "url": "https://infra.spec.whatwg.org/#ordered-map", "dfnText": "map", "refSections": [{"refs": [{"id": "ref-for-ordered-map"}, {"id": "ref-for-ordered-map\u2460"}], "title": "5.2. Capabilities"}, {"refs": [{"id": "ref-for-ordered-map\u2461"}, {"id": "ref-for-ordered-map\u2462"}, {"id": "ref-for-ordered-map\u2463"}], "title": "6. Transport"}, {"refs": [{"id": "ref-for-ordered-map\u2464"}], "title": "7.1.3.1. The session.new Command"}, {"refs": [{"id": "ref-for-ordered-map\u2465"}, {"id": "ref-for-ordered-map\u2466"}], "title": "7.2. The settings Module"}, {"refs": [{"id": "ref-for-ordered-map\u2467"}], "title": "7.2.3.1. The settings.setSettings Command"}, {"refs": [{"id": "ref-for-ordered-map\u2468"}], "title": "7.3.3.1. The interaction.pressKeys Command"}, {"refs": [{"id": "ref-for-ordered-map\u2460\u24ea"}, {"id": "ref-for-ordered-map\u2460\u2460"}], "title": "7.3.4.1. The interaction.capturedOutput Event"}], "external": true};
-window.dfnpanelData['8e8decb4'] = {"dfnID": "8e8decb4", "url": "https://infra.spec.whatwg.org/#parse-a-json-string-to-an-infra-value", "dfnText": "parse json into infra values", "refSections": [{"refs": [{"id": "ref-for-parse-a-json-string-to-an-infra-value"}], "title": "6. Transport"}], "external": true};
-window.dfnpanelData['762869d3'] = {"dfnID": "762869d3", "url": "https://infra.spec.whatwg.org/#scalar-value-string", "dfnText": "scalar value string", "refSections": [{"refs": [{"id": "ref-for-scalar-value-string"}], "title": "6. Transport"}], "external": true};
-window.dfnpanelData['4c07280e'] = {"dfnID": "4c07280e", "url": "https://infra.spec.whatwg.org/#serialize-an-infra-value-to-json-bytes", "dfnText": "serialize an infra value to json bytes", "refSections": [{"refs": [{"id": "ref-for-serialize-an-infra-value-to-json-bytes"}, {"id": "ref-for-serialize-an-infra-value-to-json-bytes\u2460"}, {"id": "ref-for-serialize-an-infra-value-to-json-bytes\u2461"}], "title": "6. Transport"}], "external": true};
-window.dfnpanelData['15e48c39'] = {"dfnID": "15e48c39", "url": "https://infra.spec.whatwg.org/#ordered-set", "dfnText": "set", "refSections": [{"refs": [{"id": "ref-for-ordered-set"}], "title": "5.5. Commands"}, {"refs": [{"id": "ref-for-ordered-set\u2460"}, {"id": "ref-for-ordered-set\u2461"}, {"id": "ref-for-ordered-set\u2462"}], "title": "6. Transport"}, {"refs": [{"id": "ref-for-ordered-set\u2463"}], "title": "7.2. The settings Module"}], "external": true};
-window.dfnpanelData['0e6b2056'] = {"dfnID": "0e6b2056", "url": "https://infra.spec.whatwg.org/#map-set", "dfnText": "set (for map)", "refSections": [{"refs": [{"id": "ref-for-map-set"}], "title": "5.2. Capabilities"}], "external": true};
-window.dfnpanelData['653d0848'] = {"dfnID": "653d0848", "url": "https://infra.spec.whatwg.org/#map-size", "dfnText": "size", "refSections": [{"refs": [{"id": "ref-for-map-size"}], "title": "6. Transport"}], "external": true};
-window.dfnpanelData['0698d556'] = {"dfnID": "0698d556", "url": "https://infra.spec.whatwg.org/#string", "dfnText": "string", "refSections": [{"refs": [{"id": "ref-for-string"}, {"id": "ref-for-string\u2460"}, {"id": "ref-for-string\u2461"}, {"id": "ref-for-string\u2462"}, {"id": "ref-for-string\u2463"}, {"id": "ref-for-string\u2464"}], "title": "5.2. Capabilities"}], "external": true};
-window.dfnpanelData['uuid'] = {"dfnID": "uuid", "url": "#uuid", "dfnText": "Universally Unique Identifier (UUID)", "refSections": [{"refs": [{"id": "ref-for-uuid"}], "title": "5.3. Session"}], "external": false};
-window.dfnpanelData['generating-a-uuid'] = {"dfnID": "generating-a-uuid", "url": "#generating-a-uuid", "dfnText": "Generating a UUID", "refSections": [{"refs": [{"id": "ref-for-generating-a-uuid"}], "title": "7.1.3.1. The session.new Command"}], "external": false};
-window.dfnpanelData['success'] = {"dfnID": "success", "url": "#success", "dfnText": "success", "refSections": [{"refs": [{"id": "ref-for-success"}], "title": "3. Infrastructure"}, {"refs": [{"id": "ref-for-success\u2460"}, {"id": "ref-for-success\u2461"}, {"id": "ref-for-success\u2462"}, {"id": "ref-for-success\u2463"}], "title": "5.2. Capabilities"}, {"refs": [{"id": "ref-for-success\u2464"}], "title": "5.5. Commands"}, {"refs": [{"id": "ref-for-success\u2465"}, {"id": "ref-for-success\u2466"}], "title": "5.8. Security checks"}, {"refs": [{"id": "ref-for-success\u2467"}], "title": "7.1.3.1. The session.new Command"}, {"refs": [{"id": "ref-for-success\u2468"}, {"id": "ref-for-success\u2460\u24ea"}], "title": "7.2. The settings Module"}, {"refs": [{"id": "ref-for-success\u2460\u2460"}, {"id": "ref-for-success\u2460\u2461"}], "title": "7.2.3.1. The settings.setSettings Command"}, {"refs": [{"id": "ref-for-success\u2460\u2462"}], "title": "7.2.3.3. The settings.getSupportedSettings Command"}, {"refs": [{"id": "ref-for-success\u2460\u2463"}], "title": "7.3.3.1. The interaction.pressKeys Command"}], "external": false};
-window.dfnpanelData['error'] = {"dfnID": "error", "url": "#error", "dfnText": "error", "refSections": [{"refs": [{"id": "ref-for-error"}, {"id": "ref-for-error\u2460"}], "title": "3. Infrastructure"}, {"refs": [{"id": "ref-for-error\u2461"}], "title": "5.5. Commands"}, {"refs": [{"id": "ref-for-error\u2462"}, {"id": "ref-for-error\u2463"}], "title": "5.8. Security checks"}, {"refs": [{"id": "ref-for-error\u2464"}], "title": "6. Transport"}, {"refs": [{"id": "ref-for-error\u2465"}, {"id": "ref-for-error\u2466"}, {"id": "ref-for-error\u2467"}, {"id": "ref-for-error\u2468"}], "title": "7.1.3.1. The session.new Command"}, {"refs": [{"id": "ref-for-error\u2460\u24ea"}, {"id": "ref-for-error\u2460\u2460"}, {"id": "ref-for-error\u2460\u2461"}], "title": "7.2. The settings Module"}], "external": false};
-window.dfnpanelData['try'] = {"dfnID": "try", "url": "#try", "dfnText": "trying", "refSections": [{"refs": [{"id": "ref-for-try"}], "title": "5.2. Capabilities"}, {"refs": [{"id": "ref-for-try\u2460"}], "title": "7.1.3.1. The session.new Command"}, {"refs": [{"id": "ref-for-try\u2461"}], "title": "7.2.3.1. The settings.setSettings Command"}, {"refs": [{"id": "ref-for-try\u2462"}, {"id": "ref-for-try\u2463"}], "title": "7.3.3.1. The interaction.pressKeys Command"}], "external": false};
-window.dfnpanelData['local-end'] = {"dfnID": "local-end", "url": "#local-end", "dfnText": "local end", "refSections": [{"refs": [{"id": "ref-for-local-end"}, {"id": "ref-for-local-end\u2460"}], "title": "5. Protocol"}, {"refs": [{"id": "ref-for-local-end\u2461"}], "title": "5.2. Capabilities"}, {"refs": [{"id": "ref-for-local-end\u2462"}], "title": "5.3. Session"}, {"refs": [{"id": "ref-for-local-end\u2463"}, {"id": "ref-for-local-end\u2464"}, {"id": "ref-for-local-end\u2465"}, {"id": "ref-for-local-end\u2466"}], "title": "5.5. Commands"}, {"refs": [{"id": "ref-for-local-end\u2467"}], "title": "5.6. Events"}], "external": false};
-window.dfnpanelData['remote-end'] = {"dfnID": "remote-end", "url": "#remote-end", "dfnText": "remote end", "refSections": [{"refs": [{"id": "ref-for-remote-end"}, {"id": "ref-for-remote-end\u2460"}], "title": "5. Protocol"}, {"refs": [{"id": "ref-for-remote-end\u2461"}, {"id": "ref-for-remote-end\u2462"}, {"id": "ref-for-remote-end\u2463"}, {"id": "ref-for-remote-end\u2464"}, {"id": "ref-for-remote-end\u2465"}, {"id": "ref-for-remote-end\u2466"}], "title": "5.2. Capabilities"}, {"refs": [{"id": "ref-for-remote-end\u2467"}, {"id": "ref-for-remote-end\u2468"}], "title": "5.3. Session"}, {"refs": [{"id": "ref-for-remote-end\u2460\u24ea"}, {"id": "ref-for-remote-end\u2460\u2460"}], "title": "5.5. Commands"}, {"refs": [{"id": "ref-for-remote-end\u2460\u2461"}, {"id": "ref-for-remote-end\u2460\u2462"}], "title": "5.6. Events"}, {"refs": [{"id": "ref-for-remote-end\u2460\u2463"}, {"id": "ref-for-remote-end\u2460\u2464"}], "title": "5.7. Errors"}, {"refs": [{"id": "ref-for-remote-end\u2460\u2465"}], "title": "5.8. Security checks"}, {"refs": [{"id": "ref-for-remote-end\u2460\u2466"}, {"id": "ref-for-remote-end\u2460\u2467"}, {"id": "ref-for-remote-end\u2460\u2468"}, {"id": "ref-for-remote-end\u2461\u24ea"}, {"id": "ref-for-remote-end\u2461\u2460"}, {"id": "ref-for-remote-end\u2461\u2461"}], "title": "6. Transport"}, {"refs": [{"id": "ref-for-remote-end\u2461\u2462"}, {"id": "ref-for-remote-end\u2461\u2463"}], "title": "7.2. The settings Module"}, {"refs": [{"id": "ref-for-remote-end\u2461\u2464"}], "title": "7.2.3.3. The settings.getSupportedSettings Command"}, {"refs": [{"id": "ref-for-remote-end\u2461\u2465"}], "title": "8. Privacy"}], "external": false};
-window.dfnpanelData['remote-end-definition'] = {"dfnID": "remote-end-definition", "url": "#remote-end-definition", "dfnText": "remote end definition", "refSections": [{"refs": [{"id": "ref-for-remote-end-definition"}], "title": "5.1. Definition"}, {"refs": [{"id": "ref-for-remote-end-definition\u2460"}, {"id": "ref-for-remote-end-definition\u2461"}], "title": "5.4. Modules"}, {"refs": [{"id": "ref-for-remote-end-definition\u2462"}], "title": "5.5. Commands"}, {"refs": [{"id": "ref-for-remote-end-definition\u2463"}], "title": "6. Transport"}, {"refs": [{"id": "ref-for-remote-end-definition\u2464"}], "title": "7.1.1. Definition"}, {"refs": [{"id": "ref-for-remote-end-definition\u2465"}], "title": "7.1.2.1. The session.CapabilitiesRequest Type"}, {"refs": [{"id": "ref-for-remote-end-definition\u2466"}], "title": "7.2.1. Definition"}, {"refs": [{"id": "ref-for-remote-end-definition\u2467"}], "title": "7.3.1. Definition"}, {"refs": [{"id": "ref-for-remote-end-definition\u2468"}], "title": "Appendix A: Schemas"}], "external": false};
-window.dfnpanelData['local-end-definition'] = {"dfnID": "local-end-definition", "url": "#local-end-definition", "dfnText": "local end definition", "refSections": [{"refs": [{"id": "ref-for-local-end-definition"}], "title": "5.1. Definition"}, {"refs": [{"id": "ref-for-local-end-definition\u2460"}], "title": "5.4. Modules"}, {"refs": [{"id": "ref-for-local-end-definition\u2461"}], "title": "5.5. Commands"}, {"refs": [{"id": "ref-for-local-end-definition\u2462"}], "title": "5.6. Events"}, {"refs": [{"id": "ref-for-local-end-definition\u2463"}, {"id": "ref-for-local-end-definition\u2464"}], "title": "6. Transport"}, {"refs": [{"id": "ref-for-local-end-definition\u2465"}], "title": "7.1.1. Definition"}, {"refs": [{"id": "ref-for-local-end-definition\u2466"}], "title": "7.1.2.1. The session.CapabilitiesRequest Type"}, {"refs": [{"id": "ref-for-local-end-definition\u2467"}], "title": "7.2. The settings Module"}, {"refs": [{"id": "ref-for-local-end-definition\u2468"}], "title": "7.2.1. Definition"}, {"refs": [{"id": "ref-for-local-end-definition\u2460\u24ea"}], "title": "7.2.2.1. The SettingsGetSettingsResult type"}, {"refs": [{"id": "ref-for-local-end-definition\u2460\u2460"}], "title": "7.3.1. Definition"}, {"refs": [{"id": "ref-for-local-end-definition\u2460\u2461"}], "title": "Appendix A: Schemas"}], "external": false};
-window.dfnpanelData['extension-capabilities'] = {"dfnID": "extension-capabilities", "url": "#extension-capabilities", "dfnText": "extension capabilities", "refSections": [{"refs": [{"id": "ref-for-extension-capabilities"}, {"id": "ref-for-extension-capabilities\u2460"}], "title": "5.2. Capabilities"}], "external": false};
-window.dfnpanelData['process-capabilities'] = {"dfnID": "process-capabilities", "url": "#process-capabilities", "dfnText": "process capabilities", "refSections": [{"refs": [{"id": "ref-for-process-capabilities"}], "title": "7.1.3.1. The session.new Command"}], "external": false};
-window.dfnpanelData['match-capabilities'] = {"dfnID": "match-capabilities", "url": "#match-capabilities", "dfnText": "match capabilities", "refSections": [{"refs": [{"id": "ref-for-match-capabilities"}], "title": "5.2. Capabilities"}], "external": false};
-window.dfnpanelData['session'] = {"dfnID": "session", "url": "#session", "dfnText": "session", "refSections": [{"refs": [{"id": "ref-for-session"}, {"id": "ref-for-session\u2460"}], "title": "2. Explainer"}, {"refs": [{"id": "ref-for-session\u2461"}, {"id": "ref-for-session\u2462"}], "title": "5.2. Capabilities"}, {"refs": [{"id": "ref-for-session\u2463"}, {"id": "ref-for-session\u2464"}], "title": "5.3. Session"}, {"refs": [{"id": "ref-for-session\u2465"}], "title": "5.5. Commands"}, {"refs": [{"id": "ref-for-session\u2466"}, {"id": "ref-for-session\u2467"}], "title": "5.7. Errors"}, {"refs": [{"id": "ref-for-session\u2468"}, {"id": "ref-for-session\u2460\u24ea"}, {"id": "ref-for-session\u2460\u2460"}, {"id": "ref-for-session\u2460\u2461"}, {"id": "ref-for-session\u2460\u2462"}, {"id": "ref-for-session\u2460\u2463"}], "title": "6. Transport"}, {"refs": [{"id": "ref-for-session\u2460\u2464"}, {"id": "ref-for-session\u2460\u2465"}], "title": "7.1.3.1. The session.new Command"}], "external": false};
-window.dfnpanelData['remote-end-active-sessions'] = {"dfnID": "remote-end-active-sessions", "url": "#remote-end-active-sessions", "dfnText": "active sessions", "refSections": [{"refs": [{"id": "ref-for-remote-end-active-sessions"}], "title": "5.3. Session"}, {"refs": [{"id": "ref-for-remote-end-active-sessions\u2460"}, {"id": "ref-for-remote-end-active-sessions\u2461"}], "title": "6. Transport"}, {"refs": [{"id": "ref-for-remote-end-active-sessions\u2462"}, {"id": "ref-for-remote-end-active-sessions\u2463"}], "title": "7.1.3.1. The session.new Command"}, {"refs": [{"id": "ref-for-remote-end-active-sessions\u2464"}], "title": "7.3.4.1. The interaction.capturedOutput Event"}], "external": false};
-window.dfnpanelData['session-session-id'] = {"dfnID": "session-session-id", "url": "#session-session-id", "dfnText": "session ID", "refSections": [{"refs": [{"id": "ref-for-session-session-id"}], "title": "6. Transport"}, {"refs": [{"id": "ref-for-session-session-id\u2460"}, {"id": "ref-for-session-session-id\u2461"}], "title": "7.1.3.1. The session.new Command"}], "external": false};
-window.dfnpanelData['module'] = {"dfnID": "module", "url": "#module", "dfnText": "module", "refSections": [{"refs": [{"id": "ref-for-module"}], "title": "2. Explainer"}, {"refs": [{"id": "ref-for-module\u2460"}, {"id": "ref-for-module\u2461"}], "title": "7.2. The settings Module"}], "external": false};
-window.dfnpanelData['module-name'] = {"dfnID": "module-name", "url": "#module-name", "dfnText": "module name", "refSections": [{"refs": [{"id": "ref-for-module-name"}], "title": "5.4. Modules"}], "external": false};
-window.dfnpanelData['extension-modules'] = {"dfnID": "extension-modules", "url": "#extension-modules", "dfnText": "extension modules", "refSections": [{"refs": [{"id": "ref-for-extension-modules"}], "title": "5.5. Commands"}], "external": false};
-window.dfnpanelData['command'] = {"dfnID": "command", "url": "#command", "dfnText": "command", "refSections": [{"refs": [{"id": "ref-for-command"}, {"id": "ref-for-command\u2460"}, {"id": "ref-for-command\u2461"}], "title": "5.4. Modules"}, {"refs": [{"id": "ref-for-command\u2462"}], "title": "5.5. Commands"}, {"refs": [{"id": "ref-for-command\u2463"}, {"id": "ref-for-command\u2464"}], "title": "5.7. Errors"}], "external": false};
-window.dfnpanelData['command-type'] = {"dfnID": "command-type", "url": "#command-type", "dfnText": "command type", "refSections": [{"refs": [{"id": "ref-for-command-type"}], "title": "7.1.3.1. The session.new Command"}, {"refs": [{"id": "ref-for-command-type\u2460"}], "title": "7.2.3.1. The settings.setSettings Command"}, {"refs": [{"id": "ref-for-command-type\u2461"}], "title": "7.2.3.2. The settings.getSettings Command"}, {"refs": [{"id": "ref-for-command-type\u2462"}], "title": "7.2.3.3. The settings.getSupportedSettings Command"}, {"refs": [{"id": "ref-for-command-type\u2463"}], "title": "7.3.3.1. The interaction.pressKeys Command"}], "external": false};
-window.dfnpanelData['command-name'] = {"dfnID": "command-name", "url": "#command-name", "dfnText": "command name", "refSections": [{"refs": [{"id": "ref-for-command-name"}], "title": "5.4. Modules"}, {"refs": [{"id": "ref-for-command-name\u2460"}], "title": "5.5. Commands"}, {"refs": [{"id": "ref-for-command-name\u2461"}, {"id": "ref-for-command-name\u2462"}], "title": "6. Transport"}], "external": false};
-window.dfnpanelData['command-parameters'] = {"dfnID": "command-parameters", "url": "#command-parameters", "dfnText": "command parameters", "refSections": [{"refs": [{"id": "ref-for-command-parameters"}], "title": "5.5. Commands"}, {"refs": [{"id": "ref-for-command-parameters\u2460"}], "title": "6. Transport"}], "external": false};
-window.dfnpanelData['result-type'] = {"dfnID": "result-type", "url": "#result-type", "dfnText": "result type", "refSections": [{"refs": [{"id": "ref-for-result-type"}], "title": "5.5. Commands"}, {"refs": [{"id": "ref-for-result-type\u2460"}], "title": "6. Transport"}, {"refs": [{"id": "ref-for-result-type\u2461"}], "title": "7.1.3.1. The session.new Command"}, {"refs": [{"id": "ref-for-result-type\u2462"}], "title": "7.2.3.1. The settings.setSettings Command"}, {"refs": [{"id": "ref-for-result-type\u2463"}], "title": "7.2.3.2. The settings.getSettings Command"}, {"refs": [{"id": "ref-for-result-type\u2464"}], "title": "7.2.3.3. The settings.getSupportedSettings Command"}], "external": false};
-window.dfnpanelData['remote-end-steps'] = {"dfnID": "remote-end-steps", "url": "#remote-end-steps", "dfnText": "remote end steps", "refSections": [{"refs": [{"id": "ref-for-remote-end-steps"}], "title": "6. Transport"}, {"refs": [{"id": "ref-for-remote-end-steps\u2460"}], "title": "7.1.3.1. The session.new Command"}, {"refs": [{"id": "ref-for-remote-end-steps\u2461"}], "title": "7.2.3.1. The settings.setSettings Command"}, {"refs": [{"id": "ref-for-remote-end-steps\u2462"}], "title": "7.2.3.2. The settings.getSettings Command"}, {"refs": [{"id": "ref-for-remote-end-steps\u2463"}], "title": "7.2.3.3. The settings.getSupportedSettings Command"}, {"refs": [{"id": "ref-for-remote-end-steps\u2464"}], "title": "7.3.3.1. The interaction.pressKeys Command"}], "external": false};
-window.dfnpanelData['static-command'] = {"dfnID": "static-command", "url": "#static-command", "dfnText": "static command", "refSections": [{"refs": [{"id": "ref-for-static-command"}], "title": "6. Transport"}, {"refs": [{"id": "ref-for-static-command\u2460"}], "title": "7.1.3.1. The session.new Command"}], "external": false};
-window.dfnpanelData['set-of-all-command-names'] = {"dfnID": "set-of-all-command-names", "url": "#set-of-all-command-names", "dfnText": "set of all command names", "refSections": [{"refs": [{"id": "ref-for-set-of-all-command-names"}], "title": "6. Transport"}], "external": false};
-window.dfnpanelData['event'] = {"dfnID": "event", "url": "#event", "dfnText": "event", "refSections": [{"refs": [{"id": "ref-for-event"}, {"id": "ref-for-event\u2460"}], "title": "5.4. Modules"}], "external": false};
-window.dfnpanelData['event-type'] = {"dfnID": "event-type", "url": "#event-type", "dfnText": "event type", "refSections": [{"refs": [{"id": "ref-for-event-type"}], "title": "5.6. Events"}], "external": false};
-window.dfnpanelData['event-name'] = {"dfnID": "event-name", "url": "#event-name", "dfnText": "event name", "refSections": [{"refs": [{"id": "ref-for-event-name"}], "title": "5.4. Modules"}], "external": false};
-window.dfnpanelData['remote-end-event-trigger'] = {"dfnID": "remote-end-event-trigger", "url": "#remote-end-event-trigger", "dfnText": "remote end event trigger", "refSections": [{"refs": [{"id": "ref-for-remote-end-event-trigger"}], "title": "7.3.4.1. The interaction.capturedOutput Event"}], "external": false};
-window.dfnpanelData['error-code'] = {"dfnID": "error-code", "url": "#error-code", "dfnText": "error code", "refSections": [{"refs": [{"id": "ref-for-error-code"}], "title": "3. Infrastructure"}, {"refs": [{"id": "ref-for-error-code\u2460"}, {"id": "ref-for-error-code\u2461"}], "title": "5.8. Security checks"}, {"refs": [{"id": "ref-for-error-code\u2462"}], "title": "6. Transport"}, {"refs": [{"id": "ref-for-error-code\u2463"}, {"id": "ref-for-error-code\u2464"}, {"id": "ref-for-error-code\u2465"}], "title": "7.2. The settings Module"}], "external": false};
-window.dfnpanelData['error-code-invalid-argument'] = {"dfnID": "error-code-invalid-argument", "url": "#error-code-invalid-argument", "dfnText": "invalid argument", "refSections": [{"refs": [{"id": "ref-for-error-code-invalid-argument"}, {"id": "ref-for-error-code-invalid-argument\u2460"}, {"id": "ref-for-error-code-invalid-argument\u2461"}], "title": "6. Transport"}, {"refs": [{"id": "ref-for-error-code-invalid-argument\u2462"}, {"id": "ref-for-error-code-invalid-argument\u2463"}, {"id": "ref-for-error-code-invalid-argument\u2464"}], "title": "7.2. The settings Module"}], "external": false};
-window.dfnpanelData['error-code-invalid-session-id'] = {"dfnID": "error-code-invalid-session-id", "url": "#error-code-invalid-session-id", "dfnText": "invalid session id", "refSections": [{"refs": [{"id": "ref-for-error-code-invalid-session-id"}], "title": "6. Transport"}], "external": false};
-window.dfnpanelData['error-code-unknown-command'] = {"dfnID": "error-code-unknown-command", "url": "#error-code-unknown-command", "dfnText": "unknown command", "refSections": [{"refs": [{"id": "ref-for-error-code-unknown-command"}], "title": "6. Transport"}], "external": false};
-window.dfnpanelData['error-code-session-not-created'] = {"dfnID": "error-code-session-not-created", "url": "#error-code-session-not-created", "dfnText": "session not created", "refSections": [{"refs": [{"id": "ref-for-error-code-session-not-created"}, {"id": "ref-for-error-code-session-not-created\u2460"}, {"id": "ref-for-error-code-session-not-created\u2461"}, {"id": "ref-for-error-code-session-not-created\u2462"}], "title": "7.1.3.1. The session.new Command"}], "external": false};
-window.dfnpanelData['error-code-cannot-simulate-keyboard-interaction'] = {"dfnID": "error-code-cannot-simulate-keyboard-interaction", "url": "#error-code-cannot-simulate-keyboard-interaction", "dfnText": "cannot simulate keyboard interaction", "refSections": [{"refs": [{"id": "ref-for-error-code-cannot-simulate-keyboard-interaction"}], "title": "5.8. Security checks"}], "external": false};
-window.dfnpanelData['error-code-invalid-os-focus-state'] = {"dfnID": "error-code-invalid-os-focus-state", "url": "#error-code-invalid-os-focus-state", "dfnText": "invalid OS focus state", "refSections": [{"refs": [{"id": "ref-for-error-code-invalid-os-focus-state"}], "title": "5.8. Security checks"}], "external": false};
-window.dfnpanelData['check-that-keyboard-interaction-can-be-simulated'] = {"dfnID": "check-that-keyboard-interaction-can-be-simulated", "url": "#check-that-keyboard-interaction-can-be-simulated", "dfnText": "check that keyboard interaction can be simulated", "refSections": [{"refs": [{"id": "ref-for-check-that-keyboard-interaction-can-be-simulated"}], "title": "7.3.3.1. The interaction.pressKeys Command"}], "external": false};
-window.dfnpanelData['check-that-one-of-the-expected-applications-has-focus'] = {"dfnID": "check-that-one-of-the-expected-applications-has-focus", "url": "#check-that-one-of-the-expected-applications-has-focus", "dfnText": "check that one of the expected applications has focus", "refSections": [{"refs": [{"id": "ref-for-check-that-one-of-the-expected-applications-has-focus"}], "title": "7.3.3.1. The interaction.pressKeys Command"}], "external": false};
-window.dfnpanelData['should-be-withheld'] = {"dfnID": "should-be-withheld", "url": "#should-be-withheld", "dfnText": "should be withheld", "refSections": [{"refs": [{"id": "ref-for-should-be-withheld"}], "title": "7.3.4.1. The interaction.capturedOutput Event"}], "external": false};
-window.dfnpanelData['websocket-listener'] = {"dfnID": "websocket-listener", "url": "#websocket-listener", "dfnText": "WebSocket listener", "refSections": [{"refs": [{"id": "ref-for-websocket-listener"}, {"id": "ref-for-websocket-listener\u2460"}, {"id": "ref-for-websocket-listener\u2461"}, {"id": "ref-for-websocket-listener\u2462"}], "title": "6. Transport"}], "external": false};
-window.dfnpanelData['websocket-listener-host'] = {"dfnID": "websocket-listener-host", "url": "#websocket-listener-host", "dfnText": "host", "refSections": [{"refs": [{"id": "ref-for-websocket-listener-host"}], "title": "6. Transport"}], "external": false};
-window.dfnpanelData['websocket-listener-port'] = {"dfnID": "websocket-listener-port", "url": "#websocket-listener-port", "dfnText": "port", "refSections": [{"refs": [{"id": "ref-for-websocket-listener-port"}], "title": "6. Transport"}], "external": false};
-window.dfnpanelData['websocket-listener-secure-flag'] = {"dfnID": "websocket-listener-secure-flag", "url": "#websocket-listener-secure-flag", "dfnText": "secure flag", "refSections": [{"refs": [{"id": "ref-for-websocket-listener-secure-flag"}, {"id": "ref-for-websocket-listener-secure-flag\u2460"}], "title": "6. Transport"}], "external": false};
-window.dfnpanelData['remote-end-active-listeners'] = {"dfnID": "remote-end-active-listeners", "url": "#remote-end-active-listeners", "dfnText": "active listeners", "refSections": [{"refs": [{"id": "ref-for-remote-end-active-listeners"}, {"id": "ref-for-remote-end-active-listeners\u2460"}], "title": "6. Transport"}], "external": false};
-window.dfnpanelData['remote-end-websocket-connections-not-associated-with-a-session'] = {"dfnID": "remote-end-websocket-connections-not-associated-with-a-session", "url": "#remote-end-websocket-connections-not-associated-with-a-session", "dfnText": "WebSocket connections not associated with a session", "refSections": [{"refs": [{"id": "ref-for-remote-end-websocket-connections-not-associated-with-a-session"}, {"id": "ref-for-remote-end-websocket-connections-not-associated-with-a-session\u2460"}, {"id": "ref-for-remote-end-websocket-connections-not-associated-with-a-session\u2461"}, {"id": "ref-for-remote-end-websocket-connections-not-associated-with-a-session\u2462"}], "title": "6. Transport"}], "external": false};
-window.dfnpanelData['websocket-connection'] = {"dfnID": "websocket-connection", "url": "#websocket-connection", "dfnText": "WebSocket connection", "refSections": [{"refs": [{"id": "ref-for-websocket-connection"}, {"id": "ref-for-websocket-connection\u2460"}, {"id": "ref-for-websocket-connection\u2461"}, {"id": "ref-for-websocket-connection\u2462"}, {"id": "ref-for-websocket-connection\u2463"}, {"id": "ref-for-websocket-connection\u2464"}, {"id": "ref-for-websocket-connection\u2465"}], "title": "6. Transport"}], "external": false};
-window.dfnpanelData['session-session-websocket-connections'] = {"dfnID": "session-session-websocket-connections", "url": "#session-session-websocket-connections", "dfnText": "session WebSocket connections", "refSections": [{"refs": [{"id": "ref-for-session-session-websocket-connections"}, {"id": "ref-for-session-session-websocket-connections\u2460"}, {"id": "ref-for-session-session-websocket-connections\u2461"}, {"id": "ref-for-session-session-websocket-connections\u2462"}, {"id": "ref-for-session-session-websocket-connections\u2463"}], "title": "6. Transport"}], "external": false};
-window.dfnpanelData['session-associated-with-connection'] = {"dfnID": "session-associated-with-connection", "url": "#session-associated-with-connection", "dfnText": "associated with connection", "refSections": [{"refs": [{"id": "ref-for-session-associated-with-connection"}, {"id": "ref-for-session-associated-with-connection\u2460"}, {"id": "ref-for-session-associated-with-connection\u2461"}], "title": "6. Transport"}], "external": false};
-window.dfnpanelData['start-listening-for-a-websocket-connection'] = {"dfnID": "start-listening-for-a-websocket-connection", "url": "#start-listening-for-a-websocket-connection", "dfnText": "start listening for a WebSocket connection", "refSections": [{"refs": [{"id": "ref-for-start-listening-for-a-websocket-connection"}], "title": "6.1. Establishing a Connection"}], "external": false};
-window.dfnpanelData['handle-an-incoming-message'] = {"dfnID": "handle-an-incoming-message", "url": "#handle-an-incoming-message", "dfnText": "handle an incoming message", "refSections": [{"refs": [{"id": "ref-for-handle-an-incoming-message"}], "title": "6. Transport"}], "external": false};
-window.dfnpanelData['emit-an-event'] = {"dfnID": "emit-an-event", "url": "#emit-an-event", "dfnText": "emit an event", "refSections": [{"refs": [{"id": "ref-for-emit-an-event"}], "title": "7.3.4.1. The interaction.capturedOutput Event"}], "external": false};
-window.dfnpanelData['send-an-error-response'] = {"dfnID": "send-an-error-response", "url": "#send-an-error-response", "dfnText": "send an error response", "refSections": [{"refs": [{"id": "ref-for-send-an-error-response"}, {"id": "ref-for-send-an-error-response\u2460"}, {"id": "ref-for-send-an-error-response\u2461"}, {"id": "ref-for-send-an-error-response\u2462"}, {"id": "ref-for-send-an-error-response\u2463"}], "title": "6. Transport"}], "external": false};
-window.dfnpanelData['handle-a-connection-closing'] = {"dfnID": "handle-a-connection-closing", "url": "#handle-a-connection-closing", "dfnText": "handle a connection closing", "refSections": [{"refs": [{"id": "ref-for-handle-a-connection-closing"}], "title": "6. Transport"}], "external": false};
-window.dfnpanelData['remote-end-supported-settings'] = {"dfnID": "remote-end-supported-settings", "url": "#remote-end-supported-settings", "dfnText": "supported settings", "refSections": [{"refs": [{"id": "ref-for-remote-end-supported-settings"}, {"id": "ref-for-remote-end-supported-settings\u2460"}], "title": "7.2. The settings Module"}, {"refs": [{"id": "ref-for-remote-end-supported-settings\u2461"}, {"id": "ref-for-remote-end-supported-settings\u2462"}], "title": "7.2.3.3. The settings.getSupportedSettings Command"}], "external": false};
-window.dfnpanelData['validate-setting-name'] = {"dfnID": "validate-setting-name", "url": "#validate-setting-name", "dfnText": "validate setting name", "refSections": [{"refs": [{"id": "ref-for-validate-setting-name"}, {"id": "ref-for-validate-setting-name\u2460"}], "title": "7.2. The settings Module"}], "external": false};
-window.dfnpanelData['get-settings'] = {"dfnID": "get-settings", "url": "#get-settings", "dfnText": "get settings", "refSections": [{"refs": [{"id": "ref-for-get-settings"}], "title": "7.2.3.2. The settings.getSettings Command"}, {"refs": [{"id": "ref-for-get-settings\u2460"}], "title": "7.2.3.3. The settings.getSupportedSettings Command"}], "external": false};
-window.dfnpanelData['modify-setting'] = {"dfnID": "modify-setting", "url": "#modify-setting", "dfnText": "modify setting", "refSections": [{"refs": [{"id": "ref-for-modify-setting"}], "title": "7.2.3.1. The settings.setSettings Command"}], "external": false};
-window.dfnpanelData['settingssetsettings'] = {"dfnID": "settingssetsettings", "url": "#settingssetsettings", "dfnText": "settings.setSettings", "refSections": [{"refs": [{"id": "ref-for-settingssetsettings"}], "title": "7.2.3.1. The settings.setSettings Command"}], "external": false};
-</script>
 <script>/* Boilerplate: script-dom-helper */
+"use strict";
 function query(sel) { return document.querySelector(sel); }
 
 function queryAll(sel) { return [...document.querySelectorAll(sel)]; }
@@ -2507,103 +2187,850 @@ function parseHTML(markup) {
 		el.innerHTML = markup;
 		return el.content;
 	}
+}</script>
+<script>/* Boilerplate: script-dfn-panel */
+"use strict";
+{
+let dfnPanelData = {
+"03afaf9c": {"dfnID":"03afaf9c","dfnText":"empty","external":true,"refSections":[{"refs":[{"id":"ref-for-list-empty"}],"title":"6. Transport"}],"url":"https://infra.spec.whatwg.org/#list-empty"},
+"0698d556": {"dfnID":"0698d556","dfnText":"string","external":true,"refSections":[{"refs":[{"id":"ref-for-string"},{"id":"ref-for-string\u2460"},{"id":"ref-for-string\u2461"},{"id":"ref-for-string\u2462"},{"id":"ref-for-string\u2463"},{"id":"ref-for-string\u2464"}],"title":"5.2. Capabilities"}],"url":"https://infra.spec.whatwg.org/#string"},
+"0e6b2056": {"dfnID":"0e6b2056","dfnText":"set (for map)","external":true,"refSections":[{"refs":[{"id":"ref-for-map-set"}],"title":"5.2. Capabilities"}],"url":"https://infra.spec.whatwg.org/#map-set"},
+"1243a891": {"dfnID":"1243a891","dfnText":"exist","external":true,"refSections":[{"refs":[{"id":"ref-for-map-exists"},{"id":"ref-for-map-exists\u2460"}],"title":"5.2. Capabilities"},{"refs":[{"id":"ref-for-map-exists\u2461"},{"id":"ref-for-map-exists\u2462"},{"id":"ref-for-map-exists\u2463"},{"id":"ref-for-map-exists\u2464"}],"title":"6. Transport"}],"url":"https://infra.spec.whatwg.org/#map-exists"},
+"15e48c39": {"dfnID":"15e48c39","dfnText":"set","external":true,"refSections":[{"refs":[{"id":"ref-for-ordered-set"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-ordered-set\u2460"},{"id":"ref-for-ordered-set\u2461"},{"id":"ref-for-ordered-set\u2462"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-ordered-set\u2463"}],"title":"7.2. The settings Module"}],"url":"https://infra.spec.whatwg.org/#ordered-set"},
+"16d07e10": {"dfnID":"16d07e10","dfnText":"for each (for list)","external":true,"refSections":[{"refs":[{"id":"ref-for-list-iterate"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-list-iterate\u2460"}],"title":"7.2. The settings Module"},{"refs":[{"id":"ref-for-list-iterate\u2461"}],"title":"7.2.3.1. The settings.setSettings Command"},{"refs":[{"id":"ref-for-list-iterate\u2462"},{"id":"ref-for-list-iterate\u2463"}],"title":"7.3.3.1. The interaction.pressKeys Command"},{"refs":[{"id":"ref-for-list-iterate\u2464"}],"title":"7.3.4.1. The interaction.capturedOutput Event"}],"url":"https://infra.spec.whatwg.org/#list-iterate"},
+"3fca5a9e": {"dfnID":"3fca5a9e","dfnText":"map","external":true,"refSections":[{"refs":[{"id":"ref-for-ordered-map"},{"id":"ref-for-ordered-map\u2460"}],"title":"5.2. Capabilities"},{"refs":[{"id":"ref-for-ordered-map\u2461"},{"id":"ref-for-ordered-map\u2462"},{"id":"ref-for-ordered-map\u2463"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-ordered-map\u2464"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-ordered-map\u2465"},{"id":"ref-for-ordered-map\u2466"}],"title":"7.2. The settings Module"},{"refs":[{"id":"ref-for-ordered-map\u2467"}],"title":"7.2.3.1. The settings.setSettings Command"},{"refs":[{"id":"ref-for-ordered-map\u2468"}],"title":"7.3.3.1. The interaction.pressKeys Command"},{"refs":[{"id":"ref-for-ordered-map\u2460\u24ea"},{"id":"ref-for-ordered-map\u2460\u2460"}],"title":"7.3.4.1. The interaction.capturedOutput Event"}],"url":"https://infra.spec.whatwg.org/#ordered-map"},
+"45209803": {"dfnID":"45209803","dfnText":"for each (for map)","external":true,"refSections":[{"refs":[{"id":"ref-for-map-iterate"}],"title":"5.2. Capabilities"}],"url":"https://infra.spec.whatwg.org/#map-iterate"},
+"4c07280e": {"dfnID":"4c07280e","dfnText":"serialize an Infra value to JSON bytes","external":true,"refSections":[{"refs":[{"id":"ref-for-serialize-an-infra-value-to-json-bytes"},{"id":"ref-for-serialize-an-infra-value-to-json-bytes\u2460"},{"id":"ref-for-serialize-an-infra-value-to-json-bytes\u2461"}],"title":"6. Transport"}],"url":"https://infra.spec.whatwg.org/#serialize-an-infra-value-to-json-bytes"},
+"53275e46": {"dfnID":"53275e46","dfnText":"append (for list)","external":true,"refSections":[{"refs":[{"id":"ref-for-list-append"}],"title":"7.2. The settings Module"}],"url":"https://infra.spec.whatwg.org/#list-append"},
+"649608b9": {"dfnID":"649608b9","dfnText":"list","external":true,"refSections":[{"refs":[{"id":"ref-for-list"},{"id":"ref-for-list\u2460"}],"title":"7.2. The settings Module"},{"refs":[{"id":"ref-for-list\u2461"}],"title":"7.2.3.3. The settings.getSupportedSettings Command"},{"refs":[{"id":"ref-for-list\u2462"}],"title":"7.3.3.1. The interaction.pressKeys Command"}],"url":"https://infra.spec.whatwg.org/#list"},
+"653d0848": {"dfnID":"653d0848","dfnText":"size","external":true,"refSections":[{"refs":[{"id":"ref-for-map-size"}],"title":"6. Transport"}],"url":"https://infra.spec.whatwg.org/#map-size"},
+"6f2dfa22": {"dfnID":"6f2dfa22","dfnText":"ASCII lowercase","external":true,"refSections":[{"refs":[{"id":"ref-for-ascii-lowercase"},{"id":"ref-for-ascii-lowercase\u2460"}],"title":"5.2. Capabilities"}],"url":"https://infra.spec.whatwg.org/#ascii-lowercase"},
+"762869d3": {"dfnID":"762869d3","dfnText":"scalar value string","external":true,"refSections":[{"refs":[{"id":"ref-for-scalar-value-string"}],"title":"6. Transport"}],"url":"https://infra.spec.whatwg.org/#scalar-value-string"},
+"77b4c09a": {"dfnID":"77b4c09a","dfnText":"assert","external":true,"refSections":[{"refs":[{"id":"ref-for-assert"},{"id":"ref-for-assert\u2460"},{"id":"ref-for-assert\u2461"},{"id":"ref-for-assert\u2462"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-assert\u2463"}],"title":"7.2.3.3. The settings.getSupportedSettings Command"}],"url":"https://infra.spec.whatwg.org/#assert"},
+"860300d4": {"dfnID":"860300d4","dfnText":"implementation-defined","external":true,"refSections":[{"refs":[{"id":"ref-for-implementation-defined"}],"title":"5.2. Capabilities"},{"refs":[{"id":"ref-for-implementation-defined\u2460"},{"id":"ref-for-implementation-defined\u2461"},{"id":"ref-for-implementation-defined\u2462"}],"title":"5.8. Security checks"},{"refs":[{"id":"ref-for-implementation-defined\u2463"},{"id":"ref-for-implementation-defined\u2464"},{"id":"ref-for-implementation-defined\u2465"},{"id":"ref-for-implementation-defined\u2466"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-implementation-defined\u2467"},{"id":"ref-for-implementation-defined\u2468"}],"title":"7.2. The settings Module"},{"refs":[{"id":"ref-for-implementation-defined\u2460\u24ea"},{"id":"ref-for-implementation-defined\u2460\u2460"}],"title":"7.3.3.1. The interaction.pressKeys Command"}],"url":"https://infra.spec.whatwg.org/#implementation-defined"},
+"8e8decb4": {"dfnID":"8e8decb4","dfnText":"parse JSON into Infra values","external":true,"refSections":[{"refs":[{"id":"ref-for-parse-a-json-string-to-an-infra-value"}],"title":"6. Transport"}],"url":"https://infra.spec.whatwg.org/#parse-a-json-string-to-an-infra-value"},
+"a326add7": {"dfnID":"a326add7","dfnText":"contain (for map)","external":true,"refSections":[{"refs":[{"id":"ref-for-map-exists"},{"id":"ref-for-map-exists\u2460"}],"title":"5.2. Capabilities"},{"refs":[{"id":"ref-for-map-exists\u2461"},{"id":"ref-for-map-exists\u2462"},{"id":"ref-for-map-exists\u2463"},{"id":"ref-for-map-exists\u2464"}],"title":"6. Transport"}],"url":"https://infra.spec.whatwg.org/#map-exists"},
+"a3b18719": {"dfnID":"a3b18719","dfnText":"append (for set)","external":true,"refSections":[{"refs":[{"id":"ref-for-set-append"},{"id":"ref-for-set-append\u2460"}],"title":"6. Transport"}],"url":"https://infra.spec.whatwg.org/#set-append"},
+"a72449dd": {"dfnID":"a72449dd","dfnText":"in parallel","external":true,"refSections":[{"refs":[{"id":"ref-for-in-parallel"}],"title":"6. Transport"}],"url":"https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel"},
+"ae8def21": {"dfnID":"ae8def21","dfnText":"contain (for list)","external":true,"refSections":[{"refs":[{"id":"ref-for-list-contain"}],"title":"7.2. The settings Module"}],"url":"https://infra.spec.whatwg.org/#list-contain"},
+"capabilities": {"dfnID":"capabilities","dfnText":"Capabilities","external":false,"refSections":[],"url":"#capabilities"},
+"check-that-keyboard-interaction-can-be-simulated": {"dfnID":"check-that-keyboard-interaction-can-be-simulated","dfnText":"check that keyboard interaction can be simulated","external":false,"refSections":[{"refs":[{"id":"ref-for-check-that-keyboard-interaction-can-be-simulated"}],"title":"7.3.3.1. The interaction.pressKeys Command"}],"url":"#check-that-keyboard-interaction-can-be-simulated"},
+"check-that-one-of-the-expected-applications-has-focus": {"dfnID":"check-that-one-of-the-expected-applications-has-focus","dfnText":"check that one of the expected applications has focus","external":false,"refSections":[{"refs":[{"id":"ref-for-check-that-one-of-the-expected-applications-has-focus"}],"title":"7.3.3.1. The interaction.pressKeys Command"}],"url":"#check-that-one-of-the-expected-applications-has-focus"},
+"command": {"dfnID":"command","dfnText":"command","external":false,"refSections":[{"refs":[{"id":"ref-for-command"},{"id":"ref-for-command\u2460"},{"id":"ref-for-command\u2461"}],"title":"5.4. Modules"},{"refs":[{"id":"ref-for-command\u2462"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-command\u2463"},{"id":"ref-for-command\u2464"}],"title":"5.7. Errors"}],"url":"#command"},
+"command-name": {"dfnID":"command-name","dfnText":"command name","external":false,"refSections":[{"refs":[{"id":"ref-for-command-name"}],"title":"5.4. Modules"},{"refs":[{"id":"ref-for-command-name\u2460"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-command-name\u2461"},{"id":"ref-for-command-name\u2462"}],"title":"6. Transport"}],"url":"#command-name"},
+"command-parameters": {"dfnID":"command-parameters","dfnText":"command parameters","external":false,"refSections":[{"refs":[{"id":"ref-for-command-parameters"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-command-parameters\u2460"}],"title":"6. Transport"}],"url":"#command-parameters"},
+"command-type": {"dfnID":"command-type","dfnText":"command type","external":false,"refSections":[{"refs":[{"id":"ref-for-command-type"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-command-type\u2460"}],"title":"7.2.3.1. The settings.setSettings Command"},{"refs":[{"id":"ref-for-command-type\u2461"}],"title":"7.2.3.2. The settings.getSettings Command"},{"refs":[{"id":"ref-for-command-type\u2462"}],"title":"7.2.3.3. The settings.getSupportedSettings Command"},{"refs":[{"id":"ref-for-command-type\u2463"}],"title":"7.3.3.1. The interaction.pressKeys Command"}],"url":"#command-type"},
+"emit-an-event": {"dfnID":"emit-an-event","dfnText":"emit an event","external":false,"refSections":[{"refs":[{"id":"ref-for-emit-an-event"}],"title":"7.3.4.1. The interaction.capturedOutput Event"}],"url":"#emit-an-event"},
+"error": {"dfnID":"error","dfnText":"error","external":false,"refSections":[{"refs":[{"id":"ref-for-error"},{"id":"ref-for-error\u2460"}],"title":"3. Infrastructure"},{"refs":[{"id":"ref-for-error\u2461"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-error\u2462"},{"id":"ref-for-error\u2463"}],"title":"5.8. Security checks"},{"refs":[{"id":"ref-for-error\u2464"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-error\u2465"},{"id":"ref-for-error\u2466"},{"id":"ref-for-error\u2467"},{"id":"ref-for-error\u2468"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-error\u2460\u24ea"},{"id":"ref-for-error\u2460\u2460"},{"id":"ref-for-error\u2460\u2461"}],"title":"7.2. The settings Module"}],"url":"#error"},
+"error-code": {"dfnID":"error-code","dfnText":"error code","external":false,"refSections":[{"refs":[{"id":"ref-for-error-code"}],"title":"3. Infrastructure"},{"refs":[{"id":"ref-for-error-code\u2460"},{"id":"ref-for-error-code\u2461"}],"title":"5.8. Security checks"},{"refs":[{"id":"ref-for-error-code\u2462"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-error-code\u2463"},{"id":"ref-for-error-code\u2464"},{"id":"ref-for-error-code\u2465"}],"title":"7.2. The settings Module"}],"url":"#error-code"},
+"error-code-cannot-simulate-keyboard-interaction": {"dfnID":"error-code-cannot-simulate-keyboard-interaction","dfnText":"cannot simulate keyboard interaction","external":false,"refSections":[{"refs":[{"id":"ref-for-error-code-cannot-simulate-keyboard-interaction"}],"title":"5.8. Security checks"}],"url":"#error-code-cannot-simulate-keyboard-interaction"},
+"error-code-invalid-argument": {"dfnID":"error-code-invalid-argument","dfnText":"invalid argument","external":false,"refSections":[{"refs":[{"id":"ref-for-error-code-invalid-argument"},{"id":"ref-for-error-code-invalid-argument\u2460"},{"id":"ref-for-error-code-invalid-argument\u2461"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-error-code-invalid-argument\u2462"},{"id":"ref-for-error-code-invalid-argument\u2463"},{"id":"ref-for-error-code-invalid-argument\u2464"}],"title":"7.2. The settings Module"}],"url":"#error-code-invalid-argument"},
+"error-code-invalid-os-focus-state": {"dfnID":"error-code-invalid-os-focus-state","dfnText":"invalid OS focus state","external":false,"refSections":[{"refs":[{"id":"ref-for-error-code-invalid-os-focus-state"}],"title":"5.8. Security checks"}],"url":"#error-code-invalid-os-focus-state"},
+"error-code-invalid-session-id": {"dfnID":"error-code-invalid-session-id","dfnText":"invalid session id","external":false,"refSections":[{"refs":[{"id":"ref-for-error-code-invalid-session-id"}],"title":"6. Transport"}],"url":"#error-code-invalid-session-id"},
+"error-code-session-not-created": {"dfnID":"error-code-session-not-created","dfnText":"session not created","external":false,"refSections":[{"refs":[{"id":"ref-for-error-code-session-not-created"},{"id":"ref-for-error-code-session-not-created\u2460"},{"id":"ref-for-error-code-session-not-created\u2461"},{"id":"ref-for-error-code-session-not-created\u2462"}],"title":"7.1.3.1. The session.new Command"}],"url":"#error-code-session-not-created"},
+"error-code-unknown-command": {"dfnID":"error-code-unknown-command","dfnText":"unknown command","external":false,"refSections":[{"refs":[{"id":"ref-for-error-code-unknown-command"}],"title":"6. Transport"}],"url":"#error-code-unknown-command"},
+"event": {"dfnID":"event","dfnText":"event","external":false,"refSections":[{"refs":[{"id":"ref-for-event"},{"id":"ref-for-event\u2460"}],"title":"5.4. Modules"}],"url":"#event"},
+"event-name": {"dfnID":"event-name","dfnText":"event name","external":false,"refSections":[{"refs":[{"id":"ref-for-event-name"}],"title":"5.4. Modules"}],"url":"#event-name"},
+"event-parameters": {"dfnID":"event-parameters","dfnText":"event parameters","external":false,"refSections":[],"url":"#event-parameters"},
+"event-type": {"dfnID":"event-type","dfnText":"event type","external":false,"refSections":[{"refs":[{"id":"ref-for-event-type"}],"title":"5.6. Events"}],"url":"#event-type"},
+"extension-capabilities": {"dfnID":"extension-capabilities","dfnText":"extension capabilities","external":false,"refSections":[{"refs":[{"id":"ref-for-extension-capabilities"},{"id":"ref-for-extension-capabilities\u2460"}],"title":"5.2. Capabilities"}],"url":"#extension-capabilities"},
+"extension-modules": {"dfnID":"extension-modules","dfnText":"extension modules","external":false,"refSections":[{"refs":[{"id":"ref-for-extension-modules"}],"title":"5.5. Commands"}],"url":"#extension-modules"},
+"generating-a-uuid": {"dfnID":"generating-a-uuid","dfnText":"Generating a UUID","external":false,"refSections":[{"refs":[{"id":"ref-for-generating-a-uuid"}],"title":"7.1.3.1. The session.new Command"}],"url":"#generating-a-uuid"},
+"get-settings": {"dfnID":"get-settings","dfnText":"get settings","external":false,"refSections":[{"refs":[{"id":"ref-for-get-settings"}],"title":"7.2.3.2. The settings.getSettings Command"},{"refs":[{"id":"ref-for-get-settings\u2460"}],"title":"7.2.3.3. The settings.getSupportedSettings Command"}],"url":"#get-settings"},
+"handle-a-connection-closing": {"dfnID":"handle-a-connection-closing","dfnText":"handle a connection closing","external":false,"refSections":[{"refs":[{"id":"ref-for-handle-a-connection-closing"}],"title":"6. Transport"}],"url":"#handle-a-connection-closing"},
+"handle-an-incoming-message": {"dfnID":"handle-an-incoming-message","dfnText":"handle an incoming message","external":false,"refSections":[{"refs":[{"id":"ref-for-handle-an-incoming-message"}],"title":"6. Transport"}],"url":"#handle-an-incoming-message"},
+"interactionpresskeys": {"dfnID":"interactionpresskeys","dfnText":"interaction.pressKeys","external":false,"refSections":[],"url":"#interactionpresskeys"},
+"local-end": {"dfnID":"local-end","dfnText":"local end","external":false,"refSections":[{"refs":[{"id":"ref-for-local-end"},{"id":"ref-for-local-end\u2460"}],"title":"5. Protocol"},{"refs":[{"id":"ref-for-local-end\u2461"}],"title":"5.2. Capabilities"},{"refs":[{"id":"ref-for-local-end\u2462"}],"title":"5.3. Session"},{"refs":[{"id":"ref-for-local-end\u2463"},{"id":"ref-for-local-end\u2464"},{"id":"ref-for-local-end\u2465"},{"id":"ref-for-local-end\u2466"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-local-end\u2467"}],"title":"5.6. Events"}],"url":"#local-end"},
+"local-end-definition": {"dfnID":"local-end-definition","dfnText":"local end definition","external":false,"refSections":[{"refs":[{"id":"ref-for-local-end-definition"}],"title":"5.1. Definition"},{"refs":[{"id":"ref-for-local-end-definition\u2460"}],"title":"5.4. Modules"},{"refs":[{"id":"ref-for-local-end-definition\u2461"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-local-end-definition\u2462"}],"title":"5.6. Events"},{"refs":[{"id":"ref-for-local-end-definition\u2463"},{"id":"ref-for-local-end-definition\u2464"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-local-end-definition\u2465"}],"title":"7.1.1. Definition"},{"refs":[{"id":"ref-for-local-end-definition\u2466"}],"title":"7.1.2.1. The session.CapabilitiesRequest Type"},{"refs":[{"id":"ref-for-local-end-definition\u2467"}],"title":"7.2. The settings Module"},{"refs":[{"id":"ref-for-local-end-definition\u2468"}],"title":"7.2.1. Definition"},{"refs":[{"id":"ref-for-local-end-definition\u2460\u24ea"}],"title":"7.2.2.1. The SettingsGetSettingsResult type"},{"refs":[{"id":"ref-for-local-end-definition\u2460\u2460"}],"title":"7.3.1. Definition"},{"refs":[{"id":"ref-for-local-end-definition\u2460\u2461"}],"title":"Appendix A: Schemas"}],"url":"#local-end-definition"},
+"match-capabilities": {"dfnID":"match-capabilities","dfnText":"match capabilities","external":false,"refSections":[{"refs":[{"id":"ref-for-match-capabilities"}],"title":"5.2. Capabilities"}],"url":"#match-capabilities"},
+"modify-setting": {"dfnID":"modify-setting","dfnText":"modify setting","external":false,"refSections":[{"refs":[{"id":"ref-for-modify-setting"}],"title":"7.2.3.1. The settings.setSettings Command"}],"url":"#modify-setting"},
+"module": {"dfnID":"module","dfnText":"module","external":false,"refSections":[{"refs":[{"id":"ref-for-module"}],"title":"2. Explainer"},{"refs":[{"id":"ref-for-module\u2460"},{"id":"ref-for-module\u2461"}],"title":"7.2. The settings Module"}],"url":"#module"},
+"module-name": {"dfnID":"module-name","dfnText":"module name","external":false,"refSections":[{"refs":[{"id":"ref-for-module-name"}],"title":"5.4. Modules"}],"url":"#module-name"},
+"process-capabilities": {"dfnID":"process-capabilities","dfnText":"process capabilities","external":false,"refSections":[{"refs":[{"id":"ref-for-process-capabilities"}],"title":"7.1.3.1. The session.new Command"}],"url":"#process-capabilities"},
+"remote-end": {"dfnID":"remote-end","dfnText":"remote end","external":false,"refSections":[{"refs":[{"id":"ref-for-remote-end"},{"id":"ref-for-remote-end\u2460"}],"title":"5. Protocol"},{"refs":[{"id":"ref-for-remote-end\u2461"},{"id":"ref-for-remote-end\u2462"},{"id":"ref-for-remote-end\u2463"},{"id":"ref-for-remote-end\u2464"},{"id":"ref-for-remote-end\u2465"},{"id":"ref-for-remote-end\u2466"}],"title":"5.2. Capabilities"},{"refs":[{"id":"ref-for-remote-end\u2467"},{"id":"ref-for-remote-end\u2468"}],"title":"5.3. Session"},{"refs":[{"id":"ref-for-remote-end\u2460\u24ea"},{"id":"ref-for-remote-end\u2460\u2460"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-remote-end\u2460\u2461"},{"id":"ref-for-remote-end\u2460\u2462"}],"title":"5.6. Events"},{"refs":[{"id":"ref-for-remote-end\u2460\u2463"},{"id":"ref-for-remote-end\u2460\u2464"}],"title":"5.7. Errors"},{"refs":[{"id":"ref-for-remote-end\u2460\u2465"}],"title":"5.8. Security checks"},{"refs":[{"id":"ref-for-remote-end\u2460\u2466"},{"id":"ref-for-remote-end\u2460\u2467"},{"id":"ref-for-remote-end\u2460\u2468"},{"id":"ref-for-remote-end\u2461\u24ea"},{"id":"ref-for-remote-end\u2461\u2460"},{"id":"ref-for-remote-end\u2461\u2461"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-remote-end\u2461\u2462"},{"id":"ref-for-remote-end\u2461\u2463"}],"title":"7.2. The settings Module"},{"refs":[{"id":"ref-for-remote-end\u2461\u2464"}],"title":"7.2.3.3. The settings.getSupportedSettings Command"},{"refs":[{"id":"ref-for-remote-end\u2461\u2465"}],"title":"8. Privacy"}],"url":"#remote-end"},
+"remote-end-active-listeners": {"dfnID":"remote-end-active-listeners","dfnText":"active listeners","external":false,"refSections":[{"refs":[{"id":"ref-for-remote-end-active-listeners"},{"id":"ref-for-remote-end-active-listeners\u2460"}],"title":"6. Transport"}],"url":"#remote-end-active-listeners"},
+"remote-end-active-sessions": {"dfnID":"remote-end-active-sessions","dfnText":"active sessions","external":false,"refSections":[{"refs":[{"id":"ref-for-remote-end-active-sessions"}],"title":"5.3. Session"},{"refs":[{"id":"ref-for-remote-end-active-sessions\u2460"},{"id":"ref-for-remote-end-active-sessions\u2461"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-remote-end-active-sessions\u2462"},{"id":"ref-for-remote-end-active-sessions\u2463"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-remote-end-active-sessions\u2464"}],"title":"7.3.4.1. The interaction.capturedOutput Event"}],"url":"#remote-end-active-sessions"},
+"remote-end-definition": {"dfnID":"remote-end-definition","dfnText":"remote end definition","external":false,"refSections":[{"refs":[{"id":"ref-for-remote-end-definition"}],"title":"5.1. Definition"},{"refs":[{"id":"ref-for-remote-end-definition\u2460"},{"id":"ref-for-remote-end-definition\u2461"}],"title":"5.4. Modules"},{"refs":[{"id":"ref-for-remote-end-definition\u2462"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-remote-end-definition\u2463"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-remote-end-definition\u2464"}],"title":"7.1.1. Definition"},{"refs":[{"id":"ref-for-remote-end-definition\u2465"}],"title":"7.1.2.1. The session.CapabilitiesRequest Type"},{"refs":[{"id":"ref-for-remote-end-definition\u2466"}],"title":"7.2.1. Definition"},{"refs":[{"id":"ref-for-remote-end-definition\u2467"}],"title":"7.3.1. Definition"},{"refs":[{"id":"ref-for-remote-end-definition\u2468"}],"title":"Appendix A: Schemas"}],"url":"#remote-end-definition"},
+"remote-end-event-trigger": {"dfnID":"remote-end-event-trigger","dfnText":"remote end event trigger","external":false,"refSections":[{"refs":[{"id":"ref-for-remote-end-event-trigger"}],"title":"7.3.4.1. The interaction.capturedOutput Event"}],"url":"#remote-end-event-trigger"},
+"remote-end-steps": {"dfnID":"remote-end-steps","dfnText":"remote end steps","external":false,"refSections":[{"refs":[{"id":"ref-for-remote-end-steps"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-remote-end-steps\u2460"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-remote-end-steps\u2461"}],"title":"7.2.3.1. The settings.setSettings Command"},{"refs":[{"id":"ref-for-remote-end-steps\u2462"}],"title":"7.2.3.2. The settings.getSettings Command"},{"refs":[{"id":"ref-for-remote-end-steps\u2463"}],"title":"7.2.3.3. The settings.getSupportedSettings Command"},{"refs":[{"id":"ref-for-remote-end-steps\u2464"}],"title":"7.3.3.1. The interaction.pressKeys Command"}],"url":"#remote-end-steps"},
+"remote-end-supported-settings": {"dfnID":"remote-end-supported-settings","dfnText":"supported settings","external":false,"refSections":[{"refs":[{"id":"ref-for-remote-end-supported-settings"},{"id":"ref-for-remote-end-supported-settings\u2460"}],"title":"7.2. The settings Module"},{"refs":[{"id":"ref-for-remote-end-supported-settings\u2461"},{"id":"ref-for-remote-end-supported-settings\u2462"}],"title":"7.2.3.3. The settings.getSupportedSettings Command"}],"url":"#remote-end-supported-settings"},
+"remote-end-websocket-connections-not-associated-with-a-session": {"dfnID":"remote-end-websocket-connections-not-associated-with-a-session","dfnText":"WebSocket connections not associated with a session","external":false,"refSections":[{"refs":[{"id":"ref-for-remote-end-websocket-connections-not-associated-with-a-session"},{"id":"ref-for-remote-end-websocket-connections-not-associated-with-a-session\u2460"},{"id":"ref-for-remote-end-websocket-connections-not-associated-with-a-session\u2461"},{"id":"ref-for-remote-end-websocket-connections-not-associated-with-a-session\u2462"}],"title":"6. Transport"}],"url":"#remote-end-websocket-connections-not-associated-with-a-session"},
+"result-type": {"dfnID":"result-type","dfnText":"result type","external":false,"refSections":[{"refs":[{"id":"ref-for-result-type"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-result-type\u2460"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-result-type\u2461"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-result-type\u2462"}],"title":"7.2.3.1. The settings.setSettings Command"},{"refs":[{"id":"ref-for-result-type\u2463"}],"title":"7.2.3.2. The settings.getSettings Command"},{"refs":[{"id":"ref-for-result-type\u2464"}],"title":"7.2.3.3. The settings.getSupportedSettings Command"}],"url":"#result-type"},
+"send-an-error-response": {"dfnID":"send-an-error-response","dfnText":"send an error response","external":false,"refSections":[{"refs":[{"id":"ref-for-send-an-error-response"},{"id":"ref-for-send-an-error-response\u2460"},{"id":"ref-for-send-an-error-response\u2461"},{"id":"ref-for-send-an-error-response\u2462"},{"id":"ref-for-send-an-error-response\u2463"}],"title":"6. Transport"}],"url":"#send-an-error-response"},
+"session": {"dfnID":"session","dfnText":"session","external":false,"refSections":[{"refs":[{"id":"ref-for-session"},{"id":"ref-for-session\u2460"}],"title":"2. Explainer"},{"refs":[{"id":"ref-for-session\u2461"},{"id":"ref-for-session\u2462"}],"title":"5.2. Capabilities"},{"refs":[{"id":"ref-for-session\u2463"},{"id":"ref-for-session\u2464"}],"title":"5.3. Session"},{"refs":[{"id":"ref-for-session\u2465"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-session\u2466"},{"id":"ref-for-session\u2467"}],"title":"5.7. Errors"},{"refs":[{"id":"ref-for-session\u2468"},{"id":"ref-for-session\u2460\u24ea"},{"id":"ref-for-session\u2460\u2460"},{"id":"ref-for-session\u2460\u2461"},{"id":"ref-for-session\u2460\u2462"},{"id":"ref-for-session\u2460\u2463"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-session\u2460\u2464"},{"id":"ref-for-session\u2460\u2465"}],"title":"7.1.3.1. The session.new Command"}],"url":"#session"},
+"session-associated-with-connection": {"dfnID":"session-associated-with-connection","dfnText":"associated with connection","external":false,"refSections":[{"refs":[{"id":"ref-for-session-associated-with-connection"},{"id":"ref-for-session-associated-with-connection\u2460"},{"id":"ref-for-session-associated-with-connection\u2461"}],"title":"6. Transport"}],"url":"#session-associated-with-connection"},
+"session-session-id": {"dfnID":"session-session-id","dfnText":"session ID","external":false,"refSections":[{"refs":[{"id":"ref-for-session-session-id"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-session-session-id\u2460"},{"id":"ref-for-session-session-id\u2461"}],"title":"7.1.3.1. The session.new Command"}],"url":"#session-session-id"},
+"session-session-websocket-connections": {"dfnID":"session-session-websocket-connections","dfnText":"session WebSocket connections","external":false,"refSections":[{"refs":[{"id":"ref-for-session-session-websocket-connections"},{"id":"ref-for-session-session-websocket-connections\u2460"},{"id":"ref-for-session-session-websocket-connections\u2461"},{"id":"ref-for-session-session-websocket-connections\u2462"},{"id":"ref-for-session-session-websocket-connections\u2463"}],"title":"6. Transport"}],"url":"#session-session-websocket-connections"},
+"sessionnew": {"dfnID":"sessionnew","dfnText":"session.new","external":false,"refSections":[],"url":"#sessionnew"},
+"set-of-all-command-names": {"dfnID":"set-of-all-command-names","dfnText":"set of all command names","external":false,"refSections":[{"refs":[{"id":"ref-for-set-of-all-command-names"}],"title":"6. Transport"}],"url":"#set-of-all-command-names"},
+"settingsgetsettings-command": {"dfnID":"settingsgetsettings-command","dfnText":"settings.getSettings command","external":false,"refSections":[],"url":"#settingsgetsettings-command"},
+"settingsgetsupportedsettings-command": {"dfnID":"settingsgetsupportedsettings-command","dfnText":"settings.getSupportedSettings command","external":false,"refSections":[],"url":"#settingsgetsupportedsettings-command"},
+"settingssetsettings": {"dfnID":"settingssetsettings","dfnText":"settings.setSettings","external":false,"refSections":[{"refs":[{"id":"ref-for-settingssetsettings"}],"title":"7.2.3.1. The settings.setSettings Command"}],"url":"#settingssetsettings"},
+"should-be-withheld": {"dfnID":"should-be-withheld","dfnText":"should be withheld","external":false,"refSections":[{"refs":[{"id":"ref-for-should-be-withheld"}],"title":"7.3.4.1. The interaction.capturedOutput Event"}],"url":"#should-be-withheld"},
+"standard-capabilities": {"dfnID":"standard-capabilities","dfnText":"standard capabilities","external":false,"refSections":[],"url":"#standard-capabilities"},
+"standard-capabilities-at-name": {"dfnID":"standard-capabilities-at-name","dfnText":"AT name","external":false,"refSections":[],"url":"#standard-capabilities-at-name"},
+"standard-capabilities-at-version": {"dfnID":"standard-capabilities-at-version","dfnText":"AT version","external":false,"refSections":[],"url":"#standard-capabilities-at-version"},
+"standard-capabilities-platform": {"dfnID":"standard-capabilities-platform","dfnText":"Platform","external":false,"refSections":[],"url":"#standard-capabilities-platform"},
+"start-listening-for-a-websocket-connection": {"dfnID":"start-listening-for-a-websocket-connection","dfnText":"start listening for a WebSocket connection","external":false,"refSections":[{"refs":[{"id":"ref-for-start-listening-for-a-websocket-connection"}],"title":"6.1. Establishing a Connection"}],"url":"#start-listening-for-a-websocket-connection"},
+"static-command": {"dfnID":"static-command","dfnText":"static command","external":false,"refSections":[{"refs":[{"id":"ref-for-static-command"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-static-command\u2460"}],"title":"7.1.3.1. The session.new Command"}],"url":"#static-command"},
+"success": {"dfnID":"success","dfnText":"success","external":false,"refSections":[{"refs":[{"id":"ref-for-success"}],"title":"3. Infrastructure"},{"refs":[{"id":"ref-for-success\u2460"},{"id":"ref-for-success\u2461"},{"id":"ref-for-success\u2462"},{"id":"ref-for-success\u2463"}],"title":"5.2. Capabilities"},{"refs":[{"id":"ref-for-success\u2464"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-success\u2465"},{"id":"ref-for-success\u2466"}],"title":"5.8. Security checks"},{"refs":[{"id":"ref-for-success\u2467"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-success\u2468"},{"id":"ref-for-success\u2460\u24ea"}],"title":"7.2. The settings Module"},{"refs":[{"id":"ref-for-success\u2460\u2460"},{"id":"ref-for-success\u2460\u2461"}],"title":"7.2.3.1. The settings.setSettings Command"},{"refs":[{"id":"ref-for-success\u2460\u2462"}],"title":"7.2.3.3. The settings.getSupportedSettings Command"},{"refs":[{"id":"ref-for-success\u2460\u2463"}],"title":"7.3.3.1. The interaction.pressKeys Command"}],"url":"#success"},
+"try": {"dfnID":"try","dfnText":"trying","external":false,"refSections":[{"refs":[{"id":"ref-for-try"}],"title":"5.2. Capabilities"},{"refs":[{"id":"ref-for-try\u2460"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-try\u2461"}],"title":"7.2.3.1. The settings.setSettings Command"},{"refs":[{"id":"ref-for-try\u2462"},{"id":"ref-for-try\u2463"}],"title":"7.3.3.1. The interaction.pressKeys Command"}],"url":"#try"},
+"uuid": {"dfnID":"uuid","dfnText":"Universally Unique Identifier (UUID)","external":false,"refSections":[{"refs":[{"id":"ref-for-uuid"}],"title":"5.3. Session"}],"url":"#uuid"},
+"validate-setting-name": {"dfnID":"validate-setting-name","dfnText":"validate setting name","external":false,"refSections":[{"refs":[{"id":"ref-for-validate-setting-name"},{"id":"ref-for-validate-setting-name\u2460"}],"title":"7.2. The settings Module"}],"url":"#validate-setting-name"},
+"websocket-connection": {"dfnID":"websocket-connection","dfnText":"WebSocket connection","external":false,"refSections":[{"refs":[{"id":"ref-for-websocket-connection"},{"id":"ref-for-websocket-connection\u2460"},{"id":"ref-for-websocket-connection\u2461"},{"id":"ref-for-websocket-connection\u2462"},{"id":"ref-for-websocket-connection\u2463"},{"id":"ref-for-websocket-connection\u2464"},{"id":"ref-for-websocket-connection\u2465"}],"title":"6. Transport"}],"url":"#websocket-connection"},
+"websocket-listener": {"dfnID":"websocket-listener","dfnText":"WebSocket listener","external":false,"refSections":[{"refs":[{"id":"ref-for-websocket-listener"},{"id":"ref-for-websocket-listener\u2460"},{"id":"ref-for-websocket-listener\u2461"},{"id":"ref-for-websocket-listener\u2462"}],"title":"6. Transport"}],"url":"#websocket-listener"},
+"websocket-listener-host": {"dfnID":"websocket-listener-host","dfnText":"host","external":false,"refSections":[{"refs":[{"id":"ref-for-websocket-listener-host"}],"title":"6. Transport"}],"url":"#websocket-listener-host"},
+"websocket-listener-port": {"dfnID":"websocket-listener-port","dfnText":"port","external":false,"refSections":[{"refs":[{"id":"ref-for-websocket-listener-port"}],"title":"6. Transport"}],"url":"#websocket-listener-port"},
+"websocket-listener-secure-flag": {"dfnID":"websocket-listener-secure-flag","dfnText":"secure flag","external":false,"refSections":[{"refs":[{"id":"ref-for-websocket-listener-secure-flag"},{"id":"ref-for-websocket-listener-secure-flag\u2460"}],"title":"6. Transport"}],"url":"#websocket-listener-secure-flag"},
+};
+
+document.addEventListener("DOMContentLoaded", ()=>{
+    genAllDfnPanels();
+
+    document.body.addEventListener("click", (e) => {
+        // If not handled already, just hide all dfn panels.
+        hideAllDfnPanels();
+    });
+});
+
+window.addEventListener("resize", () => {
+    // Pin any visible dfn panel
+    queryAll(".dfn-panel.on, .dfn-panel.activated").forEach(el=>positionDfnPanel(el));
+});
+
+function genAllDfnPanels() {
+    for(const panelData of Object.values(dfnPanelData)) {
+        const dfnID = panelData.dfnID;
+        const dfn = document.getElementById(dfnID);
+        if(!dfn) {
+            console.log(`Can't find dfn#${dfnID}.`, panelData);
+            continue;
+        }
+        dfn.panelData = panelData;
+        insertDfnPopupAction(dfn);
+    }
+}
+
+function genDfnPanel(dfn, { dfnID, url, dfnText, refSections, external }) {
+    const dfnPanel = mk.aside({
+        class: "dfn-panel on",
+        id: `infopanel-for-${dfnID}`,
+        "data-for": dfnID,
+        "aria-labelled-by":`infopaneltitle-for-${dfnID}`,
+        },
+        mk.span({id:`infopaneltitle-for-${dfnID}`, style:"display:none"},
+            `Info about the '${dfnText}' ${external?"external":""} reference.`),
+        mk.a({href:url, class:"dfn-link"}, url),
+        refSections.length == 0 ? [] :
+            mk.b({}, "Referenced in:"),
+            mk.ul({},
+                ...refSections.map(section=>
+                    mk.li({},
+                        ...section.refs.map((ref, refI)=>
+                            [
+                                mk.a({ href: `#${ref.id}` },
+                                    (refI == 0) ? section.title : `(${refI + 1})`
+                                ),
+                                " ",
+                            ]
+                        ),
+                    ),
+                ),
+            ),
+        genLinkingSyntaxes(dfn),
+    );
+
+    dfnPanel.addEventListener('click', (event) => {
+        if (event.target.nodeName == 'A') {
+            scrollToTargetAndHighlight(event);
+            pinDfnPanel(dfnPanel);
+        }
+        event.stopPropagation();
+        refocusOnTarget(event);
+    });
+    dfnPanel.addEventListener('keydown', (event) => {
+        if(event.keyCode == 27) { // Escape key
+            hideDfnPanel({dfnPanel});
+            event.stopPropagation();
+            event.preventDefault();
+        }
+    });
+
+    dfnPanel.dfn = dfn;
+    dfn.dfnPanel = dfnPanel;
+    return dfnPanel;
+}
+
+
+
+function hideAllDfnPanels() {
+    // Delete the currently-active dfn panel.
+    queryAll(".dfn-panel").forEach(dfnPanel=>hideDfnPanel({dfnPanel}));
+}
+
+function showDfnPanel(dfn) {
+    hideAllDfnPanels(); // Only display one at a time.
+
+    dfn.setAttribute("aria-expanded", "true");
+
+    const dfnPanel = genDfnPanel(dfn, dfn.panelData);
+
+    // Give the dfn a unique tabindex, and then
+    // give all the tabbable panel bits successive indexes.
+    let tabIndex = 100;
+    dfn.tabIndex = tabIndex++;
+    const tabbable = dfnPanel.querySelectorAll(":is(a, button)");
+    for (const el of tabbable) {
+        el.tabIndex = tabIndex++;
+    }
+
+    append(document.body, dfnPanel);
+    positionDfnPanel(dfnPanel);
+}
+
+function positionDfnPanel(dfnPanel) {
+    const dfn = dfnPanel.dfn;
+    const dfnPos = getBounds(dfn);
+    dfnPanel.style.top = dfnPos.bottom + "px";
+    dfnPanel.style.left = dfnPos.left + "px";
+
+    const panelPos = dfnPanel.getBoundingClientRect();
+    const panelMargin = 8;
+    const maxRight = document.body.parentNode.clientWidth - panelMargin;
+    if (panelPos.right > maxRight) {
+        const overflowAmount = panelPos.right - maxRight;
+        const newLeft = Math.max(panelMargin, dfnPos.left - overflowAmount);
+        dfnPanel.style.left = newLeft + "px";
+    }
+}
+
+function pinDfnPanel(dfnPanel) {
+    // Switch it to "activated" state, which pins it.
+    dfnPanel.classList.add("activated");
+    dfnPanel.style.position = "fixed";
+    dfnPanel.style.left = null;
+    dfnPanel.style.top = null;
+}
+
+function hideDfnPanel({dfn, dfnPanel}) {
+    if(!dfnPanel) dfnPanel = dfn.dfnPanel;
+    if(!dfn) dfn = dfnPanel.dfn;
+    dfn.dfnPanel = undefined;
+    dfnPanel.dfn = undefined;
+    dfn.setAttribute("aria-expanded", "false");
+    dfn.tabIndex = undefined;
+    dfnPanel.remove()
+}
+
+function toggleDfnPanel(dfn) {
+    if(dfn.dfnPanel) {
+        hideDfnPanel(dfn);
+    } else {
+        showDfnPanel(dfn);
+    }
+}
+
+function insertDfnPopupAction(dfn) {
+    dfn.setAttribute('role', 'button');
+    dfn.setAttribute('aria-expanded', 'false')
+    dfn.tabIndex = 0;
+    dfn.classList.add('has-dfn-panel');
+    dfn.addEventListener('click', (event) => {
+        toggleDfnPanel(dfn);
+        event.stopPropagation();
+    });
+    dfn.addEventListener('keypress', (event) => {
+        const kc = event.keyCode;
+        // 32->Space, 13->Enter
+        if(kc == 32 || kc == 13) {
+            toggleDfnPanel(dfn);
+            event.stopPropagation();
+            event.preventDefault();
+        }
+    });
+}
+
+function refocusOnTarget(event) {
+    const target = event.target;
+    setTimeout(() => {
+        // Refocus on the event.target element.
+        // This is needed after browser scrolls to the destination.
+        target.focus();
+    });
+}
+
+// TODO: shared util
+// Returns the root-level absolute position {left and top} of element.
+function getBounds(el, relativeTo=document.body) {
+    const relativeRect = relativeTo.getBoundingClientRect();
+    const elRect = el.getBoundingClientRect();
+    const top = elRect.top - relativeRect.top;
+    const left = elRect.left - relativeRect.left;
+    return {
+        top,
+        left,
+        bottom: top + elRect.height,
+        right: left + elRect.width,
+    }
+}
+
+function scrollToTargetAndHighlight(event) {
+    let hash = event.target.hash;
+    if (hash) {
+        hash = decodeURIComponent(hash.substring(1));
+        const dest = document.getElementById(hash);
+        if (dest) {
+            dest.classList.add('highlighted');
+            setTimeout(() => dest.classList.remove('highlighted'), 1000);
+        }
+    }
+}
+
+// Functions, divided by link type, that wrap an autolink's
+// contents with the appropriate outer syntax.
+// Alternately, a string naming another type they format
+// the same as.
+function needsFor(type) {
+    switch(type) {
+        case "descriptor":
+        case "value":
+        case "element-attr":
+        case "attr-value":
+        case "element-state":
+        case "method":
+        case "constructor":
+        case "argument":
+        case "attribute":
+        case "const":
+        case "dict-member":
+        case "event":
+        case "enum-value":
+        case "stringifier":
+        case "serializer":
+        case "iterator":
+        case "maplike":
+        case "setlike":
+        case "state":
+        case "mode":
+        case "context":
+        case "facet": return true;
+
+        default: return false;
+    }
+}
+function refusesFor(type) {
+    switch(type) {
+        case "property":
+        case "element":
+        case "interface":
+        case "namespace":
+        case "callback":
+        case "dictionary":
+        case "enum":
+        case "exception":
+        case "typedef":
+        case "http-header":
+        case "permission": return true;
+
+        default: return false;
+    }
+}
+function linkFormatterFromType(type) {
+    switch(type) {
+        case 'scheme':
+        case 'permission':
+        case 'dfn': return (text) => `[=${text}=]`;
+
+        case 'abstract-op': return (text) => `[\$${text}\$]`;
+
+        case 'function':
+        case 'at-rule':
+        case 'selector':
+        case 'value': return (text) => `''${text}''`;
+
+        case 'http-header': return (text) => `[:${text}:]`;
+
+        case 'interface':
+        case 'constructor':
+        case 'method':
+        case 'argument':
+        case 'attribute':
+        case 'callback':
+        case 'dictionary':
+        case 'dict-member':
+        case 'enum':
+        case 'enum-value':
+        case 'exception':
+        case 'const':
+        case 'typedef':
+        case 'stringifier':
+        case 'serializer':
+        case 'iterator':
+        case 'maplike':
+        case 'setlike':
+        case 'extended-attribute':
+        case 'event':
+        case 'idl': return (text) => `{{${text}}}`;
+
+        case 'element-state':
+        case 'element-attr':
+        case 'attr-value':
+        case 'element': return (element) => `<{${element}}>`;
+
+        case 'grammar': return (text) => `${text} (within a <pre class=prod>)`;
+
+        case 'type': return (text)=> `<<${text}>>`;
+
+        case 'descriptor':
+        case 'property': return (text) => `'${text}'`;
+
+        default: return;
+    };
+};
+
+function genLinkingSyntaxes(dfn) {
+    if(dfn.tagName != "DFN") return;
+
+    const type = dfn.getAttribute('data-dfn-type');
+    if(!type) {
+        console.log(`<dfn> doesn't have a data-dfn-type:`, dfn);
+        return [];
+    }
+
+    // Return a function that wraps link text based on the type
+    const linkFormatter = linkFormatterFromType(type);
+    if(!linkFormatter) {
+        console.log(`<dfn> has an unknown data-dfn-type:`, dfn);
+        return [];
+    }
+
+    let ltAlts;
+    if(dfn.hasAttribute('data-lt')) {
+        ltAlts = dfn.getAttribute('data-lt')
+            .split("|")
+            .map(x=>x.trim());
+    } else {
+        ltAlts = [dfn.textContent.trim()];
+    }
+    if(type == "type") {
+        // lt of "<foo>", but "foo" is the interior;
+        // <<foo/bar>> is how you write it with a for,
+        // not <foo/<bar>> or whatever.
+        for(var i = 0; i < ltAlts.length; i++) {
+            const lt = ltAlts[i];
+            const match = /<(.*)>/.exec(lt);
+            if(match) { ltAlts[i] = match[1]; }
+        }
+    }
+
+    let forAlts;
+    if(dfn.hasAttribute('data-dfn-for')) {
+        forAlts = dfn.getAttribute('data-dfn-for')
+            .split(",")
+            .map(x=>x.trim());
+    } else {
+        forAlts = [''];
+    }
+
+    let linkingSyntaxes = [];
+    if(!needsFor(type)) {
+        for(const lt of ltAlts) {
+            linkingSyntaxes.push(linkFormatter(lt));
+        }
+    }
+    if(!refusesFor(type)) {
+        for(const f of forAlts) {
+            linkingSyntaxes.push(linkFormatter(`${f}/${ltAlts[0]}`))
+        }
+    }
+    return [
+        mk.b({}, 'Possible linking syntaxes:'),
+        mk.ul({},
+            ...linkingSyntaxes.map(link => {
+                const copyLink = async () =>
+                    await navigator.clipboard.writeText(link);
+                return mk.li({},
+                    mk.div({ class: 'link-item' },
+                        mk.button({
+                            class: 'copy-icon', title: 'Copy',
+                            type: 'button',
+                            _onclick: copyLink,
+                            tabindex: 0,
+                        }, mk.span({ class: 'icon' }) ),
+                        mk.span({}, link)
+                    )
+                );
+            })
+        )
+    ];
+}
+}
+</script>
+<script>/* Boilerplate: script-ref-hints */
+"use strict";
+{
+let refsData = {
+"#check-that-keyboard-interaction-can-be-simulated": {"displayText":"check that keyboard interaction can be simulated","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"check that keyboard interaction can be simulated","type":"dfn","url":"#check-that-keyboard-interaction-can-be-simulated"},
+"#check-that-one-of-the-expected-applications-has-focus": {"displayText":"check that one of the expected applications has focus","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"check that one of the expected applications has focus","type":"dfn","url":"#check-that-one-of-the-expected-applications-has-focus"},
+"#command": {"displayText":"command","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"command","type":"dfn","url":"#command"},
+"#command-name": {"displayText":"command name","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"command name","type":"dfn","url":"#command-name"},
+"#command-parameters": {"displayText":"command parameters","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"command parameters","type":"dfn","url":"#command-parameters"},
+"#command-type": {"displayText":"command type","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"command type","type":"dfn","url":"#command-type"},
+"#emit-an-event": {"displayText":"emit an event","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"emit an event","type":"dfn","url":"#emit-an-event"},
+"#error": {"displayText":"error","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"error","type":"dfn","url":"#error"},
+"#error-code": {"displayText":"error code","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"error code","type":"dfn","url":"#error-code"},
+"#error-code-cannot-simulate-keyboard-interaction": {"displayText":"cannot simulate keyboard interaction","export":true,"for_":["error code"],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"cannot simulate keyboard interaction","type":"dfn","url":"#error-code-cannot-simulate-keyboard-interaction"},
+"#error-code-invalid-argument": {"displayText":"invalid argument","export":true,"for_":["error code"],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"invalid argument","type":"dfn","url":"#error-code-invalid-argument"},
+"#error-code-invalid-os-focus-state": {"displayText":"invalid os focus state","export":true,"for_":["error code"],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"invalid os focus state","type":"dfn","url":"#error-code-invalid-os-focus-state"},
+"#error-code-invalid-session-id": {"displayText":"invalid session id","export":true,"for_":["error code"],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"invalid session id","type":"dfn","url":"#error-code-invalid-session-id"},
+"#error-code-session-not-created": {"displayText":"session not created","export":true,"for_":["error code"],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"session not created","type":"dfn","url":"#error-code-session-not-created"},
+"#error-code-unknown-command": {"displayText":"unknown command","export":true,"for_":["error code"],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"unknown command","type":"dfn","url":"#error-code-unknown-command"},
+"#event": {"displayText":"event","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"event","type":"dfn","url":"#event"},
+"#event-name": {"displayText":"event name","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"event name","type":"dfn","url":"#event-name"},
+"#event-type": {"displayText":"event type","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"event type","type":"dfn","url":"#event-type"},
+"#extension-capabilities": {"displayText":"extension capabilities","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"extension capabilities","type":"dfn","url":"#extension-capabilities"},
+"#extension-modules": {"displayText":"extension modules","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"extension modules","type":"dfn","url":"#extension-modules"},
+"#generating-a-uuid": {"displayText":"generating a uuid","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"generating a uuid","type":"dfn","url":"#generating-a-uuid"},
+"#get-settings": {"displayText":"get settings","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"get settings","type":"dfn","url":"#get-settings"},
+"#handle-a-connection-closing": {"displayText":"handle a connection closing","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"handle a connection closing","type":"dfn","url":"#handle-a-connection-closing"},
+"#handle-an-incoming-message": {"displayText":"handle an incoming message","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"handle an incoming message","type":"dfn","url":"#handle-an-incoming-message"},
+"#local-end": {"displayText":"local end","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"local end","type":"dfn","url":"#local-end"},
+"#local-end-definition": {"displayText":"local end definition","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"local end definition","type":"dfn","url":"#local-end-definition"},
+"#match-capabilities": {"displayText":"match capabilities","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"match capabilities","type":"dfn","url":"#match-capabilities"},
+"#modify-setting": {"displayText":"modify setting","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"modify setting","type":"dfn","url":"#modify-setting"},
+"#module": {"displayText":"module","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"module","type":"dfn","url":"#module"},
+"#module-name": {"displayText":"module name","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"module name","type":"dfn","url":"#module-name"},
+"#process-capabilities": {"displayText":"process capabilities","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"process capabilities","type":"dfn","url":"#process-capabilities"},
+"#remote-end": {"displayText":"remote end","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"remote end","type":"dfn","url":"#remote-end"},
+"#remote-end-active-listeners": {"displayText":"active listeners","export":true,"for_":["remote end"],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"active listeners","type":"dfn","url":"#remote-end-active-listeners"},
+"#remote-end-active-sessions": {"displayText":"active sessions","export":true,"for_":["remote end"],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"active sessions","type":"dfn","url":"#remote-end-active-sessions"},
+"#remote-end-definition": {"displayText":"remote end definition","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"remote end definition","type":"dfn","url":"#remote-end-definition"},
+"#remote-end-event-trigger": {"displayText":"remote end event trigger","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"remote end event trigger","type":"dfn","url":"#remote-end-event-trigger"},
+"#remote-end-steps": {"displayText":"remote end steps","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"remote end steps","type":"dfn","url":"#remote-end-steps"},
+"#remote-end-supported-settings": {"displayText":"supported settings","export":true,"for_":["remote end"],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"supported settings","type":"dfn","url":"#remote-end-supported-settings"},
+"#remote-end-websocket-connections-not-associated-with-a-session": {"displayText":"websocket connections not associated with a session","export":true,"for_":["remote end"],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"websocket connections not associated with a session","type":"dfn","url":"#remote-end-websocket-connections-not-associated-with-a-session"},
+"#result-type": {"displayText":"result type","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"result type","type":"dfn","url":"#result-type"},
+"#send-an-error-response": {"displayText":"send an error response","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"send an error response","type":"dfn","url":"#send-an-error-response"},
+"#session": {"displayText":"session","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"session","type":"dfn","url":"#session"},
+"#session-associated-with-connection": {"displayText":"associated with connection","export":true,"for_":["session"],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"associated with connection","type":"dfn","url":"#session-associated-with-connection"},
+"#session-session-id": {"displayText":"session id","export":true,"for_":["session"],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"session id","type":"dfn","url":"#session-session-id"},
+"#session-session-websocket-connections": {"displayText":"session websocket connections","export":true,"for_":["session"],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"session websocket connections","type":"dfn","url":"#session-session-websocket-connections"},
+"#set-of-all-command-names": {"displayText":"set of all command names","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"set of all command names","type":"dfn","url":"#set-of-all-command-names"},
+"#settingssetsettings": {"displayText":"settings.setsettings","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"settings.setsettings","type":"dfn","url":"#settingssetsettings"},
+"#should-be-withheld": {"displayText":"should be withheld","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"should be withheld","type":"dfn","url":"#should-be-withheld"},
+"#start-listening-for-a-websocket-connection": {"displayText":"start listening for a websocket connection","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"start listening for a websocket connection","type":"dfn","url":"#start-listening-for-a-websocket-connection"},
+"#static-command": {"displayText":"static command","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"static command","type":"dfn","url":"#static-command"},
+"#success": {"displayText":"success","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"success","type":"dfn","url":"#success"},
+"#try": {"displayText":"trying","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"trying","type":"dfn","url":"#try"},
+"#uuid": {"displayText":"uuid","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"uuid","type":"dfn","url":"#uuid"},
+"#validate-setting-name": {"displayText":"validate setting name","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"validate setting name","type":"dfn","url":"#validate-setting-name"},
+"#websocket-connection": {"displayText":"websocket connection","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"websocket connection","type":"dfn","url":"#websocket-connection"},
+"#websocket-listener": {"displayText":"websocket listener","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"websocket listener","type":"dfn","url":"#websocket-listener"},
+"#websocket-listener-host": {"displayText":"host","export":true,"for_":["WebSocket listener"],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"host","type":"dfn","url":"#websocket-listener-host"},
+"#websocket-listener-port": {"displayText":"port","export":true,"for_":["WebSocket listener"],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"port","type":"dfn","url":"#websocket-listener-port"},
+"#websocket-listener-secure-flag": {"displayText":"secure flag","export":true,"for_":["WebSocket listener"],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"secure flag","type":"dfn","url":"#websocket-listener-secure-flag"},
+"https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel": {"displayText":"in parallel","export":true,"for_":[],"level":"1","normative":true,"shortname":"html","spec":"html","status":"current","text":"in parallel","type":"dfn","url":"https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel"},
+"https://infra.spec.whatwg.org/#ascii-lowercase": {"displayText":"ASCII lowercase","export":true,"for_":[],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"ascii lowercase","type":"dfn","url":"https://infra.spec.whatwg.org/#ascii-lowercase"},
+"https://infra.spec.whatwg.org/#assert": {"displayText":"assert","export":true,"for_":[],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"assert","type":"dfn","url":"https://infra.spec.whatwg.org/#assert"},
+"https://infra.spec.whatwg.org/#implementation-defined": {"displayText":"implementation-defined","export":true,"for_":[],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"implementation-defined","type":"dfn","url":"https://infra.spec.whatwg.org/#implementation-defined"},
+"https://infra.spec.whatwg.org/#list": {"displayText":"list","export":true,"for_":[],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"list","type":"dfn","url":"https://infra.spec.whatwg.org/#list"},
+"https://infra.spec.whatwg.org/#list-append": {"displayText":"append","export":true,"for_":["list"],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"append","type":"dfn","url":"https://infra.spec.whatwg.org/#list-append"},
+"https://infra.spec.whatwg.org/#list-contain": {"displayText":"contain","export":true,"for_":["list","stack","queue","set"],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"contain","type":"dfn","url":"https://infra.spec.whatwg.org/#list-contain"},
+"https://infra.spec.whatwg.org/#list-empty": {"displayText":"empty","export":true,"for_":["list","stack","queue","set"],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"empty","type":"dfn","url":"https://infra.spec.whatwg.org/#list-empty"},
+"https://infra.spec.whatwg.org/#list-iterate": {"displayText":"for each","export":true,"for_":["list","set"],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"for each","type":"dfn","url":"https://infra.spec.whatwg.org/#list-iterate"},
+"https://infra.spec.whatwg.org/#map-exists": {"displayText":"exist","export":true,"for_":["map"],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"exist","type":"dfn","url":"https://infra.spec.whatwg.org/#map-exists"},
+"https://infra.spec.whatwg.org/#map-iterate": {"displayText":"for each","export":true,"for_":["map"],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"for each","type":"dfn","url":"https://infra.spec.whatwg.org/#map-iterate"},
+"https://infra.spec.whatwg.org/#map-set": {"displayText":"set","export":true,"for_":["map"],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"set","type":"dfn","url":"https://infra.spec.whatwg.org/#map-set"},
+"https://infra.spec.whatwg.org/#map-size": {"displayText":"size","export":true,"for_":["map"],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"size","type":"dfn","url":"https://infra.spec.whatwg.org/#map-size"},
+"https://infra.spec.whatwg.org/#ordered-map": {"displayText":"map","export":true,"for_":[],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"map","type":"dfn","url":"https://infra.spec.whatwg.org/#ordered-map"},
+"https://infra.spec.whatwg.org/#ordered-set": {"displayText":"set","export":true,"for_":[],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"set","type":"dfn","url":"https://infra.spec.whatwg.org/#ordered-set"},
+"https://infra.spec.whatwg.org/#parse-a-json-string-to-an-infra-value": {"displayText":"parse JSON into Infra values","export":true,"for_":[],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"parse json into infra values","type":"dfn","url":"https://infra.spec.whatwg.org/#parse-a-json-string-to-an-infra-value"},
+"https://infra.spec.whatwg.org/#scalar-value-string": {"displayText":"scalar value string","export":true,"for_":[],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"scalar value string","type":"dfn","url":"https://infra.spec.whatwg.org/#scalar-value-string"},
+"https://infra.spec.whatwg.org/#serialize-an-infra-value-to-json-bytes": {"displayText":"serialize an Infra value to JSON bytes","export":true,"for_":[],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"serialize an infra value to json bytes","type":"dfn","url":"https://infra.spec.whatwg.org/#serialize-an-infra-value-to-json-bytes"},
+"https://infra.spec.whatwg.org/#set-append": {"displayText":"append","export":true,"for_":["set"],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"append","type":"dfn","url":"https://infra.spec.whatwg.org/#set-append"},
+"https://infra.spec.whatwg.org/#string": {"displayText":"string","export":true,"for_":[],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"string","type":"dfn","url":"https://infra.spec.whatwg.org/#string"},
+};
+
+function mkRefHint(link, ref) {
+    const linkText = link.textContent;
+    let dfnTextElements = '';
+    if (ref.displayText.toLowerCase() != linkText.toLowerCase()) {
+        // Give the original term if it's being displayed in a different way.
+        // But allow casing differences, they're insignificant.
+        dfnTextElements =
+            mk.li({},
+                mk.b({}, "Term: "),
+                mk.span({}, ref.displayText)
+            );
+    }
+    const forList = ref.for_;
+    let forListElements;
+    if(forList.length == 0) {
+        forListElements = [];
+    } else if(forList.length == 1) {
+        forListElements = mk.li({},
+            mk.b({}, "For: "),
+            mk.span({}, forList[0]),
+        );
+    } else {
+        forListElements = mk.li({},
+            mk.b({}, "For: "),
+            mk.ul({},
+                ...forList.map(forItem =>
+                    mk.li({},
+                        mk.span({}, forItem)
+                    ),
+                ),
+            ),
+        );
+    }
+    const url = ref.url;
+    const safeUrl = encodeURIComponent(url);
+    const hintPanel = mk.aside({
+        class: "ref-hint",
+        id: `ref-hint-for-${safeUrl}`,
+        "data-for": url,
+        "aria-labelled-by": `ref-hint-for-${safeUrl}`,
+    },
+        mk.ul({},
+            dfnTextElements,
+            mk.li({},
+                mk.b({}, "URL: "),
+                mk.a({ href: url, class: "ref" }, url),
+            ),
+            mk.li({},
+                mk.b({}, "Type: "),
+                mk.span({}, `${ref.type}`),
+            ),
+            mk.li({},
+                mk.b({}, "Spec: "),
+                mk.span({}, `${ref.spec ? ref.spec : ''}`),
+            ),
+            forListElements
+        ),
+    );
+    hintPanel.forLink = link;
+    setupRefHintEventListeners(link, hintPanel);
+    return hintPanel;
+}
+
+function hideAllRefHints() {
+    queryAll(".ref-hint").forEach(el=>hideRefHint(el));
+}
+
+function hideRefHint(refHint) {
+    const link = refHint.forLink;
+    link.setAttribute("aria-expanded", "false");
+    if(refHint.teardownEventListeners) {
+        refHint.teardownEventListeners();
+    }
+    refHint.remove();
+}
+
+function showRefHint(link) {
+    if(link.classList.contains("dfn-link")) return;
+    const url = link.getAttribute("href");
+    const ref = refsData[url];
+    if(!ref) return;
+
+    hideAllRefHints(); // Only display one at this time.
+
+    const refHint = mkRefHint(link, ref);
+    append(document.body, refHint);
+    link.setAttribute("aria-expanded", "true");
+    positionRefHint(refHint);
+}
+
+function setupRefHintEventListeners(link, refHint) {
+    if (refHint.teardownEventListeners) return;
+    // Add event handlers to hide the refHint after the user moves away
+    // from both the link and refHint, if not hovering either within one second.
+    let timeout = null;
+    const startHidingRefHint = (event) => {
+        if (timeout) {
+            clearTimeout(timeout);
+        }
+        timeout = setTimeout(() => {
+            hideRefHint(refHint);
+        }, 1000);
+    }
+    const resetHidingRefHint = (event) => {
+        if (timeout) clearTimeout(timeout);
+        timeout = null;
+    };
+    link.addEventListener("mouseleave", startHidingRefHint);
+    link.addEventListener("mouseenter", resetHidingRefHint);
+    link.addEventListener("blur", startHidingRefHint);
+    link.addEventListener("focus", resetHidingRefHint);
+    refHint.addEventListener("mouseleave", startHidingRefHint);
+    refHint.addEventListener("mouseenter", resetHidingRefHint);
+    refHint.addEventListener("blur", startHidingRefHint);
+    refHint.addEventListener("focus", resetHidingRefHint);
+
+    refHint.teardownEventListeners = () => {
+        // remove event listeners
+        resetHidingRefHint();
+        link.removeEventListener("mouseleave", startHidingRefHint);
+        link.removeEventListener("mouseenter", resetHidingRefHint);
+        link.removeEventListener("blur", startHidingRefHint);
+        link.removeEventListener("focus", resetHidingRefHint);
+        refHint.removeEventListener("mouseleave", startHidingRefHint);
+        refHint.removeEventListener("mouseenter", resetHidingRefHint);
+        refHint.removeEventListener("blur", startHidingRefHint);
+        refHint.removeEventListener("focus", resetHidingRefHint);
+    };
+}
+
+function positionRefHint(refHint) {
+    const link = refHint.forLink;
+    const linkPos = getBounds(link);
+    refHint.style.top = linkPos.bottom + "px";
+    refHint.style.left = linkPos.left + "px";
+
+    const panelPos = refHint.getBoundingClientRect();
+    const panelMargin = 8;
+    const maxRight = document.body.parentNode.clientWidth - panelMargin;
+    if (panelPos.right > maxRight) {
+        const overflowAmount = panelPos.right - maxRight;
+        const newLeft = Math.max(panelMargin, linkPos.left - overflowAmount);
+        refHint.style.left = newLeft + "px";
+    }
+}
+
+// TODO: shared util
+// Returns the root-level absolute position {left and top} of element.
+function getBounds(el, relativeTo=document.body) {
+    const relativeRect = relativeTo.getBoundingClientRect();
+    const elRect = el.getBoundingClientRect();
+    const top = elRect.top - relativeRect.top;
+    const left = elRect.left - relativeRect.left;
+    return {
+        top,
+        left,
+        bottom: top + elRect.height,
+        right: left + elRect.width,
+    }
+}
+
+function showRefHintListener(e) {
+    // If the target isn't in a link (or is a link),
+    // just ignore it.
+    let link = e.target.closest("a");
+    if(!link) return;
+
+    // If the target is in a ref-hint panel
+    // (aka a link in the already-open one),
+    // also just ignore it.
+    if(link.closest(".ref-hint")) return;
+
+    // Otherwise, show the panel for the link.
+    showRefHint(link);
+}
+
+function hideAllHintsListener(e) {
+    // If the click is inside a ref-hint panel, ignore it.
+    if(e.target.closest(".ref-hint")) return;
+    // Otherwise, close all the current panels.
+    hideAllRefHints();
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    document.body.addEventListener("mousedown", showRefHintListener);
+    document.body.addEventListener("focus", showRefHintListener);
+
+    document.body.addEventListener("click", hideAllHintsListener);
+});
+
+window.addEventListener("resize", () => {
+    // Hide any open ref hint.
+    hideAllRefHints();
+});
 }
 </script>
 <script>/* Boilerplate: script-var-click-highlighting */
+"use strict";
+{
 /*
 Color-choosing design:
 
-Colors are ordered by goodness.
-Each color has a usage count (initially zero).
-Each variable has a last-used color.
-
-* If the var has a last-used color, and that color's usage is 0,
-    return that color.
-* Otherwise, return the lowest-indexed color with the lowest usage.
-    Increment the color's usage and set it as the last-used color
-    for that var.
-* On unclicking, decrement usage of the color.
+* Colors are ordered by goodness.
+* On clicking a var, give it the earliest color
+    with the lowest usage in the algorithm.
+* On re-clicking, re-use the var's most recent color
+    if that's not currently being used elsewhere.
 */
-"use strict";
-{
-    document.addEventListener("click", e=>{
-        if(e.target.nodeName == "VAR") {
-            highlightSameAlgoVars(e.target);
-        }
-    });
-    const indexCounts = new Map();
-    const indexNames = new Map();
-    function highlightSameAlgoVars(v) {
-        // Find the algorithm container.
-        let algoContainer = null;
-        let searchEl = v;
-        while(algoContainer == null && searchEl != document.body) {
-            searchEl = searchEl.parentNode;
-            if(searchEl.hasAttribute("data-algorithm")) {
-                algoContainer = searchEl;
-            }
-        }
 
-        // Not highlighting document-global vars,
-        // too likely to be unrelated.
-        if(algoContainer == null) return;
+const COLOR_COUNT = 7;
 
-        const algoName = algoContainer.getAttribute("data-algorithm");
-        const varName = getVarName(v);
-        const addClass = !v.classList.contains("selected");
-        let highlightClass = null;
-        if(addClass) {
-            const index = chooseHighlightIndex(algoName, varName);
-            indexCounts.get(algoName)[index] += 1;
-            indexNames.set(algoName+"///"+varName, index);
-            highlightClass = nameFromIndex(index);
-        } else {
-            const index = previousHighlightIndex(algoName, varName);
-            indexCounts.get(algoName)[index] -= 1;
-            highlightClass = nameFromIndex(index);
-        }
+document.addEventListener("click", e=>{
+    if(e.target.nodeName == "VAR") {
+        highlightSameAlgoVars(e.target);
+    }
+});
 
-        // Find all same-name vars, and toggle their class appropriately.
+function highlightSameAlgoVars(v) {
+    // Find the algorithm container.
+    let algoContainer = findAlgoContainer(v);
+
+    // Not highlighting document-global vars,
+    // too likely to be unrelated.
+    if(algoContainer == null) return;
+
+    const varName = nameFromVar(v);
+    if(!v.hasAttribute("data-var-color")) {
+        const newColor = chooseHighlightColor(algoContainer, v);
         for(const el of algoContainer.querySelectorAll("var")) {
-            if(getVarName(el) == varName) {
-                el.classList.toggle("selected", addClass);
-                el.classList.toggle(highlightClass, addClass);
+            if(nameFromVar(el) == varName) {
+                el.setAttribute("data-var-color", newColor);
+                el.setAttribute("data-var-last-color", newColor);
+            }
+        }
+    } else {
+        for(const el of algoContainer.querySelectorAll("var")) {
+            if(nameFromVar(el) == varName) {
+                el.removeAttribute("data-var-color");
             }
         }
     }
-    function getVarName(el) {
-        return el.textContent.replace(/(\s|\xa0)+/, " ").trim();
+}
+function findAlgoContainer(el) {
+    while(el != document.body) {
+        if(el.hasAttribute("data-algorithm")) return el;
+        el = el.parentNode;
     }
-    function chooseHighlightIndex(algoName, varName) {
-        let indexes = null;
-        if(indexCounts.has(algoName)) {
-            indexes = indexCounts.get(algoName);
-        } else {
-            // 7 classes right now
-            indexes = [0,0,0,0,0,0,0];
-            indexCounts.set(algoName, indexes);
-        }
+    return null;
+}
+function nameFromVar(el) {
+    return el.textContent.replace(/(\s|\xa0)+/g, " ").trim();
+}
+function colorCountsFromContainer(container) {
+    const namesFromColor = Array.from({length:COLOR_COUNT}, x=>new Set());
+    for(let v of container.querySelectorAll("var[data-var-color]")) {
+        let color = +v.getAttribute("data-var-color");
+        namesFromColor[color].add(nameFromVar(v));
+    }
 
-        // If the element was recently unclicked,
-        // *and* that color is still unclaimed,
-        // give it back the same color.
-        const lastIndex = previousHighlightIndex(algoName, varName);
-        if(indexes[lastIndex] === 0) return lastIndex;
-
-        // Find the earliest index with the lowest count.
-        const minCount = Math.min.apply(null, indexes);
-        let index = null;
-        for(var i = 0; i < indexes.length; i++) {
-            if(indexes[i] == minCount) {
-                return i;
-            }
+    return namesFromColor.map(x=>x.size);
+}
+function leastUsedColor(colors) {
+    // Find the earliest color with the lowest count.
+    let minCount = Infinity;
+    let minColor = null;
+    for(var i = 0; i < colors.length; i++) {
+        if(colors[i] < minCount) {
+            minColor = i;
+            minCount = colors[i];
         }
     }
-    function previousHighlightIndex(algoName, varName) {
-        return indexNames.get(algoName+"///"+varName);
+    return minColor;
+}
+function chooseHighlightColor(container, v) {
+    const colorCounts = colorCountsFromContainer(container);
+    if(v.hasAttribute("data-var-last-color")) {
+        let color = +v.getAttribute("data-var-last-color");
+        if(colorCounts[color] == 0) return color;
     }
-    function nameFromIndex(index) {
-        return "selected" + index;
-    }
+    return leastUsedColor(colorCounts);
+}
 }
 </script>
