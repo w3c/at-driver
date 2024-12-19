@@ -720,9 +720,9 @@ Issue: Require implementations to report failures in settings modification opera
   </dd>
   <dt>[=Result Type=]</dt>
   <dd>
-    <xmp class="cddl">
+    <code>
     EmptyResult
-    </xmp>
+    </code>
   </dd>
 </dl>
 
@@ -765,9 +765,9 @@ The <dfn>settings.getSettings command</dfn> returns a list of the requested sett
   </dd>
   <dt>[=Result Type=]</dt>
   <dd>
-    <xmp class="cddl">
+    <code>
     SettingsGetSettingsResult
-    </xmp>
+    </code>
   </dd>
 </dl>
 
@@ -796,9 +796,9 @@ The <dfn>settings.getSupportedSettings command</dfn> returns a list of all setti
   </dd>
   <dt>[=Result Type=]</dt>
   <dd>
-    <xmp class="cddl">
+    <code>
     SettingsGetSettingsResult
-    </xmp>
+    </code>
   </dd>
 </dl>
 
@@ -882,9 +882,9 @@ Issue(51): This algorithm only supports one specific kind of press/release seque
   <dt>Result Type
   <dd>
 
-  <pre class="cddl">
+  <code>
   EmptyResult
-  </pre>
+  </code>
 
 </dl>
 
