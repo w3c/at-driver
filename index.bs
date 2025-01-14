@@ -896,7 +896,7 @@ or [[WEBDRIVER-BIDI]] in order to meet such needs.
 To <dfn>activate element</dfn> given <var ignore>command parameters</var>:
 
 1. Perform the default action for the item in the [=virtual cursor=].
-1. Return [=success=] with data null.
+2. Return [=success=] with data null.
 
 </div>
 
