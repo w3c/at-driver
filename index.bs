@@ -110,7 +110,7 @@ Protocol {#protocol}
 
 This section defines the basic concepts of the AT Driver protocol. These terms are distinct from their representation at the transport layer.
 
-The protocol is defined using a CDDL definition. For the convenience of implementors two separate CDDL definitions are defined; the <dfn>remote end definition</dfn> which defines the format of messages produced on the [=local end=] and consumed on the [=remote end=], and the <dfn>local end definition</dfn> which defines the format of messages produced on the [=remote end=] and consumed on the [=local end=].
+The protocol is defined using a CDDL definition. For the convenience of implementors two separate CDDL definitions are defined; the <dfn cddl-module lt="Remote end definition|remote end definition|remote-cddl">remote end definition</dfn> which defines the format of messages produced on the [=local end=] and consumed on the [=remote end=], and the <dfn cddl-module lt="Local end definition|local end definition|local-cddl">local end definition</dfn> which defines the format of messages produced on the [=remote end=] and consumed on the [=local end=].
 
 
 Definition {#protocol-definition}
@@ -118,9 +118,9 @@ Definition {#protocol-definition}
 
 This section gives the initial contents of the remote end definition and local end definition. These are augmented by the definition fragments defined in the remainder of the specification.
 
-[=Remote end definition=]
+{^Remote end definition^}
 
-<xmp class="cddl remote-cddl">
+<xmp class="cddl" data-cddl-module="remote-cddl">
 Command = {
   id: uint,
   CommandData,
@@ -136,9 +136,9 @@ CommandData = (
 EmptyParams = { Extensible }
 </xmp>
 
-[=Local end definition=]:
+{^Local end definition^}:
 
-<xmp class="cddl local-cddl">
+<xmp class="cddl" data-cddl-module="local-cddl">
 Message = (
   CommandResponse //
   ErrorResponse //
@@ -177,9 +177,9 @@ EventData = (
 )
 </xmp>
 
-[=Remote end definition=] and [=local end definition=]:
+{^Remote end definition^} and {^local end definition^}:
 
-<xmp class="cddl remote-cddl local-cddl">
+<xmp class="cddl" data-cddl-module="remote-cddl,local-cddl">
 Extensible = {
   *text => any
 }
@@ -277,9 +277,9 @@ Each <dfn>module</dfn> represents a collection of related [=commands=] and [=eve
 
 Each module has a <dfn>module name</dfn> which is a string. The [=command name=] and [=event name=] for commands and events defined in the module start with the [=module name=] followed by a period "`.`".
 
-Modules which contain [=commands=] define [=remote end definition=] fragments.
+Modules which contain [=commands=] define {^remote end definition^} fragments.
 
-An implementation may define <dfn>extension modules</dfn>. These must have a module name that contains a single colon "`:`" character. The part before the colon is the prefix; this is typically the same for all extension modules specific to a given implementation and should be unique for a given implementation. Such modules extend the [=local end definition=] and [=remote end definition=] providing additional groups as choices for the defined [=commands=] and [=events=].
+An implementation may define <dfn>extension modules</dfn>. These must have a module name that contains a single colon "`:`" character. The part before the colon is the prefix; this is typically the same for all extension modules specific to a given implementation and should be unique for a given implementation. Such modules extend the {^local end definition^} and {^remote end definition^} providing additional groups as choices for the defined [=commands=] and [=events=].
 
 Commands {#protocol-commands}
 -----------------------------
@@ -288,10 +288,10 @@ A <dfn>command</dfn> is an asynchronous operation, requested by the [=local end=
 
 Each [=command=] is defined by:
 
-* A <dfn>command type</dfn> which is defined by a [=remote end definition=] fragment containing a group. Each such group has two fields:
+* A <dfn>command type</dfn> which is defined by a {^remote end definition^} fragment containing a group. Each such group has two fields:
     * `method` which is a string literal in the form `[module name].[method name]`. This is the <dfn>command name</dfn>.
     * `params` which defines a mapping containing data that to be passed into the command. The populated value of this map is the <dfn>command parameters</dfn>.
-* A <dfn>result type</dfn>, which is defined by the [=local end definition=] fragment.
+* A <dfn>result type</dfn>, which is defined by the {^local end definition^} fragment.
 * A set of <dfn>remote end steps</dfn> which define the actions to take for a command given a [=session=] and [=command parameters=] and return an instance of the command [=result type=].
 
 A command that can run without an active session is a <dfn>static command</dfn>. Commands are not static commands unless stated in their definition.
@@ -305,7 +305,7 @@ Events {#protocol-events}
 
 An <dfn>event</dfn> is a notification, sent by the [=remote end=] to the [=local end=], signaling that something of interest has occurred on the [=remote end=].
 
-* An <dfn>event type</dfn> is defined by a [=local end definition=] fragment containing a group. Each such group has two fields:
+* An <dfn>event type</dfn> is defined by a {^local end definition^} fragment containing a group. Each such group has two fields:
     * `method` which is a string literal of the form `[module name].[event name]`. This is the <dfn>event name</dfn>.
     * `params` which defines a mapping containing event data. The populated value of this map is the <dfn>event parameters</dfn>.
 * A <dfn>remote end event trigger</dfn> which defines when the event is triggered and steps to construct the [=event type=] data.
@@ -429,7 +429,7 @@ To <dfn>handle an incoming message</dfn> given a [=WebSocket connection=] |conne
 2. [=Assert=]: |data| is a [=scalar value string=], because the [WebSocket handling errors in UTF-8-encoded data](https://tools.ietf.org/html/rfc6455#section-8.1) would already have [failed the WebSocket connection](https://tools.ietf.org/html/rfc6455#section-7.1.7) otherwise.
 3. If there is a [=session=] [=associated with connection=] |connection|, let |session| be that session. Otherwise if |connection| is in the set of [=WebSocket connections not associated with a session=], let |session| be null. Otherwise, return.
 4. Let |parsed| be the result of [=parsing JSON into Infra values=] given |data|. If this throws an exception, then [=send an error response=] given |connection|, null, and <a for="error code">invalid argument</a>, and finally return.
-5. Match |parsed| against the [=remote end definition=]. If this results in a match:
+5. Match |parsed| against the {^remote end definition^}. If this results in a match:
     1. Let |matched| be the map representing the matched data.
     2. [=Assert=]: |matched| <a for=map>contains</a> "`id`", "`method`", and "`params`".
     3. Let |command id| be |matched|["`id`"].
@@ -449,7 +449,7 @@ To <dfn>handle an incoming message</dfn> given a [=WebSocket connection=] |conne
             1. Let |session| be the entry in the list of [=active sessions=] whose [=session ID=] is equal to the "`sessionId`" property of |value|.
             2. [=set/Append=] |connection| to |session|'s [=session WebSocket connections=].
             3. Remove |connection| from the set of [=WebSocket connections not associated with a session=].
-        6. Let |response| be a new map matching the `CommandResponse` production in the [=local end definition=] with the `id` field set to |command id| and the `value` field set to |value|.
+        6. Let |response| be a new map matching the `CommandResponse` production in the {^local end definition^} with the `id` field set to |command id| and the `value` field set to |value|.
         7. Let |serialized| be the result of [=serialize an infra value to JSON bytes=] given |response|.
         8. [Send a WebSocket message](https://tools.ietf.org/html/rfc6455#section-6.1) comprised of |serialized| over |connection|.
 6. Otherwise:
@@ -476,7 +476,7 @@ To <dfn>emit an event</dfn> given |session|, and |body|:
 
 To <dfn>send an error response</dfn> given a [=WebSocket connection=] |connection|, |command id|, and |error code|:
 
-  1. Let |error data| be a new [=map=] matching the `ErrorResponse` production in the [=local end definition=], with the `id` field set to |command id|, the `error` field set to |error code|, the `message` field set to an [=implementation-defined=] string containing a human-readable definition of the error that occurred and the `stacktrace` field optionally set to an [=implementation-defined=] string containing a stack trace report of the active stack frames at the time when the error occurred.
+  1. Let |error data| be a new [=map=] matching the `ErrorResponse` production in the {^local end definition^}, with the `id` field set to |command id|, the `error` field set to |error code|, the `message` field set to an [=implementation-defined=] string containing a human-readable definition of the error that occurred and the `stacktrace` field optionally set to an [=implementation-defined=] string containing a stack trace report of the active stack frames at the time when the error occurred.
   2. Let |response| be the result of [=serialize an infra value to JSON bytes=] given |error data|.
 
      Note: |command id| can be null, in which case the `id` field will also be set to null, not omitted from |response|.
@@ -513,15 +513,15 @@ The session Module {#module-session}
 
 ### Definition ### {#module-session-definition}
 
-[=Remote end definition=]:
+{^Remote end definition^}:
 
-<xmp class="cddl remote-cddl">
+<xmp class="cddl" data-cddl-module="remote-cddl">
 SessionCommand = (SessionNewCommand)
 </xmp>
 
-[=Local end definition=]
+{^Local end definition^}
 
-<xmp class="cddl local-cddl">
+<xmp class="cddl" data-cddl-module="local-cddl">
 SessionResult = (SessionNewResult)
 </xmp>
 
@@ -529,9 +529,9 @@ SessionResult = (SessionNewResult)
 
 #### The session.CapabilitiesRequest Type #### {#module-session-CapabilitiesRequest}
 
-[=Remote end definition=] and [=local end definition=]:
+{^Remote end definition^} and {^local end definition^}:
 
-<xmp class="cddl remote-cddl local-cddl">
+<xmp class="cddl" data-cddl-module="remote-cddl,local-cddl">
 CapabilitiesRequest = {
   ?atName: text,
   ?atVersion: text,
@@ -552,7 +552,7 @@ The <dfn>session.new</dfn> command allows creating a new [=session=]. This is a 
   <dt>[=Command Type=]
   <dd>
 
-  <xmp class="cddl remote-cddl">
+  <xmp class="cddl" data-cddl-module="remote-cddl">
   SessionNewCommand = {
     method: "session.new",
     params: {capabilities: CapabilitiesRequestParameters},
@@ -568,7 +568,7 @@ The <dfn>session.new</dfn> command allows creating a new [=session=]. This is a 
   <dt>[=Result Type=]
   <dd>
 
-  <xmp class="cddl local-cddl">
+  <xmp class="cddl" data-cddl-module="local-cddl">
   SessionNewResult = {
     sessionId: text,
     capabilities: {
@@ -628,7 +628,7 @@ To <dfn>get settings</dfn> given a [=list=] of strings |names|:
     1. If [=validate setting name=] given |name| is `"invalid"`:
         1. Return an [=error=] with [=error code=] <a for="error code">invalid argument</a>.
     2. Let |value| be the value of the setting named |name|.
-    3. Let |item| be a new [=map=] matching the `SettingsGetSettingsResultItem` production in the [=local end definition=] with the `name` field set to |name| and the `value` field set to |value|.
+    3. Let |item| be a new [=map=] matching the `SettingsGetSettingsResultItem` production in the {^local end definition^} with the `name` field set to |name| and the `value` field set to |value|.
     4. [=list/Append=] |item| to |items|.
 3. Let |body| be a new [=map=] matching the `SettingsGetSettingsResult` production, with the `settings` field set to |items|.
 4. Return [=success=] with data |body|.
@@ -654,9 +654,9 @@ Issue: Require implementations to maintain a static list of supported settings.
 
 ### Definition ### {#module-settings-definition}
 
-<a>Remote end definition</a>
+{^Remote end definition^}
 
-<xmp class="cddl remote-cddl">
+<xmp class="cddl" data-cddl-module="remote-cddl">
 SettingsCommand = {
   SettingsSetSettingsCommand //
   SettingsGetSettingsCommand //
@@ -664,9 +664,9 @@ SettingsCommand = {
 }
 </xmp>
 
-<a>Local end definition</a>
+{^Local end definition^}
 
-<xmp class="cddl local-cddl">
+<xmp class="cddl" data-cddl-module="local-cddl">
 SettingsResult = {
   SettingsGetSettingsResult
 }
@@ -676,9 +676,9 @@ SettingsResult = {
 
 #### The SettingsGetSettingsResult type #### {#module-settings-get-settings-result}
 
-[=Local end definition=]:
+{^Local end definition^}:
 
-<xmp class="cddl local-cddl">
+<xmp class="cddl" data-cddl-module="local-cddl">
 SettingsGetSettingsResult = {
   settings: [1* SettingsGetSettingsResultItem ],
 }
@@ -705,7 +705,7 @@ Issue: Require implementations to report failures in settings modification opera
 <dl>
   <dt>[=Command Type=]</dt>
   <dd>
-    <xmp class="cddl remote-cddl">
+    <xmp class="cddl" data-cddl-module="remote-cddl">
     SettingsSetSettingsCommand = {
       method: "settings.setSettings",
       params: SettingsSetSettingsParameters
@@ -751,7 +751,7 @@ The <dfn>settings.getSettings command</dfn> returns a list of the requested sett
 <dl>
   <dt>[=Command Type=]</dt>
   <dd>
-    <xmp class="cddl remote-cddl">
+    <xmp class="cddl" data-cddl-module="remote-cddl">
     SettingsGetSettingsCommand = {
       method: "settings.getSettings",
       params: SettingsGetSettingsParameters
@@ -791,7 +791,7 @@ The <dfn>settings.getSupportedSettings command</dfn> returns a list of all setti
 <dl>
   <dt>[=Command Type=]</dt>
   <dd>
-    <xmp class="cddl remote-cddl">
+    <xmp class="cddl" data-cddl-module="remote-cddl">
     SettingsGetSupportedSettingsCommand = {
       method: "settings.getSupportedSettings",
       params: EmptyParams
@@ -871,15 +871,15 @@ To <dfn>press keys</dfn> given |command parameters|:
 
 ### Definition ### {#module-interaction-definition}
 
-[=Remote end definition=]:
+{^Remote end definition^}:
 
-<xmp class="cddl remote-cddl">
+<xmp class="cddl" data-cddl-module="remote-cddl">
 InteractionCommand = (InteractionUserIntentCommand)
 </xmp>
 
-[=Local end definition=]:
+{^Local end definition^}:
 
-<xmp class="cddl local-cddl">
+<xmp class="cddl" data-cddl-module="local-cddl">
 
 InteractionEvent = (InteractionCapturedOutputEvent)
 
@@ -887,7 +887,7 @@ InteractionEvent = (InteractionCapturedOutputEvent)
 
 ### Types ### {#module-interaction-types}
 
-<xmp class="cddl local-cddl">
+<xmp class="cddl" data-cddl-module="local-cddl">
 InteractionCapturedOutputParameters = {
   data: text,
   Extensible,
@@ -904,7 +904,7 @@ The <dfn>interaction.userIntent</dfn> command simulates pressing a key combinati
   <dt>[=Command Type=]
   <dd>
 
-  <pre class="cddl remote-cddl">
+  <pre class="cddl" data-cddl-module="remote-cddl">
   InteractionUserIntentCommand = {
     method: "interaction.userIntent",
     params: InteractionUserIntentParameters
@@ -963,7 +963,7 @@ The [=remote end steps=] given <var ignore>session</var> and |command parameters
   <dt>Event Type
   <dd>
 
-  <xmp class="cddl local-cddl">
+  <xmp class="cddl" data-cddl-module="local-cddl">
   InteractionCapturedOutputEvent = {
     method: "interaction.capturedOutput",
     params: InteractionCapturedOutputParameters
@@ -1016,7 +1016,7 @@ Issue: TODO exclude access to any security-sensitive commands.
 Appendix A: Schemas {#schemas}
 ==============================
 
-The [=remote end definition=] and [=local end definition=] are available as non-normative CDDL and JSON Schema schemas:
+The {^remote end definition^} and {^local end definition^} are available as non-normative CDDL and JSON Schema schemas:
 
 - [at-driver-remote.cddl](schemas/at-driver-remote.cddl)
 - [at-driver-local.cddl](schemas/at-driver-local.cddl)
