@@ -5,10 +5,10 @@
   <title>AT Driver</title>
   <meta content="ED" name="w3c-status">
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
-  <meta content="Bikeshed version 97a1608be, updated Mon Feb 3 16:09:34 2025 -0800" name="generator">
+  <meta content="Bikeshed version 275834c42, updated Wed Jun 11 14:18:15 2025 -0700" name="generator">
   <link href="https://w3c.github.io/at-driver/" rel="canonical">
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
-  <meta content="d0546343272e709fe625621331b812de811d50ea" name="revision">
+  <meta content="2815f8bd81165a88631178433ea881ae694b7c41" name="revision">
   <meta content="dark light" name="color-scheme">
   <link href="https://www.w3.org/StyleSheets/TR/2021/dark.css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css">
 <style>
@@ -93,6 +93,11 @@ pre .property::before, pre .property::after {
         --selflink-bg: silver;
         --selflink-hover-text: white;
     }
+}
+</style>
+<style>/* Boilerplate: style-cddl-highlighting */
+pre.cddl.highlight {
+    background: var(--borderedblock-bg, var(--def-bg));
 }
 </style>
 <style>/* Boilerplate: style-colors */
@@ -746,9 +751,13 @@ var[data-var-color="6"] { --var-vg: #FFBCF2; }
 </style>
  <body class="h-entry">
   <div class="head">
-   <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
+   <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/">
+    <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
+</a>
+</p>
    <h1 class="p-name no-ref" id="title">AT Driver</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types/#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2025-02-11">11 February 2025</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types/#ED">Editor’s Draft</a>,
+    <time class="dt-updated" datetime="2025-06-24">24 June 2025</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -766,7 +775,8 @@ var[data-var-color="6"] { --var-vg: #FFBCF2; }
     </div>
    </details>
    <div data-fill-with="warning"></div>
-   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/policies/#copyright">Copyright</a> © 2025 <a href="https://www.w3.org/">World Wide Web Consortium</a>. <abbr title="World Wide Web Consortium">W3C</abbr><sup>®</sup> <a href="https://www.w3.org/policies/#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/policies/#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/copyright/software-license/" rel="license" title="W3C Software and Document License">permissive document license</a> rules apply. </p>
+   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/policies/#copyright">Copyright</a> © 2025 <a href="https://www.w3.org/">World Wide Web Consortium</a>. <abbr title="World Wide Web Consortium">W3C</abbr><sup>®</sup> <a href="https://www.w3.org/policies/#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/policies/#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/copyright/software-license/" rel="license" title="W3C Software and Document License">permissive document license</a> rules apply.
+</p>
    <hr title="Separator for header">
   </div>
   <div class="p-summary" data-fill-with="abstract">
@@ -775,14 +785,30 @@ var[data-var-color="6"] { --var-vg: #FFBCF2; }
   </div>
   <h2 class="no-num no-toc no-ref heading settled" id="sotd"><span class="content">Status of this document</span></h2>
   <div data-fill-with="status">
-   <p> <em>This section describes the status of this document at the time of its publication. A list of current <abbr title="World Wide Web Consortium">W3C</abbr> publications and the latest revision of this technical report can be found in the <a href="https://www.w3.org/TR/"><abbr title="World Wide Web Consortium">W3C</abbr> technical reports index</a> at https://www.w3.org/TR/.</em> </p>
-   <p> <a href="https://github.com/w3c/at-driver/issues">GitHub Issues</a> are preferred for discussion of this specification. Alternatively, you can send comments to the Browser Testing and Tools Working Group’s mailing list, <a href="mailto:public-browser-tools-testing@w3.org">public-browser-tools-testing@w3.org</a> (<a href="https://lists.w3.org/Archives/Public/public-browser-tools-testing/">archives</a>). </p>
-   <p> This document was published by the <a href="https://www.w3.org/groups/wg/browser-tools-testing/">Browser Testing and Tools Working Group</a> as an Editor’s Draft. </p>
-   <p> Publication as an Editor’s Draft does not imply endorsement by <abbr title="World Wide Web Consortium">W3C</abbr> and its Members. </p>
-   <p> This is a draft document and may be updated, replaced or obsoleted by other documents at any time.
-  It is inappropriate to cite this document as other than work in progress. </p>
-   <p> This document was produced by a group operating under the <a class="css" data-link-type="property" href="https://www.w3.org/policies/patent-policy/" id="sotd_patent">W3C Patent Policy</a>. <abbr title="World Wide Web Consortium">W3C</abbr> maintains a <a href="https://www.w3.org/groups/wg/browser-tools-testing/ipr/" rel="disclosure">public list of any patent disclosures</a> made in connection with the deliverables of the group; that page also includes instructions for disclosing a patent. An individual who has actual knowledge of a patent which the individual believes contains <a href="https://www.w3.org/policies/patent-policy/#def-essential">Essential Claim(s)</a> must disclose the information in accordance with <a href="https://www.w3.org/policies/patent-policy/#sec-Disclosure">section 6 of the <abbr title="World Wide Web Consortium">W3C</abbr> Patent Policy</a>. </p>
-   <p> This document is governed by the <a href="https://www.w3.org/policies/process/20231103/" id="w3c_process_revision">03 November 2023 W3C Process Document</a>. </p>
+   <p>
+  <em>This section describes the status of this document at the time of its publication. A list of current <abbr title="World Wide Web Consortium">W3C</abbr> publications and the latest revision of this technical report can be found in the <a href="https://www.w3.org/TR/"><abbr title="World Wide Web Consortium">W3C</abbr> standards and drafts index</a> at https://www.w3.org/TR/.</em>
+</p>
+   <p>
+  <a href="https://github.com/w3c/at-driver/issues">GitHub Issues</a> are preferred for discussion of this specification. Alternatively, you can send comments to the Browser Testing and Tools Working Group’s mailing list, <a href="mailto:public-browser-tools-testing@w3.org">public-browser-tools-testing@w3.org</a> (<a href="https://lists.w3.org/Archives/Public/public-browser-tools-testing/">archives</a>).
+</p>
+   <p>
+  This document was published by the <a href="https://www.w3.org/groups/wg/browser-tools-testing/">Browser Testing and Tools Working Group</a> as an Editor’s Draft.
+</p>
+   <p>
+  Publication as an Editor’s Draft does not imply endorsement by
+    <abbr title="World Wide Web Consortium">W3C</abbr> and its Members.
+</p>
+   <p>
+  This is a draft document and may be updated, replaced, or obsoleted by other documents at any time.
+  It is inappropriate to cite this document as other than work in progress.
+</p>
+   <p>
+  This document was produced by a group operating under the <a class="css" data-link-type="property" href="https://www.w3.org/policies/patent-policy/" id="sotd_patent">W3C Patent Policy</a>.
+  <abbr title="World Wide Web Consortium">W3C</abbr> maintains a <a href="https://www.w3.org/groups/wg/browser-tools-testing/ipr/" rel="disclosure">public list of any patent disclosures</a> made in connection with the deliverables of the group; that page also includes instructions for disclosing a patent. An individual who has actual knowledge of a patent which the individual believes contains <a href="https://www.w3.org/policies/patent-policy/#def-essential">Essential Claim(s)</a> must disclose the information in accordance with <a href="https://www.w3.org/policies/patent-policy/#sec-Disclosure">section 6 of the <abbr title="World Wide Web Consortium">W3C</abbr> Patent Policy</a>.
+</p>
+   <p>
+  This document is governed by the <a href="https://www.w3.org/policies/process/20231103/" id="w3c_process_revision">03 November 2023 W3C Process Document</a>.
+</p>
    <p></p>
   </div>
   <div data-fill-with="at-risk"></div>
@@ -888,6 +914,12 @@ var[data-var-color="6"] { --var-vg: #FFBCF2; }
       <li><a href="#normative"><span class="secno"></span> <span class="content">Normative References</span></a>
       <li><a href="#informative"><span class="secno"></span> <span class="content">Informative References</span></a>
      </ol>
+    <li>
+     <a href="#cddl-index"><span class="secno"></span> <span class="content">CDDL Index</span></a>
+     <ol class="toc">
+      <li><a href="#cddl-index-cddl-module-remote-end-definition"><span class="secno"></span> <span class="content">Remote end definition</span></a>
+      <li><a href="#cddl-index-cddl-module-local-end-definition"><span class="secno"></span> <span class="content">Local end definition</span></a>
+     </ol>
     <li><a href="#issues-index"><span class="secno"></span> <span class="content">Issues Index</span></a>
    </ol>
   </nav>
@@ -935,65 +967,65 @@ var[data-var-color="6"] { --var-vg: #FFBCF2; }
    </dl>
    <h2 class="heading settled" data-level="5" id="protocol"><span class="secno">5. </span><span class="content">Protocol</span><a class="self-link" href="#protocol"></a></h2>
    <p>This section defines the basic concepts of the AT Driver protocol. These terms are distinct from their representation at the transport layer.</p>
-   <p>The protocol is defined using a CDDL definition. For the convenience of implementors two separate CDDL definitions are defined; the <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="remote-end-definition">remote end definition</dfn> which defines the format of messages produced on the <a data-link-type="dfn" href="#local-end" id="ref-for-local-end">local end</a> and consumed on the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end">remote end</a>, and the <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="local-end-definition">local end definition</dfn> which defines the format of messages produced on the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end①">remote end</a> and consumed on the <a data-link-type="dfn" href="#local-end" id="ref-for-local-end①">local end</a>.</p>
+   <p>The protocol is defined using a CDDL definition. For the convenience of implementors two separate CDDL definitions are defined; the <dfn class="dfn-paneled" data-dfn-type="cddl-module" data-lt="Remote end definition|remote end definition|remote-cddl" data-noexport id="cddl-module-remote-end-definition">remote end definition</dfn> which defines the format of messages produced on the <a data-link-type="dfn" href="#local-end" id="ref-for-local-end">local end</a> and consumed on the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end">remote end</a>, and the <dfn class="dfn-paneled" data-dfn-type="cddl-module" data-lt="Local end definition|local end definition|local-cddl" data-noexport id="cddl-module-local-end-definition">local end definition</dfn> which defines the format of messages produced on the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end①">remote end</a> and consumed on the <a data-link-type="dfn" href="#local-end" id="ref-for-local-end①">local end</a>.</p>
    <h3 class="heading settled" data-level="5.1" id="protocol-definition"><span class="secno">5.1. </span><span class="content">Definition</span><a class="self-link" href="#protocol-definition"></a></h3>
    <p>This section gives the initial contents of the remote end definition and local end definition. These are augmented by the definition fragments defined in the remainder of the specification.</p>
-   <p><a data-link-type="dfn" href="#remote-end-definition" id="ref-for-remote-end-definition">Remote end definition</a></p>
-<pre class="cddl remote-cddl">Command = {
-  id: uint,
-  CommandData,
-  Extensible,
+   <p><code class="cddl"><a data-link-type="cddl" href="#cddl-module-remote-end-definition" id="ref-for-cddl-module-remote-end-definition">Remote end definition</a></code></p>
+<pre class="cddl highlight def" data-cddl-module="remote-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-command"><code>Command</code></dfn> = {
+  <dfn class="dfn-paneled" data-dfn-for="Command" data-dfn-type="cddl-key" data-lt="id|&quot;id&quot;" data-noexport id="cddl-key-command-id"><code>id</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D">uint</a>,
+  <a data-link-type="cddl" href="#cddl-type-commanddata" id="ref-for-cddl-type-commanddata">CommandData</a>,
+  <a data-link-type="cddl" href="#cddl-type-extensible" id="ref-for-cddl-type-extensible">Extensible</a>,
 }
 
-CommandData = (
-  SessionCommand //
-  SettingsCommand //
-  InteractionCommand
+<dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-commanddata"><code>CommandData</code></dfn> = (
+  <a data-link-type="cddl" href="#cddl-type-sessioncommand" id="ref-for-cddl-type-sessioncommand">SessionCommand</a> //
+  <a data-link-type="cddl" href="#cddl-type-settingscommand" id="ref-for-cddl-type-settingscommand">SettingsCommand</a> //
+  <a data-link-type="cddl" href="#cddl-type-interactioncommand" id="ref-for-cddl-type-interactioncommand">InteractionCommand</a>
 )
 
-EmptyParams = { Extensible }
+<dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-emptyparams"><code>EmptyParams</code></dfn> = { <a data-link-type="cddl" href="#cddl-type-extensible" id="ref-for-cddl-type-extensible①">Extensible</a> }
 </pre>
-   <p><a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition">Local end definition</a>:</p>
-<pre class="cddl local-cddl">Message = (
-  CommandResponse //
-  ErrorResponse //
-  Event
+   <p><code class="cddl"><a data-link-type="cddl" href="#cddl-module-local-end-definition" id="ref-for-cddl-module-local-end-definition">Local end definition</a></code>:</p>
+<pre class="cddl highlight def" data-cddl-module="local-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-message"><code>Message</code></dfn> = (
+  <a data-link-type="cddl" href="#cddl-type-commandresponse" id="ref-for-cddl-type-commandresponse">CommandResponse</a> //
+  <a data-link-type="cddl" href="#cddl-type-errorresponse" id="ref-for-cddl-type-errorresponse">ErrorResponse</a> //
+  <a data-link-type="cddl" href="#cddl-type-event" id="ref-for-cddl-type-event">Event</a>
 )
 
-CommandResponse = {
-  id: uint,
-  result: ResultData,
-  Extensible,
+<dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-commandresponse"><code>CommandResponse</code></dfn> = {
+  <dfn class="dfn-paneled" data-dfn-for="CommandResponse" data-dfn-type="cddl-key" data-lt="id|&quot;id&quot;" data-noexport id="cddl-key-commandresponse-id"><code>id</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D①">uint</a>,
+  <dfn class="dfn-paneled" data-dfn-for="CommandResponse" data-dfn-type="cddl-key" data-lt="result|&quot;result&quot;" data-noexport id="cddl-key-commandresponse-result"><code>result</code></dfn>: <a data-link-type="cddl" href="#cddl-type-resultdata" id="ref-for-cddl-type-resultdata">ResultData</a>,
+  <a data-link-type="cddl" href="#cddl-type-extensible" id="ref-for-cddl-type-extensible②">Extensible</a>,
 }
 
-ErrorResponse = {
-  id: uint / null,
-  error: "unknown error" / "unknown command" / "invalid argument" / "session not created",
-  message: text,
-  ?stacktrace: text,
-  Extensible,
+<dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-errorresponse"><code>ErrorResponse</code></dfn> = {
+  <dfn class="dfn-paneled" data-dfn-for="ErrorResponse" data-dfn-type="cddl-key" data-lt="id|&quot;id&quot;" data-noexport id="cddl-key-errorresponse-id"><code>id</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D②">uint</a> / <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D③">null</a>,
+  <dfn class="dfn-paneled" data-dfn-for="ErrorResponse" data-dfn-type="cddl-key" data-lt="error|&quot;error&quot;" data-noexport id="cddl-key-errorresponse-error"><code>error</code></dfn>: <dfn class="dfn-paneled" data-dfn-for="ErrorResponse/error" data-dfn-type="cddl-value" data-lt="unknown error|&quot;unknown error&quot;" data-noexport id="cddl-value-errorresponse-error-unknown-error"><code>"unknown error"</code></dfn> / <dfn class="dfn-paneled" data-dfn-for="ErrorResponse/error" data-dfn-type="cddl-value" data-lt="unknown command|&quot;unknown command&quot;" data-noexport id="cddl-value-errorresponse-error-unknown-command"><code>"unknown command"</code></dfn> / <dfn class="dfn-paneled" data-dfn-for="ErrorResponse/error" data-dfn-type="cddl-value" data-lt="invalid argument|&quot;invalid argument&quot;" data-noexport id="cddl-value-errorresponse-error-invalid-argument"><code>"invalid argument"</code></dfn> / <dfn class="dfn-paneled" data-dfn-for="ErrorResponse/error" data-dfn-type="cddl-value" data-lt="session not created|&quot;session not created&quot;" data-noexport id="cddl-value-errorresponse-error-session-not-created"><code>"session not created"</code></dfn>,
+  <dfn class="dfn-paneled" data-dfn-for="ErrorResponse" data-dfn-type="cddl-key" data-lt="message|&quot;message&quot;" data-noexport id="cddl-key-errorresponse-message"><code>message</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D④">text</a>,
+  ?<dfn class="dfn-paneled" data-dfn-for="ErrorResponse" data-dfn-type="cddl-key" data-lt="stacktrace|&quot;stacktrace&quot;" data-noexport id="cddl-key-errorresponse-stacktrace"><code>stacktrace</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D⑤">text</a>,
+  <a data-link-type="cddl" href="#cddl-type-extensible" id="ref-for-cddl-type-extensible③">Extensible</a>,
 }
 
-ResultData = (
-  EmptyResult /
-  SessionResult /
-  SettingsResult
+<dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-resultdata"><code>ResultData</code></dfn> = (
+  <a data-link-type="cddl" href="#cddl-type-emptyresult" id="ref-for-cddl-type-emptyresult">EmptyResult</a> /
+  <a data-link-type="cddl" href="#cddl-type-sessionresult" id="ref-for-cddl-type-sessionresult">SessionResult</a> /
+  <a data-link-type="cddl" href="#cddl-type-settingsresult" id="ref-for-cddl-type-settingsresult">SettingsResult</a>
 )
 
-EmptyResult = {}
+<dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-emptyresult"><code>EmptyResult</code></dfn> = {}
 
-Event = {
-  EventData,
-  Extensible,
+<dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-event"><code>Event</code></dfn> = {
+  <a data-link-type="cddl" href="#cddl-type-eventdata" id="ref-for-cddl-type-eventdata">EventData</a>,
+  <a data-link-type="cddl" href="#cddl-type-extensible" id="ref-for-cddl-type-extensible④">Extensible</a>,
 }
 
-EventData = (
-  InteractionEvent
+<dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-eventdata"><code>EventData</code></dfn> = (
+  <a data-link-type="cddl" href="#cddl-type-interactionevent" id="ref-for-cddl-type-interactionevent">InteractionEvent</a>
 )
 </pre>
-   <p><a data-link-type="dfn" href="#remote-end-definition" id="ref-for-remote-end-definition①">Remote end definition</a> and <a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition①">local end definition</a>:</p>
-<pre class="cddl remote-cddl local-cddl">Extensible = {
-  *text => any
+   <p><code class="cddl"><a data-link-type="cddl" href="#cddl-module-remote-end-definition" id="ref-for-cddl-module-remote-end-definition①">Remote end definition</a></code> and <code class="cddl"><a data-link-type="cddl" href="#cddl-module-local-end-definition" id="ref-for-cddl-module-local-end-definition①">local end definition</a></code>:</p>
+<pre class="cddl highlight def" data-cddl-module="remote-cddl,local-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-extensible"><code>Extensible</code></dfn> = {
+  *<a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D⑥">text</a> => <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D⑦">any</a>
 }
 </pre>
    <h3 class="heading settled" data-level="5.2" id="protocol-capabilities"><span class="secno">5.2. </span><span class="content">Capabilities</span><a class="self-link" href="#protocol-capabilities"></a></h3>
@@ -1003,25 +1035,41 @@ EventData = (
     <caption>Standard capabilities</caption>
     <tbody>
      <tr>
-      <th>Capability 
-      <th>Key 
-      <th>Value type 
-      <th>Description 
+      <th>Capability
+    
+      <th>Key
+    
+      <th>Value type
+    
+      <th>Description
+  
      <tr>
-      <td><dfn class="dfn-paneled" data-dfn-for="standard capabilities" data-dfn-type="dfn" data-noexport id="standard-capabilities-at-name">AT name</dfn> 
-      <td>"<code>atName</code>" 
-      <td><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#string" id="ref-for-string">string</a> 
-      <td>Identifies the assistive technology. 
+      <td><dfn class="dfn-paneled" data-dfn-for="standard capabilities" data-dfn-type="dfn" data-noexport id="standard-capabilities-at-name">AT name</dfn>
+    
+      <td>"<code>atName</code>"
+    
+      <td><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#string" id="ref-for-string">string</a>
+    
+      <td>Identifies the assistive technology.
+  
      <tr>
-      <td><dfn class="dfn-paneled" data-dfn-for="standard capabilities" data-dfn-type="dfn" data-noexport id="standard-capabilities-at-version">AT version</dfn> 
-      <td>"<code>atVersion</code>" 
-      <td><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#string" id="ref-for-string①">string</a> 
-      <td>Identifies the version of the assistive technology. 
+      <td><dfn class="dfn-paneled" data-dfn-for="standard capabilities" data-dfn-type="dfn" data-noexport id="standard-capabilities-at-version">AT version</dfn>
+    
+      <td>"<code>atVersion</code>"
+    
+      <td><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#string" id="ref-for-string①">string</a>
+    
+      <td>Identifies the version of the assistive technology.
+  
      <tr>
-      <td><dfn class="dfn-paneled" data-dfn-for="standard capabilities" data-dfn-type="dfn" data-noexport id="standard-capabilities-platform">Platform</dfn> 
-      <td>"<code>platformName</code>" 
-      <td><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#string" id="ref-for-string②">string</a> 
-      <td>Identifies the operating system of the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end④">remote end</a>. 
+      <td><dfn class="dfn-paneled" data-dfn-for="standard capabilities" data-dfn-type="dfn" data-noexport id="standard-capabilities-platform">Platform</dfn>
+    
+      <td>"<code>platformName</code>"
+    
+      <td><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#string" id="ref-for-string②">string</a>
+    
+      <td>Identifies the operating system of the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end④">remote end</a>.
+
    </table>
    <p><a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end⑤">Remote ends</a> may introduce <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="extension-capabilities">extension capabilities</dfn> that are extra capabilities used to provide configuration or fulfill other vendor-specific needs. Extension capabilities' key must contain a "<code>:</code>" (colon) character, denoting an implementation specific namespace. The value can be arbitrary JSON types.</p>
    <div class="algorithm" data-algorithm="process capabilities">
@@ -1097,14 +1145,14 @@ EventData = (
    <p>The AT Driver protocol is organized into modules.</p>
    <p>Each <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="module">module</dfn> represents a collection of related <a data-link-type="dfn" href="#command" id="ref-for-command">commands</a> and <a data-link-type="dfn" href="#event" id="ref-for-event">events</a> pertaining to a certain aspect of the assistive technology.</p>
    <p>Each module has a <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="module-name">module name</dfn> which is a string. The <a data-link-type="dfn" href="#command-name" id="ref-for-command-name">command name</a> and <a data-link-type="dfn" href="#event-name" id="ref-for-event-name">event name</a> for commands and events defined in the module start with the <a data-link-type="dfn" href="#module-name" id="ref-for-module-name">module name</a> followed by a period "<code>.</code>".</p>
-   <p>Modules which contain <a data-link-type="dfn" href="#command" id="ref-for-command①">commands</a> define <a data-link-type="dfn" href="#remote-end-definition" id="ref-for-remote-end-definition②">remote end definition</a> fragments.</p>
-   <p>An implementation may define <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="extension-modules">extension modules</dfn>. These must have a module name that contains a single colon "<code>:</code>" character. The part before the colon is the prefix; this is typically the same for all extension modules specific to a given implementation and should be unique for a given implementation. Such modules extend the <a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition②">local end definition</a> and <a data-link-type="dfn" href="#remote-end-definition" id="ref-for-remote-end-definition③">remote end definition</a> providing additional groups as choices for the defined <a data-link-type="dfn" href="#command" id="ref-for-command②">commands</a> and <a data-link-type="dfn" href="#event" id="ref-for-event①">events</a>.</p>
+   <p>Modules which contain <a data-link-type="dfn" href="#command" id="ref-for-command①">commands</a> define <code class="cddl"><a data-link-type="cddl" href="#cddl-module-remote-end-definition" id="ref-for-cddl-module-remote-end-definition②">remote end definition</a></code> fragments.</p>
+   <p>An implementation may define <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="extension-modules">extension modules</dfn>. These must have a module name that contains a single colon "<code>:</code>" character. The part before the colon is the prefix; this is typically the same for all extension modules specific to a given implementation and should be unique for a given implementation. Such modules extend the <code class="cddl"><a data-link-type="cddl" href="#cddl-module-local-end-definition" id="ref-for-cddl-module-local-end-definition②">local end definition</a></code> and <code class="cddl"><a data-link-type="cddl" href="#cddl-module-remote-end-definition" id="ref-for-cddl-module-remote-end-definition③">remote end definition</a></code> providing additional groups as choices for the defined <a data-link-type="dfn" href="#command" id="ref-for-command②">commands</a> and <a data-link-type="dfn" href="#event" id="ref-for-event①">events</a>.</p>
    <h3 class="heading settled" data-level="5.5" id="protocol-commands"><span class="secno">5.5. </span><span class="content">Commands</span><a class="self-link" href="#protocol-commands"></a></h3>
    <p>A <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="command">command</dfn> is an asynchronous operation, requested by the <a data-link-type="dfn" href="#local-end" id="ref-for-local-end④">local end</a> and run on the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end①⓪">remote end</a>, resulting in either a <a data-link-type="dfn" href="#success" id="ref-for-success⑤">success</a> or an <a data-link-type="dfn" href="#error" id="ref-for-error②">error</a> being returned to the <a data-link-type="dfn" href="#local-end" id="ref-for-local-end⑤">local end</a>. Multiple commands can run at the same time, and commands can potentially be long-running. As a consequence, commands can finish out-of-order.</p>
    <p>Each <a data-link-type="dfn" href="#command" id="ref-for-command③">command</a> is defined by:</p>
    <ul>
     <li data-md>
-     <p>A <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="command-type">command type</dfn> which is defined by a <a data-link-type="dfn" href="#remote-end-definition" id="ref-for-remote-end-definition④">remote end definition</a> fragment containing a group. Each such group has two fields:</p>
+     <p>A <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="command-type">command type</dfn> which is defined by a <code class="cddl"><a data-link-type="cddl" href="#cddl-module-remote-end-definition" id="ref-for-cddl-module-remote-end-definition④">remote end definition</a></code> fragment containing a group. Each such group has two fields:</p>
      <ul>
       <li data-md>
        <p><code>method</code> which is a string literal in the form <code>[module name].[method name]</code>. This is the <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="command-name">command name</dfn>.</p>
@@ -1112,7 +1160,7 @@ EventData = (
        <p><code>params</code> which defines a mapping containing data that to be passed into the command. The populated value of this map is the <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="command-parameters">command parameters</dfn>.</p>
      </ul>
     <li data-md>
-     <p>A <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="result-type">result type</dfn>, which is defined by the <a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition③">local end definition</a> fragment.</p>
+     <p>A <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="result-type">result type</dfn>, which is defined by the <code class="cddl"><a data-link-type="cddl" href="#cddl-module-local-end-definition" id="ref-for-cddl-module-local-end-definition③">local end definition</a></code> fragment.</p>
     <li data-md>
      <p>A set of <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="remote-end-steps">remote end steps</dfn> which define the actions to take for a command given a <a data-link-type="dfn" href="#session" id="ref-for-session⑥">session</a> and <a data-link-type="dfn" href="#command-parameters" id="ref-for-command-parameters">command parameters</a> and return an instance of the command <a data-link-type="dfn" href="#result-type" id="ref-for-result-type">result type</a>.</p>
    </ul>
@@ -1123,7 +1171,7 @@ EventData = (
    <p>An <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="event">event</dfn> is a notification, sent by the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end①②">remote end</a> to the <a data-link-type="dfn" href="#local-end" id="ref-for-local-end⑧">local end</a>, signaling that something of interest has occurred on the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end①③">remote end</a>.</p>
    <ul>
     <li data-md>
-     <p>An <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="event-type">event type</dfn> is defined by a <a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition④">local end definition</a> fragment containing a group. Each such group has two fields:</p>
+     <p>An <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="event-type">event type</dfn> is defined by a <code class="cddl"><a data-link-type="cddl" href="#cddl-module-local-end-definition" id="ref-for-cddl-module-local-end-definition④">local end definition</a></code> fragment containing a group. Each such group has two fields:</p>
      <ul>
       <li data-md>
        <p><code>method</code> which is a string literal of the form <code>[module name].[event name]</code>. This is the <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="event-name">event name</dfn>.</p>
@@ -1139,37 +1187,61 @@ EventData = (
     <caption>Error codes</caption>
     <tbody>
      <tr>
-      <th>Error code 
-      <th>JSON error code 
-      <th>Description 
+      <th>Error code
+    
+      <th>JSON error code
+    
+      <th>Description
+  
      <tr>
-      <td><dfn class="dfn-paneled" data-dfn-for="error code" data-dfn-type="dfn" data-noexport id="error-code-invalid-argument">invalid argument</dfn> 
-      <td><code>invalid argument</code> 
-      <td>The arguments passed to a <a data-link-type="dfn" href="#command" id="ref-for-command④">command</a> are either invalid or malformed. 
+      <td><dfn class="dfn-paneled" data-dfn-for="error code" data-dfn-type="dfn" data-noexport id="error-code-invalid-argument">invalid argument</dfn>
+    
+      <td><code>invalid argument</code>
+    
+      <td>The arguments passed to a <a data-link-type="dfn" href="#command" id="ref-for-command④">command</a> are either invalid or malformed.
+  
      <tr>
-      <td><dfn class="dfn-paneled" data-dfn-for="error code" data-dfn-type="dfn" data-noexport id="error-code-invalid-session-id">invalid session id</dfn> 
-      <td><code>invalid session id</code> 
-      <td>The <a data-link-type="dfn" href="#session" id="ref-for-session⑦">session</a> either does not exist or it’s not active. 
+      <td><dfn class="dfn-paneled" data-dfn-for="error code" data-dfn-type="dfn" data-noexport id="error-code-invalid-session-id">invalid session id</dfn>
+    
+      <td><code>invalid session id</code>
+    
+      <td>The <a data-link-type="dfn" href="#session" id="ref-for-session⑦">session</a> either does not exist or it’s not active.
+  
      <tr>
-      <td><dfn class="dfn-paneled" data-dfn-for="error code" data-dfn-type="dfn" data-noexport id="error-code-unknown-command">unknown command</dfn> 
-      <td><code>unknown command</code> 
-      <td>A <a data-link-type="dfn" href="#command" id="ref-for-command⑤">command</a> could not be executed because the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end①④">remote end</a> is not aware of it. 
+      <td><dfn class="dfn-paneled" data-dfn-for="error code" data-dfn-type="dfn" data-noexport id="error-code-unknown-command">unknown command</dfn>
+    
+      <td><code>unknown command</code>
+    
+      <td>A <a data-link-type="dfn" href="#command" id="ref-for-command⑤">command</a> could not be executed because the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end①④">remote end</a> is not aware of it.
+  
      <tr>
-      <td><dfn class="dfn-paneled" data-dfn-for="error code" data-dfn-type="dfn" data-noexport id="error-code-session-not-created">session not created</dfn> 
-      <td><code>session not created</code> 
-      <td>A new <a data-link-type="dfn" href="#session" id="ref-for-session⑧">session</a> could not be created. 
+      <td><dfn class="dfn-paneled" data-dfn-for="error code" data-dfn-type="dfn" data-noexport id="error-code-session-not-created">session not created</dfn>
+    
+      <td><code>session not created</code>
+    
+      <td>A new <a data-link-type="dfn" href="#session" id="ref-for-session⑧">session</a> could not be created.
+  
      <tr>
-      <td><dfn class="dfn-paneled" data-dfn-for="error code" data-dfn-type="dfn" data-noexport id="error-code-unknown-user-intent">unknown user intent</dfn> 
-      <td><code>unknown user intent</code> 
-      <td>The remote end does not support a user intent with the provided name. 
+      <td><dfn class="dfn-paneled" data-dfn-for="error code" data-dfn-type="dfn" data-noexport id="error-code-unknown-user-intent">unknown user intent</dfn>
+    
+      <td><code>unknown user intent</code>
+    
+      <td>The remote end does not support a user intent with the provided name.
+  
      <tr>
-      <td><dfn class="dfn-paneled" data-dfn-for="error code" data-dfn-type="dfn" data-noexport id="error-code-cannot-simulate-keyboard-interaction">cannot simulate keyboard interaction</dfn> 
-      <td><code>cannot simulate keyboard interaction</code> 
-      <td>The <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end①⑤">remote end</a> cannot simulate keyboard interaction. 
+      <td><dfn class="dfn-paneled" data-dfn-for="error code" data-dfn-type="dfn" data-noexport id="error-code-cannot-simulate-keyboard-interaction">cannot simulate keyboard interaction</dfn>
+    
+      <td><code>cannot simulate keyboard interaction</code>
+    
+      <td>The <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end①⑤">remote end</a> cannot simulate keyboard interaction.
+  
      <tr>
-      <td><dfn class="dfn-paneled" data-dfn-for="error code" data-dfn-type="dfn" data-noexport id="error-code-invalid-os-focus-state">invalid OS focus state</dfn> 
-      <td><code>invalid OS focus state</code> 
-      <td>The application that currently has OS focus is not one of the expected applications. 
+      <td><dfn class="dfn-paneled" data-dfn-for="error code" data-dfn-type="dfn" data-noexport id="error-code-invalid-os-focus-state">invalid OS focus state</dfn>
+    
+      <td><code>invalid OS focus state</code>
+    
+      <td>The application that currently has OS focus is not one of the expected applications.
+
    </table>
    <h3 class="heading settled" data-level="5.8" id="security-checks"><span class="secno">5.8. </span><span class="content">Security checks</span><a class="self-link" href="#security-checks"></a></h3>
    <p>In order to mitigate security risks when using this API, there are some security checks for certain commands.</p>
@@ -1252,7 +1324,7 @@ and a <dfn class="dfn-paneled" data-dfn-for="WebSocket listener" data-dfn-type="
      <li data-md>
       <p>Let <var>parsed</var> be the result of <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#parse-a-json-string-to-an-infra-value" id="ref-for-parse-a-json-string-to-an-infra-value">parsing JSON into Infra values</a> given <var>data</var>. If this throws an exception, then <a data-link-type="dfn" href="#send-an-error-response" id="ref-for-send-an-error-response①">send an error response</a> given <var>connection</var>, null, and <a data-link-type="dfn" href="#error-code-invalid-argument" id="ref-for-error-code-invalid-argument①">invalid argument</a>, and finally return.</p>
      <li data-md>
-      <p>Match <var>parsed</var> against the <a data-link-type="dfn" href="#remote-end-definition" id="ref-for-remote-end-definition⑤">remote end definition</a>. If this results in a match:</p>
+      <p>Match <var>parsed</var> against the <code class="cddl"><a data-link-type="cddl" href="#cddl-module-remote-end-definition" id="ref-for-cddl-module-remote-end-definition⑤">remote end definition</a></code>. If this results in a match:</p>
       <ol>
        <li data-md>
         <p>Let <var>matched</var> be the map representing the matched data.</p>
@@ -1300,7 +1372,7 @@ and a <dfn class="dfn-paneled" data-dfn-for="WebSocket listener" data-dfn-type="
             <p>Remove <var>connection</var> from the set of <a data-link-type="dfn" href="#remote-end-websocket-connections-not-associated-with-a-session" id="ref-for-remote-end-websocket-connections-not-associated-with-a-session②">WebSocket connections not associated with a session</a>.</p>
           </ol>
          <li data-md>
-          <p>Let <var>response</var> be a new map matching the <code>CommandResponse</code> production in the <a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition⑤">local end definition</a> with the <code>id</code> field set to <var>command id</var> and the <code>value</code> field set to <var>value</var>.</p>
+          <p>Let <var>response</var> be a new map matching the <code>CommandResponse</code> production in the <code class="cddl"><a data-link-type="cddl" href="#cddl-module-local-end-definition" id="ref-for-cddl-module-local-end-definition⑤">local end definition</a></code> with the <code>id</code> field set to <var>command id</var> and the <code>value</code> field set to <var>value</var>.</p>
          <li data-md>
           <p>Let <var>serialized</var> be the result of <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#serialize-an-infra-value-to-json-bytes" id="ref-for-serialize-an-infra-value-to-json-bytes">serialize an infra value to JSON bytes</a> given <var>response</var>.</p>
          <li data-md>
@@ -1342,7 +1414,7 @@ and a <dfn class="dfn-paneled" data-dfn-for="WebSocket listener" data-dfn-type="
     <p>To <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="send-an-error-response">send an error response</dfn> given a <a data-link-type="dfn" href="#websocket-connection" id="ref-for-websocket-connection⑤">WebSocket connection</a> <var>connection</var>, <var>command id</var>, and <var>error code</var>:</p>
     <ol>
      <li data-md>
-      <p>Let <var>error data</var> be a new <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map④">map</a> matching the <code>ErrorResponse</code> production in the <a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition⑥">local end definition</a>, with the <code>id</code> field set to <var>command id</var>, the <code>error</code> field set to <var>error code</var>, the <code>message</code> field set to an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined⑥">implementation-defined</a> string containing a human-readable definition of the error that occurred and the <code>stacktrace</code> field optionally set to an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined⑦">implementation-defined</a> string containing a stack trace report of the active stack frames at the time when the error occurred.</p>
+      <p>Let <var>error data</var> be a new <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map④">map</a> matching the <code>ErrorResponse</code> production in the <code class="cddl"><a data-link-type="cddl" href="#cddl-module-local-end-definition" id="ref-for-cddl-module-local-end-definition⑥">local end definition</a></code>, with the <code>id</code> field set to <var>command id</var>, the <code>error</code> field set to <var>error code</var>, the <code>message</code> field set to an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined⑥">implementation-defined</a> string containing a human-readable definition of the error that occurred and the <code>stacktrace</code> field optionally set to an <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined⑦">implementation-defined</a> string containing a stack trace report of the active stack frames at the time when the error occurred.</p>
      <li data-md>
       <p>Let <var>response</var> be the result of <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#serialize-an-infra-value-to-json-bytes" id="ref-for-serialize-an-infra-value-to-json-bytes②">serialize an infra value to JSON bytes</a> given <var>error data</var>.</p>
       <p class="note" role="note"><span class="marker">Note:</span> <var>command id</var> can be null, in which case the <code>id</code> field will also be set to null, not omitted from <var>response</var>.</p>
@@ -1380,20 +1452,20 @@ and a <dfn class="dfn-paneled" data-dfn-for="WebSocket listener" data-dfn-type="
    <h2 class="heading settled" data-level="7" id="modules"><span class="secno">7. </span><span class="content">Modules</span><a class="self-link" href="#modules"></a></h2>
    <h3 class="heading settled" data-level="7.1" id="module-session"><span class="secno">7.1. </span><span class="content">The session Module</span><a class="self-link" href="#module-session"></a></h3>
    <h4 class="heading settled" data-level="7.1.1" id="module-session-definition"><span class="secno">7.1.1. </span><span class="content">Definition</span><a class="self-link" href="#module-session-definition"></a></h4>
-   <p><a data-link-type="dfn" href="#remote-end-definition" id="ref-for-remote-end-definition⑥">Remote end definition</a>:</p>
-<pre class="cddl remote-cddl">SessionCommand = (SessionNewCommand)
+   <p><code class="cddl"><a data-link-type="cddl" href="#cddl-module-remote-end-definition" id="ref-for-cddl-module-remote-end-definition⑥">Remote end definition</a></code>:</p>
+<pre class="cddl highlight def" data-cddl-module="remote-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-sessioncommand"><code>SessionCommand</code></dfn> = (<a data-link-type="cddl" href="#cddl-type-sessionnewcommand" id="ref-for-cddl-type-sessionnewcommand">SessionNewCommand</a>)
 </pre>
-   <p><a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition⑦">Local end definition</a></p>
-<pre class="cddl local-cddl">SessionResult = (SessionNewResult)
+   <p><code class="cddl"><a data-link-type="cddl" href="#cddl-module-local-end-definition" id="ref-for-cddl-module-local-end-definition⑦">Local end definition</a></code></p>
+<pre class="cddl highlight def" data-cddl-module="local-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-sessionresult"><code>SessionResult</code></dfn> = (<a data-link-type="cddl" href="#cddl-type-sessionnewresult" id="ref-for-cddl-type-sessionnewresult">SessionNewResult</a>)
 </pre>
    <h4 class="heading settled" data-level="7.1.2" id="module-session-types"><span class="secno">7.1.2. </span><span class="content">Types</span><a class="self-link" href="#module-session-types"></a></h4>
    <h5 class="heading settled" data-level="7.1.2.1" id="module-session-CapabilitiesRequest"><span class="secno">7.1.2.1. </span><span class="content">The session.CapabilitiesRequest Type</span><a class="self-link" href="#module-session-CapabilitiesRequest"></a></h5>
-   <p><a data-link-type="dfn" href="#remote-end-definition" id="ref-for-remote-end-definition⑦">Remote end definition</a> and <a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition⑧">local end definition</a>:</p>
-<pre class="cddl remote-cddl local-cddl">CapabilitiesRequest = {
-  ?atName: text,
-  ?atVersion: text,
-  ?platformName: text,
-  Extensible,
+   <p><code class="cddl"><a data-link-type="cddl" href="#cddl-module-remote-end-definition" id="ref-for-cddl-module-remote-end-definition⑦">Remote end definition</a></code> and <code class="cddl"><a data-link-type="cddl" href="#cddl-module-local-end-definition" id="ref-for-cddl-module-local-end-definition⑧">local end definition</a></code>:</p>
+<pre class="cddl highlight def" data-cddl-module="remote-cddl,local-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-capabilitiesrequest"><code>CapabilitiesRequest</code></dfn> = {
+  ?<dfn class="dfn-paneled" data-dfn-for="CapabilitiesRequest" data-dfn-type="cddl-key" data-lt="atName|&quot;atName&quot;" data-noexport id="cddl-key-capabilitiesrequest-atname"><code>atName</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D⑧">text</a>,
+  ?<dfn class="dfn-paneled" data-dfn-for="CapabilitiesRequest" data-dfn-type="cddl-key" data-lt="atVersion|&quot;atVersion&quot;" data-noexport id="cddl-key-capabilitiesrequest-atversion"><code>atVersion</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D⑨">text</a>,
+  ?<dfn class="dfn-paneled" data-dfn-for="CapabilitiesRequest" data-dfn-type="cddl-key" data-lt="platformName|&quot;platformName&quot;" data-noexport id="cddl-key-capabilitiesrequest-platformname"><code>platformName</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D①⓪">text</a>,
+  <a data-link-type="cddl" href="#cddl-type-extensible" id="ref-for-cddl-type-extensible⑤">Extensible</a>,
 }
 </pre>
    <p>The <code>CapabilitiesRequest</code> type represents capabilities requested for a session.</p>
@@ -1401,27 +1473,29 @@ and a <dfn class="dfn-paneled" data-dfn-for="WebSocket listener" data-dfn-type="
    <h5 class="heading settled" data-level="7.1.3.1" id="module-session-new"><span class="secno">7.1.3.1. </span><span class="content">The session.new Command</span><a class="self-link" href="#module-session-new"></a></h5>
    <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="sessionnew">session.new</dfn> command allows creating a new <a data-link-type="dfn" href="#session" id="ref-for-session①⑤">session</a>. This is a <a data-link-type="dfn" href="#static-command" id="ref-for-static-command①">static command</a>.</p>
    <dl>
-    <dt><a data-link-type="dfn" href="#command-type" id="ref-for-command-type">Command Type</a> 
+    <dt><a data-link-type="dfn" href="#command-type" id="ref-for-command-type">Command Type</a>
+  
     <dd>
-<pre class="cddl remote-cddl">SessionNewCommand = {
-  method: "session.new",
-  params: {capabilities: CapabilitiesRequestParameters},
+<pre class="cddl highlight def" data-cddl-module="remote-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-sessionnewcommand"><code>SessionNewCommand</code></dfn> = {
+  <dfn class="dfn-paneled" data-dfn-for="SessionNewCommand" data-dfn-type="cddl-key" data-lt="method|&quot;method&quot;" data-noexport id="cddl-key-sessionnewcommand-method"><code>method</code></dfn>: <dfn class="dfn-paneled" data-dfn-for="SessionNewCommand/method" data-dfn-type="cddl-value" data-lt="session.new|&quot;session.new&quot;" data-noexport id="cddl-value-sessionnewcommand-method-sessionnew"><code>"session.new"</code></dfn>,
+  <dfn class="dfn-paneled" data-dfn-for="SessionNewCommand" data-dfn-type="cddl-key" data-lt="params|&quot;params&quot;" data-noexport id="cddl-key-sessionnewcommand-params"><code>params</code></dfn>: {<dfn class="dfn-paneled" data-dfn-for="SessionNewCommand/params" data-dfn-type="cddl-key" data-lt="capabilities|&quot;capabilities&quot;" data-noexport id="cddl-key-sessionnewcommand-params-capabilities"><code>capabilities</code></dfn>: <a data-link-type="cddl" href="#cddl-type-capabilitiesrequestparameters" id="ref-for-cddl-type-capabilitiesrequestparameters">CapabilitiesRequestParameters</a>},
 }
 
-CapabilitiesRequestParameters = {
-  ?alwaysMatch: CapabilitiesRequest,
+<dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-capabilitiesrequestparameters"><code>CapabilitiesRequestParameters</code></dfn> = {
+  ?<dfn class="dfn-paneled" data-dfn-for="CapabilitiesRequestParameters" data-dfn-type="cddl-key" data-lt="alwaysMatch|&quot;alwaysMatch&quot;" data-noexport id="cddl-key-capabilitiesrequestparameters-alwaysmatch"><code>alwaysMatch</code></dfn>: <a data-link-type="cddl" href="#cddl-type-capabilitiesrequest" id="ref-for-cddl-type-capabilitiesrequest">CapabilitiesRequest</a>,
 }
 </pre>
      <p class="note" role="note"><span class="marker">Note:</span> <code>firstMatch</code> is not included currently to reduce complexity.</p>
-    <dt><a data-link-type="dfn" href="#result-type" id="ref-for-result-type②">Result Type</a> 
+    <dt><a data-link-type="dfn" href="#result-type" id="ref-for-result-type②">Result Type</a>
+  
     <dd>
-<pre class="cddl local-cddl">SessionNewResult = {
-  sessionId: text,
-  capabilities: {
-    atName: text,
-    atVersion: text,
-    platformName: text,
-    Extensible,
+<pre class="cddl highlight def" data-cddl-module="local-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-sessionnewresult"><code>SessionNewResult</code></dfn> = {
+  <dfn class="dfn-paneled" data-dfn-for="SessionNewResult" data-dfn-type="cddl-key" data-lt="sessionId|&quot;sessionId&quot;" data-noexport id="cddl-key-sessionnewresult-sessionid"><code>sessionId</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D①①">text</a>,
+  <dfn class="dfn-paneled" data-dfn-for="SessionNewResult" data-dfn-type="cddl-key" data-lt="capabilities|&quot;capabilities&quot;" data-noexport id="cddl-key-sessionnewresult-capabilities"><code>capabilities</code></dfn>: {
+    <dfn class="dfn-paneled" data-dfn-for="SessionNewResult/capabilities" data-dfn-type="cddl-key" data-lt="atName|&quot;atName&quot;" data-noexport id="cddl-key-sessionnewresult-capabilities-atname"><code>atName</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D①②">text</a>,
+    <dfn class="dfn-paneled" data-dfn-for="SessionNewResult/capabilities" data-dfn-type="cddl-key" data-lt="atVersion|&quot;atVersion&quot;" data-noexport id="cddl-key-sessionnewresult-capabilities-atversion"><code>atVersion</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D①③">text</a>,
+    <dfn class="dfn-paneled" data-dfn-for="SessionNewResult/capabilities" data-dfn-type="cddl-key" data-lt="platformName|&quot;platformName&quot;" data-noexport id="cddl-key-sessionnewresult-capabilities-platformname"><code>platformName</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D①④">text</a>,
+    <a data-link-type="cddl" href="#cddl-type-extensible" id="ref-for-cddl-type-extensible⑥">Extensible</a>,
   }
 }
 </pre>
@@ -1492,7 +1566,7 @@ CapabilitiesRequestParameters = {
        <li data-md>
         <p>Let <var>value</var> be the value of the setting named <var>name</var>.</p>
        <li data-md>
-        <p>Let <var>item</var> be a new <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map⑥">map</a> matching the <code>SettingsGetSettingsResultItem</code> production in the <a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition⑨">local end definition</a> with the <code>name</code> field set to <var>name</var> and the <code>value</code> field set to <var>value</var>.</p>
+        <p>Let <var>item</var> be a new <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-ordered-map⑥">map</a> matching the <code>SettingsGetSettingsResultItem</code> production in the <code class="cddl"><a data-link-type="cddl" href="#cddl-module-local-end-definition" id="ref-for-cddl-module-local-end-definition⑨">local end definition</a></code> with the <code>name</code> field set to <var>name</var> and the <code>value</code> field set to <var>value</var>.</p>
        <li data-md>
         <p><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-append" id="ref-for-list-append">Append</a> <var>item</var> to <var>items</var>.</p>
       </ol>
@@ -1526,29 +1600,29 @@ CapabilitiesRequestParameters = {
    <p class="note" role="note"><span class="marker">Note:</span> Today’s implementations may not be able to detect invalid setting names or values, limiting their ability to report when operations do not model authentic interactions with the internal state. The algorithms in this <a data-link-type="dfn" href="#module" id="ref-for-module②">module</a> are designed to reflect this.</p>
    <p class="issue" id="issue-b4b3c071"><a class="self-link" href="#issue-b4b3c071"></a> Require implementations to maintain a static list of supported settings.</p>
    <h4 class="heading settled" data-level="7.2.1" id="module-settings-definition"><span class="secno">7.2.1. </span><span class="content">Definition</span><a class="self-link" href="#module-settings-definition"></a></h4>
-   <p><a data-link-type="dfn" href="#remote-end-definition" id="ref-for-remote-end-definition⑧">Remote end definition</a></p>
-<pre class="cddl remote-cddl">SettingsCommand = {
-  SettingsSetSettingsCommand //
-  SettingsGetSettingsCommand //
-  SettingsGetSupportedSettingsCommand
+   <p><code class="cddl"><a data-link-type="cddl" href="#cddl-module-remote-end-definition" id="ref-for-cddl-module-remote-end-definition⑧">Remote end definition</a></code></p>
+<pre class="cddl highlight def" data-cddl-module="remote-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-settingscommand"><code>SettingsCommand</code></dfn> = {
+  <a data-link-type="cddl" href="#cddl-type-settingssetsettingscommand" id="ref-for-cddl-type-settingssetsettingscommand">SettingsSetSettingsCommand</a> //
+  <a data-link-type="cddl" href="#cddl-type-settingsgetsettingscommand" id="ref-for-cddl-type-settingsgetsettingscommand">SettingsGetSettingsCommand</a> //
+  <a data-link-type="cddl" href="#cddl-type-settingsgetsupportedsettingscommand" id="ref-for-cddl-type-settingsgetsupportedsettingscommand">SettingsGetSupportedSettingsCommand</a>
 }
 </pre>
-   <p><a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition①⓪">Local end definition</a></p>
-<pre class="cddl local-cddl">SettingsResult = {
-  SettingsGetSettingsResult
+   <p><code class="cddl"><a data-link-type="cddl" href="#cddl-module-local-end-definition" id="ref-for-cddl-module-local-end-definition①⓪">Local end definition</a></code></p>
+<pre class="cddl highlight def" data-cddl-module="local-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-settingsresult"><code>SettingsResult</code></dfn> = {
+  <a data-link-type="cddl" href="#cddl-type-settingsgetsettingsresult" id="ref-for-cddl-type-settingsgetsettingsresult">SettingsGetSettingsResult</a>
 }
 </pre>
    <h4 class="heading settled" data-level="7.2.2" id="module-settings-types"><span class="secno">7.2.2. </span><span class="content">Types</span><a class="self-link" href="#module-settings-types"></a></h4>
    <h5 class="heading settled" data-level="7.2.2.1" id="module-settings-get-settings-result"><span class="secno">7.2.2.1. </span><span class="content">The SettingsGetSettingsResult type</span><a class="self-link" href="#module-settings-get-settings-result"></a></h5>
-   <p><a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition①①">Local end definition</a>:</p>
-<pre class="cddl local-cddl">SettingsGetSettingsResult = {
-  settings: [1* SettingsGetSettingsResultItem ],
+   <p><code class="cddl"><a data-link-type="cddl" href="#cddl-module-local-end-definition" id="ref-for-cddl-module-local-end-definition①①">Local end definition</a></code>:</p>
+<pre class="cddl highlight def" data-cddl-module="local-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-settingsgetsettingsresult"><code>SettingsGetSettingsResult</code></dfn> = {
+  <dfn class="dfn-paneled" data-dfn-for="SettingsGetSettingsResult" data-dfn-type="cddl-key" data-lt="settings|&quot;settings&quot;" data-noexport id="cddl-key-settingsgetsettingsresult-settings"><code>settings</code></dfn>: [1* <a data-link-type="cddl" href="#cddl-type-settingsgetsettingsresultitem" id="ref-for-cddl-type-settingsgetsettingsresultitem">SettingsGetSettingsResultItem</a> ],
 }
 
-SettingsGetSettingsResultItem = {
-  name: text,
-  value: any,
-  Extensible,
+<dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-settingsgetsettingsresultitem"><code>SettingsGetSettingsResultItem</code></dfn> = {
+  <dfn class="dfn-paneled" data-dfn-for="SettingsGetSettingsResultItem" data-dfn-type="cddl-key" data-lt="name|&quot;name&quot;" data-noexport id="cddl-key-settingsgetsettingsresultitem-name"><code>name</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D①⑤">text</a>,
+  <dfn class="dfn-paneled" data-dfn-for="SettingsGetSettingsResultItem" data-dfn-type="cddl-key" data-lt="value|&quot;value&quot;" data-noexport id="cddl-key-settingsgetsettingsresultitem-value"><code>value</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D①⑥">any</a>,
+  <a data-link-type="cddl" href="#cddl-type-extensible" id="ref-for-cddl-type-extensible⑦">Extensible</a>,
 }
 </pre>
    <p>The <code>SettingsGetSettingsResult</code> type contains a list of settings and their values.</p>
@@ -1560,23 +1634,27 @@ SettingsGetSettingsResultItem = {
    <dl>
     <dt><a data-link-type="dfn" href="#command-type" id="ref-for-command-type①">Command Type</a>
     <dd>
-<pre class="cddl remote-cddl">SettingsSetSettingsCommand = {
-  method: "settings.setSettings",
-  params: SettingsSetSettingsParameters
+<pre class="cddl highlight def" data-cddl-module="remote-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-settingssetsettingscommand"><code>SettingsSetSettingsCommand</code></dfn> = {
+  <dfn class="dfn-paneled" data-dfn-for="SettingsSetSettingsCommand" data-dfn-type="cddl-key" data-lt="method|&quot;method&quot;" data-noexport id="cddl-key-settingssetsettingscommand-method"><code>method</code></dfn>: <dfn class="dfn-paneled" data-dfn-for="SettingsSetSettingsCommand/method" data-dfn-type="cddl-value" data-lt="settings.setSettings|&quot;settings.setSettings&quot;" data-noexport id="cddl-value-settingssetsettingscommand-method-settingssetsettings"><code>"settings.setSettings"</code></dfn>,
+  <dfn class="dfn-paneled" data-dfn-for="SettingsSetSettingsCommand" data-dfn-type="cddl-key" data-lt="params|&quot;params&quot;" data-noexport id="cddl-key-settingssetsettingscommand-params"><code>params</code></dfn>: <a data-link-type="cddl" href="#cddl-type-settingssetsettingsparameters" id="ref-for-cddl-type-settingssetsettingsparameters">SettingsSetSettingsParameters</a>
 }
 
-SettingsSetSettingsParameters = {
-  settings: [1* SettingsSetSettingsParametersItem ],
+<dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-settingssetsettingsparameters"><code>SettingsSetSettingsParameters</code></dfn> = {
+  <dfn class="dfn-paneled" data-dfn-for="SettingsSetSettingsParameters" data-dfn-type="cddl-key" data-lt="settings|&quot;settings&quot;" data-noexport id="cddl-key-settingssetsettingsparameters-settings"><code>settings</code></dfn>: [1* <a data-link-type="cddl" href="#cddl-type-settingssetsettingsparametersitem" id="ref-for-cddl-type-settingssetsettingsparametersitem">SettingsSetSettingsParametersItem</a> ],
 }
 
-SettingsSetSettingsParametersItem = {
-  name: text,
-  value: any,
-  Extensible,
+<dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-settingssetsettingsparametersitem"><code>SettingsSetSettingsParametersItem</code></dfn> = {
+  <dfn class="dfn-paneled" data-dfn-for="SettingsSetSettingsParametersItem" data-dfn-type="cddl-key" data-lt="name|&quot;name&quot;" data-noexport id="cddl-key-settingssetsettingsparametersitem-name"><code>name</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D①⑦">text</a>,
+  <dfn class="dfn-paneled" data-dfn-for="SettingsSetSettingsParametersItem" data-dfn-type="cddl-key" data-lt="value|&quot;value&quot;" data-noexport id="cddl-key-settingssetsettingsparametersitem-value"><code>value</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D①⑧">any</a>,
+  <a data-link-type="cddl" href="#cddl-type-extensible" id="ref-for-cddl-type-extensible⑧">Extensible</a>,
 }
 </pre>
     <dt><a data-link-type="dfn" href="#result-type" id="ref-for-result-type③">Result Type</a>
-    <dd> <code> EmptyResult </code> 
+    <dd>
+    <code>
+    EmptyResult
+    </code>
+  
    </dl>
    <div class="algorithm" data-algorithm="remote end steps for settings.setSettings">
     <p>The <a data-link-type="dfn" href="#remote-end-steps" id="ref-for-remote-end-steps②">remote end steps</a> given <var>session</var> and <var>command parameters</var> are:</p>
@@ -1604,22 +1682,26 @@ SettingsSetSettingsParametersItem = {
    <dl>
     <dt><a data-link-type="dfn" href="#command-type" id="ref-for-command-type②">Command Type</a>
     <dd>
-<pre class="cddl remote-cddl">SettingsGetSettingsCommand = {
-  method: "settings.getSettings",
-  params: SettingsGetSettingsParameters
+<pre class="cddl highlight def" data-cddl-module="remote-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-settingsgetsettingscommand"><code>SettingsGetSettingsCommand</code></dfn> = {
+  <dfn class="dfn-paneled" data-dfn-for="SettingsGetSettingsCommand" data-dfn-type="cddl-key" data-lt="method|&quot;method&quot;" data-noexport id="cddl-key-settingsgetsettingscommand-method"><code>method</code></dfn>: <dfn class="dfn-paneled" data-dfn-for="SettingsGetSettingsCommand/method" data-dfn-type="cddl-value" data-lt="settings.getSettings|&quot;settings.getSettings&quot;" data-noexport id="cddl-value-settingsgetsettingscommand-method-settingsgetsettings"><code>"settings.getSettings"</code></dfn>,
+  <dfn class="dfn-paneled" data-dfn-for="SettingsGetSettingsCommand" data-dfn-type="cddl-key" data-lt="params|&quot;params&quot;" data-noexport id="cddl-key-settingsgetsettingscommand-params"><code>params</code></dfn>: <a data-link-type="cddl" href="#cddl-type-settingsgetsettingsparameters" id="ref-for-cddl-type-settingsgetsettingsparameters">SettingsGetSettingsParameters</a>
 }
 
-SettingsGetSettingsParameters = {
-  settings: [1* SettingsGetSettingsParametersItem ],
+<dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-settingsgetsettingsparameters"><code>SettingsGetSettingsParameters</code></dfn> = {
+  <dfn class="dfn-paneled" data-dfn-for="SettingsGetSettingsParameters" data-dfn-type="cddl-key" data-lt="settings|&quot;settings&quot;" data-noexport id="cddl-key-settingsgetsettingsparameters-settings"><code>settings</code></dfn>: [1* <a data-link-type="cddl" href="#cddl-type-settingsgetsettingsparametersitem" id="ref-for-cddl-type-settingsgetsettingsparametersitem">SettingsGetSettingsParametersItem</a> ],
 }
 
-SettingsGetSettingsParametersItem = {
-  name: text,
-  Extensible,
+<dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-settingsgetsettingsparametersitem"><code>SettingsGetSettingsParametersItem</code></dfn> = {
+  <dfn class="dfn-paneled" data-dfn-for="SettingsGetSettingsParametersItem" data-dfn-type="cddl-key" data-lt="name|&quot;name&quot;" data-noexport id="cddl-key-settingsgetsettingsparametersitem-name"><code>name</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D①⑨">text</a>,
+  <a data-link-type="cddl" href="#cddl-type-extensible" id="ref-for-cddl-type-extensible⑨">Extensible</a>,
 }
 </pre>
     <dt><a data-link-type="dfn" href="#result-type" id="ref-for-result-type④">Result Type</a>
-    <dd> <code> SettingsGetSettingsResult </code> 
+    <dd>
+    <code>
+    SettingsGetSettingsResult
+    </code>
+  
    </dl>
    <div class="algorithm" data-algorithm="remote end steps for settings.getSettings">
     <p>The <a data-link-type="dfn" href="#remote-end-steps" id="ref-for-remote-end-steps③">remote end steps</a> given <var>session</var> and <var>command parameters</var> are:</p>
@@ -1635,13 +1717,17 @@ SettingsGetSettingsParametersItem = {
    <dl>
     <dt><a data-link-type="dfn" href="#command-type" id="ref-for-command-type③">Command Type</a>
     <dd>
-<pre class="cddl remote-cddl">SettingsGetSupportedSettingsCommand = {
-  method: "settings.getSupportedSettings",
-  params: EmptyParams
+<pre class="cddl highlight def" data-cddl-module="remote-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-settingsgetsupportedsettingscommand"><code>SettingsGetSupportedSettingsCommand</code></dfn> = {
+  <dfn class="dfn-paneled" data-dfn-for="SettingsGetSupportedSettingsCommand" data-dfn-type="cddl-key" data-lt="method|&quot;method&quot;" data-noexport id="cddl-key-settingsgetsupportedsettingscommand-method"><code>method</code></dfn>: <dfn class="dfn-paneled" data-dfn-for="SettingsGetSupportedSettingsCommand/method" data-dfn-type="cddl-value" data-lt="settings.getSupportedSettings|&quot;settings.getSupportedSettings&quot;" data-noexport id="cddl-value-settingsgetsupportedsettingscommand-method-settingsgetsupportedsettings"><code>"settings.getSupportedSettings"</code></dfn>,
+  <dfn class="dfn-paneled" data-dfn-for="SettingsGetSupportedSettingsCommand" data-dfn-type="cddl-key" data-lt="params|&quot;params&quot;" data-noexport id="cddl-key-settingsgetsupportedsettingscommand-params"><code>params</code></dfn>: <a data-link-type="cddl" href="#cddl-type-emptyparams" id="ref-for-cddl-type-emptyparams">EmptyParams</a>
 }
 </pre>
     <dt><a data-link-type="dfn" href="#result-type" id="ref-for-result-type⑤">Result Type</a>
-    <dd> <code> SettingsGetSettingsResult </code> 
+    <dd>
+    <code>
+    SettingsGetSettingsResult
+    </code>
+  
    </dl>
    <div class="algorithm" data-algorithm="remote end steps for settings.getSupportedSettings">
     <p>The <a data-link-type="dfn" href="#remote-end-steps" id="ref-for-remote-end-steps④">remote end steps</a> given <var>session</var> and <var>command parameters</var> are:</p>
@@ -1674,11 +1760,15 @@ SettingsGetSettingsParametersItem = {
     <caption>Standard user intents</caption>
     <tbody>
      <tr>
-      <th>Name 
-      <th>Algorithm 
+      <th>Name
+    
+      <th>Algorithm
+  
      <tr>
-      <td>"<code>pressKeys</code>" 
-      <td><a data-link-type="dfn" href="#press-keys" id="ref-for-press-keys">press keys</a> 
+      <td>"<code>pressKeys</code>"
+    
+      <td><a data-link-type="dfn" href="#press-keys" id="ref-for-press-keys">press keys</a>
+
    </table>
    <p>A <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②⑥">remote end</a> has a <dfn class="dfn-paneled" data-dfn-for="remote end" data-dfn-type="dfn" data-noexport id="remote-end-table-of-extension-user-intents">table of extension user intents</dfn>, which is a mapping of zero or more string names of user intents and algorithms for simulating the named intents. Extension user intents' names must contain a "<code>:</code>" (colon) character, denoting an implementation specific namespace.</p>
    <div class="algorithm" data-algorithm="press keys">
@@ -1716,53 +1806,56 @@ parameters</var>.</p>
     </ol>
    </div>
    <h4 class="heading settled" data-level="7.3.1" id="module-interaction-definition"><span class="secno">7.3.1. </span><span class="content">Definition</span><a class="self-link" href="#module-interaction-definition"></a></h4>
-   <p><a data-link-type="dfn" href="#remote-end-definition" id="ref-for-remote-end-definition⑨">Remote end definition</a>:</p>
-<pre class="cddl remote-cddl">InteractionCommand = (InteractionUserIntentCommand)
+   <p><code class="cddl"><a data-link-type="cddl" href="#cddl-module-remote-end-definition" id="ref-for-cddl-module-remote-end-definition⑨">Remote end definition</a></code>:</p>
+<pre class="cddl highlight def" data-cddl-module="remote-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-interactioncommand"><code>InteractionCommand</code></dfn> = (<a data-link-type="cddl" href="#cddl-type-interactionuserintentcommand" id="ref-for-cddl-type-interactionuserintentcommand">InteractionUserIntentCommand</a>)
 </pre>
-   <p><a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition①②">Local end definition</a>:</p>
-<pre class="cddl local-cddl">
-InteractionEvent = (InteractionCapturedOutputEvent)
+   <p><code class="cddl"><a data-link-type="cddl" href="#cddl-module-local-end-definition" id="ref-for-cddl-module-local-end-definition①②">Local end definition</a></code>:</p>
+<pre class="cddl highlight def" data-cddl-module="local-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-interactionevent"><code>InteractionEvent</code></dfn> = (<a data-link-type="cddl" href="#cddl-type-interactioncapturedoutputevent" id="ref-for-cddl-type-interactioncapturedoutputevent">InteractionCapturedOutputEvent</a>)
 
 </pre>
    <h4 class="heading settled" data-level="7.3.2" id="module-interaction-types"><span class="secno">7.3.2. </span><span class="content">Types</span><a class="self-link" href="#module-interaction-types"></a></h4>
-<pre class="cddl local-cddl">InteractionCapturedOutputParameters = {
-  data: text,
-  Extensible,
+<pre class="cddl highlight def" data-cddl-module="local-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-interactioncapturedoutputparameters"><code>InteractionCapturedOutputParameters</code></dfn> = {
+  <dfn class="dfn-paneled" data-dfn-for="InteractionCapturedOutputParameters" data-dfn-type="cddl-key" data-lt="data|&quot;data&quot;" data-noexport id="cddl-key-interactioncapturedoutputparameters-data"><code>data</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D②⓪">text</a>,
+  <a data-link-type="cddl" href="#cddl-type-extensible" id="ref-for-cddl-type-extensible①⓪">Extensible</a>,
 }
 </pre>
    <h4 class="heading settled" data-level="7.3.3" id="module-interaction-commands"><span class="secno">7.3.3. </span><span class="content">Commands</span><a class="self-link" href="#module-interaction-commands"></a></h4>
    <h5 class="heading settled" data-level="7.3.3.1" id="module-interaction-userintent"><span class="secno">7.3.3.1. </span><span class="content">The interaction.userIntent Command</span><a class="self-link" href="#module-interaction-userintent"></a></h5>
    <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="interactionuserintent">interaction.userIntent</dfn> command simulates pressing a key combination on a keyboard.</p>
    <dl>
-    <dt><a data-link-type="dfn" href="#command-type" id="ref-for-command-type④">Command Type</a> 
+    <dt><a data-link-type="dfn" href="#command-type" id="ref-for-command-type④">Command Type</a>
+  
     <dd>
-<pre class="cddl remote-cddl">InteractionUserIntentCommand = {
-  method: "interaction.userIntent",
-  params: InteractionUserIntentParameters
+<pre class="cddl highlight def" data-cddl-module="remote-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-interactionuserintentcommand"><code>InteractionUserIntentCommand</code></dfn> = {
+  <dfn class="dfn-paneled" data-dfn-for="InteractionUserIntentCommand" data-dfn-type="cddl-key" data-lt="method|&quot;method&quot;" data-noexport id="cddl-key-interactionuserintentcommand-method"><code>method</code></dfn>: <dfn class="dfn-paneled" data-dfn-for="InteractionUserIntentCommand/method" data-dfn-type="cddl-value" data-lt="interaction.userIntent|&quot;interaction.userIntent&quot;" data-noexport id="cddl-value-interactionuserintentcommand-method-interactionuserintent"><code>"interaction.userIntent"</code></dfn>,
+  <dfn class="dfn-paneled" data-dfn-for="InteractionUserIntentCommand" data-dfn-type="cddl-key" data-lt="params|&quot;params&quot;" data-noexport id="cddl-key-interactionuserintentcommand-params"><code>params</code></dfn>: <a data-link-type="cddl" href="#cddl-type-interactionuserintentparameters" id="ref-for-cddl-type-interactionuserintentparameters">InteractionUserIntentParameters</a>
 }
 
-InteractionUserIntentParameters = (
-  PressKeysIntentParameters /
-  ExtensionIntentParameters
+<dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-interactionuserintentparameters"><code>InteractionUserIntentParameters</code></dfn> = (
+  <a data-link-type="cddl" href="#cddl-type-presskeysintentparameters" id="ref-for-cddl-type-presskeysintentparameters">PressKeysIntentParameters</a> /
+  <a data-link-type="cddl" href="#cddl-type-extensionintentparameters" id="ref-for-cddl-type-extensionintentparameters">ExtensionIntentParameters</a>
 )
 
-PressKeysIntentParameters = {
-  "name" => "pressKeys",
-  "keys" => KeyCombination,
+<dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-presskeysintentparameters"><code>PressKeysIntentParameters</code></dfn> = {
+  <dfn class="dfn-paneled" data-dfn-for="PressKeysIntentParameters" data-dfn-type="cddl-key" data-lt="name|&quot;name&quot;" data-noexport id="cddl-key-presskeysintentparameters-name"><code>"name"</code></dfn> => <dfn class="dfn-paneled" data-dfn-for="PressKeysIntentParameters/name" data-dfn-type="cddl-value" data-lt="pressKeys|&quot;pressKeys&quot;" data-noexport id="cddl-value-presskeysintentparameters-name-presskeys"><code>"pressKeys"</code></dfn>,
+  <dfn class="dfn-paneled" data-dfn-for="PressKeysIntentParameters" data-dfn-type="cddl-key" data-lt="keys|&quot;keys&quot;" data-noexport id="cddl-key-presskeysintentparameters-keys"><code>"keys"</code></dfn> => <a data-link-type="cddl" href="#cddl-type-keycombination" id="ref-for-cddl-type-keycombination">KeyCombination</a>,
 }
 
-KeyCombination = [
-  1* text
+<dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-keycombination"><code>KeyCombination</code></dfn> = [
+  1* <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D②①">text</a>
 ]
 
-ExtensionIntentParameters = {
-  "name" => text,
-  Extensible,
+<dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-extensionintentparameters"><code>ExtensionIntentParameters</code></dfn> = {
+  <dfn class="dfn-paneled" data-dfn-for="ExtensionIntentParameters" data-dfn-type="cddl-key" data-lt="name|&quot;name&quot;" data-noexport id="cddl-key-extensionintentparameters-name"><code>"name"</code></dfn> => <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D②②">text</a>,
+  <a data-link-type="cddl" href="#cddl-type-extensible" id="ref-for-cddl-type-extensible①①">Extensible</a>,
 }
 </pre>
-    <dt>Result Type 
+    <dt>Result Type
+  
     <dd>
-     <p><code> EmptyResult </code></p>
+     <p><code>
+  EmptyResult
+  </code></p>
    </dl>
    <div class="algorithm" data-algorithm="remote end steps for interaction.userIntent">
     <p>The <a data-link-type="dfn" href="#remote-end-steps" id="ref-for-remote-end-steps⑤">remote end steps</a> given <var>session</var> and <var>command parameters</var> are:</p>
@@ -1795,11 +1888,12 @@ parameters</var>.</p>
    <h4 class="heading settled" data-level="7.3.4" id="module-interaction-events"><span class="secno">7.3.4. </span><span class="content">Events</span><a class="self-link" href="#module-interaction-events"></a></h4>
    <h5 class="heading settled" data-level="7.3.4.1" id="event-interaction-capturedOutput"><span class="secno">7.3.4.1. </span><span class="content">The interaction.capturedOutput Event</span><a class="self-link" href="#event-interaction-capturedOutput"></a></h5>
    <dl>
-    <dt>Event Type 
+    <dt>Event Type
+  
     <dd>
-<pre class="cddl local-cddl">InteractionCapturedOutputEvent = {
-  method: "interaction.capturedOutput",
-  params: InteractionCapturedOutputParameters
+<pre class="cddl highlight def" data-cddl-module="local-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-interactioncapturedoutputevent"><code>InteractionCapturedOutputEvent</code></dfn> = {
+  <dfn class="dfn-paneled" data-dfn-for="InteractionCapturedOutputEvent" data-dfn-type="cddl-key" data-lt="method|&quot;method&quot;" data-noexport id="cddl-key-interactioncapturedoutputevent-method"><code>method</code></dfn>: <dfn class="dfn-paneled" data-dfn-for="InteractionCapturedOutputEvent/method" data-dfn-type="cddl-value" data-lt="interaction.capturedOutput|&quot;interaction.capturedOutput&quot;" data-noexport id="cddl-value-interactioncapturedoutputevent-method-interactioncapturedoutput"><code>"interaction.capturedOutput"</code></dfn>,
+  <dfn class="dfn-paneled" data-dfn-for="InteractionCapturedOutputEvent" data-dfn-type="cddl-key" data-lt="params|&quot;params&quot;" data-noexport id="cddl-key-interactioncapturedoutputevent-params"><code>params</code></dfn>: <a data-link-type="cddl" href="#cddl-type-interactioncapturedoutputparameters" id="ref-for-cddl-type-interactioncapturedoutputparameters">InteractionCapturedOutputParameters</a>
 }
 </pre>
    </dl>
@@ -1838,7 +1932,7 @@ parameters</var>.</p>
    <p class="issue" id="issue-fbd6fc51"><a class="self-link" href="#issue-fbd6fc51"></a> TODO exclude access to any security-sensitive settings.</p>
    <p class="issue" id="issue-398c181d"><a class="self-link" href="#issue-398c181d"></a> TODO exclude access to any security-sensitive commands.</p>
    <h2 class="heading settled" id="schemas"><span class="content">Appendix A: Schemas</span><a class="self-link" href="#schemas"></a></h2>
-   <p>The <a data-link-type="dfn" href="#remote-end-definition" id="ref-for-remote-end-definition①⓪">remote end definition</a> and <a data-link-type="dfn" href="#local-end-definition" id="ref-for-local-end-definition①③">local end definition</a> are available as non-normative CDDL and JSON Schema schemas:</p>
+   <p>The <code class="cddl"><a data-link-type="cddl" href="#cddl-module-remote-end-definition" id="ref-for-cddl-module-remote-end-definition①⓪">remote end definition</a></code> and <code class="cddl"><a data-link-type="cddl" href="#cddl-module-local-end-definition" id="ref-for-cddl-module-local-end-definition①③">local end definition</a></code> are available as non-normative CDDL and JSON Schema schemas:</p>
    <ul>
     <li data-md>
      <p><a href="schemas/at-driver-remote.cddl">at-driver-remote.cddl</a></p>
@@ -1861,21 +1955,31 @@ parameters</var>.</p>
     in the normative parts of this document
     are to be interpreted as described in RFC 2119.
     However, for readability,
-    these words do not appear in all uppercase letters in this specification. </p>
+    these words do not appear in all uppercase letters in this specification.
+
+    </p>
    <p>All of the text of this specification is normative
-    except sections explicitly marked as non-normative, examples, and notes. <a data-link-type="biblio" href="#biblio-rfc2119" title="Key words for use in RFCs to Indicate Requirement Levels">[RFC2119]</a> </p>
+    except sections explicitly marked as non-normative, examples, and notes. <a data-link-type="biblio" href="#biblio-rfc2119" title="Key words for use in RFCs to Indicate Requirement Levels">[RFC2119]</a>
+
+    </p>
    <p>Examples in this specification are introduced with the words “for example”
     or are set apart from the normative text
     with <code>class="example"</code>,
-    like this: </p>
+    like this:
+
+    </p>
    <div class="example" id="w3c-example">
-    <a class="self-link" href="#w3c-example"></a> 
-    <p>This is an example of an informative example. </p>
+    <a class="self-link" href="#w3c-example"></a>
+        
+    <p>This is an example of an informative example.
+    </p>
    </div>
    <p>Informative notes begin with the word “Note”
     and are set apart from the normative text
     with <code>class="note"</code>,
-    like this: </p>
+    like this:
+
+    </p>
    <p class="note" role="note">Note, this is an informative note.</p>
    <section>
     <h3 class="no-ref no-num heading settled" id="w3c-conformant-algorithms"><span class="content">Conformant Algorithms</span><a class="self-link" href="#w3c-conformant-algorithms"></a></h3>
@@ -1884,14 +1988,17 @@ parameters</var>.</p>
     or "return false and abort these steps")
     are to be interpreted with the meaning of the key word
     ("must", "should", "may", etc)
-    used in introducing the algorithm. </p>
+    used in introducing the algorithm.
+
+    </p>
     <p>Conformance requirements phrased as algorithms or specific steps
     can be implemented in any manner,
     so long as the end result is equivalent.
     In particular, the algorithms defined in this specification
     are intended to be easy to understand
     and are not intended to be performant.
-    Implementers are encouraged to optimize. </p>
+    Implementers are encouraged to optimize.
+</p>
    </section>
   </div>
   <script src="https://www.w3.org/scripts/TR/2021/fixup.js"></script>
@@ -1900,62 +2007,295 @@ parameters</var>.</p>
   <ul class="index">
    <li><a href="#remote-end-active-listeners">active listeners</a><span>, in § 6</span>
    <li><a href="#remote-end-active-sessions">active sessions</a><span>, in § 5.3</span>
+   <li><a href="#cddl-key-capabilitiesrequestparameters-alwaysmatch">"alwaysMatch"</a><span>, in § 7.1.3.1</span>
+   <li><a href="#cddl-key-capabilitiesrequestparameters-alwaysmatch">alwaysMatch</a><span>, in § 7.1.3.1</span>
    <li><a href="#session-associated-with-connection">associated with connection</a><span>, in § 6</span>
+   <li>
+    "atName"
+    <ul>
+     <li><a href="#cddl-key-capabilitiesrequest-atname">cddl-key for CapabilitiesRequest</a><span>, in § 7.1.2.1</span>
+     <li><a href="#cddl-key-sessionnewresult-capabilities-atname">cddl-key for SessionNewResult/capabilities</a><span>, in § 7.1.3.1</span>
+    </ul>
    <li><a href="#standard-capabilities-at-name">AT name</a><span>, in § 5.2</span>
+   <li>
+    atName
+    <ul>
+     <li><a href="#cddl-key-capabilitiesrequest-atname">cddl-key for CapabilitiesRequest</a><span>, in § 7.1.2.1</span>
+     <li><a href="#cddl-key-sessionnewresult-capabilities-atname">cddl-key for SessionNewResult/capabilities</a><span>, in § 7.1.3.1</span>
+    </ul>
+   <li>
+    "atVersion"
+    <ul>
+     <li><a href="#cddl-key-capabilitiesrequest-atversion">cddl-key for CapabilitiesRequest</a><span>, in § 7.1.2.1</span>
+     <li><a href="#cddl-key-sessionnewresult-capabilities-atversion">cddl-key for SessionNewResult/capabilities</a><span>, in § 7.1.3.1</span>
+    </ul>
    <li><a href="#standard-capabilities-at-version">AT version</a><span>, in § 5.2</span>
+   <li>
+    atVersion
+    <ul>
+     <li><a href="#cddl-key-capabilitiesrequest-atversion">cddl-key for CapabilitiesRequest</a><span>, in § 7.1.2.1</span>
+     <li><a href="#cddl-key-sessionnewresult-capabilities-atversion">cddl-key for SessionNewResult/capabilities</a><span>, in § 7.1.3.1</span>
+    </ul>
    <li><a href="#error-code-cannot-simulate-keyboard-interaction">cannot simulate keyboard interaction</a><span>, in § 5.7</span>
+   <li>
+    "capabilities"
+    <ul>
+     <li><a href="#cddl-key-sessionnewcommand-params-capabilities">cddl-key for SessionNewCommand/params</a><span>, in § 7.1.3.1</span>
+     <li><a href="#cddl-key-sessionnewresult-capabilities">cddl-key for SessionNewResult</a><span>, in § 7.1.3.1</span>
+    </ul>
    <li><a href="#capabilities">Capabilities</a><span>, in § 5.2</span>
+   <li>
+    capabilities
+    <ul>
+     <li><a href="#cddl-key-sessionnewcommand-params-capabilities">cddl-key for SessionNewCommand/params</a><span>, in § 7.1.3.1</span>
+     <li><a href="#cddl-key-sessionnewresult-capabilities">cddl-key for SessionNewResult</a><span>, in § 7.1.3.1</span>
+    </ul>
+   <li><a href="#cddl-type-capabilitiesrequest">CapabilitiesRequest</a><span>, in § 7.1.2.1</span>
+   <li><a href="#cddl-type-capabilitiesrequestparameters">CapabilitiesRequestParameters</a><span>, in § 7.1.3.1</span>
    <li><a href="#check-that-keyboard-interaction-can-be-simulated">check that keyboard interaction can be simulated</a><span>, in § 5.8</span>
    <li><a href="#check-that-one-of-the-expected-applications-has-focus">check that one of the expected applications has focus</a><span>, in § 5.8</span>
+   <li><a href="#cddl-type-command">Command</a><span>, in § 5.1</span>
    <li><a href="#command">command</a><span>, in § 5.5</span>
+   <li><a href="#cddl-type-commanddata">CommandData</a><span>, in § 5.1</span>
    <li><a href="#command-name">command name</a><span>, in § 5.5</span>
    <li><a href="#command-parameters">command parameters</a><span>, in § 5.5</span>
+   <li><a href="#cddl-type-commandresponse">CommandResponse</a><span>, in § 5.1</span>
    <li><a href="#command-type">command type</a><span>, in § 5.5</span>
+   <li><a href="#cddl-key-interactioncapturedoutputparameters-data">"data"</a><span>, in § 7.3.2</span>
+   <li><a href="#cddl-key-interactioncapturedoutputparameters-data">data</a><span>, in § 7.3.2</span>
    <li><a href="#emit-an-event">emit an event</a><span>, in § 6</span>
-   <li><a href="#error">error</a><span>, in § 3</span>
+   <li><a href="#cddl-type-emptyparams">EmptyParams</a><span>, in § 5.1</span>
+   <li><a href="#cddl-type-emptyresult">EmptyResult</a><span>, in § 5.1</span>
+   <li><a href="#cddl-key-errorresponse-error">"error"</a><span>, in § 5.1</span>
+   <li>
+    error
+    <ul>
+     <li><a href="#cddl-key-errorresponse-error">cddl-key for ErrorResponse</a><span>, in § 5.1</span>
+     <li><a href="#error">definition of</a><span>, in § 3</span>
+    </ul>
    <li><a href="#error-code">error code</a><span>, in § 5.7</span>
+   <li><a href="#cddl-type-errorresponse">ErrorResponse</a><span>, in § 5.1</span>
+   <li><a href="#cddl-type-event">Event</a><span>, in § 5.1</span>
    <li><a href="#event">event</a><span>, in § 5.6</span>
+   <li><a href="#cddl-type-eventdata">EventData</a><span>, in § 5.1</span>
    <li><a href="#event-name">event name</a><span>, in § 5.6</span>
    <li><a href="#event-parameters">event parameters</a><span>, in § 5.6</span>
    <li><a href="#event-type">event type</a><span>, in § 5.6</span>
+   <li><a href="#cddl-type-extensible">Extensible</a><span>, in § 5.1</span>
    <li><a href="#extension-capabilities">extension capabilities</a><span>, in § 5.2</span>
+   <li><a href="#cddl-type-extensionintentparameters">ExtensionIntentParameters</a><span>, in § 7.3.3.1</span>
    <li><a href="#extension-modules">extension modules</a><span>, in § 5.4</span>
    <li><a href="#generating-a-uuid">Generating a UUID</a><span>, in § 3</span>
    <li><a href="#get-settings">get settings</a><span>, in § 7.2</span>
    <li><a href="#handle-a-connection-closing">handle a connection closing</a><span>, in § 6</span>
    <li><a href="#handle-an-incoming-message">handle an incoming message</a><span>, in § 6</span>
    <li><a href="#websocket-listener-host">host</a><span>, in § 6</span>
-   <li><a href="#interactionuserintent">interaction.userIntent</a><span>, in § 7.3.3.1</span>
-   <li><a href="#error-code-invalid-argument">invalid argument</a><span>, in § 5.7</span>
+   <li>
+    "id"
+    <ul>
+     <li><a href="#cddl-key-command-id">cddl-key for Command</a><span>, in § 5.1</span>
+     <li><a href="#cddl-key-commandresponse-id">cddl-key for CommandResponse</a><span>, in § 5.1</span>
+     <li><a href="#cddl-key-errorresponse-id">cddl-key for ErrorResponse</a><span>, in § 5.1</span>
+    </ul>
+   <li>
+    id
+    <ul>
+     <li><a href="#cddl-key-command-id">cddl-key for Command</a><span>, in § 5.1</span>
+     <li><a href="#cddl-key-commandresponse-id">cddl-key for CommandResponse</a><span>, in § 5.1</span>
+     <li><a href="#cddl-key-errorresponse-id">cddl-key for ErrorResponse</a><span>, in § 5.1</span>
+    </ul>
+   <li><a href="#cddl-value-interactioncapturedoutputevent-method-interactioncapturedoutput">"interaction.capturedOutput"</a><span>, in § 7.3.4.1</span>
+   <li><a href="#cddl-value-interactioncapturedoutputevent-method-interactioncapturedoutput">interaction.capturedOutput</a><span>, in § 7.3.4.1</span>
+   <li><a href="#cddl-type-interactioncapturedoutputevent">InteractionCapturedOutputEvent</a><span>, in § 7.3.4.1</span>
+   <li><a href="#cddl-type-interactioncapturedoutputparameters">InteractionCapturedOutputParameters</a><span>, in § 7.3.2</span>
+   <li><a href="#cddl-type-interactioncommand">InteractionCommand</a><span>, in § 7.3.1</span>
+   <li><a href="#cddl-type-interactionevent">InteractionEvent</a><span>, in § 7.3.1</span>
+   <li><a href="#cddl-value-interactionuserintentcommand-method-interactionuserintent">"interaction.userIntent"</a><span>, in § 7.3.3.1</span>
+   <li>
+    interaction.userIntent
+    <ul>
+     <li><a href="#cddl-value-interactionuserintentcommand-method-interactionuserintent">cddl-value for InteractionUserIntentCommand/method</a><span>, in § 7.3.3.1</span>
+     <li><a href="#interactionuserintent">definition of</a><span>, in § 7.3.3.1</span>
+    </ul>
+   <li><a href="#cddl-type-interactionuserintentcommand">InteractionUserIntentCommand</a><span>, in § 7.3.3.1</span>
+   <li><a href="#cddl-type-interactionuserintentparameters">InteractionUserIntentParameters</a><span>, in § 7.3.3.1</span>
+   <li><a href="#cddl-value-errorresponse-error-invalid-argument">"invalid argument"</a><span>, in § 5.1</span>
+   <li>
+    invalid argument
+    <ul>
+     <li><a href="#cddl-value-errorresponse-error-invalid-argument">cddl-value for ErrorResponse/error</a><span>, in § 5.1</span>
+     <li><a href="#error-code-invalid-argument">dfn for error code</a><span>, in § 5.7</span>
+    </ul>
    <li><a href="#error-code-invalid-os-focus-state">invalid OS focus state</a><span>, in § 5.7</span>
    <li><a href="#error-code-invalid-session-id">invalid session id</a><span>, in § 5.7</span>
+   <li><a href="#cddl-type-keycombination">KeyCombination</a><span>, in § 7.3.3.1</span>
+   <li><a href="#cddl-key-presskeysintentparameters-keys">"keys"</a><span>, in § 7.3.3.1</span>
+   <li><a href="#cddl-key-presskeysintentparameters-keys">keys</a><span>, in § 7.3.3.1</span>
+   <li><a href="#cddl-module-local-end-definition">local-cddl</a><span>, in § 5</span>
    <li><a href="#local-end">local end</a><span>, in § 4</span>
-   <li><a href="#local-end-definition">local end definition</a><span>, in § 5</span>
+   <li><a href="#cddl-module-local-end-definition">Local end definition</a><span>, in § 5</span>
+   <li><a href="#cddl-module-local-end-definition">local end definition</a><span>, in § 5</span>
    <li><a href="#match-capabilities">match capabilities</a><span>, in § 5.2</span>
+   <li><a href="#cddl-key-errorresponse-message">"message"</a><span>, in § 5.1</span>
+   <li><a href="#cddl-type-message">Message</a><span>, in § 5.1</span>
+   <li><a href="#cddl-key-errorresponse-message">message</a><span>, in § 5.1</span>
+   <li>
+    "method"
+    <ul>
+     <li><a href="#cddl-key-interactioncapturedoutputevent-method">cddl-key for InteractionCapturedOutputEvent</a><span>, in § 7.3.4.1</span>
+     <li><a href="#cddl-key-interactionuserintentcommand-method">cddl-key for InteractionUserIntentCommand</a><span>, in § 7.3.3.1</span>
+     <li><a href="#cddl-key-sessionnewcommand-method">cddl-key for SessionNewCommand</a><span>, in § 7.1.3.1</span>
+     <li><a href="#cddl-key-settingsgetsettingscommand-method">cddl-key for SettingsGetSettingsCommand</a><span>, in § 7.2.3.2</span>
+     <li><a href="#cddl-key-settingsgetsupportedsettingscommand-method">cddl-key for SettingsGetSupportedSettingsCommand</a><span>, in § 7.2.3.3</span>
+     <li><a href="#cddl-key-settingssetsettingscommand-method">cddl-key for SettingsSetSettingsCommand</a><span>, in § 7.2.3.1</span>
+    </ul>
+   <li>
+    method
+    <ul>
+     <li><a href="#cddl-key-interactioncapturedoutputevent-method">cddl-key for InteractionCapturedOutputEvent</a><span>, in § 7.3.4.1</span>
+     <li><a href="#cddl-key-interactionuserintentcommand-method">cddl-key for InteractionUserIntentCommand</a><span>, in § 7.3.3.1</span>
+     <li><a href="#cddl-key-sessionnewcommand-method">cddl-key for SessionNewCommand</a><span>, in § 7.1.3.1</span>
+     <li><a href="#cddl-key-settingsgetsettingscommand-method">cddl-key for SettingsGetSettingsCommand</a><span>, in § 7.2.3.2</span>
+     <li><a href="#cddl-key-settingsgetsupportedsettingscommand-method">cddl-key for SettingsGetSupportedSettingsCommand</a><span>, in § 7.2.3.3</span>
+     <li><a href="#cddl-key-settingssetsettingscommand-method">cddl-key for SettingsSetSettingsCommand</a><span>, in § 7.2.3.1</span>
+    </ul>
    <li><a href="#modify-setting">modify setting</a><span>, in § 7.2</span>
    <li><a href="#module">module</a><span>, in § 5.4</span>
    <li><a href="#module-name">module name</a><span>, in § 5.4</span>
+   <li>
+    "name"
+    <ul>
+     <li><a href="#cddl-key-extensionintentparameters-name">cddl-key for ExtensionIntentParameters</a><span>, in § 7.3.3.1</span>
+     <li><a href="#cddl-key-presskeysintentparameters-name">cddl-key for PressKeysIntentParameters</a><span>, in § 7.3.3.1</span>
+     <li><a href="#cddl-key-settingsgetsettingsparametersitem-name">cddl-key for SettingsGetSettingsParametersItem</a><span>, in § 7.2.3.2</span>
+     <li><a href="#cddl-key-settingsgetsettingsresultitem-name">cddl-key for SettingsGetSettingsResultItem</a><span>, in § 7.2.2.1</span>
+     <li><a href="#cddl-key-settingssetsettingsparametersitem-name">cddl-key for SettingsSetSettingsParametersItem</a><span>, in § 7.2.3.1</span>
+    </ul>
+   <li>
+    name
+    <ul>
+     <li><a href="#cddl-key-extensionintentparameters-name">cddl-key for ExtensionIntentParameters</a><span>, in § 7.3.3.1</span>
+     <li><a href="#cddl-key-presskeysintentparameters-name">cddl-key for PressKeysIntentParameters</a><span>, in § 7.3.3.1</span>
+     <li><a href="#cddl-key-settingsgetsettingsparametersitem-name">cddl-key for SettingsGetSettingsParametersItem</a><span>, in § 7.2.3.2</span>
+     <li><a href="#cddl-key-settingsgetsettingsresultitem-name">cddl-key for SettingsGetSettingsResultItem</a><span>, in § 7.2.2.1</span>
+     <li><a href="#cddl-key-settingssetsettingsparametersitem-name">cddl-key for SettingsSetSettingsParametersItem</a><span>, in § 7.2.3.1</span>
+    </ul>
+   <li>
+    "params"
+    <ul>
+     <li><a href="#cddl-key-interactioncapturedoutputevent-params">cddl-key for InteractionCapturedOutputEvent</a><span>, in § 7.3.4.1</span>
+     <li><a href="#cddl-key-interactionuserintentcommand-params">cddl-key for InteractionUserIntentCommand</a><span>, in § 7.3.3.1</span>
+     <li><a href="#cddl-key-sessionnewcommand-params">cddl-key for SessionNewCommand</a><span>, in § 7.1.3.1</span>
+     <li><a href="#cddl-key-settingsgetsettingscommand-params">cddl-key for SettingsGetSettingsCommand</a><span>, in § 7.2.3.2</span>
+     <li><a href="#cddl-key-settingsgetsupportedsettingscommand-params">cddl-key for SettingsGetSupportedSettingsCommand</a><span>, in § 7.2.3.3</span>
+     <li><a href="#cddl-key-settingssetsettingscommand-params">cddl-key for SettingsSetSettingsCommand</a><span>, in § 7.2.3.1</span>
+    </ul>
+   <li>
+    params
+    <ul>
+     <li><a href="#cddl-key-interactioncapturedoutputevent-params">cddl-key for InteractionCapturedOutputEvent</a><span>, in § 7.3.4.1</span>
+     <li><a href="#cddl-key-interactionuserintentcommand-params">cddl-key for InteractionUserIntentCommand</a><span>, in § 7.3.3.1</span>
+     <li><a href="#cddl-key-sessionnewcommand-params">cddl-key for SessionNewCommand</a><span>, in § 7.1.3.1</span>
+     <li><a href="#cddl-key-settingsgetsettingscommand-params">cddl-key for SettingsGetSettingsCommand</a><span>, in § 7.2.3.2</span>
+     <li><a href="#cddl-key-settingsgetsupportedsettingscommand-params">cddl-key for SettingsGetSupportedSettingsCommand</a><span>, in § 7.2.3.3</span>
+     <li><a href="#cddl-key-settingssetsettingscommand-params">cddl-key for SettingsSetSettingsCommand</a><span>, in § 7.2.3.1</span>
+    </ul>
    <li><a href="#standard-capabilities-platform">Platform</a><span>, in § 5.2</span>
+   <li>
+    "platformName"
+    <ul>
+     <li><a href="#cddl-key-capabilitiesrequest-platformname">cddl-key for CapabilitiesRequest</a><span>, in § 7.1.2.1</span>
+     <li><a href="#cddl-key-sessionnewresult-capabilities-platformname">cddl-key for SessionNewResult/capabilities</a><span>, in § 7.1.3.1</span>
+    </ul>
+   <li>
+    platformName
+    <ul>
+     <li><a href="#cddl-key-capabilitiesrequest-platformname">cddl-key for CapabilitiesRequest</a><span>, in § 7.1.2.1</span>
+     <li><a href="#cddl-key-sessionnewresult-capabilities-platformname">cddl-key for SessionNewResult/capabilities</a><span>, in § 7.1.3.1</span>
+    </ul>
    <li><a href="#websocket-listener-port">port</a><span>, in § 6</span>
+   <li><a href="#cddl-value-presskeysintentparameters-name-presskeys">"pressKeys"</a><span>, in § 7.3.3.1</span>
    <li><a href="#press-keys">press keys</a><span>, in § 7.3</span>
+   <li><a href="#cddl-value-presskeysintentparameters-name-presskeys">pressKeys</a><span>, in § 7.3.3.1</span>
+   <li><a href="#cddl-type-presskeysintentparameters">PressKeysIntentParameters</a><span>, in § 7.3.3.1</span>
    <li><a href="#process-capabilities">process capabilities</a><span>, in § 5.2</span>
+   <li><a href="#cddl-module-remote-end-definition">remote-cddl</a><span>, in § 5</span>
    <li><a href="#remote-end">remote end</a><span>, in § 4</span>
-   <li><a href="#remote-end-definition">remote end definition</a><span>, in § 5</span>
+   <li><a href="#cddl-module-remote-end-definition">Remote end definition</a><span>, in § 5</span>
+   <li><a href="#cddl-module-remote-end-definition">remote end definition</a><span>, in § 5</span>
    <li><a href="#remote-end-event-trigger">remote end event trigger</a><span>, in § 5.6</span>
    <li><a href="#remote-end-steps">remote end steps</a><span>, in § 5.5</span>
+   <li><a href="#cddl-key-commandresponse-result">"result"</a><span>, in § 5.1</span>
+   <li><a href="#cddl-key-commandresponse-result">result</a><span>, in § 5.1</span>
+   <li><a href="#cddl-type-resultdata">ResultData</a><span>, in § 5.1</span>
    <li><a href="#result-type">result type</a><span>, in § 5.5</span>
    <li><a href="#websocket-listener-secure-flag">secure flag</a><span>, in § 6</span>
    <li><a href="#send-an-error-response">send an error response</a><span>, in § 6</span>
    <li><a href="#session">session</a><span>, in § 5.3</span>
+   <li><a href="#cddl-type-sessioncommand">SessionCommand</a><span>, in § 7.1.1</span>
+   <li><a href="#cddl-key-sessionnewresult-sessionid">"sessionId"</a><span>, in § 7.1.3.1</span>
    <li><a href="#session-session-id">session ID</a><span>, in § 5.3</span>
-   <li><a href="#sessionnew">session.new</a><span>, in § 7.1.3.1</span>
-   <li><a href="#error-code-session-not-created">session not created</a><span>, in § 5.7</span>
+   <li><a href="#cddl-key-sessionnewresult-sessionid">sessionId</a><span>, in § 7.1.3.1</span>
+   <li><a href="#cddl-value-sessionnewcommand-method-sessionnew">"session.new"</a><span>, in § 7.1.3.1</span>
+   <li>
+    session.new
+    <ul>
+     <li><a href="#cddl-value-sessionnewcommand-method-sessionnew">cddl-value for SessionNewCommand/method</a><span>, in § 7.1.3.1</span>
+     <li><a href="#sessionnew">definition of</a><span>, in § 7.1.3.1</span>
+    </ul>
+   <li><a href="#cddl-type-sessionnewcommand">SessionNewCommand</a><span>, in § 7.1.3.1</span>
+   <li><a href="#cddl-type-sessionnewresult">SessionNewResult</a><span>, in § 7.1.3.1</span>
+   <li><a href="#cddl-value-errorresponse-error-session-not-created">"session not created"</a><span>, in § 5.1</span>
+   <li>
+    session not created
+    <ul>
+     <li><a href="#cddl-value-errorresponse-error-session-not-created">cddl-value for ErrorResponse/error</a><span>, in § 5.1</span>
+     <li><a href="#error-code-session-not-created">dfn for error code</a><span>, in § 5.7</span>
+    </ul>
+   <li><a href="#cddl-type-sessionresult">SessionResult</a><span>, in § 7.1.1</span>
    <li><a href="#session-session-websocket-connections">session WebSocket connections</a><span>, in § 6</span>
    <li><a href="#set-of-all-command-names">set of all command names</a><span>, in § 5.5</span>
+   <li>
+    "settings"
+    <ul>
+     <li><a href="#cddl-key-settingsgetsettingsparameters-settings">cddl-key for SettingsGetSettingsParameters</a><span>, in § 7.2.3.2</span>
+     <li><a href="#cddl-key-settingsgetsettingsresult-settings">cddl-key for SettingsGetSettingsResult</a><span>, in § 7.2.2.1</span>
+     <li><a href="#cddl-key-settingssetsettingsparameters-settings">cddl-key for SettingsSetSettingsParameters</a><span>, in § 7.2.3.1</span>
+    </ul>
+   <li>
+    settings
+    <ul>
+     <li><a href="#cddl-key-settingsgetsettingsparameters-settings">cddl-key for SettingsGetSettingsParameters</a><span>, in § 7.2.3.2</span>
+     <li><a href="#cddl-key-settingsgetsettingsresult-settings">cddl-key for SettingsGetSettingsResult</a><span>, in § 7.2.2.1</span>
+     <li><a href="#cddl-key-settingssetsettingsparameters-settings">cddl-key for SettingsSetSettingsParameters</a><span>, in § 7.2.3.1</span>
+    </ul>
+   <li><a href="#cddl-type-settingscommand">SettingsCommand</a><span>, in § 7.2.1</span>
+   <li><a href="#cddl-value-settingsgetsettingscommand-method-settingsgetsettings">"settings.getSettings"</a><span>, in § 7.2.3.2</span>
+   <li><a href="#cddl-value-settingsgetsettingscommand-method-settingsgetsettings">settings.getSettings</a><span>, in § 7.2.3.2</span>
    <li><a href="#settingsgetsettings-command">settings.getSettings command</a><span>, in § 7.2.3.2</span>
+   <li><a href="#cddl-type-settingsgetsettingscommand">SettingsGetSettingsCommand</a><span>, in § 7.2.3.2</span>
+   <li><a href="#cddl-type-settingsgetsettingsparameters">SettingsGetSettingsParameters</a><span>, in § 7.2.3.2</span>
+   <li><a href="#cddl-type-settingsgetsettingsparametersitem">SettingsGetSettingsParametersItem</a><span>, in § 7.2.3.2</span>
+   <li><a href="#cddl-type-settingsgetsettingsresult">SettingsGetSettingsResult</a><span>, in § 7.2.2.1</span>
+   <li><a href="#cddl-type-settingsgetsettingsresultitem">SettingsGetSettingsResultItem</a><span>, in § 7.2.2.1</span>
+   <li><a href="#cddl-value-settingsgetsupportedsettingscommand-method-settingsgetsupportedsettings">"settings.getSupportedSettings"</a><span>, in § 7.2.3.3</span>
+   <li><a href="#cddl-value-settingsgetsupportedsettingscommand-method-settingsgetsupportedsettings">settings.getSupportedSettings</a><span>, in § 7.2.3.3</span>
    <li><a href="#settingsgetsupportedsettings-command">settings.getSupportedSettings command</a><span>, in § 7.2.3.3</span>
-   <li><a href="#settingssetsettings">settings.setSettings</a><span>, in § 7.2.3.1</span>
+   <li><a href="#cddl-type-settingsgetsupportedsettingscommand">SettingsGetSupportedSettingsCommand</a><span>, in § 7.2.3.3</span>
+   <li><a href="#cddl-type-settingsresult">SettingsResult</a><span>, in § 7.2.1</span>
+   <li><a href="#cddl-value-settingssetsettingscommand-method-settingssetsettings">"settings.setSettings"</a><span>, in § 7.2.3.1</span>
+   <li>
+    settings.setSettings
+    <ul>
+     <li><a href="#cddl-value-settingssetsettingscommand-method-settingssetsettings">cddl-value for SettingsSetSettingsCommand/method</a><span>, in § 7.2.3.1</span>
+     <li><a href="#settingssetsettings">definition of</a><span>, in § 7.2.3.1</span>
+    </ul>
+   <li><a href="#cddl-type-settingssetsettingscommand">SettingsSetSettingsCommand</a><span>, in § 7.2.3.1</span>
+   <li><a href="#cddl-type-settingssetsettingsparameters">SettingsSetSettingsParameters</a><span>, in § 7.2.3.1</span>
+   <li><a href="#cddl-type-settingssetsettingsparametersitem">SettingsSetSettingsParametersItem</a><span>, in § 7.2.3.1</span>
    <li><a href="#should-be-withheld">should be withheld</a><span>, in § 5.8</span>
+   <li><a href="#cddl-key-errorresponse-stacktrace">"stacktrace"</a><span>, in § 5.1</span>
+   <li><a href="#cddl-key-errorresponse-stacktrace">stacktrace</a><span>, in § 5.1</span>
    <li><a href="#standard-capabilities">standard capabilities</a><span>, in § 5.2</span>
    <li><a href="#start-listening-for-a-websocket-connection">start listening for a WebSocket connection</a><span>, in § 6</span>
    <li><a href="#static-command">static command</a><span>, in § 5.5</span>
@@ -1965,10 +2305,30 @@ parameters</var>.</p>
    <li><a href="#table-of-standard-user-intents">table of standard user intents</a><span>, in § 7.3</span>
    <li><a href="#try">try</a><span>, in § 3</span>
    <li><a href="#try">trying</a><span>, in § 3</span>
-   <li><a href="#error-code-unknown-command">unknown command</a><span>, in § 5.7</span>
+   <li><a href="#cddl-value-errorresponse-error-unknown-command">"unknown command"</a><span>, in § 5.1</span>
+   <li>
+    unknown command
+    <ul>
+     <li><a href="#cddl-value-errorresponse-error-unknown-command">cddl-value for ErrorResponse/error</a><span>, in § 5.1</span>
+     <li><a href="#error-code-unknown-command">dfn for error code</a><span>, in § 5.7</span>
+    </ul>
+   <li><a href="#cddl-value-errorresponse-error-unknown-error">"unknown error"</a><span>, in § 5.1</span>
+   <li><a href="#cddl-value-errorresponse-error-unknown-error">unknown error</a><span>, in § 5.1</span>
    <li><a href="#error-code-unknown-user-intent">unknown user intent</a><span>, in § 5.7</span>
    <li><a href="#uuid">UUID</a><span>, in § 3</span>
    <li><a href="#validate-setting-name">validate setting name</a><span>, in § 7.2</span>
+   <li>
+    "value"
+    <ul>
+     <li><a href="#cddl-key-settingsgetsettingsresultitem-value">cddl-key for SettingsGetSettingsResultItem</a><span>, in § 7.2.2.1</span>
+     <li><a href="#cddl-key-settingssetsettingsparametersitem-value">cddl-key for SettingsSetSettingsParametersItem</a><span>, in § 7.2.3.1</span>
+    </ul>
+   <li>
+    value
+    <ul>
+     <li><a href="#cddl-key-settingsgetsettingsresultitem-value">cddl-key for SettingsGetSettingsResultItem</a><span>, in § 7.2.2.1</span>
+     <li><a href="#cddl-key-settingssetsettingsparametersitem-value">cddl-key for SettingsSetSettingsParametersItem</a><span>, in § 7.2.3.1</span>
+    </ul>
    <li><a href="#websocket-connection">WebSocket connection</a><span>, in § 6</span>
    <li><a href="#remote-end-websocket-connections-not-associated-with-a-session">WebSocket connections not associated with a session</a><span>, in § 6</span>
    <li><a href="#websocket-listener">WebSocket listener</a><span>, in § 6</span>
@@ -2004,6 +2364,14 @@ parameters</var>.</p>
      <li><span class="dfn-paneled" id="653d0848">size</span>
      <li><span class="dfn-paneled" id="0698d556">string</span>
     </ul>
+   <li>
+    <a data-link-type="biblio">[RFC8610]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="ef593226">any</span>
+     <li><span class="dfn-paneled" id="523b9b71">null</span>
+     <li><span class="dfn-paneled" id="c3bd1df0">text</span>
+     <li><span class="dfn-paneled" id="6a303638">uint</span>
+    </ul>
   </ul>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
   <h3 class="no-num no-ref heading settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
@@ -2028,6 +2396,200 @@ parameters</var>.</p>
    <dt id="biblio-webdriver">[WEBDRIVER]
    <dd>Simon Stewart; David Burns. <a href="https://w3c.github.io/webdriver/"><cite>WebDriver</cite></a>. URL: <a href="https://w3c.github.io/webdriver/">https://w3c.github.io/webdriver/</a>
   </dl>
+  <h2 class="no-num no-ref heading settled" id="cddl-index"><span class="content">CDDL Index</span><a class="self-link" href="#cddl-index"></a></h2>
+  <h3 class="no-num no-ref heading settled" id="cddl-index-cddl-module-remote-end-definition"><span class="content">Remote end definition</span><a class="self-link" href="#cddl-index-cddl-module-remote-end-definition"></a></h3>
+<pre class="cddl highlight def"><a href="#cddl-type-command"><code>Command</code></a> = {
+  <a href="#cddl-key-command-id"><code>id</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">uint</a>,
+  <a data-link-type="cddl" href="#cddl-type-commanddata">CommandData</a>,
+  <a data-link-type="cddl" href="#cddl-type-extensible">Extensible</a>,
+}
+
+<a href="#cddl-type-commanddata"><code>CommandData</code></a> = (
+  <a data-link-type="cddl" href="#cddl-type-sessioncommand">SessionCommand</a> //
+  <a data-link-type="cddl" href="#cddl-type-settingscommand">SettingsCommand</a> //
+  <a data-link-type="cddl" href="#cddl-type-interactioncommand">InteractionCommand</a>
+)
+
+<a href="#cddl-type-emptyparams"><code>EmptyParams</code></a> = { <a data-link-type="cddl" href="#cddl-type-extensible">Extensible</a> }
+
+<a href="#cddl-type-extensible"><code>Extensible</code></a> = {
+  *<a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a> => <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">any</a>
+}
+
+<a href="#cddl-type-sessioncommand"><code>SessionCommand</code></a> = (<a data-link-type="cddl" href="#cddl-type-sessionnewcommand">SessionNewCommand</a>)
+
+<a href="#cddl-type-capabilitiesrequest"><code>CapabilitiesRequest</code></a> = {
+  ?<a href="#cddl-key-capabilitiesrequest-atname"><code>atName</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a>,
+  ?<a href="#cddl-key-capabilitiesrequest-atversion"><code>atVersion</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a>,
+  ?<a href="#cddl-key-capabilitiesrequest-platformname"><code>platformName</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a>,
+  <a data-link-type="cddl" href="#cddl-type-extensible">Extensible</a>,
+}
+
+<a href="#cddl-type-sessionnewcommand"><code>SessionNewCommand</code></a> = {
+  <a href="#cddl-key-sessionnewcommand-method"><code>method</code></a>: <a href="#cddl-value-sessionnewcommand-method-sessionnew"><code>"session.new"</code></a>,
+  <a href="#cddl-key-sessionnewcommand-params"><code>params</code></a>: {<a href="#cddl-key-sessionnewcommand-params-capabilities"><code>capabilities</code></a>: <a data-link-type="cddl" href="#cddl-type-capabilitiesrequestparameters">CapabilitiesRequestParameters</a>},
+}
+
+<a href="#cddl-type-capabilitiesrequestparameters"><code>CapabilitiesRequestParameters</code></a> = {
+  ?<a href="#cddl-key-capabilitiesrequestparameters-alwaysmatch"><code>alwaysMatch</code></a>: <a data-link-type="cddl" href="#cddl-type-capabilitiesrequest">CapabilitiesRequest</a>,
+}
+
+<a href="#cddl-type-settingscommand"><code>SettingsCommand</code></a> = {
+  <a data-link-type="cddl" href="#cddl-type-settingssetsettingscommand">SettingsSetSettingsCommand</a> //
+  <a data-link-type="cddl" href="#cddl-type-settingsgetsettingscommand">SettingsGetSettingsCommand</a> //
+  <a data-link-type="cddl" href="#cddl-type-settingsgetsupportedsettingscommand">SettingsGetSupportedSettingsCommand</a>
+}
+
+<a href="#cddl-type-settingssetsettingscommand"><code>SettingsSetSettingsCommand</code></a> = {
+  <a href="#cddl-key-settingssetsettingscommand-method"><code>method</code></a>: <a href="#cddl-value-settingssetsettingscommand-method-settingssetsettings"><code>"settings.setSettings"</code></a>,
+  <a href="#cddl-key-settingssetsettingscommand-params"><code>params</code></a>: <a data-link-type="cddl" href="#cddl-type-settingssetsettingsparameters">SettingsSetSettingsParameters</a>
+}
+
+<a href="#cddl-type-settingssetsettingsparameters"><code>SettingsSetSettingsParameters</code></a> = {
+  <a href="#cddl-key-settingssetsettingsparameters-settings"><code>settings</code></a>: [1* <a data-link-type="cddl" href="#cddl-type-settingssetsettingsparametersitem">SettingsSetSettingsParametersItem</a> ],
+}
+
+<a href="#cddl-type-settingssetsettingsparametersitem"><code>SettingsSetSettingsParametersItem</code></a> = {
+  <a href="#cddl-key-settingssetsettingsparametersitem-name"><code>name</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a>,
+  <a href="#cddl-key-settingssetsettingsparametersitem-value"><code>value</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">any</a>,
+  <a data-link-type="cddl" href="#cddl-type-extensible">Extensible</a>,
+}
+
+<a href="#cddl-type-settingsgetsettingscommand"><code>SettingsGetSettingsCommand</code></a> = {
+  <a href="#cddl-key-settingsgetsettingscommand-method"><code>method</code></a>: <a href="#cddl-value-settingsgetsettingscommand-method-settingsgetsettings"><code>"settings.getSettings"</code></a>,
+  <a href="#cddl-key-settingsgetsettingscommand-params"><code>params</code></a>: <a data-link-type="cddl" href="#cddl-type-settingsgetsettingsparameters">SettingsGetSettingsParameters</a>
+}
+
+<a href="#cddl-type-settingsgetsettingsparameters"><code>SettingsGetSettingsParameters</code></a> = {
+  <a href="#cddl-key-settingsgetsettingsparameters-settings"><code>settings</code></a>: [1* <a data-link-type="cddl" href="#cddl-type-settingsgetsettingsparametersitem">SettingsGetSettingsParametersItem</a> ],
+}
+
+<a href="#cddl-type-settingsgetsettingsparametersitem"><code>SettingsGetSettingsParametersItem</code></a> = {
+  <a href="#cddl-key-settingsgetsettingsparametersitem-name"><code>name</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a>,
+  <a data-link-type="cddl" href="#cddl-type-extensible">Extensible</a>,
+}
+
+<a href="#cddl-type-settingsgetsupportedsettingscommand"><code>SettingsGetSupportedSettingsCommand</code></a> = {
+  <a href="#cddl-key-settingsgetsupportedsettingscommand-method"><code>method</code></a>: <a href="#cddl-value-settingsgetsupportedsettingscommand-method-settingsgetsupportedsettings"><code>"settings.getSupportedSettings"</code></a>,
+  <a href="#cddl-key-settingsgetsupportedsettingscommand-params"><code>params</code></a>: <a data-link-type="cddl" href="#cddl-type-emptyparams">EmptyParams</a>
+}
+
+<a href="#cddl-type-interactioncommand"><code>InteractionCommand</code></a> = (<a data-link-type="cddl" href="#cddl-type-interactionuserintentcommand">InteractionUserIntentCommand</a>)
+
+<a href="#cddl-type-interactionuserintentcommand"><code>InteractionUserIntentCommand</code></a> = {
+  <a href="#cddl-key-interactionuserintentcommand-method"><code>method</code></a>: <a href="#cddl-value-interactionuserintentcommand-method-interactionuserintent"><code>"interaction.userIntent"</code></a>,
+  <a href="#cddl-key-interactionuserintentcommand-params"><code>params</code></a>: <a data-link-type="cddl" href="#cddl-type-interactionuserintentparameters">InteractionUserIntentParameters</a>
+}
+
+<a href="#cddl-type-interactionuserintentparameters"><code>InteractionUserIntentParameters</code></a> = (
+  <a data-link-type="cddl" href="#cddl-type-presskeysintentparameters">PressKeysIntentParameters</a> /
+  <a data-link-type="cddl" href="#cddl-type-extensionintentparameters">ExtensionIntentParameters</a>
+)
+
+<a href="#cddl-type-presskeysintentparameters"><code>PressKeysIntentParameters</code></a> = {
+  <a href="#cddl-key-presskeysintentparameters-name"><code>"name"</code></a> => <a href="#cddl-value-presskeysintentparameters-name-presskeys"><code>"pressKeys"</code></a>,
+  <a href="#cddl-key-presskeysintentparameters-keys"><code>"keys"</code></a> => <a data-link-type="cddl" href="#cddl-type-keycombination">KeyCombination</a>,
+}
+
+<a href="#cddl-type-keycombination"><code>KeyCombination</code></a> = [
+  1* <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a>
+]
+
+<a href="#cddl-type-extensionintentparameters"><code>ExtensionIntentParameters</code></a> = {
+  <a href="#cddl-key-extensionintentparameters-name"><code>"name"</code></a> => <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a>,
+  <a data-link-type="cddl" href="#cddl-type-extensible">Extensible</a>,
+}
+
+</pre>
+  <h3 class="no-num no-ref heading settled" id="cddl-index-cddl-module-local-end-definition"><span class="content">Local end definition</span><a class="self-link" href="#cddl-index-cddl-module-local-end-definition"></a></h3>
+<pre class="cddl highlight def"><a href="#cddl-type-message"><code>Message</code></a> = (
+  <a data-link-type="cddl" href="#cddl-type-commandresponse">CommandResponse</a> //
+  <a data-link-type="cddl" href="#cddl-type-errorresponse">ErrorResponse</a> //
+  <a data-link-type="cddl" href="#cddl-type-event">Event</a>
+)
+
+<a href="#cddl-type-commandresponse"><code>CommandResponse</code></a> = {
+  <a href="#cddl-key-commandresponse-id"><code>id</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">uint</a>,
+  <a href="#cddl-key-commandresponse-result"><code>result</code></a>: <a data-link-type="cddl" href="#cddl-type-resultdata">ResultData</a>,
+  <a data-link-type="cddl" href="#cddl-type-extensible">Extensible</a>,
+}
+
+<a href="#cddl-type-errorresponse"><code>ErrorResponse</code></a> = {
+  <a href="#cddl-key-errorresponse-id"><code>id</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">uint</a> / <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">null</a>,
+  <a href="#cddl-key-errorresponse-error"><code>error</code></a>: <a href="#cddl-value-errorresponse-error-unknown-error"><code>"unknown error"</code></a> / <a href="#cddl-value-errorresponse-error-unknown-command"><code>"unknown command"</code></a> / <a href="#cddl-value-errorresponse-error-invalid-argument"><code>"invalid argument"</code></a> / <a href="#cddl-value-errorresponse-error-session-not-created"><code>"session not created"</code></a>,
+  <a href="#cddl-key-errorresponse-message"><code>message</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a>,
+  ?<a href="#cddl-key-errorresponse-stacktrace"><code>stacktrace</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a>,
+  <a data-link-type="cddl" href="#cddl-type-extensible">Extensible</a>,
+}
+
+<a href="#cddl-type-resultdata"><code>ResultData</code></a> = (
+  <a data-link-type="cddl" href="#cddl-type-emptyresult">EmptyResult</a> /
+  <a data-link-type="cddl" href="#cddl-type-sessionresult">SessionResult</a> /
+  <a data-link-type="cddl" href="#cddl-type-settingsresult">SettingsResult</a>
+)
+
+<a href="#cddl-type-emptyresult"><code>EmptyResult</code></a> = {}
+
+<a href="#cddl-type-event"><code>Event</code></a> = {
+  <a data-link-type="cddl" href="#cddl-type-eventdata">EventData</a>,
+  <a data-link-type="cddl" href="#cddl-type-extensible">Extensible</a>,
+}
+
+<a href="#cddl-type-eventdata"><code>EventData</code></a> = (
+  <a data-link-type="cddl" href="#cddl-type-interactionevent">InteractionEvent</a>
+)
+
+<a href="#cddl-type-extensible"><code>Extensible</code></a> = {
+  *<a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a> => <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">any</a>
+}
+
+<a href="#cddl-type-sessionresult"><code>SessionResult</code></a> = (<a data-link-type="cddl" href="#cddl-type-sessionnewresult">SessionNewResult</a>)
+
+<a href="#cddl-type-capabilitiesrequest"><code>CapabilitiesRequest</code></a> = {
+  ?<a href="#cddl-key-capabilitiesrequest-atname"><code>atName</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a>,
+  ?<a href="#cddl-key-capabilitiesrequest-atversion"><code>atVersion</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a>,
+  ?<a href="#cddl-key-capabilitiesrequest-platformname"><code>platformName</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a>,
+  <a data-link-type="cddl" href="#cddl-type-extensible">Extensible</a>,
+}
+
+<a href="#cddl-type-sessionnewresult"><code>SessionNewResult</code></a> = {
+  <a href="#cddl-key-sessionnewresult-sessionid"><code>sessionId</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a>,
+  <a href="#cddl-key-sessionnewresult-capabilities"><code>capabilities</code></a>: {
+    <a href="#cddl-key-sessionnewresult-capabilities-atname"><code>atName</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a>,
+    <a href="#cddl-key-sessionnewresult-capabilities-atversion"><code>atVersion</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a>,
+    <a href="#cddl-key-sessionnewresult-capabilities-platformname"><code>platformName</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a>,
+    <a data-link-type="cddl" href="#cddl-type-extensible">Extensible</a>,
+  }
+}
+
+<a href="#cddl-type-settingsresult"><code>SettingsResult</code></a> = {
+  <a data-link-type="cddl" href="#cddl-type-settingsgetsettingsresult">SettingsGetSettingsResult</a>
+}
+
+<a href="#cddl-type-settingsgetsettingsresult"><code>SettingsGetSettingsResult</code></a> = {
+  <a href="#cddl-key-settingsgetsettingsresult-settings"><code>settings</code></a>: [1* <a data-link-type="cddl" href="#cddl-type-settingsgetsettingsresultitem">SettingsGetSettingsResultItem</a> ],
+}
+
+<a href="#cddl-type-settingsgetsettingsresultitem"><code>SettingsGetSettingsResultItem</code></a> = {
+  <a href="#cddl-key-settingsgetsettingsresultitem-name"><code>name</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a>,
+  <a href="#cddl-key-settingsgetsettingsresultitem-value"><code>value</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">any</a>,
+  <a data-link-type="cddl" href="#cddl-type-extensible">Extensible</a>,
+}
+
+<a href="#cddl-type-interactionevent"><code>InteractionEvent</code></a> = (<a data-link-type="cddl" href="#cddl-type-interactioncapturedoutputevent">InteractionCapturedOutputEvent</a>)
+
+
+<a href="#cddl-type-interactioncapturedoutputparameters"><code>InteractionCapturedOutputParameters</code></a> = {
+  <a href="#cddl-key-interactioncapturedoutputparameters-data"><code>data</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a>,
+  <a data-link-type="cddl" href="#cddl-type-extensible">Extensible</a>,
+}
+
+<a href="#cddl-type-interactioncapturedoutputevent"><code>InteractionCapturedOutputEvent</code></a> = {
+  <a href="#cddl-key-interactioncapturedoutputevent-method"><code>method</code></a>: <a href="#cddl-value-interactioncapturedoutputevent-method-interactioncapturedoutput"><code>"interaction.capturedOutput"</code></a>,
+  <a href="#cddl-key-interactioncapturedoutputevent-params"><code>params</code></a>: <a data-link-type="cddl" href="#cddl-type-interactioncapturedoutputparameters">InteractionCapturedOutputParameters</a>
+}
+
+</pre>
   <h2 class="no-num no-ref heading settled" id="issues-index"><span class="content">Issues Index</span><a class="self-link" href="#issues-index"></a></h2>
   <div style="counter-reset:issue">
    <div class="issue"> Is the "OS focus" check a viable security restriction for "send keys"? <a href="https://github.com/w3c/at-driver/issues/77">[Issue #77]</a> <a class="issue-return" href="#issue-e10bf837" title="Jump to section">↵</a></div>
@@ -2251,9 +2813,11 @@ let dfnPanelData = {
 "3fca5a9e": {"dfnID":"3fca5a9e","dfnText":"map","external":true,"refSections":[{"refs":[{"id":"ref-for-ordered-map"},{"id":"ref-for-ordered-map\u2460"}],"title":"5.2. Capabilities"},{"refs":[{"id":"ref-for-ordered-map\u2461"},{"id":"ref-for-ordered-map\u2462"},{"id":"ref-for-ordered-map\u2463"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-ordered-map\u2464"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-ordered-map\u2465"},{"id":"ref-for-ordered-map\u2466"}],"title":"7.2. The settings Module"},{"refs":[{"id":"ref-for-ordered-map\u2467"}],"title":"7.2.3.1. The settings.setSettings Command"},{"refs":[{"id":"ref-for-ordered-map\u2468"}],"title":"7.3. The Interaction Module"},{"refs":[{"id":"ref-for-ordered-map\u2460\u24ea"},{"id":"ref-for-ordered-map\u2460\u2460"}],"title":"7.3.4.1. The interaction.capturedOutput Event"}],"url":"https://infra.spec.whatwg.org/#ordered-map"},
 "45209803": {"dfnID":"45209803","dfnText":"for each (for map)","external":true,"refSections":[{"refs":[{"id":"ref-for-map-iterate"}],"title":"5.2. Capabilities"}],"url":"https://infra.spec.whatwg.org/#map-iterate"},
 "4c07280e": {"dfnID":"4c07280e","dfnText":"serialize an Infra value to JSON bytes","external":true,"refSections":[{"refs":[{"id":"ref-for-serialize-an-infra-value-to-json-bytes"},{"id":"ref-for-serialize-an-infra-value-to-json-bytes\u2460"},{"id":"ref-for-serialize-an-infra-value-to-json-bytes\u2461"}],"title":"6. Transport"}],"url":"https://infra.spec.whatwg.org/#serialize-an-infra-value-to-json-bytes"},
+"523b9b71": {"dfnID":"523b9b71","dfnText":"null","external":true,"refSections":[{"refs":[{"id":"ref-for-appendix-D"},{"id":"ref-for-appendix-D\u2460"},{"id":"ref-for-appendix-D\u2461"},{"id":"ref-for-appendix-D\u2462"},{"id":"ref-for-appendix-D\u2463"},{"id":"ref-for-appendix-D\u2464"},{"id":"ref-for-appendix-D\u2465"},{"id":"ref-for-appendix-D\u2466"}],"title":"5.1. Definition"},{"refs":[{"id":"ref-for-appendix-D\u2467"},{"id":"ref-for-appendix-D\u2468"},{"id":"ref-for-appendix-D\u2460\u24ea"}],"title":"7.1.2.1. The session.CapabilitiesRequest Type"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2460"},{"id":"ref-for-appendix-D\u2460\u2461"},{"id":"ref-for-appendix-D\u2460\u2462"},{"id":"ref-for-appendix-D\u2460\u2463"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2464"},{"id":"ref-for-appendix-D\u2460\u2465"}],"title":"7.2.2.1. The SettingsGetSettingsResult type"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2466"},{"id":"ref-for-appendix-D\u2460\u2467"}],"title":"7.2.3.1. The settings.setSettings Command"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2468"}],"title":"7.2.3.2. The settings.getSettings Command"},{"refs":[{"id":"ref-for-appendix-D\u2461\u24ea"}],"title":"7.3.2. Types"},{"refs":[{"id":"ref-for-appendix-D\u2461\u2460"},{"id":"ref-for-appendix-D\u2461\u2461"}],"title":"7.3.3.1. The interaction.userIntent Command"}],"url":"https://www.rfc-editor.org/rfc/rfc8610#appendix-D"},
 "53275e46": {"dfnID":"53275e46","dfnText":"append (for list)","external":true,"refSections":[{"refs":[{"id":"ref-for-list-append"}],"title":"7.2. The settings Module"}],"url":"https://infra.spec.whatwg.org/#list-append"},
 "649608b9": {"dfnID":"649608b9","dfnText":"list","external":true,"refSections":[{"refs":[{"id":"ref-for-list"},{"id":"ref-for-list\u2460"}],"title":"7.2. The settings Module"},{"refs":[{"id":"ref-for-list\u2461"}],"title":"7.2.3.3. The settings.getSupportedSettings Command"},{"refs":[{"id":"ref-for-list\u2462"}],"title":"7.3. The Interaction Module"}],"url":"https://infra.spec.whatwg.org/#list"},
 "653d0848": {"dfnID":"653d0848","dfnText":"size","external":true,"refSections":[{"refs":[{"id":"ref-for-map-size"}],"title":"6. Transport"}],"url":"https://infra.spec.whatwg.org/#map-size"},
+"6a303638": {"dfnID":"6a303638","dfnText":"uint","external":true,"refSections":[{"refs":[{"id":"ref-for-appendix-D"},{"id":"ref-for-appendix-D\u2460"},{"id":"ref-for-appendix-D\u2461"},{"id":"ref-for-appendix-D\u2462"},{"id":"ref-for-appendix-D\u2463"},{"id":"ref-for-appendix-D\u2464"},{"id":"ref-for-appendix-D\u2465"},{"id":"ref-for-appendix-D\u2466"}],"title":"5.1. Definition"},{"refs":[{"id":"ref-for-appendix-D\u2467"},{"id":"ref-for-appendix-D\u2468"},{"id":"ref-for-appendix-D\u2460\u24ea"}],"title":"7.1.2.1. The session.CapabilitiesRequest Type"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2460"},{"id":"ref-for-appendix-D\u2460\u2461"},{"id":"ref-for-appendix-D\u2460\u2462"},{"id":"ref-for-appendix-D\u2460\u2463"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2464"},{"id":"ref-for-appendix-D\u2460\u2465"}],"title":"7.2.2.1. The SettingsGetSettingsResult type"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2466"},{"id":"ref-for-appendix-D\u2460\u2467"}],"title":"7.2.3.1. The settings.setSettings Command"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2468"}],"title":"7.2.3.2. The settings.getSettings Command"},{"refs":[{"id":"ref-for-appendix-D\u2461\u24ea"}],"title":"7.3.2. Types"},{"refs":[{"id":"ref-for-appendix-D\u2461\u2460"},{"id":"ref-for-appendix-D\u2461\u2461"}],"title":"7.3.3.1. The interaction.userIntent Command"}],"url":"https://www.rfc-editor.org/rfc/rfc8610#appendix-D"},
 "6f2dfa22": {"dfnID":"6f2dfa22","dfnText":"ASCII lowercase","external":true,"refSections":[{"refs":[{"id":"ref-for-ascii-lowercase"},{"id":"ref-for-ascii-lowercase\u2460"}],"title":"5.2. Capabilities"}],"url":"https://infra.spec.whatwg.org/#ascii-lowercase"},
 "762869d3": {"dfnID":"762869d3","dfnText":"scalar value string","external":true,"refSections":[{"refs":[{"id":"ref-for-scalar-value-string"}],"title":"6. Transport"}],"url":"https://infra.spec.whatwg.org/#scalar-value-string"},
 "77b4c09a": {"dfnID":"77b4c09a","dfnText":"assert","external":true,"refSections":[{"refs":[{"id":"ref-for-assert"},{"id":"ref-for-assert\u2460"},{"id":"ref-for-assert\u2461"},{"id":"ref-for-assert\u2462"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-assert\u2463"}],"title":"7.2.3.3. The settings.getSupportedSettings Command"}],"url":"https://infra.spec.whatwg.org/#assert"},
@@ -2263,13 +2827,106 @@ let dfnPanelData = {
 "a3b18719": {"dfnID":"a3b18719","dfnText":"append (for set)","external":true,"refSections":[{"refs":[{"id":"ref-for-set-append"},{"id":"ref-for-set-append\u2460"}],"title":"6. Transport"}],"url":"https://infra.spec.whatwg.org/#set-append"},
 "a72449dd": {"dfnID":"a72449dd","dfnText":"in parallel","external":true,"refSections":[{"refs":[{"id":"ref-for-in-parallel"}],"title":"6. Transport"}],"url":"https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel"},
 "ae8def21": {"dfnID":"ae8def21","dfnText":"contain (for list)","external":true,"refSections":[{"refs":[{"id":"ref-for-list-contain"}],"title":"7.2. The settings Module"}],"url":"https://infra.spec.whatwg.org/#list-contain"},
+"c3bd1df0": {"dfnID":"c3bd1df0","dfnText":"text","external":true,"refSections":[{"refs":[{"id":"ref-for-appendix-D"},{"id":"ref-for-appendix-D\u2460"},{"id":"ref-for-appendix-D\u2461"},{"id":"ref-for-appendix-D\u2462"},{"id":"ref-for-appendix-D\u2463"},{"id":"ref-for-appendix-D\u2464"},{"id":"ref-for-appendix-D\u2465"},{"id":"ref-for-appendix-D\u2466"}],"title":"5.1. Definition"},{"refs":[{"id":"ref-for-appendix-D\u2467"},{"id":"ref-for-appendix-D\u2468"},{"id":"ref-for-appendix-D\u2460\u24ea"}],"title":"7.1.2.1. The session.CapabilitiesRequest Type"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2460"},{"id":"ref-for-appendix-D\u2460\u2461"},{"id":"ref-for-appendix-D\u2460\u2462"},{"id":"ref-for-appendix-D\u2460\u2463"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2464"},{"id":"ref-for-appendix-D\u2460\u2465"}],"title":"7.2.2.1. The SettingsGetSettingsResult type"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2466"},{"id":"ref-for-appendix-D\u2460\u2467"}],"title":"7.2.3.1. The settings.setSettings Command"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2468"}],"title":"7.2.3.2. The settings.getSettings Command"},{"refs":[{"id":"ref-for-appendix-D\u2461\u24ea"}],"title":"7.3.2. Types"},{"refs":[{"id":"ref-for-appendix-D\u2461\u2460"},{"id":"ref-for-appendix-D\u2461\u2461"}],"title":"7.3.3.1. The interaction.userIntent Command"}],"url":"https://www.rfc-editor.org/rfc/rfc8610#appendix-D"},
 "capabilities": {"dfnID":"capabilities","dfnText":"Capabilities","external":false,"refSections":[],"url":"#capabilities"},
+"cddl-key-capabilitiesrequest-atname": {"dfnID":"cddl-key-capabilitiesrequest-atname","dfnText":"atName","external":false,"refSections":[],"url":"#cddl-key-capabilitiesrequest-atname"},
+"cddl-key-capabilitiesrequest-atversion": {"dfnID":"cddl-key-capabilitiesrequest-atversion","dfnText":"atVersion","external":false,"refSections":[],"url":"#cddl-key-capabilitiesrequest-atversion"},
+"cddl-key-capabilitiesrequest-platformname": {"dfnID":"cddl-key-capabilitiesrequest-platformname","dfnText":"platformName","external":false,"refSections":[],"url":"#cddl-key-capabilitiesrequest-platformname"},
+"cddl-key-capabilitiesrequestparameters-alwaysmatch": {"dfnID":"cddl-key-capabilitiesrequestparameters-alwaysmatch","dfnText":"alwaysMatch","external":false,"refSections":[],"url":"#cddl-key-capabilitiesrequestparameters-alwaysmatch"},
+"cddl-key-command-id": {"dfnID":"cddl-key-command-id","dfnText":"id","external":false,"refSections":[],"url":"#cddl-key-command-id"},
+"cddl-key-commandresponse-id": {"dfnID":"cddl-key-commandresponse-id","dfnText":"id","external":false,"refSections":[],"url":"#cddl-key-commandresponse-id"},
+"cddl-key-commandresponse-result": {"dfnID":"cddl-key-commandresponse-result","dfnText":"result","external":false,"refSections":[],"url":"#cddl-key-commandresponse-result"},
+"cddl-key-errorresponse-error": {"dfnID":"cddl-key-errorresponse-error","dfnText":"error","external":false,"refSections":[],"url":"#cddl-key-errorresponse-error"},
+"cddl-key-errorresponse-id": {"dfnID":"cddl-key-errorresponse-id","dfnText":"id","external":false,"refSections":[],"url":"#cddl-key-errorresponse-id"},
+"cddl-key-errorresponse-message": {"dfnID":"cddl-key-errorresponse-message","dfnText":"message","external":false,"refSections":[],"url":"#cddl-key-errorresponse-message"},
+"cddl-key-errorresponse-stacktrace": {"dfnID":"cddl-key-errorresponse-stacktrace","dfnText":"stacktrace","external":false,"refSections":[],"url":"#cddl-key-errorresponse-stacktrace"},
+"cddl-key-extensionintentparameters-name": {"dfnID":"cddl-key-extensionintentparameters-name","dfnText":"\"name\"","external":false,"refSections":[],"url":"#cddl-key-extensionintentparameters-name"},
+"cddl-key-interactioncapturedoutputevent-method": {"dfnID":"cddl-key-interactioncapturedoutputevent-method","dfnText":"method","external":false,"refSections":[],"url":"#cddl-key-interactioncapturedoutputevent-method"},
+"cddl-key-interactioncapturedoutputevent-params": {"dfnID":"cddl-key-interactioncapturedoutputevent-params","dfnText":"params","external":false,"refSections":[],"url":"#cddl-key-interactioncapturedoutputevent-params"},
+"cddl-key-interactioncapturedoutputparameters-data": {"dfnID":"cddl-key-interactioncapturedoutputparameters-data","dfnText":"data","external":false,"refSections":[],"url":"#cddl-key-interactioncapturedoutputparameters-data"},
+"cddl-key-interactionuserintentcommand-method": {"dfnID":"cddl-key-interactionuserintentcommand-method","dfnText":"method","external":false,"refSections":[],"url":"#cddl-key-interactionuserintentcommand-method"},
+"cddl-key-interactionuserintentcommand-params": {"dfnID":"cddl-key-interactionuserintentcommand-params","dfnText":"params","external":false,"refSections":[],"url":"#cddl-key-interactionuserintentcommand-params"},
+"cddl-key-presskeysintentparameters-keys": {"dfnID":"cddl-key-presskeysintentparameters-keys","dfnText":"\"keys\"","external":false,"refSections":[],"url":"#cddl-key-presskeysintentparameters-keys"},
+"cddl-key-presskeysintentparameters-name": {"dfnID":"cddl-key-presskeysintentparameters-name","dfnText":"\"name\"","external":false,"refSections":[],"url":"#cddl-key-presskeysintentparameters-name"},
+"cddl-key-sessionnewcommand-method": {"dfnID":"cddl-key-sessionnewcommand-method","dfnText":"method","external":false,"refSections":[],"url":"#cddl-key-sessionnewcommand-method"},
+"cddl-key-sessionnewcommand-params": {"dfnID":"cddl-key-sessionnewcommand-params","dfnText":"params","external":false,"refSections":[],"url":"#cddl-key-sessionnewcommand-params"},
+"cddl-key-sessionnewcommand-params-capabilities": {"dfnID":"cddl-key-sessionnewcommand-params-capabilities","dfnText":"capabilities","external":false,"refSections":[],"url":"#cddl-key-sessionnewcommand-params-capabilities"},
+"cddl-key-sessionnewresult-capabilities": {"dfnID":"cddl-key-sessionnewresult-capabilities","dfnText":"capabilities","external":false,"refSections":[],"url":"#cddl-key-sessionnewresult-capabilities"},
+"cddl-key-sessionnewresult-capabilities-atname": {"dfnID":"cddl-key-sessionnewresult-capabilities-atname","dfnText":"atName","external":false,"refSections":[],"url":"#cddl-key-sessionnewresult-capabilities-atname"},
+"cddl-key-sessionnewresult-capabilities-atversion": {"dfnID":"cddl-key-sessionnewresult-capabilities-atversion","dfnText":"atVersion","external":false,"refSections":[],"url":"#cddl-key-sessionnewresult-capabilities-atversion"},
+"cddl-key-sessionnewresult-capabilities-platformname": {"dfnID":"cddl-key-sessionnewresult-capabilities-platformname","dfnText":"platformName","external":false,"refSections":[],"url":"#cddl-key-sessionnewresult-capabilities-platformname"},
+"cddl-key-sessionnewresult-sessionid": {"dfnID":"cddl-key-sessionnewresult-sessionid","dfnText":"sessionId","external":false,"refSections":[],"url":"#cddl-key-sessionnewresult-sessionid"},
+"cddl-key-settingsgetsettingscommand-method": {"dfnID":"cddl-key-settingsgetsettingscommand-method","dfnText":"method","external":false,"refSections":[],"url":"#cddl-key-settingsgetsettingscommand-method"},
+"cddl-key-settingsgetsettingscommand-params": {"dfnID":"cddl-key-settingsgetsettingscommand-params","dfnText":"params","external":false,"refSections":[],"url":"#cddl-key-settingsgetsettingscommand-params"},
+"cddl-key-settingsgetsettingsparameters-settings": {"dfnID":"cddl-key-settingsgetsettingsparameters-settings","dfnText":"settings","external":false,"refSections":[],"url":"#cddl-key-settingsgetsettingsparameters-settings"},
+"cddl-key-settingsgetsettingsparametersitem-name": {"dfnID":"cddl-key-settingsgetsettingsparametersitem-name","dfnText":"name","external":false,"refSections":[],"url":"#cddl-key-settingsgetsettingsparametersitem-name"},
+"cddl-key-settingsgetsettingsresult-settings": {"dfnID":"cddl-key-settingsgetsettingsresult-settings","dfnText":"settings","external":false,"refSections":[],"url":"#cddl-key-settingsgetsettingsresult-settings"},
+"cddl-key-settingsgetsettingsresultitem-name": {"dfnID":"cddl-key-settingsgetsettingsresultitem-name","dfnText":"name","external":false,"refSections":[],"url":"#cddl-key-settingsgetsettingsresultitem-name"},
+"cddl-key-settingsgetsettingsresultitem-value": {"dfnID":"cddl-key-settingsgetsettingsresultitem-value","dfnText":"value","external":false,"refSections":[],"url":"#cddl-key-settingsgetsettingsresultitem-value"},
+"cddl-key-settingsgetsupportedsettingscommand-method": {"dfnID":"cddl-key-settingsgetsupportedsettingscommand-method","dfnText":"method","external":false,"refSections":[],"url":"#cddl-key-settingsgetsupportedsettingscommand-method"},
+"cddl-key-settingsgetsupportedsettingscommand-params": {"dfnID":"cddl-key-settingsgetsupportedsettingscommand-params","dfnText":"params","external":false,"refSections":[],"url":"#cddl-key-settingsgetsupportedsettingscommand-params"},
+"cddl-key-settingssetsettingscommand-method": {"dfnID":"cddl-key-settingssetsettingscommand-method","dfnText":"method","external":false,"refSections":[],"url":"#cddl-key-settingssetsettingscommand-method"},
+"cddl-key-settingssetsettingscommand-params": {"dfnID":"cddl-key-settingssetsettingscommand-params","dfnText":"params","external":false,"refSections":[],"url":"#cddl-key-settingssetsettingscommand-params"},
+"cddl-key-settingssetsettingsparameters-settings": {"dfnID":"cddl-key-settingssetsettingsparameters-settings","dfnText":"settings","external":false,"refSections":[],"url":"#cddl-key-settingssetsettingsparameters-settings"},
+"cddl-key-settingssetsettingsparametersitem-name": {"dfnID":"cddl-key-settingssetsettingsparametersitem-name","dfnText":"name","external":false,"refSections":[],"url":"#cddl-key-settingssetsettingsparametersitem-name"},
+"cddl-key-settingssetsettingsparametersitem-value": {"dfnID":"cddl-key-settingssetsettingsparametersitem-value","dfnText":"value","external":false,"refSections":[],"url":"#cddl-key-settingssetsettingsparametersitem-value"},
+"cddl-module-local-end-definition": {"dfnID":"cddl-module-local-end-definition","dfnText":"local end definition","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-module-local-end-definition"},{"id":"ref-for-cddl-module-local-end-definition\u2460"}],"title":"5.1. Definition"},{"refs":[{"id":"ref-for-cddl-module-local-end-definition\u2461"}],"title":"5.4. Modules"},{"refs":[{"id":"ref-for-cddl-module-local-end-definition\u2462"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-cddl-module-local-end-definition\u2463"}],"title":"5.6. Events"},{"refs":[{"id":"ref-for-cddl-module-local-end-definition\u2464"},{"id":"ref-for-cddl-module-local-end-definition\u2465"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-cddl-module-local-end-definition\u2466"}],"title":"7.1.1. Definition"},{"refs":[{"id":"ref-for-cddl-module-local-end-definition\u2467"}],"title":"7.1.2.1. The session.CapabilitiesRequest Type"},{"refs":[{"id":"ref-for-cddl-module-local-end-definition\u2468"}],"title":"7.2. The settings Module"},{"refs":[{"id":"ref-for-cddl-module-local-end-definition\u2460\u24ea"}],"title":"7.2.1. Definition"},{"refs":[{"id":"ref-for-cddl-module-local-end-definition\u2460\u2460"}],"title":"7.2.2.1. The SettingsGetSettingsResult type"},{"refs":[{"id":"ref-for-cddl-module-local-end-definition\u2460\u2461"}],"title":"7.3.1. Definition"},{"refs":[{"id":"ref-for-cddl-module-local-end-definition\u2460\u2462"}],"title":"Appendix A: Schemas"}],"url":"#cddl-module-local-end-definition"},
+"cddl-module-remote-end-definition": {"dfnID":"cddl-module-remote-end-definition","dfnText":"remote end definition","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-module-remote-end-definition"},{"id":"ref-for-cddl-module-remote-end-definition\u2460"}],"title":"5.1. Definition"},{"refs":[{"id":"ref-for-cddl-module-remote-end-definition\u2461"},{"id":"ref-for-cddl-module-remote-end-definition\u2462"}],"title":"5.4. Modules"},{"refs":[{"id":"ref-for-cddl-module-remote-end-definition\u2463"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-cddl-module-remote-end-definition\u2464"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-cddl-module-remote-end-definition\u2465"}],"title":"7.1.1. Definition"},{"refs":[{"id":"ref-for-cddl-module-remote-end-definition\u2466"}],"title":"7.1.2.1. The session.CapabilitiesRequest Type"},{"refs":[{"id":"ref-for-cddl-module-remote-end-definition\u2467"}],"title":"7.2.1. Definition"},{"refs":[{"id":"ref-for-cddl-module-remote-end-definition\u2468"}],"title":"7.3.1. Definition"},{"refs":[{"id":"ref-for-cddl-module-remote-end-definition\u2460\u24ea"}],"title":"Appendix A: Schemas"}],"url":"#cddl-module-remote-end-definition"},
+"cddl-type-capabilitiesrequest": {"dfnID":"cddl-type-capabilitiesrequest","dfnText":"CapabilitiesRequest","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-type-capabilitiesrequest"}],"title":"7.1.3.1. The session.new Command"}],"url":"#cddl-type-capabilitiesrequest"},
+"cddl-type-capabilitiesrequestparameters": {"dfnID":"cddl-type-capabilitiesrequestparameters","dfnText":"CapabilitiesRequestParameters","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-type-capabilitiesrequestparameters"}],"title":"7.1.3.1. The session.new Command"}],"url":"#cddl-type-capabilitiesrequestparameters"},
+"cddl-type-command": {"dfnID":"cddl-type-command","dfnText":"Command","external":false,"refSections":[],"url":"#cddl-type-command"},
+"cddl-type-commanddata": {"dfnID":"cddl-type-commanddata","dfnText":"CommandData","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-type-commanddata"}],"title":"5.1. Definition"}],"url":"#cddl-type-commanddata"},
+"cddl-type-commandresponse": {"dfnID":"cddl-type-commandresponse","dfnText":"CommandResponse","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-type-commandresponse"}],"title":"5.1. Definition"}],"url":"#cddl-type-commandresponse"},
+"cddl-type-emptyparams": {"dfnID":"cddl-type-emptyparams","dfnText":"EmptyParams","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-type-emptyparams"}],"title":"7.2.3.3. The settings.getSupportedSettings Command"}],"url":"#cddl-type-emptyparams"},
+"cddl-type-emptyresult": {"dfnID":"cddl-type-emptyresult","dfnText":"EmptyResult","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-type-emptyresult"}],"title":"5.1. Definition"}],"url":"#cddl-type-emptyresult"},
+"cddl-type-errorresponse": {"dfnID":"cddl-type-errorresponse","dfnText":"ErrorResponse","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-type-errorresponse"}],"title":"5.1. Definition"}],"url":"#cddl-type-errorresponse"},
+"cddl-type-event": {"dfnID":"cddl-type-event","dfnText":"Event","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-type-event"}],"title":"5.1. Definition"}],"url":"#cddl-type-event"},
+"cddl-type-eventdata": {"dfnID":"cddl-type-eventdata","dfnText":"EventData","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-type-eventdata"}],"title":"5.1. Definition"}],"url":"#cddl-type-eventdata"},
+"cddl-type-extensible": {"dfnID":"cddl-type-extensible","dfnText":"Extensible","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-type-extensible"},{"id":"ref-for-cddl-type-extensible\u2460"},{"id":"ref-for-cddl-type-extensible\u2461"},{"id":"ref-for-cddl-type-extensible\u2462"},{"id":"ref-for-cddl-type-extensible\u2463"}],"title":"5.1. Definition"},{"refs":[{"id":"ref-for-cddl-type-extensible\u2464"}],"title":"7.1.2.1. The session.CapabilitiesRequest Type"},{"refs":[{"id":"ref-for-cddl-type-extensible\u2465"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-cddl-type-extensible\u2466"}],"title":"7.2.2.1. The SettingsGetSettingsResult type"},{"refs":[{"id":"ref-for-cddl-type-extensible\u2467"}],"title":"7.2.3.1. The settings.setSettings Command"},{"refs":[{"id":"ref-for-cddl-type-extensible\u2468"}],"title":"7.2.3.2. The settings.getSettings Command"},{"refs":[{"id":"ref-for-cddl-type-extensible\u2460\u24ea"}],"title":"7.3.2. Types"},{"refs":[{"id":"ref-for-cddl-type-extensible\u2460\u2460"}],"title":"7.3.3.1. The interaction.userIntent Command"}],"url":"#cddl-type-extensible"},
+"cddl-type-extensionintentparameters": {"dfnID":"cddl-type-extensionintentparameters","dfnText":"ExtensionIntentParameters","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-type-extensionintentparameters"}],"title":"7.3.3.1. The interaction.userIntent Command"}],"url":"#cddl-type-extensionintentparameters"},
+"cddl-type-interactioncapturedoutputevent": {"dfnID":"cddl-type-interactioncapturedoutputevent","dfnText":"InteractionCapturedOutputEvent","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-type-interactioncapturedoutputevent"}],"title":"7.3.1. Definition"}],"url":"#cddl-type-interactioncapturedoutputevent"},
+"cddl-type-interactioncapturedoutputparameters": {"dfnID":"cddl-type-interactioncapturedoutputparameters","dfnText":"InteractionCapturedOutputParameters","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-type-interactioncapturedoutputparameters"}],"title":"7.3.4.1. The interaction.capturedOutput Event"}],"url":"#cddl-type-interactioncapturedoutputparameters"},
+"cddl-type-interactioncommand": {"dfnID":"cddl-type-interactioncommand","dfnText":"InteractionCommand","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-type-interactioncommand"}],"title":"5.1. Definition"}],"url":"#cddl-type-interactioncommand"},
+"cddl-type-interactionevent": {"dfnID":"cddl-type-interactionevent","dfnText":"InteractionEvent","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-type-interactionevent"}],"title":"5.1. Definition"}],"url":"#cddl-type-interactionevent"},
+"cddl-type-interactionuserintentcommand": {"dfnID":"cddl-type-interactionuserintentcommand","dfnText":"InteractionUserIntentCommand","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-type-interactionuserintentcommand"}],"title":"7.3.1. Definition"}],"url":"#cddl-type-interactionuserintentcommand"},
+"cddl-type-interactionuserintentparameters": {"dfnID":"cddl-type-interactionuserintentparameters","dfnText":"InteractionUserIntentParameters","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-type-interactionuserintentparameters"}],"title":"7.3.3.1. The interaction.userIntent Command"}],"url":"#cddl-type-interactionuserintentparameters"},
+"cddl-type-keycombination": {"dfnID":"cddl-type-keycombination","dfnText":"KeyCombination","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-type-keycombination"}],"title":"7.3.3.1. The interaction.userIntent Command"}],"url":"#cddl-type-keycombination"},
+"cddl-type-message": {"dfnID":"cddl-type-message","dfnText":"Message","external":false,"refSections":[],"url":"#cddl-type-message"},
+"cddl-type-presskeysintentparameters": {"dfnID":"cddl-type-presskeysintentparameters","dfnText":"PressKeysIntentParameters","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-type-presskeysintentparameters"}],"title":"7.3.3.1. The interaction.userIntent Command"}],"url":"#cddl-type-presskeysintentparameters"},
+"cddl-type-resultdata": {"dfnID":"cddl-type-resultdata","dfnText":"ResultData","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-type-resultdata"}],"title":"5.1. Definition"}],"url":"#cddl-type-resultdata"},
+"cddl-type-sessioncommand": {"dfnID":"cddl-type-sessioncommand","dfnText":"SessionCommand","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-type-sessioncommand"}],"title":"5.1. Definition"}],"url":"#cddl-type-sessioncommand"},
+"cddl-type-sessionnewcommand": {"dfnID":"cddl-type-sessionnewcommand","dfnText":"SessionNewCommand","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-type-sessionnewcommand"}],"title":"7.1.1. Definition"}],"url":"#cddl-type-sessionnewcommand"},
+"cddl-type-sessionnewresult": {"dfnID":"cddl-type-sessionnewresult","dfnText":"SessionNewResult","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-type-sessionnewresult"}],"title":"7.1.1. Definition"}],"url":"#cddl-type-sessionnewresult"},
+"cddl-type-sessionresult": {"dfnID":"cddl-type-sessionresult","dfnText":"SessionResult","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-type-sessionresult"}],"title":"5.1. Definition"}],"url":"#cddl-type-sessionresult"},
+"cddl-type-settingscommand": {"dfnID":"cddl-type-settingscommand","dfnText":"SettingsCommand","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-type-settingscommand"}],"title":"5.1. Definition"}],"url":"#cddl-type-settingscommand"},
+"cddl-type-settingsgetsettingscommand": {"dfnID":"cddl-type-settingsgetsettingscommand","dfnText":"SettingsGetSettingsCommand","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-type-settingsgetsettingscommand"}],"title":"7.2.1. Definition"}],"url":"#cddl-type-settingsgetsettingscommand"},
+"cddl-type-settingsgetsettingsparameters": {"dfnID":"cddl-type-settingsgetsettingsparameters","dfnText":"SettingsGetSettingsParameters","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-type-settingsgetsettingsparameters"}],"title":"7.2.3.2. The settings.getSettings Command"}],"url":"#cddl-type-settingsgetsettingsparameters"},
+"cddl-type-settingsgetsettingsparametersitem": {"dfnID":"cddl-type-settingsgetsettingsparametersitem","dfnText":"SettingsGetSettingsParametersItem","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-type-settingsgetsettingsparametersitem"}],"title":"7.2.3.2. The settings.getSettings Command"}],"url":"#cddl-type-settingsgetsettingsparametersitem"},
+"cddl-type-settingsgetsettingsresult": {"dfnID":"cddl-type-settingsgetsettingsresult","dfnText":"SettingsGetSettingsResult","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-type-settingsgetsettingsresult"}],"title":"7.2.1. Definition"}],"url":"#cddl-type-settingsgetsettingsresult"},
+"cddl-type-settingsgetsettingsresultitem": {"dfnID":"cddl-type-settingsgetsettingsresultitem","dfnText":"SettingsGetSettingsResultItem","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-type-settingsgetsettingsresultitem"}],"title":"7.2.2.1. The SettingsGetSettingsResult type"}],"url":"#cddl-type-settingsgetsettingsresultitem"},
+"cddl-type-settingsgetsupportedsettingscommand": {"dfnID":"cddl-type-settingsgetsupportedsettingscommand","dfnText":"SettingsGetSupportedSettingsCommand","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-type-settingsgetsupportedsettingscommand"}],"title":"7.2.1. Definition"}],"url":"#cddl-type-settingsgetsupportedsettingscommand"},
+"cddl-type-settingsresult": {"dfnID":"cddl-type-settingsresult","dfnText":"SettingsResult","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-type-settingsresult"}],"title":"5.1. Definition"}],"url":"#cddl-type-settingsresult"},
+"cddl-type-settingssetsettingscommand": {"dfnID":"cddl-type-settingssetsettingscommand","dfnText":"SettingsSetSettingsCommand","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-type-settingssetsettingscommand"}],"title":"7.2.1. Definition"}],"url":"#cddl-type-settingssetsettingscommand"},
+"cddl-type-settingssetsettingsparameters": {"dfnID":"cddl-type-settingssetsettingsparameters","dfnText":"SettingsSetSettingsParameters","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-type-settingssetsettingsparameters"}],"title":"7.2.3.1. The settings.setSettings Command"}],"url":"#cddl-type-settingssetsettingsparameters"},
+"cddl-type-settingssetsettingsparametersitem": {"dfnID":"cddl-type-settingssetsettingsparametersitem","dfnText":"SettingsSetSettingsParametersItem","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-type-settingssetsettingsparametersitem"}],"title":"7.2.3.1. The settings.setSettings Command"}],"url":"#cddl-type-settingssetsettingsparametersitem"},
+"cddl-value-errorresponse-error-invalid-argument": {"dfnID":"cddl-value-errorresponse-error-invalid-argument","dfnText":"\"invalid argument\"","external":false,"refSections":[],"url":"#cddl-value-errorresponse-error-invalid-argument"},
+"cddl-value-errorresponse-error-session-not-created": {"dfnID":"cddl-value-errorresponse-error-session-not-created","dfnText":"\"session not created\"","external":false,"refSections":[],"url":"#cddl-value-errorresponse-error-session-not-created"},
+"cddl-value-errorresponse-error-unknown-command": {"dfnID":"cddl-value-errorresponse-error-unknown-command","dfnText":"\"unknown command\"","external":false,"refSections":[],"url":"#cddl-value-errorresponse-error-unknown-command"},
+"cddl-value-errorresponse-error-unknown-error": {"dfnID":"cddl-value-errorresponse-error-unknown-error","dfnText":"\"unknown error\"","external":false,"refSections":[],"url":"#cddl-value-errorresponse-error-unknown-error"},
+"cddl-value-interactioncapturedoutputevent-method-interactioncapturedoutput": {"dfnID":"cddl-value-interactioncapturedoutputevent-method-interactioncapturedoutput","dfnText":"\"interaction.capturedOutput\"","external":false,"refSections":[],"url":"#cddl-value-interactioncapturedoutputevent-method-interactioncapturedoutput"},
+"cddl-value-interactionuserintentcommand-method-interactionuserintent": {"dfnID":"cddl-value-interactionuserintentcommand-method-interactionuserintent","dfnText":"\"interaction.userIntent\"","external":false,"refSections":[],"url":"#cddl-value-interactionuserintentcommand-method-interactionuserintent"},
+"cddl-value-presskeysintentparameters-name-presskeys": {"dfnID":"cddl-value-presskeysintentparameters-name-presskeys","dfnText":"\"pressKeys\"","external":false,"refSections":[],"url":"#cddl-value-presskeysintentparameters-name-presskeys"},
+"cddl-value-sessionnewcommand-method-sessionnew": {"dfnID":"cddl-value-sessionnewcommand-method-sessionnew","dfnText":"\"session.new\"","external":false,"refSections":[],"url":"#cddl-value-sessionnewcommand-method-sessionnew"},
+"cddl-value-settingsgetsettingscommand-method-settingsgetsettings": {"dfnID":"cddl-value-settingsgetsettingscommand-method-settingsgetsettings","dfnText":"\"settings.getSettings\"","external":false,"refSections":[],"url":"#cddl-value-settingsgetsettingscommand-method-settingsgetsettings"},
+"cddl-value-settingsgetsupportedsettingscommand-method-settingsgetsupportedsettings": {"dfnID":"cddl-value-settingsgetsupportedsettingscommand-method-settingsgetsupportedsettings","dfnText":"\"settings.getSupportedSettings\"","external":false,"refSections":[],"url":"#cddl-value-settingsgetsupportedsettingscommand-method-settingsgetsupportedsettings"},
+"cddl-value-settingssetsettingscommand-method-settingssetsettings": {"dfnID":"cddl-value-settingssetsettingscommand-method-settingssetsettings","dfnText":"\"settings.setSettings\"","external":false,"refSections":[],"url":"#cddl-value-settingssetsettingscommand-method-settingssetsettings"},
 "check-that-keyboard-interaction-can-be-simulated": {"dfnID":"check-that-keyboard-interaction-can-be-simulated","dfnText":"check that keyboard interaction can be simulated","external":false,"refSections":[{"refs":[{"id":"ref-for-check-that-keyboard-interaction-can-be-simulated"}],"title":"7.3. The Interaction Module"}],"url":"#check-that-keyboard-interaction-can-be-simulated"},
 "check-that-one-of-the-expected-applications-has-focus": {"dfnID":"check-that-one-of-the-expected-applications-has-focus","dfnText":"check that one of the expected applications has focus","external":false,"refSections":[{"refs":[{"id":"ref-for-check-that-one-of-the-expected-applications-has-focus"}],"title":"7.3. The Interaction Module"}],"url":"#check-that-one-of-the-expected-applications-has-focus"},
 "command": {"dfnID":"command","dfnText":"command","external":false,"refSections":[{"refs":[{"id":"ref-for-command"},{"id":"ref-for-command\u2460"},{"id":"ref-for-command\u2461"}],"title":"5.4. Modules"},{"refs":[{"id":"ref-for-command\u2462"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-command\u2463"},{"id":"ref-for-command\u2464"}],"title":"5.7. Errors"}],"url":"#command"},
 "command-name": {"dfnID":"command-name","dfnText":"command name","external":false,"refSections":[{"refs":[{"id":"ref-for-command-name"}],"title":"5.4. Modules"},{"refs":[{"id":"ref-for-command-name\u2460"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-command-name\u2461"},{"id":"ref-for-command-name\u2462"}],"title":"6. Transport"}],"url":"#command-name"},
 "command-parameters": {"dfnID":"command-parameters","dfnText":"command parameters","external":false,"refSections":[{"refs":[{"id":"ref-for-command-parameters"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-command-parameters\u2460"}],"title":"6. Transport"}],"url":"#command-parameters"},
 "command-type": {"dfnID":"command-type","dfnText":"command type","external":false,"refSections":[{"refs":[{"id":"ref-for-command-type"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-command-type\u2460"}],"title":"7.2.3.1. The settings.setSettings Command"},{"refs":[{"id":"ref-for-command-type\u2461"}],"title":"7.2.3.2. The settings.getSettings Command"},{"refs":[{"id":"ref-for-command-type\u2462"}],"title":"7.2.3.3. The settings.getSupportedSettings Command"},{"refs":[{"id":"ref-for-command-type\u2463"}],"title":"7.3.3.1. The interaction.userIntent Command"}],"url":"#command-type"},
+"ef593226": {"dfnID":"ef593226","dfnText":"any","external":true,"refSections":[{"refs":[{"id":"ref-for-appendix-D"},{"id":"ref-for-appendix-D\u2460"},{"id":"ref-for-appendix-D\u2461"},{"id":"ref-for-appendix-D\u2462"},{"id":"ref-for-appendix-D\u2463"},{"id":"ref-for-appendix-D\u2464"},{"id":"ref-for-appendix-D\u2465"},{"id":"ref-for-appendix-D\u2466"}],"title":"5.1. Definition"},{"refs":[{"id":"ref-for-appendix-D\u2467"},{"id":"ref-for-appendix-D\u2468"},{"id":"ref-for-appendix-D\u2460\u24ea"}],"title":"7.1.2.1. The session.CapabilitiesRequest Type"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2460"},{"id":"ref-for-appendix-D\u2460\u2461"},{"id":"ref-for-appendix-D\u2460\u2462"},{"id":"ref-for-appendix-D\u2460\u2463"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2464"},{"id":"ref-for-appendix-D\u2460\u2465"}],"title":"7.2.2.1. The SettingsGetSettingsResult type"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2466"},{"id":"ref-for-appendix-D\u2460\u2467"}],"title":"7.2.3.1. The settings.setSettings Command"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2468"}],"title":"7.2.3.2. The settings.getSettings Command"},{"refs":[{"id":"ref-for-appendix-D\u2461\u24ea"}],"title":"7.3.2. Types"},{"refs":[{"id":"ref-for-appendix-D\u2461\u2460"},{"id":"ref-for-appendix-D\u2461\u2461"}],"title":"7.3.3.1. The interaction.userIntent Command"}],"url":"https://www.rfc-editor.org/rfc/rfc8610#appendix-D"},
 "emit-an-event": {"dfnID":"emit-an-event","dfnText":"emit an event","external":false,"refSections":[{"refs":[{"id":"ref-for-emit-an-event"}],"title":"7.3.4.1. The interaction.capturedOutput Event"}],"url":"#emit-an-event"},
 "error": {"dfnID":"error","dfnText":"error","external":false,"refSections":[{"refs":[{"id":"ref-for-error"},{"id":"ref-for-error\u2460"}],"title":"3. Infrastructure"},{"refs":[{"id":"ref-for-error\u2461"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-error\u2462"},{"id":"ref-for-error\u2463"}],"title":"5.8. Security checks"},{"refs":[{"id":"ref-for-error\u2464"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-error\u2465"},{"id":"ref-for-error\u2466"},{"id":"ref-for-error\u2467"},{"id":"ref-for-error\u2468"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-error\u2460\u24ea"},{"id":"ref-for-error\u2460\u2460"},{"id":"ref-for-error\u2460\u2461"}],"title":"7.2. The settings Module"},{"refs":[{"id":"ref-for-error\u2460\u2462"}],"title":"7.3.3.1. The interaction.userIntent Command"}],"url":"#error"},
 "error-code": {"dfnID":"error-code","dfnText":"error code","external":false,"refSections":[{"refs":[{"id":"ref-for-error-code"}],"title":"3. Infrastructure"},{"refs":[{"id":"ref-for-error-code\u2460"},{"id":"ref-for-error-code\u2461"}],"title":"5.8. Security checks"},{"refs":[{"id":"ref-for-error-code\u2462"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-error-code\u2463"},{"id":"ref-for-error-code\u2464"},{"id":"ref-for-error-code\u2465"}],"title":"7.2. The settings Module"},{"refs":[{"id":"ref-for-error-code\u2466"}],"title":"7.3.3.1. The interaction.userIntent Command"}],"url":"#error-code"},
@@ -2292,7 +2949,6 @@ let dfnPanelData = {
 "handle-an-incoming-message": {"dfnID":"handle-an-incoming-message","dfnText":"handle an incoming message","external":false,"refSections":[{"refs":[{"id":"ref-for-handle-an-incoming-message"}],"title":"6. Transport"}],"url":"#handle-an-incoming-message"},
 "interactionuserintent": {"dfnID":"interactionuserintent","dfnText":"interaction.userIntent","external":false,"refSections":[],"url":"#interactionuserintent"},
 "local-end": {"dfnID":"local-end","dfnText":"local end","external":false,"refSections":[{"refs":[{"id":"ref-for-local-end"},{"id":"ref-for-local-end\u2460"}],"title":"5. Protocol"},{"refs":[{"id":"ref-for-local-end\u2461"}],"title":"5.2. Capabilities"},{"refs":[{"id":"ref-for-local-end\u2462"}],"title":"5.3. Session"},{"refs":[{"id":"ref-for-local-end\u2463"},{"id":"ref-for-local-end\u2464"},{"id":"ref-for-local-end\u2465"},{"id":"ref-for-local-end\u2466"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-local-end\u2467"}],"title":"5.6. Events"}],"url":"#local-end"},
-"local-end-definition": {"dfnID":"local-end-definition","dfnText":"local end definition","external":false,"refSections":[{"refs":[{"id":"ref-for-local-end-definition"},{"id":"ref-for-local-end-definition\u2460"}],"title":"5.1. Definition"},{"refs":[{"id":"ref-for-local-end-definition\u2461"}],"title":"5.4. Modules"},{"refs":[{"id":"ref-for-local-end-definition\u2462"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-local-end-definition\u2463"}],"title":"5.6. Events"},{"refs":[{"id":"ref-for-local-end-definition\u2464"},{"id":"ref-for-local-end-definition\u2465"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-local-end-definition\u2466"}],"title":"7.1.1. Definition"},{"refs":[{"id":"ref-for-local-end-definition\u2467"}],"title":"7.1.2.1. The session.CapabilitiesRequest Type"},{"refs":[{"id":"ref-for-local-end-definition\u2468"}],"title":"7.2. The settings Module"},{"refs":[{"id":"ref-for-local-end-definition\u2460\u24ea"}],"title":"7.2.1. Definition"},{"refs":[{"id":"ref-for-local-end-definition\u2460\u2460"}],"title":"7.2.2.1. The SettingsGetSettingsResult type"},{"refs":[{"id":"ref-for-local-end-definition\u2460\u2461"}],"title":"7.3.1. Definition"},{"refs":[{"id":"ref-for-local-end-definition\u2460\u2462"}],"title":"Appendix A: Schemas"}],"url":"#local-end-definition"},
 "match-capabilities": {"dfnID":"match-capabilities","dfnText":"match capabilities","external":false,"refSections":[{"refs":[{"id":"ref-for-match-capabilities"}],"title":"5.2. Capabilities"}],"url":"#match-capabilities"},
 "modify-setting": {"dfnID":"modify-setting","dfnText":"modify setting","external":false,"refSections":[{"refs":[{"id":"ref-for-modify-setting"}],"title":"7.2.3.1. The settings.setSettings Command"}],"url":"#modify-setting"},
 "module": {"dfnID":"module","dfnText":"module","external":false,"refSections":[{"refs":[{"id":"ref-for-module"}],"title":"2. Explainer"},{"refs":[{"id":"ref-for-module\u2460"},{"id":"ref-for-module\u2461"}],"title":"7.2. The settings Module"}],"url":"#module"},
@@ -2302,7 +2958,6 @@ let dfnPanelData = {
 "remote-end": {"dfnID":"remote-end","dfnText":"remote end","external":false,"refSections":[{"refs":[{"id":"ref-for-remote-end"},{"id":"ref-for-remote-end\u2460"}],"title":"5. Protocol"},{"refs":[{"id":"ref-for-remote-end\u2461"},{"id":"ref-for-remote-end\u2462"},{"id":"ref-for-remote-end\u2463"},{"id":"ref-for-remote-end\u2464"},{"id":"ref-for-remote-end\u2465"},{"id":"ref-for-remote-end\u2466"}],"title":"5.2. Capabilities"},{"refs":[{"id":"ref-for-remote-end\u2467"},{"id":"ref-for-remote-end\u2468"}],"title":"5.3. Session"},{"refs":[{"id":"ref-for-remote-end\u2460\u24ea"},{"id":"ref-for-remote-end\u2460\u2460"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-remote-end\u2460\u2461"},{"id":"ref-for-remote-end\u2460\u2462"}],"title":"5.6. Events"},{"refs":[{"id":"ref-for-remote-end\u2460\u2463"},{"id":"ref-for-remote-end\u2460\u2464"}],"title":"5.7. Errors"},{"refs":[{"id":"ref-for-remote-end\u2460\u2465"}],"title":"5.8. Security checks"},{"refs":[{"id":"ref-for-remote-end\u2460\u2466"},{"id":"ref-for-remote-end\u2460\u2467"},{"id":"ref-for-remote-end\u2460\u2468"},{"id":"ref-for-remote-end\u2461\u24ea"},{"id":"ref-for-remote-end\u2461\u2460"},{"id":"ref-for-remote-end\u2461\u2461"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-remote-end\u2461\u2462"},{"id":"ref-for-remote-end\u2461\u2463"}],"title":"7.2. The settings Module"},{"refs":[{"id":"ref-for-remote-end\u2461\u2464"}],"title":"7.2.3.3. The settings.getSupportedSettings Command"},{"refs":[{"id":"ref-for-remote-end\u2461\u2465"}],"title":"7.3. The Interaction Module"},{"refs":[{"id":"ref-for-remote-end\u2461\u2466"}],"title":"8. Privacy"}],"url":"#remote-end"},
 "remote-end-active-listeners": {"dfnID":"remote-end-active-listeners","dfnText":"active listeners","external":false,"refSections":[{"refs":[{"id":"ref-for-remote-end-active-listeners"},{"id":"ref-for-remote-end-active-listeners\u2460"}],"title":"6. Transport"}],"url":"#remote-end-active-listeners"},
 "remote-end-active-sessions": {"dfnID":"remote-end-active-sessions","dfnText":"active sessions","external":false,"refSections":[{"refs":[{"id":"ref-for-remote-end-active-sessions"}],"title":"5.3. Session"},{"refs":[{"id":"ref-for-remote-end-active-sessions\u2460"},{"id":"ref-for-remote-end-active-sessions\u2461"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-remote-end-active-sessions\u2462"},{"id":"ref-for-remote-end-active-sessions\u2463"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-remote-end-active-sessions\u2464"}],"title":"7.3.4.1. The interaction.capturedOutput Event"}],"url":"#remote-end-active-sessions"},
-"remote-end-definition": {"dfnID":"remote-end-definition","dfnText":"remote end definition","external":false,"refSections":[{"refs":[{"id":"ref-for-remote-end-definition"},{"id":"ref-for-remote-end-definition\u2460"}],"title":"5.1. Definition"},{"refs":[{"id":"ref-for-remote-end-definition\u2461"},{"id":"ref-for-remote-end-definition\u2462"}],"title":"5.4. Modules"},{"refs":[{"id":"ref-for-remote-end-definition\u2463"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-remote-end-definition\u2464"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-remote-end-definition\u2465"}],"title":"7.1.1. Definition"},{"refs":[{"id":"ref-for-remote-end-definition\u2466"}],"title":"7.1.2.1. The session.CapabilitiesRequest Type"},{"refs":[{"id":"ref-for-remote-end-definition\u2467"}],"title":"7.2.1. Definition"},{"refs":[{"id":"ref-for-remote-end-definition\u2468"}],"title":"7.3.1. Definition"},{"refs":[{"id":"ref-for-remote-end-definition\u2460\u24ea"}],"title":"Appendix A: Schemas"}],"url":"#remote-end-definition"},
 "remote-end-event-trigger": {"dfnID":"remote-end-event-trigger","dfnText":"remote end event trigger","external":false,"refSections":[{"refs":[{"id":"ref-for-remote-end-event-trigger"}],"title":"7.3.4.1. The interaction.capturedOutput Event"}],"url":"#remote-end-event-trigger"},
 "remote-end-steps": {"dfnID":"remote-end-steps","dfnText":"remote end steps","external":false,"refSections":[{"refs":[{"id":"ref-for-remote-end-steps"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-remote-end-steps\u2460"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-remote-end-steps\u2461"}],"title":"7.2.3.1. The settings.setSettings Command"},{"refs":[{"id":"ref-for-remote-end-steps\u2462"}],"title":"7.2.3.2. The settings.getSettings Command"},{"refs":[{"id":"ref-for-remote-end-steps\u2463"}],"title":"7.2.3.3. The settings.getSupportedSettings Command"},{"refs":[{"id":"ref-for-remote-end-steps\u2464"}],"title":"7.3.3.1. The interaction.userIntent Command"}],"url":"#remote-end-steps"},
 "remote-end-supported-settings": {"dfnID":"remote-end-supported-settings","dfnText":"supported settings","external":false,"refSections":[{"refs":[{"id":"ref-for-remote-end-supported-settings"},{"id":"ref-for-remote-end-supported-settings\u2460"}],"title":"7.2. The settings Module"},{"refs":[{"id":"ref-for-remote-end-supported-settings\u2461"},{"id":"ref-for-remote-end-supported-settings\u2462"}],"title":"7.2.3.3. The settings.getSupportedSettings Command"}],"url":"#remote-end-supported-settings"},
@@ -2724,6 +3379,43 @@ function genLinkingSyntaxes(dfn) {
 "use strict";
 {
 let refsData = {
+"#cddl-module-local-end-definition": {"displayText":"Local end definition","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"Local end definition","type":"cddl-module","url":"#cddl-module-local-end-definition"},
+"#cddl-module-remote-end-definition": {"displayText":"Remote end definition","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"Remote end definition","type":"cddl-module","url":"#cddl-module-remote-end-definition"},
+"#cddl-type-capabilitiesrequest": {"displayText":"CapabilitiesRequest","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"CapabilitiesRequest","type":"cddl-type","url":"#cddl-type-capabilitiesrequest"},
+"#cddl-type-capabilitiesrequestparameters": {"displayText":"CapabilitiesRequestParameters","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"CapabilitiesRequestParameters","type":"cddl-type","url":"#cddl-type-capabilitiesrequestparameters"},
+"#cddl-type-commanddata": {"displayText":"CommandData","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"CommandData","type":"cddl-type","url":"#cddl-type-commanddata"},
+"#cddl-type-commandresponse": {"displayText":"CommandResponse","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"CommandResponse","type":"cddl-type","url":"#cddl-type-commandresponse"},
+"#cddl-type-emptyparams": {"displayText":"EmptyParams","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"EmptyParams","type":"cddl-type","url":"#cddl-type-emptyparams"},
+"#cddl-type-emptyresult": {"displayText":"EmptyResult","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"EmptyResult","type":"cddl-type","url":"#cddl-type-emptyresult"},
+"#cddl-type-errorresponse": {"displayText":"ErrorResponse","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"ErrorResponse","type":"cddl-type","url":"#cddl-type-errorresponse"},
+"#cddl-type-event": {"displayText":"Event","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"Event","type":"cddl-type","url":"#cddl-type-event"},
+"#cddl-type-eventdata": {"displayText":"EventData","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"EventData","type":"cddl-type","url":"#cddl-type-eventdata"},
+"#cddl-type-extensible": {"displayText":"Extensible","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"Extensible","type":"cddl-type","url":"#cddl-type-extensible"},
+"#cddl-type-extensionintentparameters": {"displayText":"ExtensionIntentParameters","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"ExtensionIntentParameters","type":"cddl-type","url":"#cddl-type-extensionintentparameters"},
+"#cddl-type-interactioncapturedoutputevent": {"displayText":"InteractionCapturedOutputEvent","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"InteractionCapturedOutputEvent","type":"cddl-type","url":"#cddl-type-interactioncapturedoutputevent"},
+"#cddl-type-interactioncapturedoutputparameters": {"displayText":"InteractionCapturedOutputParameters","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"InteractionCapturedOutputParameters","type":"cddl-type","url":"#cddl-type-interactioncapturedoutputparameters"},
+"#cddl-type-interactioncommand": {"displayText":"InteractionCommand","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"InteractionCommand","type":"cddl-type","url":"#cddl-type-interactioncommand"},
+"#cddl-type-interactionevent": {"displayText":"InteractionEvent","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"InteractionEvent","type":"cddl-type","url":"#cddl-type-interactionevent"},
+"#cddl-type-interactionuserintentcommand": {"displayText":"InteractionUserIntentCommand","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"InteractionUserIntentCommand","type":"cddl-type","url":"#cddl-type-interactionuserintentcommand"},
+"#cddl-type-interactionuserintentparameters": {"displayText":"InteractionUserIntentParameters","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"InteractionUserIntentParameters","type":"cddl-type","url":"#cddl-type-interactionuserintentparameters"},
+"#cddl-type-keycombination": {"displayText":"KeyCombination","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"KeyCombination","type":"cddl-type","url":"#cddl-type-keycombination"},
+"#cddl-type-presskeysintentparameters": {"displayText":"PressKeysIntentParameters","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"PressKeysIntentParameters","type":"cddl-type","url":"#cddl-type-presskeysintentparameters"},
+"#cddl-type-resultdata": {"displayText":"ResultData","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"ResultData","type":"cddl-type","url":"#cddl-type-resultdata"},
+"#cddl-type-sessioncommand": {"displayText":"SessionCommand","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"SessionCommand","type":"cddl-type","url":"#cddl-type-sessioncommand"},
+"#cddl-type-sessionnewcommand": {"displayText":"SessionNewCommand","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"SessionNewCommand","type":"cddl-type","url":"#cddl-type-sessionnewcommand"},
+"#cddl-type-sessionnewresult": {"displayText":"SessionNewResult","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"SessionNewResult","type":"cddl-type","url":"#cddl-type-sessionnewresult"},
+"#cddl-type-sessionresult": {"displayText":"SessionResult","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"SessionResult","type":"cddl-type","url":"#cddl-type-sessionresult"},
+"#cddl-type-settingscommand": {"displayText":"SettingsCommand","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"SettingsCommand","type":"cddl-type","url":"#cddl-type-settingscommand"},
+"#cddl-type-settingsgetsettingscommand": {"displayText":"SettingsGetSettingsCommand","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"SettingsGetSettingsCommand","type":"cddl-type","url":"#cddl-type-settingsgetsettingscommand"},
+"#cddl-type-settingsgetsettingsparameters": {"displayText":"SettingsGetSettingsParameters","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"SettingsGetSettingsParameters","type":"cddl-type","url":"#cddl-type-settingsgetsettingsparameters"},
+"#cddl-type-settingsgetsettingsparametersitem": {"displayText":"SettingsGetSettingsParametersItem","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"SettingsGetSettingsParametersItem","type":"cddl-type","url":"#cddl-type-settingsgetsettingsparametersitem"},
+"#cddl-type-settingsgetsettingsresult": {"displayText":"SettingsGetSettingsResult","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"SettingsGetSettingsResult","type":"cddl-type","url":"#cddl-type-settingsgetsettingsresult"},
+"#cddl-type-settingsgetsettingsresultitem": {"displayText":"SettingsGetSettingsResultItem","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"SettingsGetSettingsResultItem","type":"cddl-type","url":"#cddl-type-settingsgetsettingsresultitem"},
+"#cddl-type-settingsgetsupportedsettingscommand": {"displayText":"SettingsGetSupportedSettingsCommand","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"SettingsGetSupportedSettingsCommand","type":"cddl-type","url":"#cddl-type-settingsgetsupportedsettingscommand"},
+"#cddl-type-settingsresult": {"displayText":"SettingsResult","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"SettingsResult","type":"cddl-type","url":"#cddl-type-settingsresult"},
+"#cddl-type-settingssetsettingscommand": {"displayText":"SettingsSetSettingsCommand","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"SettingsSetSettingsCommand","type":"cddl-type","url":"#cddl-type-settingssetsettingscommand"},
+"#cddl-type-settingssetsettingsparameters": {"displayText":"SettingsSetSettingsParameters","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"SettingsSetSettingsParameters","type":"cddl-type","url":"#cddl-type-settingssetsettingsparameters"},
+"#cddl-type-settingssetsettingsparametersitem": {"displayText":"SettingsSetSettingsParametersItem","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"SettingsSetSettingsParametersItem","type":"cddl-type","url":"#cddl-type-settingssetsettingsparametersitem"},
 "#check-that-keyboard-interaction-can-be-simulated": {"displayText":"check that keyboard interaction can be simulated","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"check that keyboard interaction can be simulated","type":"dfn","url":"#check-that-keyboard-interaction-can-be-simulated"},
 "#check-that-one-of-the-expected-applications-has-focus": {"displayText":"check that one of the expected applications has focus","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"check that one of the expected applications has focus","type":"dfn","url":"#check-that-one-of-the-expected-applications-has-focus"},
 "#command": {"displayText":"command","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"command","type":"dfn","url":"#command"},
@@ -2750,7 +3442,6 @@ let refsData = {
 "#handle-a-connection-closing": {"displayText":"handle a connection closing","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"handle a connection closing","type":"dfn","url":"#handle-a-connection-closing"},
 "#handle-an-incoming-message": {"displayText":"handle an incoming message","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"handle an incoming message","type":"dfn","url":"#handle-an-incoming-message"},
 "#local-end": {"displayText":"local end","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"local end","type":"dfn","url":"#local-end"},
-"#local-end-definition": {"displayText":"local end definition","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"local end definition","type":"dfn","url":"#local-end-definition"},
 "#match-capabilities": {"displayText":"match capabilities","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"match capabilities","type":"dfn","url":"#match-capabilities"},
 "#modify-setting": {"displayText":"modify setting","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"modify setting","type":"dfn","url":"#modify-setting"},
 "#module": {"displayText":"module","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"module","type":"dfn","url":"#module"},
@@ -2760,7 +3451,6 @@ let refsData = {
 "#remote-end": {"displayText":"remote end","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"remote end","type":"dfn","url":"#remote-end"},
 "#remote-end-active-listeners": {"displayText":"active listeners","export":true,"for_":["remote end"],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"active listeners","type":"dfn","url":"#remote-end-active-listeners"},
 "#remote-end-active-sessions": {"displayText":"active sessions","export":true,"for_":["remote end"],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"active sessions","type":"dfn","url":"#remote-end-active-sessions"},
-"#remote-end-definition": {"displayText":"remote end definition","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"remote end definition","type":"dfn","url":"#remote-end-definition"},
 "#remote-end-event-trigger": {"displayText":"remote end event trigger","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"remote end event trigger","type":"dfn","url":"#remote-end-event-trigger"},
 "#remote-end-steps": {"displayText":"remote end steps","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"remote end steps","type":"dfn","url":"#remote-end-steps"},
 "#remote-end-supported-settings": {"displayText":"supported settings","export":true,"for_":["remote end"],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"supported settings","type":"dfn","url":"#remote-end-supported-settings"},
@@ -2807,6 +3497,7 @@ let refsData = {
 "https://infra.spec.whatwg.org/#serialize-an-infra-value-to-json-bytes": {"displayText":"serialize an Infra value to JSON bytes","export":true,"for_":[],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"serialize an infra value to json bytes","type":"dfn","url":"https://infra.spec.whatwg.org/#serialize-an-infra-value-to-json-bytes"},
 "https://infra.spec.whatwg.org/#set-append": {"displayText":"append","export":true,"for_":["set"],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"append","type":"dfn","url":"https://infra.spec.whatwg.org/#set-append"},
 "https://infra.spec.whatwg.org/#string": {"displayText":"string","export":true,"for_":[],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"string","type":"dfn","url":"https://infra.spec.whatwg.org/#string"},
+"https://www.rfc-editor.org/rfc/rfc8610#appendix-D": {"displayText":"uint","export":true,"for_":[],"level":"1","normative":true,"shortname":"rfc8610","spec":"rfc8610","status":"current","text":"uint","type":"cddl-type","url":"https://www.rfc-editor.org/rfc/rfc8610#appendix-D"},
 };
 
 function mkRefHint(link, ref) {
@@ -2888,7 +3579,12 @@ function hideRefHint(refHint) {
 function showRefHint(link) {
     if(link.classList.contains("dfn-link")) return;
     const url = link.getAttribute("href");
-    const ref = refsData[url];
+    const refHintKey = link.getAttribute("data-refhint-key");
+    let key = url;
+    if(refHintKey) {
+        key = refHintKey + "_" + url;
+    }
+    const ref = refsData[key];
     if(!ref) return;
 
     hideAllRefHints(); // Only display one at this time.
