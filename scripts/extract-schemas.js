@@ -16,13 +16,13 @@ const formatCddl = cddl => cddl.join('\n\n').trim() + '\n';
 
 const extractCddlFromSpec = async () => {
   const source = await fs.readFile('index.bs', { encoding: 'utf8' });
-  const matches = [...source.matchAll(/^([ \t]*)<(?:pre|xmp) class=['"]cddl((?: [a-zA-Z0-9_-]+)+)['"]>([\s\S]*?)<\/(?:pre|xmp)>/gm)];
+  const matches = [...source.matchAll(/^([ \t]*)<(?:pre|xmp) class=['"]cddl['"] data-cddl-module=['"]((?:[a-zA-Z0-9_,-]+)+)['"]>([\s\S]*?)<\/(?:pre|xmp)>/gm)];
 
   const [local, remote] = matches.reduce(([local, remote], match) => {
-    const [_, indentation, cssClass, content] = match;
+    const [_, indentation, cddlModules, content] = match;
 
-    let isLocal = cssClass.indexOf(' local-cddl') > -1;
-    let isRemote = cssClass.indexOf(' remote-cddl') > -1;
+    let isLocal = cddlModules.indexOf('local-cddl') > -1;
+    let isRemote = cddlModules.indexOf('remote-cddl') > -1;
 
     if (!isLocal && !isRemote) {
       return [local, remote];
