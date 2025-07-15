@@ -39,9 +39,11 @@ table td, table th { border-left: solid; border-right: solid; border-bottom: sol
 </style>
 
 <pre class=anchors>
-spec: HTML; urlPrefix: https://html.spec.whatwg.org/multipage/
+spec: CORE-AAM; urlPrefix: https://w3c.github.io/core-aam/
     type: dfn
-        text: focused area of the document; url: document-sequences.html#focused-area-of-the-document
+        text: focused state; url: #focus_state_event_table
+    type: dfn
+        text: default action; url: #mapping_actions
 </pre>
 
 Introduction {#intro}
@@ -355,6 +357,10 @@ The following table lists each <dfn>error code</dfn>, its associated JSON `error
     <td><dfn for="error code">invalid OS focus state</dfn>
     <td>`invalid OS focus state`
     <td>The application that currently has OS focus is not one of the expected applications.
+  <tr>
+    <td><dfn for="error code">no focused accessible object</dfn>
+    <td>`no focused accessible object`
+    <td>The accessibility tree does not contain an accessible object which has focus.
 </table>
 
 Security checks {#security-checks}
@@ -851,11 +857,6 @@ The following <dfn>table of standard user intents</dfn> enumerates the user inte
 
 A [=remote end=] has a <dfn for="remote end">table of extension user intents</dfn>, which is a mapping of zero or more string names of user intents and algorithms for simulating the named intents. Extension user intents' names must contain a "`:`" (colon) character, denoting an implementation specific namespace.
 
-A [=remote end=] has a <dfn for="remote end">virtual cursor</dfn>, which describes the location of the user's focus.
-
-Note: The [=virtual cursor=] is not necessarily synchronized with any given
-applications' concept of "focus" (e.g. [=focused area of the document=]).
-
 <div algorithm>
 
 Note: Each string in `KeyCombination` represents a "raw key" consisting of a
@@ -885,18 +886,36 @@ To <dfn>press keys</dfn> given |command parameters|:
 
 <div algorithm>
 
-Note: Remote ends which do not implement [=press keys=] might choose to
-implement other intents to facilitate navigation. Such implementations could
-possibly meet clients' needs for traversal and basic interaction, but they
-would be unable to facilitate the filling of form fields. For clients of such
-implementations who are targeting web applications, the following intent could
-be used in conjunction with the keyboard simulation faculties of [[WEBDRIVER]]
-or [[WEBDRIVER-BIDI]] in order to meet such needs.
+Note: Remote ends which do not implement [=press keys=] may instead choose to
+implement other user intents to facilitate document traversal. Such
+implementations could possibly meet clients' needs for traversal and basic
+interaction, but they would be unable to facilitate the filling of form fields.
+For clients of such implementations who are targeting web applications, the
+following user intent could be used in conjunction with the keyboard simulation
+faculties of [[WEBDRIVER]] or [[WEBDRIVER-BIDI]] in order to meet such needs.
 
 To <dfn>activate element</dfn> given <var ignore>command parameters</var>:
 
-1. Perform the default action for the item in the [=virtual cursor=].
-2. Return [=success=] with data null.
+1. Let |focused| be the result of [=find the focused accessible object=] with the
+    [=accessibility tree=].
+2. If |focused| is null:
+    1. Return an [=error=] with [=error code=] [=no focused accessible object=].
+3. Perform the [=default action=] for |focused|.
+4. Return [=success=] with data null.
+
+</div>
+
+<div algorithm>
+
+To <dfn>find the focused accessible object</dfn> in a given accessibility subtree <var>subtree</var>:
+
+1. If the root of |subtree| is in the [=focused state=]:
+    1. Return |subtree|.
+2. [=list/For each=] descendent |descendent| of |subtree|:
+    1. Let |result| be the result of [=find the focused accessible object=] in |descendent|.
+    2. If |result| is an [=accessible object=]:
+        1. Return |result|.
+3. Return null.
 
 </div>
 
