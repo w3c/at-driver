@@ -1105,8 +1105,11 @@ The [=remote end steps=] given <var ignore>session</var> and |command parameters
 </div>
 
 <div class="example">
-A [=local end=] that wishes to simulate pressing the <kbd>h</kbd> key might
-send a Command such as:
+A [=local end=] that wishes to simulate pressing
+<kbd><kbd>Control</kbd>+<kbd>h</kbd></kbd> (or, stated more formally:
+depressing the <kbd>Control</kbd> key, depressing the <kbd>h</kbd> key,
+releasing the <kbd>h</kbd> key, and finally releasing the <kbd>Control</kbd>
+key) might send a Command such as:
 
 ```json
 {
@@ -1114,7 +1117,7 @@ send a Command such as:
   "method": "interaction.userIntent",
   "params": {
     "name": "pressKeys",
-    "keys": ["h"]
+    "keys": ["\uE009", "h"]
   }
 }
 ```
