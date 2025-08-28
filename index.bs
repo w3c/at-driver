@@ -36,6 +36,13 @@ table thead, table tbody { border-bottom: solid; }
 table tbody th { text-align: left; }
 table tbody th:first-child { border-left: solid; }
 table td, table th { border-left: solid; border-right: solid; border-bottom: solid thin; vertical-align: top; padding: 0.2em; }
+
+kbd:not(:has(kbd)) {
+  border-radius: 0.2em;
+  padding: 0.2em;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.05);
+}
 </style>
 
 Introduction {#intro}
