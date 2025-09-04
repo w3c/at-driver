@@ -5,10 +5,10 @@
   <title>AT Driver</title>
   <meta content="ED" name="w3c-status">
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
-  <meta content="Bikeshed version 275834c42, updated Wed Jun 11 14:18:15 2025 -0700" name="generator">
+  <meta content="Bikeshed version 3f621ba99, updated Mon Jul 28 15:38:36 2025 -0700" name="generator">
   <link href="https://w3c.github.io/at-driver/" rel="canonical">
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
-  <meta content="2815f8bd81165a88631178433ea881ae694b7c41" name="revision">
+  <meta content="3e15ec4aeee6fab7010664e46cc84c989a74b314" name="revision">
   <meta content="dark light" name="color-scheme">
   <link href="https://www.w3.org/StyleSheets/TR/2021/dark.css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css">
 <style>
@@ -24,6 +24,13 @@ table thead, table tbody { border-bottom: solid; }
 table tbody th { text-align: left; }
 table tbody th:first-child { border-left: solid; }
 table td, table th { border-left: solid; border-right: solid; border-bottom: solid thin; vertical-align: top; padding: 0.2em; }
+
+kbd:not(:has(kbd)) {
+  border-radius: 0.2em;
+  padding: 0.2em;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.05);
+}
 </style>
 <style>/* Boilerplate: style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
@@ -757,7 +764,7 @@ var[data-var-color="6"] { --var-vg: #FFBCF2; }
 </p>
    <h1 class="p-name no-ref" id="title">AT Driver</h1>
    <p id="w3c-state"><a href="https://www.w3.org/standards/types/#ED">Editor’s Draft</a>,
-    <time class="dt-updated" datetime="2025-06-24">24 June 2025</time></p>
+    <time class="dt-updated" datetime="2025-09-04">4 September 2025</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -786,7 +793,7 @@ var[data-var-color="6"] { --var-vg: #FFBCF2; }
   <h2 class="no-num no-toc no-ref heading settled" id="sotd"><span class="content">Status of this document</span></h2>
   <div data-fill-with="status">
    <p>
-  <em>This section describes the status of this document at the time of its publication. A list of current <abbr title="World Wide Web Consortium">W3C</abbr> publications and the latest revision of this technical report can be found in the <a href="https://www.w3.org/TR/"><abbr title="World Wide Web Consortium">W3C</abbr> standards and drafts index</a> at https://www.w3.org/TR/.</em>
+  <em>This section describes the status of this document at the time of its publication. A list of current <abbr title="World Wide Web Consortium">W3C</abbr> publications and the latest revision of this technical report can be found in the <a href="https://www.w3.org/TR/"><abbr title="World Wide Web Consortium">W3C</abbr> standards and drafts index</a>.</em>
 </p>
    <p>
   <a href="https://github.com/w3c/at-driver/issues">GitHub Issues</a> are preferred for discussion of this specification. Alternatively, you can send comments to the Browser Testing and Tools Working Group’s mailing list, <a href="mailto:public-browser-tools-testing@w3.org">public-browser-tools-testing@w3.org</a> (<a href="https://lists.w3.org/Archives/Public/public-browser-tools-testing/">archives</a>).
@@ -800,14 +807,14 @@ var[data-var-color="6"] { --var-vg: #FFBCF2; }
 </p>
    <p>
   This is a draft document and may be updated, replaced, or obsoleted by other documents at any time.
-  It is inappropriate to cite this document as other than work in progress.
+  It is inappropriate to cite this document as other than a work in progress.
 </p>
    <p>
   This document was produced by a group operating under the <a class="css" data-link-type="property" href="https://www.w3.org/policies/patent-policy/" id="sotd_patent">W3C Patent Policy</a>.
-  <abbr title="World Wide Web Consortium">W3C</abbr> maintains a <a href="https://www.w3.org/groups/wg/browser-tools-testing/ipr/" rel="disclosure">public list of any patent disclosures</a> made in connection with the deliverables of the group; that page also includes instructions for disclosing a patent. An individual who has actual knowledge of a patent which the individual believes contains <a href="https://www.w3.org/policies/patent-policy/#def-essential">Essential Claim(s)</a> must disclose the information in accordance with <a href="https://www.w3.org/policies/patent-policy/#sec-Disclosure">section 6 of the <abbr title="World Wide Web Consortium">W3C</abbr> Patent Policy</a>.
+  <abbr title="World Wide Web Consortium">W3C</abbr> maintains a <a href="https://www.w3.org/groups/wg/browser-tools-testing/ipr/" rel="disclosure">public list of any patent disclosures</a> made in connection with the deliverables of the group; that page also includes instructions for disclosing a patent. An individual who has actual knowledge of a patent that the individual believes contains <a href="https://www.w3.org/policies/patent-policy/#def-essential">Essential Claim(s)</a> must disclose the information in accordance with <a href="https://www.w3.org/policies/patent-policy/#sec-Disclosure">section 6 of the <abbr title="World Wide Web Consortium">W3C</abbr> Patent Policy</a>.
 </p>
    <p>
-  This document is governed by the <a href="https://www.w3.org/policies/process/20231103/" id="w3c_process_revision">03 November 2023 W3C Process Document</a>.
+  This document is governed by the <a href="https://www.w3.org/policies/process/20250818/" id="w3c_process_revision">18 August 2025 W3C Process Document</a>.
 </p>
    <p></p>
   </div>
@@ -1527,9 +1534,43 @@ and a <dfn class="dfn-paneled" data-dfn-for="WebSocket listener" data-dfn-type="
       <p>Return <a data-link-type="dfn" href="#success" id="ref-for-success⑧">success</a> with data <var>body</var>.</p>
     </ol>
    </div>
+   <div class="example" id="example-7c859f78">
+    <a class="self-link" href="#example-7c859f78"></a>
+A <a data-link-type="dfn" href="#local-end" id="ref-for-local-end⑨">local end</a> that wishes to create a new <a data-link-type="dfn" href="#session" id="ref-for-session①⑦">Session</a> which is furnished with
+an assistive technology named <code>NVDA</code> might send a Command such as:
+
+
+<pre class="language-json highlight"><c- p>{</c->
+  <c- f>"id"</c-><c- p>:</c-> <c- mi>24601</c-><c- p>,</c->
+  <c- f>"method"</c-><c- p>:</c-> <c- u>"session.new"</c-><c- p>,</c->
+  <c- f>"params"</c-><c- p>:</c-> <c- p>{</c->
+    <c- f>"capabilities"</c-><c- p>:</c-> <c- p>{</c->
+      <c- f>"alwaysMatch"</c-><c- p>:</c-> <c- p>{</c->
+        <c- f>"atName"</c-><c- p>:</c-> <c- u>"NVDA"</c-><c- p>,</c->
+        <c- f>"user-defined property"</c-><c- p>:</c-> <c- u>"user-defined value"</c->
+      <c- p>}</c->
+    <c- p>}</c->
+  <c- p>}</c->
+<c- p>}</c->
+</pre>
+    <p>And the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②③">remote end</a> which receives that Command could respond with the
+following Message:</p>
+<pre class="language-json highlight"><c- p>{</c->
+  <c- f>"id"</c-><c- p>:</c-> <c- mi>24601</c-><c- p>,</c->
+  <c- f>"result"</c-><c- p>:</c-> <c- p>{</c->
+    <c- f>"sessionId"</c-><c- p>:</c-> <c- u>"4f974515-cac5-4e45-9604-95d918116e83"</c-><c- p>,</c->
+    <c- f>"capabilities"</c-><c- p>:</c-> <c- p>{</c->
+      <c- f>"atName"</c-><c- p>:</c-> <c- u>"NVDA"</c-><c- p>,</c->
+      <c- f>"atVersion"</c-><c- p>:</c-> <c- u>"2025.1"</c-><c- p>,</c->
+      <c- f>"platformName"</c-><c- p>:</c-> <c- u>"Windows"</c->
+    <c- p>}</c->
+  <c- p>}</c->
+<c- p>}</c->
+</pre>
+   </div>
    <h3 class="heading settled" data-level="7.2" id="module-settings"><span class="secno">7.2. </span><span class="content">The settings Module</span><a class="self-link" href="#module-settings"></a></h3>
    <p>Currently, there are no standardized settings. Implementations are strongly encouraged to review the security implications of each setting they offer to end users, and only expose the settings that they deem safe. This specification does not define what constitutes a setting, but the settings module is designed to control user preferences such as the default voice, or the default rate of speech.</p>
-   <p>A <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②③">remote end</a> has an associated set of <dfn class="dfn-paneled" data-dfn-for="remote end" data-dfn-type="dfn" data-noexport id="remote-end-supported-settings">supported settings</dfn>, which is either null or a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-set" id="ref-for-ordered-set④">set</a> of strings which contains the name of every setting that may be referenced by this <a data-link-type="dfn" href="#module" id="ref-for-module①">module</a>.</p>
+   <p>A <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②④">remote end</a> has an associated set of <dfn class="dfn-paneled" data-dfn-for="remote end" data-dfn-type="dfn" data-noexport id="remote-end-supported-settings">supported settings</dfn>, which is either null or a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-set" id="ref-for-ordered-set④">set</a> of strings which contains the name of every setting that may be referenced by this <a data-link-type="dfn" href="#module" id="ref-for-module①">module</a>.</p>
    <div class="algorithm" data-algorithm="validate setting name">
     <p>To <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="validate-setting-name">validate setting name</dfn> given string <var>name</var>:</p>
     <ol>
@@ -1586,7 +1627,7 @@ and a <dfn class="dfn-paneled" data-dfn-for="WebSocket listener" data-dfn-type="
         <p>Return an <a data-link-type="dfn" href="#error" id="ref-for-error①①">error</a> with <a data-link-type="dfn" href="#error-code" id="ref-for-error-code⑤">error code</a> <a data-link-type="dfn" href="#error-code-invalid-argument" id="ref-for-error-code-invalid-argument④">invalid argument</a>.</p>
       </ol>
      <li data-md>
-      <p>Take any <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined⑧">implementation-defined</a> steps to change the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②④">remote end</a> setting named <var>name</var> to the value <var>value</var>.</p>
+      <p>Take any <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined⑧">implementation-defined</a> steps to change the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②⑤">remote end</a> setting named <var>name</var> to the value <var>value</var>.</p>
      <li data-md>
       <p>If there is any <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#implementation-defined" id="ref-for-implementation-defined⑨">implementation-defined</a> indication that the setting named <var>name</var> does not hold the value <var>value</var>:</p>
       <ol>
@@ -1677,6 +1718,37 @@ and a <dfn class="dfn-paneled" data-dfn-for="WebSocket listener" data-dfn-type="
       <p>Return <a data-link-type="dfn" href="#success" id="ref-for-success①②">success</a> with data <var>body</var>.</p>
     </ol>
    </div>
+   <div class="example" id="example-d4f3c6c0">
+    <a class="self-link" href="#example-d4f3c6c0"></a>
+A <a data-link-type="dfn" href="#local-end" id="ref-for-local-end①⓪">local end</a> that wishes to modify the value of settings named
+<code>readEntirePage</code> and <code>speed</code> might send a Command such as:
+
+
+<pre class="language-json highlight"><c- p>{</c->
+  <c- f>"id"</c-><c- p>:</c-> <c- mi>1776</c-><c- p>,</c->
+  <c- f>"method"</c-><c- p>:</c-> <c- u>"settings.setSettings"</c-><c- p>,</c->
+  <c- f>"params"</c-><c- p>:</c-> <c- p>{</c->
+    <c- f>"settings"</c-><c- p>:</c-> <c- p>[</c->
+      <c- p>{</c->
+        <c- f>"name"</c-><c- p>:</c-> <c- u>"readEntirePage"</c-><c- p>,</c->
+        <c- f>"value"</c-><c- p>:</c-> <c- kc>false</c->
+      <c- p>},</c->
+      <c- p>{</c->
+        <c- f>"name"</c-><c- p>:</c-> <c- u>"speed"</c-><c- p>,</c->
+        <c- f>"value"</c-><c- p>:</c-> <c- mf>0.8</c->
+      <c- p>}</c->
+    <c- p>]</c->
+  <c- p>}</c->
+<c- p>}</c->
+</pre>
+    <p>And the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②⑥">remote end</a> which receives that Command could respond with the
+following Message:</p>
+<pre class="language-json highlight"><c- p>{</c->
+  <c- f>"id"</c-><c- p>:</c-> <c- mi>1776</c-><c- p>,</c->
+  <c- f>"result"</c-><c- p>:</c-> <c- p>{}</c->
+<c- p>}</c->
+</pre>
+   </div>
    <h5 class="heading settled" data-level="7.2.3.2" id="command-settings-get-settings"><span class="secno">7.2.3.2. </span><span class="content">The settings.getSettings Command</span><a class="self-link" href="#command-settings-get-settings"></a></h5>
    <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="settingsgetsettings-command">settings.getSettings command</dfn> returns a list of the requested settings and their values.</p>
    <dl>
@@ -1712,8 +1784,49 @@ and a <dfn class="dfn-paneled" data-dfn-for="WebSocket listener" data-dfn-type="
       <p>Return the result of <a data-link-type="dfn" href="#get-settings" id="ref-for-get-settings">get settings</a> with <var>names</var>.</p>
     </ol>
    </div>
+   <div class="example" id="example-33730975">
+    <a class="self-link" href="#example-33730975"></a>
+A <a data-link-type="dfn" href="#local-end" id="ref-for-local-end①①">local end</a> that wishes to retrieve the value of settings named
+<code>virtualBuffers.passThroughAudioIndication</code> and <code>cursor</code> might send a Command
+such as:
+
+
+<pre class="language-json highlight"><c- p>{</c->
+  <c- f>"id"</c-><c- p>:</c-> <c- mi>8675309</c-><c- p>,</c->
+  <c- f>"method"</c-><c- p>:</c-> <c- u>"settings.getSettings"</c-><c- p>,</c->
+  <c- f>"params"</c-><c- p>:</c-> <c- p>{</c->
+    <c- f>"settings"</c-><c- p>:</c-> <c- p>[</c->
+      <c- p>{</c->
+        <c- f>"name"</c-><c- p>:</c-> <c- u>"virtualBuffers.passThroughAudioIndication"</c->
+      <c- p>},</c->
+      <c- p>{</c->
+        <c- f>"name"</c-><c- p>:</c-> <c- u>"cursor"</c->
+      <c- p>}</c->
+    <c- p>]</c->
+  <c- p>}</c->
+<c- p>}</c->
+</pre>
+    <p>And the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②⑦">remote end</a> which receives that Command could respond with the
+following Message:</p>
+<pre class="language-json highlight"><c- p>{</c->
+  <c- f>"id"</c-><c- p>:</c-> <c- mi>8675309</c-><c- p>,</c->
+  <c- f>"result"</c-><c- p>:</c-> <c- p>{</c->
+    <c- f>"settings"</c-><c- p>:</c-> <c- p>[</c->
+      <c- p>{</c->
+        <c- f>"name"</c-><c- p>:</c-> <c- u>"virtualBuffers.passThroughAudioIndication"</c-><c- p>,</c->
+        <c- f>"value"</c-><c- p>:</c-> <c- kc>true</c->
+      <c- p>},</c->
+      <c- p>{</c->
+        <c- f>"name"</c-><c- p>:</c-> <c- u>"cursor"</c-><c- p>,</c->
+        <c- f>"value"</c-><c- p>:</c-> <c- u>"VPC"</c->
+      <c- p>}</c->
+    <c- p>]</c->
+  <c- p>}</c->
+<c- p>}</c->
+</pre>
+   </div>
    <h5 class="heading settled" data-level="7.2.3.3" id="command-settings-get-supported-settings"><span class="secno">7.2.3.3. </span><span class="content">The settings.getSupportedSettings Command</span><a class="self-link" href="#command-settings-get-supported-settings"></a></h5>
-   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="settingsgetsupportedsettings-command">settings.getSupportedSettings command</dfn> returns a list of all settings that the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②⑤">remote end</a> supports, and their values.</p>
+   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="settingsgetsupportedsettings-command">settings.getSupportedSettings command</dfn> returns a list of all settings that the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②⑧">remote end</a> supports, and their values.</p>
    <dl>
     <dt><a data-link-type="dfn" href="#command-type" id="ref-for-command-type③">Command Type</a>
     <dd>
@@ -1752,6 +1865,37 @@ and a <dfn class="dfn-paneled" data-dfn-for="WebSocket listener" data-dfn-type="
       <p>Return <var>result</var>.</p>
     </ol>
    </div>
+   <div class="example" id="example-bb07fc52">
+    <a class="self-link" href="#example-bb07fc52"></a>
+A <a data-link-type="dfn" href="#local-end" id="ref-for-local-end①②">local end</a> that wishes to discover the settings available on a given
+<a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②⑨">remote end</a> might send a Command such as:
+
+
+<pre class="language-json highlight"><c- p>{</c->
+  <c- f>"id"</c-><c- p>:</c-> <c- mi>781</c-><c- p>,</c->
+  <c- f>"method"</c-><c- p>:</c-> <c- u>"settings.getSupportedSettings"</c-><c- p>,</c->
+  <c- f>"params"</c-><c- p>:</c-> <c- p>{}</c->
+<c- p>}</c->
+</pre>
+    <p>And the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end③⓪">remote end</a> which receives that Command could respond with the
+following Message:</p>
+<pre class="language-json highlight"><c- p>{</c->
+  <c- f>"id"</c-><c- p>:</c-> <c- mi>781</c-><c- p>,</c->
+  <c- f>"result"</c-><c- p>:</c-> <c- p>{</c->
+    <c- f>"settings"</c-><c- p>:</c-> <c- p>[</c->
+      <c- p>{</c->
+        <c- f>"name"</c-><c- p>:</c-> <c- u>"virtualBuffers.passThroughAudioIndication"</c-><c- p>,</c->
+        <c- f>"value"</c-><c- p>:</c-> <c- kc>true</c->
+      <c- p>},</c->
+      <c- p>{</c->
+        <c- f>"name"</c-><c- p>:</c-> <c- u>"cursor"</c-><c- p>,</c->
+        <c- f>"value"</c-><c- p>:</c-> <c- u>"VPC"</c->
+      <c- p>}</c->
+    <c- p>]</c->
+  <c- p>}</c->
+<c- p>}</c->
+</pre>
+   </div>
    <h4 class="heading settled" data-level="7.2.4" id="module-settings-events"><span class="secno">7.2.4. </span><span class="content">Events</span><a class="self-link" href="#module-settings-events"></a></h4>
    <p class="issue" id="issue-0b79b3d5"><a class="self-link" href="#issue-0b79b3d5"></a> Do we need a "setting changed" event?</p>
    <h3 class="heading settled" data-level="7.3" id="module-interaction"><span class="secno">7.3. </span><span class="content">The Interaction Module</span><a class="self-link" href="#module-interaction"></a></h3>
@@ -1770,7 +1914,7 @@ and a <dfn class="dfn-paneled" data-dfn-for="WebSocket listener" data-dfn-type="
       <td><a data-link-type="dfn" href="#press-keys" id="ref-for-press-keys">press keys</a>
 
    </table>
-   <p>A <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②⑥">remote end</a> has a <dfn class="dfn-paneled" data-dfn-for="remote end" data-dfn-type="dfn" data-noexport id="remote-end-table-of-extension-user-intents">table of extension user intents</dfn>, which is a mapping of zero or more string names of user intents and algorithms for simulating the named intents. Extension user intents' names must contain a "<code>:</code>" (colon) character, denoting an implementation specific namespace.</p>
+   <p>A <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end③①">remote end</a> has a <dfn class="dfn-paneled" data-dfn-for="remote end" data-dfn-type="dfn" data-noexport id="remote-end-table-of-extension-user-intents">table of extension user intents</dfn>, which is a mapping of zero or more string names of user intents and algorithms for simulating the named intents. Extension user intents' names must contain a "<code>:</code>" (colon) character, denoting an implementation specific namespace.</p>
    <div class="algorithm" data-algorithm="press keys">
     <p class="note" role="note"><span class="marker">Note:</span> Each string in <code>KeyCombination</code> represents a "raw key" consisting of a
 single code point with the same meaning as in <a href="https://w3c.github.io/webdriver/#keyboard-actions">WebDriver’s keyboard
@@ -1885,6 +2029,32 @@ parameters</var>.</p>
       <p>Return the result of evaluating <var>algorithm</var> given <var>command parameters</var>.</p>
     </ol>
    </div>
+   <div class="example" id="example-62193e21">
+    <a class="self-link" href="#example-62193e21"></a>
+A <a data-link-type="dfn" href="#local-end" id="ref-for-local-end①③">local end</a> that wishes to simulate pressing
+<kbd><kbd>Control</kbd>+<kbd>h</kbd></kbd> (or, stated more formally:
+depressing the <kbd>Control</kbd> key, depressing the <kbd>h</kbd> key,
+releasing the <kbd>h</kbd> key, and finally releasing the <kbd>Control</kbd>
+key) might send a Command such as:
+
+
+<pre class="language-json highlight"><c- p>{</c->
+  <c- f>"id"</c-><c- p>:</c-> <c- mi>19860814</c-><c- p>,</c->
+  <c- f>"method"</c-><c- p>:</c-> <c- u>"interaction.userIntent"</c-><c- p>,</c->
+  <c- f>"params"</c-><c- p>:</c-> <c- p>{</c->
+    <c- f>"name"</c-><c- p>:</c-> <c- u>"pressKeys"</c-><c- p>,</c->
+    <c- f>"keys"</c-><c- p>:</c-> <c- p>[</c-><c- u>"\uE009"</c-><c- p>,</c-> <c- u>"h"</c-><c- p>]</c->
+  <c- p>}</c->
+<c- p>}</c->
+</pre>
+    <p>And the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end③②">remote end</a> which receives that Command could respond with the
+following Message:</p>
+<pre class="language-json highlight"><c- p>{</c->
+  <c- f>"id"</c-><c- p>:</c-> <c- mi>19860814</c-><c- p>,</c->
+  <c- f>"result"</c-><c- p>:</c-> <c- p>{}</c->
+<c- p>}</c->
+</pre>
+   </div>
    <h4 class="heading settled" data-level="7.3.4" id="module-interaction-events"><span class="secno">7.3.4. </span><span class="content">Events</span><a class="self-link" href="#module-interaction-events"></a></h4>
    <h5 class="heading settled" data-level="7.3.4.1" id="event-interaction-capturedOutput"><span class="secno">7.3.4.1. </span><span class="content">The interaction.capturedOutput Event</span><a class="self-link" href="#event-interaction-capturedOutput"></a></h5>
    <dl>
@@ -1920,7 +2090,7 @@ parameters</var>.</p>
     </ol>
    </div>
    <h2 class="heading settled" data-level="8" id="privacy"><span class="secno">8. </span><span class="content">Privacy</span><a class="self-link" href="#privacy"></a></h2>
-   <p>It is advisable that <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②⑦">remote ends</a> create a new profile when creating a new session. This prevents potentially sensitive session data from being accessible to new sessions, ensuring both privacy and preventing state from bleeding through to the next session.</p>
+   <p>It is advisable that <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end③③">remote ends</a> create a new profile when creating a new session. This prevents potentially sensitive session data from being accessible to new sessions, ensuring both privacy and preventing state from bleeding through to the next session.</p>
    <h2 class="heading settled" data-level="9" id="security"><span class="secno">9. </span><span class="content">Security</span><a class="self-link" href="#security"></a></h2>
    <p>An assistive technology can rely on a command-line flag or a configuration option to test whether to enable AT Driver, or alternatively make the assistive technology initiate or confirm the connection through a privileged content document or control widget, in case the assistive technology does not directly implement the WebSocket endpoints.</p>
    <p>It is strongly suggested that assistive technology require users to take explicit action to enable AT Driver, and that AT Driver remains disabled in publicly consumed versions of the assistive technology.</p>
@@ -2948,14 +3118,14 @@ let dfnPanelData = {
 "handle-a-connection-closing": {"dfnID":"handle-a-connection-closing","dfnText":"handle a connection closing","external":false,"refSections":[{"refs":[{"id":"ref-for-handle-a-connection-closing"}],"title":"6. Transport"}],"url":"#handle-a-connection-closing"},
 "handle-an-incoming-message": {"dfnID":"handle-an-incoming-message","dfnText":"handle an incoming message","external":false,"refSections":[{"refs":[{"id":"ref-for-handle-an-incoming-message"}],"title":"6. Transport"}],"url":"#handle-an-incoming-message"},
 "interactionuserintent": {"dfnID":"interactionuserintent","dfnText":"interaction.userIntent","external":false,"refSections":[],"url":"#interactionuserintent"},
-"local-end": {"dfnID":"local-end","dfnText":"local end","external":false,"refSections":[{"refs":[{"id":"ref-for-local-end"},{"id":"ref-for-local-end\u2460"}],"title":"5. Protocol"},{"refs":[{"id":"ref-for-local-end\u2461"}],"title":"5.2. Capabilities"},{"refs":[{"id":"ref-for-local-end\u2462"}],"title":"5.3. Session"},{"refs":[{"id":"ref-for-local-end\u2463"},{"id":"ref-for-local-end\u2464"},{"id":"ref-for-local-end\u2465"},{"id":"ref-for-local-end\u2466"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-local-end\u2467"}],"title":"5.6. Events"}],"url":"#local-end"},
+"local-end": {"dfnID":"local-end","dfnText":"local end","external":false,"refSections":[{"refs":[{"id":"ref-for-local-end"},{"id":"ref-for-local-end\u2460"}],"title":"5. Protocol"},{"refs":[{"id":"ref-for-local-end\u2461"}],"title":"5.2. Capabilities"},{"refs":[{"id":"ref-for-local-end\u2462"}],"title":"5.3. Session"},{"refs":[{"id":"ref-for-local-end\u2463"},{"id":"ref-for-local-end\u2464"},{"id":"ref-for-local-end\u2465"},{"id":"ref-for-local-end\u2466"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-local-end\u2467"}],"title":"5.6. Events"},{"refs":[{"id":"ref-for-local-end\u2468"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-local-end\u2460\u24ea"}],"title":"7.2.3.1. The settings.setSettings Command"},{"refs":[{"id":"ref-for-local-end\u2460\u2460"}],"title":"7.2.3.2. The settings.getSettings Command"},{"refs":[{"id":"ref-for-local-end\u2460\u2461"}],"title":"7.2.3.3. The settings.getSupportedSettings Command"},{"refs":[{"id":"ref-for-local-end\u2460\u2462"}],"title":"7.3.3.1. The interaction.userIntent Command"}],"url":"#local-end"},
 "match-capabilities": {"dfnID":"match-capabilities","dfnText":"match capabilities","external":false,"refSections":[{"refs":[{"id":"ref-for-match-capabilities"}],"title":"5.2. Capabilities"}],"url":"#match-capabilities"},
 "modify-setting": {"dfnID":"modify-setting","dfnText":"modify setting","external":false,"refSections":[{"refs":[{"id":"ref-for-modify-setting"}],"title":"7.2.3.1. The settings.setSettings Command"}],"url":"#modify-setting"},
 "module": {"dfnID":"module","dfnText":"module","external":false,"refSections":[{"refs":[{"id":"ref-for-module"}],"title":"2. Explainer"},{"refs":[{"id":"ref-for-module\u2460"},{"id":"ref-for-module\u2461"}],"title":"7.2. The settings Module"}],"url":"#module"},
 "module-name": {"dfnID":"module-name","dfnText":"module name","external":false,"refSections":[{"refs":[{"id":"ref-for-module-name"}],"title":"5.4. Modules"}],"url":"#module-name"},
 "press-keys": {"dfnID":"press-keys","dfnText":"press keys","external":false,"refSections":[{"refs":[{"id":"ref-for-press-keys"}],"title":"7.3. The Interaction Module"}],"url":"#press-keys"},
 "process-capabilities": {"dfnID":"process-capabilities","dfnText":"process capabilities","external":false,"refSections":[{"refs":[{"id":"ref-for-process-capabilities"}],"title":"7.1.3.1. The session.new Command"}],"url":"#process-capabilities"},
-"remote-end": {"dfnID":"remote-end","dfnText":"remote end","external":false,"refSections":[{"refs":[{"id":"ref-for-remote-end"},{"id":"ref-for-remote-end\u2460"}],"title":"5. Protocol"},{"refs":[{"id":"ref-for-remote-end\u2461"},{"id":"ref-for-remote-end\u2462"},{"id":"ref-for-remote-end\u2463"},{"id":"ref-for-remote-end\u2464"},{"id":"ref-for-remote-end\u2465"},{"id":"ref-for-remote-end\u2466"}],"title":"5.2. Capabilities"},{"refs":[{"id":"ref-for-remote-end\u2467"},{"id":"ref-for-remote-end\u2468"}],"title":"5.3. Session"},{"refs":[{"id":"ref-for-remote-end\u2460\u24ea"},{"id":"ref-for-remote-end\u2460\u2460"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-remote-end\u2460\u2461"},{"id":"ref-for-remote-end\u2460\u2462"}],"title":"5.6. Events"},{"refs":[{"id":"ref-for-remote-end\u2460\u2463"},{"id":"ref-for-remote-end\u2460\u2464"}],"title":"5.7. Errors"},{"refs":[{"id":"ref-for-remote-end\u2460\u2465"}],"title":"5.8. Security checks"},{"refs":[{"id":"ref-for-remote-end\u2460\u2466"},{"id":"ref-for-remote-end\u2460\u2467"},{"id":"ref-for-remote-end\u2460\u2468"},{"id":"ref-for-remote-end\u2461\u24ea"},{"id":"ref-for-remote-end\u2461\u2460"},{"id":"ref-for-remote-end\u2461\u2461"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-remote-end\u2461\u2462"},{"id":"ref-for-remote-end\u2461\u2463"}],"title":"7.2. The settings Module"},{"refs":[{"id":"ref-for-remote-end\u2461\u2464"}],"title":"7.2.3.3. The settings.getSupportedSettings Command"},{"refs":[{"id":"ref-for-remote-end\u2461\u2465"}],"title":"7.3. The Interaction Module"},{"refs":[{"id":"ref-for-remote-end\u2461\u2466"}],"title":"8. Privacy"}],"url":"#remote-end"},
+"remote-end": {"dfnID":"remote-end","dfnText":"remote end","external":false,"refSections":[{"refs":[{"id":"ref-for-remote-end"},{"id":"ref-for-remote-end\u2460"}],"title":"5. Protocol"},{"refs":[{"id":"ref-for-remote-end\u2461"},{"id":"ref-for-remote-end\u2462"},{"id":"ref-for-remote-end\u2463"},{"id":"ref-for-remote-end\u2464"},{"id":"ref-for-remote-end\u2465"},{"id":"ref-for-remote-end\u2466"}],"title":"5.2. Capabilities"},{"refs":[{"id":"ref-for-remote-end\u2467"},{"id":"ref-for-remote-end\u2468"}],"title":"5.3. Session"},{"refs":[{"id":"ref-for-remote-end\u2460\u24ea"},{"id":"ref-for-remote-end\u2460\u2460"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-remote-end\u2460\u2461"},{"id":"ref-for-remote-end\u2460\u2462"}],"title":"5.6. Events"},{"refs":[{"id":"ref-for-remote-end\u2460\u2463"},{"id":"ref-for-remote-end\u2460\u2464"}],"title":"5.7. Errors"},{"refs":[{"id":"ref-for-remote-end\u2460\u2465"}],"title":"5.8. Security checks"},{"refs":[{"id":"ref-for-remote-end\u2460\u2466"},{"id":"ref-for-remote-end\u2460\u2467"},{"id":"ref-for-remote-end\u2460\u2468"},{"id":"ref-for-remote-end\u2461\u24ea"},{"id":"ref-for-remote-end\u2461\u2460"},{"id":"ref-for-remote-end\u2461\u2461"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-remote-end\u2461\u2462"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-remote-end\u2461\u2463"},{"id":"ref-for-remote-end\u2461\u2464"}],"title":"7.2. The settings Module"},{"refs":[{"id":"ref-for-remote-end\u2461\u2465"}],"title":"7.2.3.1. The settings.setSettings Command"},{"refs":[{"id":"ref-for-remote-end\u2461\u2466"}],"title":"7.2.3.2. The settings.getSettings Command"},{"refs":[{"id":"ref-for-remote-end\u2461\u2467"},{"id":"ref-for-remote-end\u2461\u2468"},{"id":"ref-for-remote-end\u2462\u24ea"}],"title":"7.2.3.3. The settings.getSupportedSettings Command"},{"refs":[{"id":"ref-for-remote-end\u2462\u2460"}],"title":"7.3. The Interaction Module"},{"refs":[{"id":"ref-for-remote-end\u2462\u2461"}],"title":"7.3.3.1. The interaction.userIntent Command"},{"refs":[{"id":"ref-for-remote-end\u2462\u2462"}],"title":"8. Privacy"}],"url":"#remote-end"},
 "remote-end-active-listeners": {"dfnID":"remote-end-active-listeners","dfnText":"active listeners","external":false,"refSections":[{"refs":[{"id":"ref-for-remote-end-active-listeners"},{"id":"ref-for-remote-end-active-listeners\u2460"}],"title":"6. Transport"}],"url":"#remote-end-active-listeners"},
 "remote-end-active-sessions": {"dfnID":"remote-end-active-sessions","dfnText":"active sessions","external":false,"refSections":[{"refs":[{"id":"ref-for-remote-end-active-sessions"}],"title":"5.3. Session"},{"refs":[{"id":"ref-for-remote-end-active-sessions\u2460"},{"id":"ref-for-remote-end-active-sessions\u2461"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-remote-end-active-sessions\u2462"},{"id":"ref-for-remote-end-active-sessions\u2463"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-remote-end-active-sessions\u2464"}],"title":"7.3.4.1. The interaction.capturedOutput Event"}],"url":"#remote-end-active-sessions"},
 "remote-end-event-trigger": {"dfnID":"remote-end-event-trigger","dfnText":"remote end event trigger","external":false,"refSections":[{"refs":[{"id":"ref-for-remote-end-event-trigger"}],"title":"7.3.4.1. The interaction.capturedOutput Event"}],"url":"#remote-end-event-trigger"},
@@ -2965,7 +3135,7 @@ let dfnPanelData = {
 "remote-end-websocket-connections-not-associated-with-a-session": {"dfnID":"remote-end-websocket-connections-not-associated-with-a-session","dfnText":"WebSocket connections not associated with a session","external":false,"refSections":[{"refs":[{"id":"ref-for-remote-end-websocket-connections-not-associated-with-a-session"},{"id":"ref-for-remote-end-websocket-connections-not-associated-with-a-session\u2460"},{"id":"ref-for-remote-end-websocket-connections-not-associated-with-a-session\u2461"},{"id":"ref-for-remote-end-websocket-connections-not-associated-with-a-session\u2462"}],"title":"6. Transport"}],"url":"#remote-end-websocket-connections-not-associated-with-a-session"},
 "result-type": {"dfnID":"result-type","dfnText":"result type","external":false,"refSections":[{"refs":[{"id":"ref-for-result-type"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-result-type\u2460"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-result-type\u2461"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-result-type\u2462"}],"title":"7.2.3.1. The settings.setSettings Command"},{"refs":[{"id":"ref-for-result-type\u2463"}],"title":"7.2.3.2. The settings.getSettings Command"},{"refs":[{"id":"ref-for-result-type\u2464"}],"title":"7.2.3.3. The settings.getSupportedSettings Command"}],"url":"#result-type"},
 "send-an-error-response": {"dfnID":"send-an-error-response","dfnText":"send an error response","external":false,"refSections":[{"refs":[{"id":"ref-for-send-an-error-response"},{"id":"ref-for-send-an-error-response\u2460"},{"id":"ref-for-send-an-error-response\u2461"},{"id":"ref-for-send-an-error-response\u2462"},{"id":"ref-for-send-an-error-response\u2463"}],"title":"6. Transport"}],"url":"#send-an-error-response"},
-"session": {"dfnID":"session","dfnText":"session","external":false,"refSections":[{"refs":[{"id":"ref-for-session"},{"id":"ref-for-session\u2460"}],"title":"2. Explainer"},{"refs":[{"id":"ref-for-session\u2461"},{"id":"ref-for-session\u2462"}],"title":"5.2. Capabilities"},{"refs":[{"id":"ref-for-session\u2463"},{"id":"ref-for-session\u2464"}],"title":"5.3. Session"},{"refs":[{"id":"ref-for-session\u2465"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-session\u2466"},{"id":"ref-for-session\u2467"}],"title":"5.7. Errors"},{"refs":[{"id":"ref-for-session\u2468"},{"id":"ref-for-session\u2460\u24ea"},{"id":"ref-for-session\u2460\u2460"},{"id":"ref-for-session\u2460\u2461"},{"id":"ref-for-session\u2460\u2462"},{"id":"ref-for-session\u2460\u2463"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-session\u2460\u2464"},{"id":"ref-for-session\u2460\u2465"}],"title":"7.1.3.1. The session.new Command"}],"url":"#session"},
+"session": {"dfnID":"session","dfnText":"session","external":false,"refSections":[{"refs":[{"id":"ref-for-session"},{"id":"ref-for-session\u2460"}],"title":"2. Explainer"},{"refs":[{"id":"ref-for-session\u2461"},{"id":"ref-for-session\u2462"}],"title":"5.2. Capabilities"},{"refs":[{"id":"ref-for-session\u2463"},{"id":"ref-for-session\u2464"}],"title":"5.3. Session"},{"refs":[{"id":"ref-for-session\u2465"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-session\u2466"},{"id":"ref-for-session\u2467"}],"title":"5.7. Errors"},{"refs":[{"id":"ref-for-session\u2468"},{"id":"ref-for-session\u2460\u24ea"},{"id":"ref-for-session\u2460\u2460"},{"id":"ref-for-session\u2460\u2461"},{"id":"ref-for-session\u2460\u2462"},{"id":"ref-for-session\u2460\u2463"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-session\u2460\u2464"},{"id":"ref-for-session\u2460\u2465"},{"id":"ref-for-session\u2460\u2466"}],"title":"7.1.3.1. The session.new Command"}],"url":"#session"},
 "session-associated-with-connection": {"dfnID":"session-associated-with-connection","dfnText":"associated with connection","external":false,"refSections":[{"refs":[{"id":"ref-for-session-associated-with-connection"},{"id":"ref-for-session-associated-with-connection\u2460"},{"id":"ref-for-session-associated-with-connection\u2461"}],"title":"6. Transport"}],"url":"#session-associated-with-connection"},
 "session-session-id": {"dfnID":"session-session-id","dfnText":"session ID","external":false,"refSections":[{"refs":[{"id":"ref-for-session-session-id"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-session-session-id\u2460"},{"id":"ref-for-session-session-id\u2461"}],"title":"7.1.3.1. The session.new Command"}],"url":"#session-session-id"},
 "session-session-websocket-connections": {"dfnID":"session-session-websocket-connections","dfnText":"session WebSocket connections","external":false,"refSections":[{"refs":[{"id":"ref-for-session-session-websocket-connections"},{"id":"ref-for-session-session-websocket-connections\u2460"},{"id":"ref-for-session-session-websocket-connections\u2461"},{"id":"ref-for-session-session-websocket-connections\u2462"},{"id":"ref-for-session-session-websocket-connections\u2463"}],"title":"6. Transport"}],"url":"#session-session-websocket-connections"},
