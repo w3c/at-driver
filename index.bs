@@ -36,6 +36,13 @@ table thead, table tbody { border-bottom: solid; }
 table tbody th { text-align: left; }
 table tbody th:first-child { border-left: solid; }
 table td, table th { border-left: solid; border-right: solid; border-bottom: solid thin; vertical-align: top; padding: 0.2em; }
+
+kbd:not(:has(kbd)) {
+  border-radius: 0.2em;
+  padding: 0.2em;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.05);
+}
 </style>
 
 Introduction {#intro}
@@ -600,6 +607,43 @@ The [=remote end steps=] given |session| and |command parameters| are:
 
 </div>
 
+<div class="example">
+A [=local end=] that wishes to create a new [=Session=] which is furnished with
+an assistive technology named `NVDA` might send a Command such as:
+
+```json
+{
+  "id": 24601,
+  "method": "session.new",
+  "params": {
+    "capabilities": {
+      "alwaysMatch": {
+        "atName": "NVDA",
+        "user-defined property": "user-defined value"
+      }
+    }
+  }
+}
+```
+
+And the [=remote end=] which receives that Command could respond with the
+following Message:
+
+```json
+{
+  "id": 24601,
+  "result": {
+    "sessionId": "4f974515-cac5-4e45-9604-95d918116e83",
+    "capabilities": {
+      "atName": "NVDA",
+      "atVersion": "2025.1",
+      "platformName": "Windows"
+    }
+  }
+}
+```
+</div>
+
 The settings Module {#module-settings}
 --------------------------------------
 
@@ -744,6 +788,40 @@ The [=remote end steps=] given <var ignore>session</var> and |command parameters
 
 </div>
 
+<div class="example">
+A [=local end=] that wishes to modify the value of settings named
+`readEntirePage` and `speed` might send a Command such as:
+
+```json
+{
+  "id": 1776,
+  "method": "settings.setSettings",
+  "params": {
+    "settings": [
+      {
+        "name": "readEntirePage",
+        "value": false
+      },
+      {
+        "name": "speed",
+        "value": 0.8
+      }
+    ]
+  }
+}
+```
+
+And the [=remote end=] which receives that Command could respond with the
+following Message:
+
+```json
+{
+  "id": 1776,
+  "result": {}
+}
+```
+</div>
+
 #### The settings.getSettings Command #### {#command-settings-get-settings}
 
 The <dfn>settings.getSettings command</dfn> returns a list of the requested settings and their values.
@@ -784,6 +862,50 @@ The <a>remote end steps</a> given <var ignore>session</var> and |command paramet
 
 </div>
 
+<div class="example">
+A [=local end=] that wishes to retrieve the value of settings named
+`virtualBuffers.passThroughAudioIndication` and `cursor` might send a Command
+such as:
+
+```json
+{
+  "id": 8675309,
+  "method": "settings.getSettings",
+  "params": {
+    "settings": [
+      {
+        "name": "virtualBuffers.passThroughAudioIndication"
+      },
+      {
+        "name": "cursor"
+      }
+    ]
+  }
+}
+```
+
+And the [=remote end=] which receives that Command could respond with the
+following Message:
+
+```json
+{
+  "id": 8675309,
+  "result": {
+    "settings": [
+      {
+        "name": "virtualBuffers.passThroughAudioIndication",
+        "value": true
+      },
+      {
+        "name": "cursor",
+        "value": "VPC"
+      }
+    ]
+  }
+}
+```
+</div>
+
 #### The settings.getSupportedSettings Command #### {#command-settings-get-supported-settings}
 
 The <dfn>settings.getSupportedSettings command</dfn> returns a list of all settings that the [=remote end=] supports, and their values.
@@ -819,6 +941,40 @@ The <a>remote end steps</a> given <var ignore>session</var> and <var ignore>comm
 4. [=Assert=]: |result| is a [=success=] value.
 5. Return |result|.
 
+</div>
+
+<div class="example">
+A [=local end=] that wishes to discover the settings available on a given
+[=remote end=] might send a Command such as:
+
+```json
+{
+  "id": 781,
+  "method": "settings.getSupportedSettings",
+  "params": {}
+}
+```
+
+And the [=remote end=] which receives that Command could respond with the
+following Message:
+
+```json
+{
+  "id": 781,
+  "result": {
+    "settings": [
+      {
+        "name": "virtualBuffers.passThroughAudioIndication",
+        "value": true
+      },
+      {
+        "name": "cursor",
+        "value": "VPC"
+      }
+    ]
+  }
+}
+```
 </div>
 
 ### Events ### {#module-settings-events}
@@ -953,6 +1109,35 @@ The [=remote end steps=] given <var ignore>session</var> and |command parameters
     1. Return an [=error=] with [=error code=] [=unknown user intent=].
 5. Return the result of evaluating |algorithm| given |command parameters|.
 
+</div>
+
+<div class="example">
+A [=local end=] that wishes to simulate pressing
+<kbd><kbd>Control</kbd>+<kbd>h</kbd></kbd> (or, stated more formally:
+depressing the <kbd>Control</kbd> key, depressing the <kbd>h</kbd> key,
+releasing the <kbd>h</kbd> key, and finally releasing the <kbd>Control</kbd>
+key) might send a Command such as:
+
+```json
+{
+  "id": 19860814,
+  "method": "interaction.userIntent",
+  "params": {
+    "name": "pressKeys",
+    "keys": ["\uE009", "h"]
+  }
+}
+```
+
+And the [=remote end=] which receives that Command could respond with the
+following Message:
+
+```json
+{
+  "id": 19860814,
+  "result": {}
+}
+```
 </div>
 
 ### Events ### {#module-interaction-events}
