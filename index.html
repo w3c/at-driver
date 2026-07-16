@@ -5,10 +5,10 @@
   <title>AT Driver</title>
   <meta content="ED" name="w3c-status">
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
-  <meta content="Bikeshed version 3f621ba99, updated Mon Jul 28 15:38:36 2025 -0700" name="generator">
+  <meta content="Bikeshed version d113b2e81, updated Tue Jun 9 14:57:55 2026 -0700" name="generator">
   <link href="https://w3c.github.io/at-driver/" rel="canonical">
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
-  <meta content="3e15ec4aeee6fab7010664e46cc84c989a74b314" name="revision">
+  <meta content="277dd1f1baae78c70a0552f8b9f69535af97f1a1" name="revision">
   <meta content="dark light" name="color-scheme">
   <link href="https://www.w3.org/StyleSheets/TR/2021/dark.css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css">
 <style>
@@ -330,7 +330,7 @@ pre.cddl.highlight {
 </style>
 <style>/* Boilerplate: style-counters */
 body {
-    counter-reset: example figure issue;
+    counter-reset: example figure issue table;
 }
 .issue {
     counter-increment: issue;
@@ -347,7 +347,7 @@ body {
 }
 .invalid.example:not(.no-marker)::before,
 .illegal.example:not(.no-marker)::before {
-    content: "Invalid Example" counter(example);
+    content: "Invalid Example " counter(example);
 }
 
 figcaption {
@@ -355,6 +355,13 @@ figcaption {
 }
 figcaption:not(.no-marker)::before {
     content: "Figure " counter(figure) " ";
+}
+
+figure.table figcaption {
+    counter-increment: table;
+}
+figure.table figcaption:not(.no-marker)::before {
+    content: "Table " counter(table) " ";
 }
 </style>
 <style>/* Boilerplate: style-dfn-panel */
@@ -712,6 +719,30 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
     c-[vm] { color: #cb4b16 } /* Name.Variable.Magic */
     c-[il] { color: #657b83 } /* Literal.Number.Integer.Long */
 }
+
+@media print {
+    /* Darken colors for print that would otherwise print too faintly */
+    c-[c]  { color: #555555 } /* Comment */
+    c-[d]  { color: #555555 } /* Comment.Multiline */
+    c-[cp] { color: #555555 } /* Comment.Preproc */
+    c-[c1] { color: #555555 } /* Comment.Single */
+    c-[cs] { color: #555555 } /* Comment.Special */
+    c-[o]  { color: #222222 } /* Operator */
+    c-[p]  { color: #222222 } /* Punctuation */
+    c-[ow] { color: #222222 } /* Operator.Word */
+    c-[s]  { color: #664400 } /* Literal.String */
+    c-[t]  { color: #664400 } /* Literal.String.Single */
+    c-[u]  { color: #664400 } /* Literal.String.Double */
+    c-[sb] { color: #664400 } /* Literal.String.Backtick */
+    c-[sc] { color: #664400 } /* Literal.String.Char */
+    c-[sd] { color: #664400 } /* Literal.String.Doc */
+    c-[se] { color: #664400 } /* Literal.String.Escape */
+    c-[sh] { color: #664400 } /* Literal.String.Heredoc */
+    c-[si] { color: #664400 } /* Literal.String.Interpol */
+    c-[sx] { color: #664400 } /* Literal.String.Other */
+    c-[sr] { color: #664400 } /* Literal.String.Regex */
+    c-[ss] { color: #664400 } /* Literal.String.Symbol */
+}
 </style>
 <style>/* Boilerplate: style-var-click-highlighting */
 /*
@@ -762,9 +793,9 @@ var[data-var-color="6"] { --var-vg: #FFBCF2; }
     <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
 </a>
 </p>
-   <h1 class="p-name no-ref" id="title">AT Driver</h1>
+   <h1 class="no-ref p-name" id="title">AT Driver</h1>
    <p id="w3c-state"><a href="https://www.w3.org/standards/types/#ED">Editor’s Draft</a>,
-    <time class="dt-updated" datetime="2025-09-04">4 September 2025</time></p>
+    <time class="dt-updated" datetime="2026-07-16">16 July 2026</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -775,22 +806,22 @@ var[data-var-color="6"] { --var-vg: #FFBCF2; }
       <dd><a href="https://github.com/w3c/at-driver/issues/">GitHub</a>
       <dd><a href="#issues-index">Inline In Spec</a>
       <dt class="editor">Editor:
-      <dd class="editor p-author h-card vcard"><a class="p-name fn u-email email" href="mailto:mike@bocoup.com">Mike Pennisi</a> (<a class="p-org org" href="https://bocoup.com">Bocoup</a>)
+      <dd class="editor h-card p-author vcard"><a class="email fn p-name u-email" href="mailto:mike@bocoup.com">Mike Pennisi</a> (<a class="org p-org" href="https://bocoup.com">Bocoup</a>)
       <dt class="editor">Former Editor:
-      <dd class="editor p-author h-card vcard"><a class="p-name fn u-email email" href="mailto:simon@bocoup.com">Simon Pieters</a> (<a class="p-org org" href="https://bocoup.com">Bocoup</a>)
+      <dd class="editor h-card p-author vcard"><a class="email fn p-name u-email" href="mailto:simon@bocoup.com">Simon Pieters</a> (<a class="org p-org" href="https://bocoup.com">Bocoup</a>)
      </dl>
     </div>
    </details>
    <div data-fill-with="warning"></div>
-   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/policies/#copyright">Copyright</a> © 2025 <a href="https://www.w3.org/">World Wide Web Consortium</a>. <abbr title="World Wide Web Consortium">W3C</abbr><sup>®</sup> <a href="https://www.w3.org/policies/#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/policies/#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/copyright/software-license/" rel="license" title="W3C Software and Document License">permissive document license</a> rules apply.
+   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/policies/#copyright">Copyright</a> © 2026 <a href="https://www.w3.org/">World Wide Web Consortium</a>. <abbr title="World Wide Web Consortium">W3C</abbr><sup>®</sup> <a href="https://www.w3.org/policies/#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/policies/#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/copyright/software-license/" rel="license" title="W3C Software and Document License">permissive document license</a> rules apply.
 </p>
    <hr title="Separator for header">
   </div>
   <div class="p-summary" data-fill-with="abstract">
-   <h2 class="no-num no-toc no-ref heading settled" id="abstract"><span class="content">Abstract</span></h2>
+   <h2 class="heading no-num no-ref no-toc settled" id="abstract"><span class="content">Abstract</span></h2>
    <p>A protocol for introspection and remote control of assistive technology software</p>
   </div>
-  <h2 class="no-num no-toc no-ref heading settled" id="sotd"><span class="content">Status of this document</span></h2>
+  <h2 class="heading no-num no-ref no-toc settled" id="sotd"><span class="content">Status of this document</span></h2>
   <div data-fill-with="status">
    <p>
   <em>This section describes the status of this document at the time of its publication. A list of current <abbr title="World Wide Web Consortium">W3C</abbr> publications and the latest revision of this technical report can be found in the <a href="https://www.w3.org/TR/"><abbr title="World Wide Web Consortium">W3C</abbr> standards and drafts index</a>.</em>
@@ -820,8 +851,8 @@ var[data-var-color="6"] { --var-vg: #FFBCF2; }
   </div>
   <div data-fill-with="at-risk"></div>
   <nav data-fill-with="table-of-contents" id="toc">
-   <h2 class="no-num no-toc no-ref" id="contents">Table of Contents</h2>
-   <ol class="toc" role="directory">
+   <h2 class="no-num no-ref no-toc" id="contents">Table of Contents</h2>
+   <ol class="toc">
     <li><a href="#intro"><span class="secno">1</span> <span class="content">Introduction</span></a>
     <li>
      <a href="#explainer"><span class="secno">2</span> <span class="content">Explainer</span></a>
@@ -919,7 +950,7 @@ var[data-var-color="6"] { --var-vg: #FFBCF2; }
      <a href="#references"><span class="secno"></span> <span class="content">References</span></a>
      <ol class="toc">
       <li><a href="#normative"><span class="secno"></span> <span class="content">Normative References</span></a>
-      <li><a href="#informative"><span class="secno"></span> <span class="content">Informative References</span></a>
+      <li><a href="#informative"><span class="secno"></span> <span class="content">Non-Normative References</span></a>
      </ol>
     <li>
      <a href="#cddl-index"><span class="secno"></span> <span class="content">CDDL Index</span></a>
@@ -945,7 +976,7 @@ var[data-var-color="6"] { --var-vg: #FFBCF2; }
    <h3 class="heading settled" data-level="2.1" id="explainer-example"><span class="secno">2.1. </span><span class="content">Example</span><a class="self-link" href="#explainer-example"></a></h3>
    <p>First, the local end would establish a WebSocket connection.</p>
    <p>The local end then creates a session by sending</p>
-<pre class="language-json highlight"><c- p>{</c-><c- f>"method"</c-><c- p>:</c-><c- u>"session.new"</c-><c- p>,</c-><c- f>"params"</c-><c- p>:{</c->...<c- p>}}</c->
+<pre class="highlight language-json"><c- p>{</c-><c- f>"method"</c-><c- p>:</c-><c- u>"session.new"</c-><c- p>,</c-><c- f>"params"</c-><c- p>:{</c->...<c- p>}}</c->
 </pre>
    <p>The local end can then send commands to change settings or send key press actions for that session. The local end assigns a command id (which is included in the message). The remote end sends a message back with the result and the command id, so the local end knows which command the message applies to.</p>
    <p>When the screen reader speaks, the remote end will send a message as to the local end with the spoken text. This could be in the form of an event, which is not tied to any particular command.</p>
@@ -978,8 +1009,8 @@ var[data-var-color="6"] { --var-vg: #FFBCF2; }
    <h3 class="heading settled" data-level="5.1" id="protocol-definition"><span class="secno">5.1. </span><span class="content">Definition</span><a class="self-link" href="#protocol-definition"></a></h3>
    <p>This section gives the initial contents of the remote end definition and local end definition. These are augmented by the definition fragments defined in the remainder of the specification.</p>
    <p><code class="cddl"><a data-link-type="cddl" href="#cddl-module-remote-end-definition" id="ref-for-cddl-module-remote-end-definition">Remote end definition</a></code></p>
-<pre class="cddl highlight def" data-cddl-module="remote-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-command"><code>Command</code></dfn> = {
-  <dfn class="dfn-paneled" data-dfn-for="Command" data-dfn-type="cddl-key" data-lt="id|&quot;id&quot;" data-noexport id="cddl-key-command-id"><code>id</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D">uint</a>,
+<pre class="cddl def highlight" data-cddl-module="remote-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-command"><code>Command</code></dfn> = {
+  <dfn class="dfn-paneled" data-dfn-for="Command" data-dfn-type="cddl-key" data-lt="id|&quot;id&quot;" data-noexport id="cddl-key-command-id"><code>id</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D" id="ref-for-appendix-D">uint</a>,
   <a data-link-type="cddl" href="#cddl-type-commanddata" id="ref-for-cddl-type-commanddata">CommandData</a>,
   <a data-link-type="cddl" href="#cddl-type-extensible" id="ref-for-cddl-type-extensible">Extensible</a>,
 }
@@ -993,23 +1024,23 @@ var[data-var-color="6"] { --var-vg: #FFBCF2; }
 <dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-emptyparams"><code>EmptyParams</code></dfn> = { <a data-link-type="cddl" href="#cddl-type-extensible" id="ref-for-cddl-type-extensible①">Extensible</a> }
 </pre>
    <p><code class="cddl"><a data-link-type="cddl" href="#cddl-module-local-end-definition" id="ref-for-cddl-module-local-end-definition">Local end definition</a></code>:</p>
-<pre class="cddl highlight def" data-cddl-module="local-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-message"><code>Message</code></dfn> = (
+<pre class="cddl def highlight" data-cddl-module="local-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-message"><code>Message</code></dfn> = (
   <a data-link-type="cddl" href="#cddl-type-commandresponse" id="ref-for-cddl-type-commandresponse">CommandResponse</a> //
   <a data-link-type="cddl" href="#cddl-type-errorresponse" id="ref-for-cddl-type-errorresponse">ErrorResponse</a> //
   <a data-link-type="cddl" href="#cddl-type-event" id="ref-for-cddl-type-event">Event</a>
 )
 
 <dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-commandresponse"><code>CommandResponse</code></dfn> = {
-  <dfn class="dfn-paneled" data-dfn-for="CommandResponse" data-dfn-type="cddl-key" data-lt="id|&quot;id&quot;" data-noexport id="cddl-key-commandresponse-id"><code>id</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D①">uint</a>,
+  <dfn class="dfn-paneled" data-dfn-for="CommandResponse" data-dfn-type="cddl-key" data-lt="id|&quot;id&quot;" data-noexport id="cddl-key-commandresponse-id"><code>id</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D" id="ref-for-appendix-D①">uint</a>,
   <dfn class="dfn-paneled" data-dfn-for="CommandResponse" data-dfn-type="cddl-key" data-lt="result|&quot;result&quot;" data-noexport id="cddl-key-commandresponse-result"><code>result</code></dfn>: <a data-link-type="cddl" href="#cddl-type-resultdata" id="ref-for-cddl-type-resultdata">ResultData</a>,
   <a data-link-type="cddl" href="#cddl-type-extensible" id="ref-for-cddl-type-extensible②">Extensible</a>,
 }
 
 <dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-errorresponse"><code>ErrorResponse</code></dfn> = {
-  <dfn class="dfn-paneled" data-dfn-for="ErrorResponse" data-dfn-type="cddl-key" data-lt="id|&quot;id&quot;" data-noexport id="cddl-key-errorresponse-id"><code>id</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D②">uint</a> / <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D③">null</a>,
+  <dfn class="dfn-paneled" data-dfn-for="ErrorResponse" data-dfn-type="cddl-key" data-lt="id|&quot;id&quot;" data-noexport id="cddl-key-errorresponse-id"><code>id</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D" id="ref-for-appendix-D②">uint</a> / <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D" id="ref-for-appendix-D③">null</a>,
   <dfn class="dfn-paneled" data-dfn-for="ErrorResponse" data-dfn-type="cddl-key" data-lt="error|&quot;error&quot;" data-noexport id="cddl-key-errorresponse-error"><code>error</code></dfn>: <dfn class="dfn-paneled" data-dfn-for="ErrorResponse/error" data-dfn-type="cddl-value" data-lt="unknown error|&quot;unknown error&quot;" data-noexport id="cddl-value-errorresponse-error-unknown-error"><code>"unknown error"</code></dfn> / <dfn class="dfn-paneled" data-dfn-for="ErrorResponse/error" data-dfn-type="cddl-value" data-lt="unknown command|&quot;unknown command&quot;" data-noexport id="cddl-value-errorresponse-error-unknown-command"><code>"unknown command"</code></dfn> / <dfn class="dfn-paneled" data-dfn-for="ErrorResponse/error" data-dfn-type="cddl-value" data-lt="invalid argument|&quot;invalid argument&quot;" data-noexport id="cddl-value-errorresponse-error-invalid-argument"><code>"invalid argument"</code></dfn> / <dfn class="dfn-paneled" data-dfn-for="ErrorResponse/error" data-dfn-type="cddl-value" data-lt="session not created|&quot;session not created&quot;" data-noexport id="cddl-value-errorresponse-error-session-not-created"><code>"session not created"</code></dfn>,
-  <dfn class="dfn-paneled" data-dfn-for="ErrorResponse" data-dfn-type="cddl-key" data-lt="message|&quot;message&quot;" data-noexport id="cddl-key-errorresponse-message"><code>message</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D④">text</a>,
-  ?<dfn class="dfn-paneled" data-dfn-for="ErrorResponse" data-dfn-type="cddl-key" data-lt="stacktrace|&quot;stacktrace&quot;" data-noexport id="cddl-key-errorresponse-stacktrace"><code>stacktrace</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D⑤">text</a>,
+  <dfn class="dfn-paneled" data-dfn-for="ErrorResponse" data-dfn-type="cddl-key" data-lt="message|&quot;message&quot;" data-noexport id="cddl-key-errorresponse-message"><code>message</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D" id="ref-for-appendix-D④">text</a>,
+  ?<dfn class="dfn-paneled" data-dfn-for="ErrorResponse" data-dfn-type="cddl-key" data-lt="stacktrace|&quot;stacktrace&quot;" data-noexport id="cddl-key-errorresponse-stacktrace"><code>stacktrace</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D" id="ref-for-appendix-D⑤">text</a>,
   <a data-link-type="cddl" href="#cddl-type-extensible" id="ref-for-cddl-type-extensible③">Extensible</a>,
 }
 
@@ -1031,8 +1062,8 @@ var[data-var-color="6"] { --var-vg: #FFBCF2; }
 )
 </pre>
    <p><code class="cddl"><a data-link-type="cddl" href="#cddl-module-remote-end-definition" id="ref-for-cddl-module-remote-end-definition①">Remote end definition</a></code> and <code class="cddl"><a data-link-type="cddl" href="#cddl-module-local-end-definition" id="ref-for-cddl-module-local-end-definition①">local end definition</a></code>:</p>
-<pre class="cddl highlight def" data-cddl-module="remote-cddl,local-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-extensible"><code>Extensible</code></dfn> = {
-  *<a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D⑥">text</a> => <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D⑦">any</a>
+<pre class="cddl def highlight" data-cddl-module="remote-cddl,local-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-extensible"><code>Extensible</code></dfn> = {
+  *<a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D" id="ref-for-appendix-D⑥">text</a> => <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D" id="ref-for-appendix-D⑦">any</a>
 }
 </pre>
    <h3 class="heading settled" data-level="5.2" id="protocol-capabilities"><span class="secno">5.2. </span><span class="content">Capabilities</span><a class="self-link" href="#protocol-capabilities"></a></h3>
@@ -1460,18 +1491,18 @@ and a <dfn class="dfn-paneled" data-dfn-for="WebSocket listener" data-dfn-type="
    <h3 class="heading settled" data-level="7.1" id="module-session"><span class="secno">7.1. </span><span class="content">The session Module</span><a class="self-link" href="#module-session"></a></h3>
    <h4 class="heading settled" data-level="7.1.1" id="module-session-definition"><span class="secno">7.1.1. </span><span class="content">Definition</span><a class="self-link" href="#module-session-definition"></a></h4>
    <p><code class="cddl"><a data-link-type="cddl" href="#cddl-module-remote-end-definition" id="ref-for-cddl-module-remote-end-definition⑥">Remote end definition</a></code>:</p>
-<pre class="cddl highlight def" data-cddl-module="remote-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-sessioncommand"><code>SessionCommand</code></dfn> = (<a data-link-type="cddl" href="#cddl-type-sessionnewcommand" id="ref-for-cddl-type-sessionnewcommand">SessionNewCommand</a>)
+<pre class="cddl def highlight" data-cddl-module="remote-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-sessioncommand"><code>SessionCommand</code></dfn> = (<a data-link-type="cddl" href="#cddl-type-sessionnewcommand" id="ref-for-cddl-type-sessionnewcommand">SessionNewCommand</a>)
 </pre>
    <p><code class="cddl"><a data-link-type="cddl" href="#cddl-module-local-end-definition" id="ref-for-cddl-module-local-end-definition⑦">Local end definition</a></code></p>
-<pre class="cddl highlight def" data-cddl-module="local-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-sessionresult"><code>SessionResult</code></dfn> = (<a data-link-type="cddl" href="#cddl-type-sessionnewresult" id="ref-for-cddl-type-sessionnewresult">SessionNewResult</a>)
+<pre class="cddl def highlight" data-cddl-module="local-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-sessionresult"><code>SessionResult</code></dfn> = (<a data-link-type="cddl" href="#cddl-type-sessionnewresult" id="ref-for-cddl-type-sessionnewresult">SessionNewResult</a>)
 </pre>
    <h4 class="heading settled" data-level="7.1.2" id="module-session-types"><span class="secno">7.1.2. </span><span class="content">Types</span><a class="self-link" href="#module-session-types"></a></h4>
    <h5 class="heading settled" data-level="7.1.2.1" id="module-session-CapabilitiesRequest"><span class="secno">7.1.2.1. </span><span class="content">The session.CapabilitiesRequest Type</span><a class="self-link" href="#module-session-CapabilitiesRequest"></a></h5>
    <p><code class="cddl"><a data-link-type="cddl" href="#cddl-module-remote-end-definition" id="ref-for-cddl-module-remote-end-definition⑦">Remote end definition</a></code> and <code class="cddl"><a data-link-type="cddl" href="#cddl-module-local-end-definition" id="ref-for-cddl-module-local-end-definition⑧">local end definition</a></code>:</p>
-<pre class="cddl highlight def" data-cddl-module="remote-cddl,local-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-capabilitiesrequest"><code>CapabilitiesRequest</code></dfn> = {
-  ?<dfn class="dfn-paneled" data-dfn-for="CapabilitiesRequest" data-dfn-type="cddl-key" data-lt="atName|&quot;atName&quot;" data-noexport id="cddl-key-capabilitiesrequest-atname"><code>atName</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D⑧">text</a>,
-  ?<dfn class="dfn-paneled" data-dfn-for="CapabilitiesRequest" data-dfn-type="cddl-key" data-lt="atVersion|&quot;atVersion&quot;" data-noexport id="cddl-key-capabilitiesrequest-atversion"><code>atVersion</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D⑨">text</a>,
-  ?<dfn class="dfn-paneled" data-dfn-for="CapabilitiesRequest" data-dfn-type="cddl-key" data-lt="platformName|&quot;platformName&quot;" data-noexport id="cddl-key-capabilitiesrequest-platformname"><code>platformName</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D①⓪">text</a>,
+<pre class="cddl def highlight" data-cddl-module="remote-cddl,local-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-capabilitiesrequest"><code>CapabilitiesRequest</code></dfn> = {
+  ?<dfn class="dfn-paneled" data-dfn-for="CapabilitiesRequest" data-dfn-type="cddl-key" data-lt="atName|&quot;atName&quot;" data-noexport id="cddl-key-capabilitiesrequest-atname"><code>atName</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D" id="ref-for-appendix-D⑧">text</a>,
+  ?<dfn class="dfn-paneled" data-dfn-for="CapabilitiesRequest" data-dfn-type="cddl-key" data-lt="atVersion|&quot;atVersion&quot;" data-noexport id="cddl-key-capabilitiesrequest-atversion"><code>atVersion</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D" id="ref-for-appendix-D⑨">text</a>,
+  ?<dfn class="dfn-paneled" data-dfn-for="CapabilitiesRequest" data-dfn-type="cddl-key" data-lt="platformName|&quot;platformName&quot;" data-noexport id="cddl-key-capabilitiesrequest-platformname"><code>platformName</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D" id="ref-for-appendix-D①⓪">text</a>,
   <a data-link-type="cddl" href="#cddl-type-extensible" id="ref-for-cddl-type-extensible⑤">Extensible</a>,
 }
 </pre>
@@ -1483,7 +1514,7 @@ and a <dfn class="dfn-paneled" data-dfn-for="WebSocket listener" data-dfn-type="
     <dt><a data-link-type="dfn" href="#command-type" id="ref-for-command-type">Command Type</a>
   
     <dd>
-<pre class="cddl highlight def" data-cddl-module="remote-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-sessionnewcommand"><code>SessionNewCommand</code></dfn> = {
+<pre class="cddl def highlight" data-cddl-module="remote-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-sessionnewcommand"><code>SessionNewCommand</code></dfn> = {
   <dfn class="dfn-paneled" data-dfn-for="SessionNewCommand" data-dfn-type="cddl-key" data-lt="method|&quot;method&quot;" data-noexport id="cddl-key-sessionnewcommand-method"><code>method</code></dfn>: <dfn class="dfn-paneled" data-dfn-for="SessionNewCommand/method" data-dfn-type="cddl-value" data-lt="session.new|&quot;session.new&quot;" data-noexport id="cddl-value-sessionnewcommand-method-sessionnew"><code>"session.new"</code></dfn>,
   <dfn class="dfn-paneled" data-dfn-for="SessionNewCommand" data-dfn-type="cddl-key" data-lt="params|&quot;params&quot;" data-noexport id="cddl-key-sessionnewcommand-params"><code>params</code></dfn>: {<dfn class="dfn-paneled" data-dfn-for="SessionNewCommand/params" data-dfn-type="cddl-key" data-lt="capabilities|&quot;capabilities&quot;" data-noexport id="cddl-key-sessionnewcommand-params-capabilities"><code>capabilities</code></dfn>: <a data-link-type="cddl" href="#cddl-type-capabilitiesrequestparameters" id="ref-for-cddl-type-capabilitiesrequestparameters">CapabilitiesRequestParameters</a>},
 }
@@ -1496,12 +1527,12 @@ and a <dfn class="dfn-paneled" data-dfn-for="WebSocket listener" data-dfn-type="
     <dt><a data-link-type="dfn" href="#result-type" id="ref-for-result-type②">Result Type</a>
   
     <dd>
-<pre class="cddl highlight def" data-cddl-module="local-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-sessionnewresult"><code>SessionNewResult</code></dfn> = {
-  <dfn class="dfn-paneled" data-dfn-for="SessionNewResult" data-dfn-type="cddl-key" data-lt="sessionId|&quot;sessionId&quot;" data-noexport id="cddl-key-sessionnewresult-sessionid"><code>sessionId</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D①①">text</a>,
+<pre class="cddl def highlight" data-cddl-module="local-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-sessionnewresult"><code>SessionNewResult</code></dfn> = {
+  <dfn class="dfn-paneled" data-dfn-for="SessionNewResult" data-dfn-type="cddl-key" data-lt="sessionId|&quot;sessionId&quot;" data-noexport id="cddl-key-sessionnewresult-sessionid"><code>sessionId</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D" id="ref-for-appendix-D①①">text</a>,
   <dfn class="dfn-paneled" data-dfn-for="SessionNewResult" data-dfn-type="cddl-key" data-lt="capabilities|&quot;capabilities&quot;" data-noexport id="cddl-key-sessionnewresult-capabilities"><code>capabilities</code></dfn>: {
-    <dfn class="dfn-paneled" data-dfn-for="SessionNewResult/capabilities" data-dfn-type="cddl-key" data-lt="atName|&quot;atName&quot;" data-noexport id="cddl-key-sessionnewresult-capabilities-atname"><code>atName</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D①②">text</a>,
-    <dfn class="dfn-paneled" data-dfn-for="SessionNewResult/capabilities" data-dfn-type="cddl-key" data-lt="atVersion|&quot;atVersion&quot;" data-noexport id="cddl-key-sessionnewresult-capabilities-atversion"><code>atVersion</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D①③">text</a>,
-    <dfn class="dfn-paneled" data-dfn-for="SessionNewResult/capabilities" data-dfn-type="cddl-key" data-lt="platformName|&quot;platformName&quot;" data-noexport id="cddl-key-sessionnewresult-capabilities-platformname"><code>platformName</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D①④">text</a>,
+    <dfn class="dfn-paneled" data-dfn-for="SessionNewResult/capabilities" data-dfn-type="cddl-key" data-lt="atName|&quot;atName&quot;" data-noexport id="cddl-key-sessionnewresult-capabilities-atname"><code>atName</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D" id="ref-for-appendix-D①②">text</a>,
+    <dfn class="dfn-paneled" data-dfn-for="SessionNewResult/capabilities" data-dfn-type="cddl-key" data-lt="atVersion|&quot;atVersion&quot;" data-noexport id="cddl-key-sessionnewresult-capabilities-atversion"><code>atVersion</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D" id="ref-for-appendix-D①③">text</a>,
+    <dfn class="dfn-paneled" data-dfn-for="SessionNewResult/capabilities" data-dfn-type="cddl-key" data-lt="platformName|&quot;platformName&quot;" data-noexport id="cddl-key-sessionnewresult-capabilities-platformname"><code>platformName</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D" id="ref-for-appendix-D①④">text</a>,
     <a data-link-type="cddl" href="#cddl-type-extensible" id="ref-for-cddl-type-extensible⑥">Extensible</a>,
   }
 }
@@ -1540,7 +1571,7 @@ A <a data-link-type="dfn" href="#local-end" id="ref-for-local-end⑨">local end<
 an assistive technology named <code>NVDA</code> might send a Command such as:
 
 
-<pre class="language-json highlight"><c- p>{</c->
+<pre class="highlight language-json"><c- p>{</c->
   <c- f>"id"</c-><c- p>:</c-> <c- mi>24601</c-><c- p>,</c->
   <c- f>"method"</c-><c- p>:</c-> <c- u>"session.new"</c-><c- p>,</c->
   <c- f>"params"</c-><c- p>:</c-> <c- p>{</c->
@@ -1555,7 +1586,7 @@ an assistive technology named <code>NVDA</code> might send a Command such as:
 </pre>
     <p>And the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②③">remote end</a> which receives that Command could respond with the
 following Message:</p>
-<pre class="language-json highlight"><c- p>{</c->
+<pre class="highlight language-json"><c- p>{</c->
   <c- f>"id"</c-><c- p>:</c-> <c- mi>24601</c-><c- p>,</c->
   <c- f>"result"</c-><c- p>:</c-> <c- p>{</c->
     <c- f>"sessionId"</c-><c- p>:</c-> <c- u>"4f974515-cac5-4e45-9604-95d918116e83"</c-><c- p>,</c->
@@ -1642,27 +1673,27 @@ following Message:</p>
    <p class="issue" id="issue-b4b3c071"><a class="self-link" href="#issue-b4b3c071"></a> Require implementations to maintain a static list of supported settings.</p>
    <h4 class="heading settled" data-level="7.2.1" id="module-settings-definition"><span class="secno">7.2.1. </span><span class="content">Definition</span><a class="self-link" href="#module-settings-definition"></a></h4>
    <p><code class="cddl"><a data-link-type="cddl" href="#cddl-module-remote-end-definition" id="ref-for-cddl-module-remote-end-definition⑧">Remote end definition</a></code></p>
-<pre class="cddl highlight def" data-cddl-module="remote-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-settingscommand"><code>SettingsCommand</code></dfn> = {
+<pre class="cddl def highlight" data-cddl-module="remote-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-settingscommand"><code>SettingsCommand</code></dfn> = {
   <a data-link-type="cddl" href="#cddl-type-settingssetsettingscommand" id="ref-for-cddl-type-settingssetsettingscommand">SettingsSetSettingsCommand</a> //
   <a data-link-type="cddl" href="#cddl-type-settingsgetsettingscommand" id="ref-for-cddl-type-settingsgetsettingscommand">SettingsGetSettingsCommand</a> //
   <a data-link-type="cddl" href="#cddl-type-settingsgetsupportedsettingscommand" id="ref-for-cddl-type-settingsgetsupportedsettingscommand">SettingsGetSupportedSettingsCommand</a>
 }
 </pre>
    <p><code class="cddl"><a data-link-type="cddl" href="#cddl-module-local-end-definition" id="ref-for-cddl-module-local-end-definition①⓪">Local end definition</a></code></p>
-<pre class="cddl highlight def" data-cddl-module="local-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-settingsresult"><code>SettingsResult</code></dfn> = {
+<pre class="cddl def highlight" data-cddl-module="local-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-settingsresult"><code>SettingsResult</code></dfn> = {
   <a data-link-type="cddl" href="#cddl-type-settingsgetsettingsresult" id="ref-for-cddl-type-settingsgetsettingsresult">SettingsGetSettingsResult</a>
 }
 </pre>
    <h4 class="heading settled" data-level="7.2.2" id="module-settings-types"><span class="secno">7.2.2. </span><span class="content">Types</span><a class="self-link" href="#module-settings-types"></a></h4>
    <h5 class="heading settled" data-level="7.2.2.1" id="module-settings-get-settings-result"><span class="secno">7.2.2.1. </span><span class="content">The SettingsGetSettingsResult type</span><a class="self-link" href="#module-settings-get-settings-result"></a></h5>
    <p><code class="cddl"><a data-link-type="cddl" href="#cddl-module-local-end-definition" id="ref-for-cddl-module-local-end-definition①①">Local end definition</a></code>:</p>
-<pre class="cddl highlight def" data-cddl-module="local-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-settingsgetsettingsresult"><code>SettingsGetSettingsResult</code></dfn> = {
+<pre class="cddl def highlight" data-cddl-module="local-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-settingsgetsettingsresult"><code>SettingsGetSettingsResult</code></dfn> = {
   <dfn class="dfn-paneled" data-dfn-for="SettingsGetSettingsResult" data-dfn-type="cddl-key" data-lt="settings|&quot;settings&quot;" data-noexport id="cddl-key-settingsgetsettingsresult-settings"><code>settings</code></dfn>: [1* <a data-link-type="cddl" href="#cddl-type-settingsgetsettingsresultitem" id="ref-for-cddl-type-settingsgetsettingsresultitem">SettingsGetSettingsResultItem</a> ],
 }
 
 <dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-settingsgetsettingsresultitem"><code>SettingsGetSettingsResultItem</code></dfn> = {
-  <dfn class="dfn-paneled" data-dfn-for="SettingsGetSettingsResultItem" data-dfn-type="cddl-key" data-lt="name|&quot;name&quot;" data-noexport id="cddl-key-settingsgetsettingsresultitem-name"><code>name</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D①⑤">text</a>,
-  <dfn class="dfn-paneled" data-dfn-for="SettingsGetSettingsResultItem" data-dfn-type="cddl-key" data-lt="value|&quot;value&quot;" data-noexport id="cddl-key-settingsgetsettingsresultitem-value"><code>value</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D①⑥">any</a>,
+  <dfn class="dfn-paneled" data-dfn-for="SettingsGetSettingsResultItem" data-dfn-type="cddl-key" data-lt="name|&quot;name&quot;" data-noexport id="cddl-key-settingsgetsettingsresultitem-name"><code>name</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D" id="ref-for-appendix-D①⑤">text</a>,
+  <dfn class="dfn-paneled" data-dfn-for="SettingsGetSettingsResultItem" data-dfn-type="cddl-key" data-lt="value|&quot;value&quot;" data-noexport id="cddl-key-settingsgetsettingsresultitem-value"><code>value</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D" id="ref-for-appendix-D①⑥">any</a>,
   <a data-link-type="cddl" href="#cddl-type-extensible" id="ref-for-cddl-type-extensible⑦">Extensible</a>,
 }
 </pre>
@@ -1675,7 +1706,7 @@ following Message:</p>
    <dl>
     <dt><a data-link-type="dfn" href="#command-type" id="ref-for-command-type①">Command Type</a>
     <dd>
-<pre class="cddl highlight def" data-cddl-module="remote-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-settingssetsettingscommand"><code>SettingsSetSettingsCommand</code></dfn> = {
+<pre class="cddl def highlight" data-cddl-module="remote-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-settingssetsettingscommand"><code>SettingsSetSettingsCommand</code></dfn> = {
   <dfn class="dfn-paneled" data-dfn-for="SettingsSetSettingsCommand" data-dfn-type="cddl-key" data-lt="method|&quot;method&quot;" data-noexport id="cddl-key-settingssetsettingscommand-method"><code>method</code></dfn>: <dfn class="dfn-paneled" data-dfn-for="SettingsSetSettingsCommand/method" data-dfn-type="cddl-value" data-lt="settings.setSettings|&quot;settings.setSettings&quot;" data-noexport id="cddl-value-settingssetsettingscommand-method-settingssetsettings"><code>"settings.setSettings"</code></dfn>,
   <dfn class="dfn-paneled" data-dfn-for="SettingsSetSettingsCommand" data-dfn-type="cddl-key" data-lt="params|&quot;params&quot;" data-noexport id="cddl-key-settingssetsettingscommand-params"><code>params</code></dfn>: <a data-link-type="cddl" href="#cddl-type-settingssetsettingsparameters" id="ref-for-cddl-type-settingssetsettingsparameters">SettingsSetSettingsParameters</a>
 }
@@ -1685,8 +1716,8 @@ following Message:</p>
 }
 
 <dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-settingssetsettingsparametersitem"><code>SettingsSetSettingsParametersItem</code></dfn> = {
-  <dfn class="dfn-paneled" data-dfn-for="SettingsSetSettingsParametersItem" data-dfn-type="cddl-key" data-lt="name|&quot;name&quot;" data-noexport id="cddl-key-settingssetsettingsparametersitem-name"><code>name</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D①⑦">text</a>,
-  <dfn class="dfn-paneled" data-dfn-for="SettingsSetSettingsParametersItem" data-dfn-type="cddl-key" data-lt="value|&quot;value&quot;" data-noexport id="cddl-key-settingssetsettingsparametersitem-value"><code>value</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D①⑧">any</a>,
+  <dfn class="dfn-paneled" data-dfn-for="SettingsSetSettingsParametersItem" data-dfn-type="cddl-key" data-lt="name|&quot;name&quot;" data-noexport id="cddl-key-settingssetsettingsparametersitem-name"><code>name</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D" id="ref-for-appendix-D①⑦">text</a>,
+  <dfn class="dfn-paneled" data-dfn-for="SettingsSetSettingsParametersItem" data-dfn-type="cddl-key" data-lt="value|&quot;value&quot;" data-noexport id="cddl-key-settingssetsettingsparametersitem-value"><code>value</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D" id="ref-for-appendix-D①⑧">any</a>,
   <a data-link-type="cddl" href="#cddl-type-extensible" id="ref-for-cddl-type-extensible⑧">Extensible</a>,
 }
 </pre>
@@ -1724,7 +1755,7 @@ A <a data-link-type="dfn" href="#local-end" id="ref-for-local-end①⓪">local e
 <code>readEntirePage</code> and <code>speed</code> might send a Command such as:
 
 
-<pre class="language-json highlight"><c- p>{</c->
+<pre class="highlight language-json"><c- p>{</c->
   <c- f>"id"</c-><c- p>:</c-> <c- mi>1776</c-><c- p>,</c->
   <c- f>"method"</c-><c- p>:</c-> <c- u>"settings.setSettings"</c-><c- p>,</c->
   <c- f>"params"</c-><c- p>:</c-> <c- p>{</c->
@@ -1743,7 +1774,7 @@ A <a data-link-type="dfn" href="#local-end" id="ref-for-local-end①⓪">local e
 </pre>
     <p>And the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②⑥">remote end</a> which receives that Command could respond with the
 following Message:</p>
-<pre class="language-json highlight"><c- p>{</c->
+<pre class="highlight language-json"><c- p>{</c->
   <c- f>"id"</c-><c- p>:</c-> <c- mi>1776</c-><c- p>,</c->
   <c- f>"result"</c-><c- p>:</c-> <c- p>{}</c->
 <c- p>}</c->
@@ -1754,7 +1785,7 @@ following Message:</p>
    <dl>
     <dt><a data-link-type="dfn" href="#command-type" id="ref-for-command-type②">Command Type</a>
     <dd>
-<pre class="cddl highlight def" data-cddl-module="remote-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-settingsgetsettingscommand"><code>SettingsGetSettingsCommand</code></dfn> = {
+<pre class="cddl def highlight" data-cddl-module="remote-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-settingsgetsettingscommand"><code>SettingsGetSettingsCommand</code></dfn> = {
   <dfn class="dfn-paneled" data-dfn-for="SettingsGetSettingsCommand" data-dfn-type="cddl-key" data-lt="method|&quot;method&quot;" data-noexport id="cddl-key-settingsgetsettingscommand-method"><code>method</code></dfn>: <dfn class="dfn-paneled" data-dfn-for="SettingsGetSettingsCommand/method" data-dfn-type="cddl-value" data-lt="settings.getSettings|&quot;settings.getSettings&quot;" data-noexport id="cddl-value-settingsgetsettingscommand-method-settingsgetsettings"><code>"settings.getSettings"</code></dfn>,
   <dfn class="dfn-paneled" data-dfn-for="SettingsGetSettingsCommand" data-dfn-type="cddl-key" data-lt="params|&quot;params&quot;" data-noexport id="cddl-key-settingsgetsettingscommand-params"><code>params</code></dfn>: <a data-link-type="cddl" href="#cddl-type-settingsgetsettingsparameters" id="ref-for-cddl-type-settingsgetsettingsparameters">SettingsGetSettingsParameters</a>
 }
@@ -1764,7 +1795,7 @@ following Message:</p>
 }
 
 <dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-settingsgetsettingsparametersitem"><code>SettingsGetSettingsParametersItem</code></dfn> = {
-  <dfn class="dfn-paneled" data-dfn-for="SettingsGetSettingsParametersItem" data-dfn-type="cddl-key" data-lt="name|&quot;name&quot;" data-noexport id="cddl-key-settingsgetsettingsparametersitem-name"><code>name</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D①⑨">text</a>,
+  <dfn class="dfn-paneled" data-dfn-for="SettingsGetSettingsParametersItem" data-dfn-type="cddl-key" data-lt="name|&quot;name&quot;" data-noexport id="cddl-key-settingsgetsettingsparametersitem-name"><code>name</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D" id="ref-for-appendix-D①⑨">text</a>,
   <a data-link-type="cddl" href="#cddl-type-extensible" id="ref-for-cddl-type-extensible⑨">Extensible</a>,
 }
 </pre>
@@ -1791,7 +1822,7 @@ A <a data-link-type="dfn" href="#local-end" id="ref-for-local-end①①">local e
 such as:
 
 
-<pre class="language-json highlight"><c- p>{</c->
+<pre class="highlight language-json"><c- p>{</c->
   <c- f>"id"</c-><c- p>:</c-> <c- mi>8675309</c-><c- p>,</c->
   <c- f>"method"</c-><c- p>:</c-> <c- u>"settings.getSettings"</c-><c- p>,</c->
   <c- f>"params"</c-><c- p>:</c-> <c- p>{</c->
@@ -1808,7 +1839,7 @@ such as:
 </pre>
     <p>And the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②⑦">remote end</a> which receives that Command could respond with the
 following Message:</p>
-<pre class="language-json highlight"><c- p>{</c->
+<pre class="highlight language-json"><c- p>{</c->
   <c- f>"id"</c-><c- p>:</c-> <c- mi>8675309</c-><c- p>,</c->
   <c- f>"result"</c-><c- p>:</c-> <c- p>{</c->
     <c- f>"settings"</c-><c- p>:</c-> <c- p>[</c->
@@ -1830,7 +1861,7 @@ following Message:</p>
    <dl>
     <dt><a data-link-type="dfn" href="#command-type" id="ref-for-command-type③">Command Type</a>
     <dd>
-<pre class="cddl highlight def" data-cddl-module="remote-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-settingsgetsupportedsettingscommand"><code>SettingsGetSupportedSettingsCommand</code></dfn> = {
+<pre class="cddl def highlight" data-cddl-module="remote-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-settingsgetsupportedsettingscommand"><code>SettingsGetSupportedSettingsCommand</code></dfn> = {
   <dfn class="dfn-paneled" data-dfn-for="SettingsGetSupportedSettingsCommand" data-dfn-type="cddl-key" data-lt="method|&quot;method&quot;" data-noexport id="cddl-key-settingsgetsupportedsettingscommand-method"><code>method</code></dfn>: <dfn class="dfn-paneled" data-dfn-for="SettingsGetSupportedSettingsCommand/method" data-dfn-type="cddl-value" data-lt="settings.getSupportedSettings|&quot;settings.getSupportedSettings&quot;" data-noexport id="cddl-value-settingsgetsupportedsettingscommand-method-settingsgetsupportedsettings"><code>"settings.getSupportedSettings"</code></dfn>,
   <dfn class="dfn-paneled" data-dfn-for="SettingsGetSupportedSettingsCommand" data-dfn-type="cddl-key" data-lt="params|&quot;params&quot;" data-noexport id="cddl-key-settingsgetsupportedsettingscommand-params"><code>params</code></dfn>: <a data-link-type="cddl" href="#cddl-type-emptyparams" id="ref-for-cddl-type-emptyparams">EmptyParams</a>
 }
@@ -1871,7 +1902,7 @@ A <a data-link-type="dfn" href="#local-end" id="ref-for-local-end①②">local e
 <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②⑨">remote end</a> might send a Command such as:
 
 
-<pre class="language-json highlight"><c- p>{</c->
+<pre class="highlight language-json"><c- p>{</c->
   <c- f>"id"</c-><c- p>:</c-> <c- mi>781</c-><c- p>,</c->
   <c- f>"method"</c-><c- p>:</c-> <c- u>"settings.getSupportedSettings"</c-><c- p>,</c->
   <c- f>"params"</c-><c- p>:</c-> <c- p>{}</c->
@@ -1879,7 +1910,7 @@ A <a data-link-type="dfn" href="#local-end" id="ref-for-local-end①②">local e
 </pre>
     <p>And the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end③⓪">remote end</a> which receives that Command could respond with the
 following Message:</p>
-<pre class="language-json highlight"><c- p>{</c->
+<pre class="highlight language-json"><c- p>{</c->
   <c- f>"id"</c-><c- p>:</c-> <c- mi>781</c-><c- p>,</c->
   <c- f>"result"</c-><c- p>:</c-> <c- p>{</c->
     <c- f>"settings"</c-><c- p>:</c-> <c- p>[</c->
@@ -1951,15 +1982,15 @@ parameters</var>.</p>
    </div>
    <h4 class="heading settled" data-level="7.3.1" id="module-interaction-definition"><span class="secno">7.3.1. </span><span class="content">Definition</span><a class="self-link" href="#module-interaction-definition"></a></h4>
    <p><code class="cddl"><a data-link-type="cddl" href="#cddl-module-remote-end-definition" id="ref-for-cddl-module-remote-end-definition⑨">Remote end definition</a></code>:</p>
-<pre class="cddl highlight def" data-cddl-module="remote-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-interactioncommand"><code>InteractionCommand</code></dfn> = (<a data-link-type="cddl" href="#cddl-type-interactionuserintentcommand" id="ref-for-cddl-type-interactionuserintentcommand">InteractionUserIntentCommand</a>)
+<pre class="cddl def highlight" data-cddl-module="remote-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-interactioncommand"><code>InteractionCommand</code></dfn> = (<a data-link-type="cddl" href="#cddl-type-interactionuserintentcommand" id="ref-for-cddl-type-interactionuserintentcommand">InteractionUserIntentCommand</a>)
 </pre>
    <p><code class="cddl"><a data-link-type="cddl" href="#cddl-module-local-end-definition" id="ref-for-cddl-module-local-end-definition①②">Local end definition</a></code>:</p>
-<pre class="cddl highlight def" data-cddl-module="local-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-interactionevent"><code>InteractionEvent</code></dfn> = (<a data-link-type="cddl" href="#cddl-type-interactioncapturedoutputevent" id="ref-for-cddl-type-interactioncapturedoutputevent">InteractionCapturedOutputEvent</a>)
+<pre class="cddl def highlight" data-cddl-module="local-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-interactionevent"><code>InteractionEvent</code></dfn> = (<a data-link-type="cddl" href="#cddl-type-interactioncapturedoutputevent" id="ref-for-cddl-type-interactioncapturedoutputevent">InteractionCapturedOutputEvent</a>)
 
 </pre>
    <h4 class="heading settled" data-level="7.3.2" id="module-interaction-types"><span class="secno">7.3.2. </span><span class="content">Types</span><a class="self-link" href="#module-interaction-types"></a></h4>
-<pre class="cddl highlight def" data-cddl-module="local-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-interactioncapturedoutputparameters"><code>InteractionCapturedOutputParameters</code></dfn> = {
-  <dfn class="dfn-paneled" data-dfn-for="InteractionCapturedOutputParameters" data-dfn-type="cddl-key" data-lt="data|&quot;data&quot;" data-noexport id="cddl-key-interactioncapturedoutputparameters-data"><code>data</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D②⓪">text</a>,
+<pre class="cddl def highlight" data-cddl-module="local-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-interactioncapturedoutputparameters"><code>InteractionCapturedOutputParameters</code></dfn> = {
+  <dfn class="dfn-paneled" data-dfn-for="InteractionCapturedOutputParameters" data-dfn-type="cddl-key" data-lt="data|&quot;data&quot;" data-noexport id="cddl-key-interactioncapturedoutputparameters-data"><code>data</code></dfn>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D" id="ref-for-appendix-D②⓪">text</a>,
   <a data-link-type="cddl" href="#cddl-type-extensible" id="ref-for-cddl-type-extensible①⓪">Extensible</a>,
 }
 </pre>
@@ -1970,7 +2001,7 @@ parameters</var>.</p>
     <dt><a data-link-type="dfn" href="#command-type" id="ref-for-command-type④">Command Type</a>
   
     <dd>
-<pre class="cddl highlight def" data-cddl-module="remote-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-interactionuserintentcommand"><code>InteractionUserIntentCommand</code></dfn> = {
+<pre class="cddl def highlight" data-cddl-module="remote-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-interactionuserintentcommand"><code>InteractionUserIntentCommand</code></dfn> = {
   <dfn class="dfn-paneled" data-dfn-for="InteractionUserIntentCommand" data-dfn-type="cddl-key" data-lt="method|&quot;method&quot;" data-noexport id="cddl-key-interactionuserintentcommand-method"><code>method</code></dfn>: <dfn class="dfn-paneled" data-dfn-for="InteractionUserIntentCommand/method" data-dfn-type="cddl-value" data-lt="interaction.userIntent|&quot;interaction.userIntent&quot;" data-noexport id="cddl-value-interactionuserintentcommand-method-interactionuserintent"><code>"interaction.userIntent"</code></dfn>,
   <dfn class="dfn-paneled" data-dfn-for="InteractionUserIntentCommand" data-dfn-type="cddl-key" data-lt="params|&quot;params&quot;" data-noexport id="cddl-key-interactionuserintentcommand-params"><code>params</code></dfn>: <a data-link-type="cddl" href="#cddl-type-interactionuserintentparameters" id="ref-for-cddl-type-interactionuserintentparameters">InteractionUserIntentParameters</a>
 }
@@ -1986,11 +2017,11 @@ parameters</var>.</p>
 }
 
 <dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-keycombination"><code>KeyCombination</code></dfn> = [
-  1* <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D②①">text</a>
+  1* <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D" id="ref-for-appendix-D②①">text</a>
 ]
 
 <dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-extensionintentparameters"><code>ExtensionIntentParameters</code></dfn> = {
-  <dfn class="dfn-paneled" data-dfn-for="ExtensionIntentParameters" data-dfn-type="cddl-key" data-lt="name|&quot;name&quot;" data-noexport id="cddl-key-extensionintentparameters-name"><code>"name"</code></dfn> => <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D" id="ref-for-appendix-D②②">text</a>,
+  <dfn class="dfn-paneled" data-dfn-for="ExtensionIntentParameters" data-dfn-type="cddl-key" data-lt="name|&quot;name&quot;" data-noexport id="cddl-key-extensionintentparameters-name"><code>"name"</code></dfn> => <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D" id="ref-for-appendix-D②②">text</a>,
   <a data-link-type="cddl" href="#cddl-type-extensible" id="ref-for-cddl-type-extensible①①">Extensible</a>,
 }
 </pre>
@@ -2038,7 +2069,7 @@ releasing the <kbd>h</kbd> key, and finally releasing the <kbd>Control</kbd>
 key) might send a Command such as:
 
 
-<pre class="language-json highlight"><c- p>{</c->
+<pre class="highlight language-json"><c- p>{</c->
   <c- f>"id"</c-><c- p>:</c-> <c- mi>19860814</c-><c- p>,</c->
   <c- f>"method"</c-><c- p>:</c-> <c- u>"interaction.userIntent"</c-><c- p>,</c->
   <c- f>"params"</c-><c- p>:</c-> <c- p>{</c->
@@ -2049,7 +2080,7 @@ key) might send a Command such as:
 </pre>
     <p>And the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end③②">remote end</a> which receives that Command could respond with the
 following Message:</p>
-<pre class="language-json highlight"><c- p>{</c->
+<pre class="highlight language-json"><c- p>{</c->
   <c- f>"id"</c-><c- p>:</c-> <c- mi>19860814</c-><c- p>,</c->
   <c- f>"result"</c-><c- p>:</c-> <c- p>{}</c->
 <c- p>}</c->
@@ -2061,7 +2092,7 @@ following Message:</p>
     <dt>Event Type
   
     <dd>
-<pre class="cddl highlight def" data-cddl-module="local-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-interactioncapturedoutputevent"><code>InteractionCapturedOutputEvent</code></dfn> = {
+<pre class="cddl def highlight" data-cddl-module="local-cddl"><dfn class="dfn-paneled" data-dfn-type="cddl-type" data-noexport id="cddl-type-interactioncapturedoutputevent"><code>InteractionCapturedOutputEvent</code></dfn> = {
   <dfn class="dfn-paneled" data-dfn-for="InteractionCapturedOutputEvent" data-dfn-type="cddl-key" data-lt="method|&quot;method&quot;" data-noexport id="cddl-key-interactioncapturedoutputevent-method"><code>method</code></dfn>: <dfn class="dfn-paneled" data-dfn-for="InteractionCapturedOutputEvent/method" data-dfn-type="cddl-value" data-lt="interaction.capturedOutput|&quot;interaction.capturedOutput&quot;" data-noexport id="cddl-value-interactioncapturedoutputevent-method-interactioncapturedoutput"><code>"interaction.capturedOutput"</code></dfn>,
   <dfn class="dfn-paneled" data-dfn-for="InteractionCapturedOutputEvent" data-dfn-type="cddl-key" data-lt="params|&quot;params&quot;" data-noexport id="cddl-key-interactioncapturedoutputevent-params"><code>params</code></dfn>: <a data-link-type="cddl" href="#cddl-type-interactioncapturedoutputparameters" id="ref-for-cddl-type-interactioncapturedoutputparameters">InteractionCapturedOutputParameters</a>
 }
@@ -2116,8 +2147,8 @@ following Message:</p>
    <p class="issue" id="issue-f906273a"><a class="self-link" href="#issue-f906273a"></a> The JSON Schema files are not yet generated from the CDDL and so might be out of date. <a href="https://github.com/w3c/at-driver/issues/23">[Issue #23]</a></p>
   </main>
   <div data-fill-with="conformance">
-   <h2 class="no-ref no-num heading settled" id="w3c-conformance"><span class="content">Conformance</span><a class="self-link" href="#w3c-conformance"></a></h2>
-   <h3 class="no-ref no-num heading settled" id="w3c-conventions"><span class="content">Document conventions</span><a class="self-link" href="#w3c-conventions"></a></h3>
+   <h2 class="heading no-num no-ref settled" id="w3c-conformance"><span class="content">Conformance</span><a class="self-link" href="#w3c-conformance"></a></h2>
+   <h3 class="heading no-num no-ref settled" id="w3c-conventions"><span class="content">Document conventions</span><a class="self-link" href="#w3c-conventions"></a></h3>
    <p>Conformance requirements are expressed
     with a combination of descriptive assertions
     and RFC 2119 terminology.
@@ -2152,7 +2183,7 @@ following Message:</p>
     </p>
    <p class="note" role="note">Note, this is an informative note.</p>
    <section>
-    <h3 class="no-ref no-num heading settled" id="w3c-conformant-algorithms"><span class="content">Conformant Algorithms</span><a class="self-link" href="#w3c-conformant-algorithms"></a></h3>
+    <h3 class="heading no-num no-ref settled" id="w3c-conformant-algorithms"><span class="content">Conformant Algorithms</span><a class="self-link" href="#w3c-conformant-algorithms"></a></h3>
     <p>Requirements phrased in the imperative as part of algorithms
     (such as "strip any leading space characters"
     or "return false and abort these steps")
@@ -2172,8 +2203,8 @@ following Message:</p>
    </section>
   </div>
   <script src="https://www.w3.org/scripts/TR/2021/fixup.js"></script>
-  <h2 class="no-num no-ref heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
-  <h3 class="no-num no-ref heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
+  <h2 class="heading no-num no-ref settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
+  <h3 class="heading no-num no-ref settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
   <ul class="index">
    <li><a href="#remote-end-active-listeners">active listeners</a><span>, in § 6</span>
    <li><a href="#remote-end-active-sessions">active sessions</a><span>, in § 5.3</span>
@@ -2503,7 +2534,7 @@ following Message:</p>
    <li><a href="#remote-end-websocket-connections-not-associated-with-a-session">WebSocket connections not associated with a session</a><span>, in § 6</span>
    <li><a href="#websocket-listener">WebSocket listener</a><span>, in § 6</span>
   </ul>
-  <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
+  <h3 class="heading no-num no-ref settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
   <ul class="index">
    <li>
     <a data-link-type="biblio">[HTML]</a> defines the following terms:
@@ -2537,14 +2568,14 @@ following Message:</p>
    <li>
     <a data-link-type="biblio">[RFC8610]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="ef593226">any</span>
-     <li><span class="dfn-paneled" id="523b9b71">null</span>
-     <li><span class="dfn-paneled" id="c3bd1df0">text</span>
-     <li><span class="dfn-paneled" id="6a303638">uint</span>
+     <li><span class="dfn-paneled" id="fdf94d96">any</span>
+     <li><span class="dfn-paneled" id="23690420">null</span>
+     <li><span class="dfn-paneled" id="0cc62772">text</span>
+     <li><span class="dfn-paneled" id="43663ea8">uint</span>
     </ul>
   </ul>
-  <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
-  <h3 class="no-num no-ref heading settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
+  <h2 class="heading no-num no-ref settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
+  <h3 class="heading no-num no-ref settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
   <dl>
    <dt id="biblio-html">[HTML]
    <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/"><cite>HTML Standard</cite></a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
@@ -2553,23 +2584,23 @@ following Message:</p>
    <dt id="biblio-rfc2119">[RFC2119]
    <dd>S. Bradner. <a href="https://datatracker.ietf.org/doc/html/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://datatracker.ietf.org/doc/html/rfc2119">https://datatracker.ietf.org/doc/html/rfc2119</a>
    <dt id="biblio-rfc6455">[RFC6455]
-   <dd>I. Fette; A. Melnikov. <a href="https://www.rfc-editor.org/rfc/rfc6455"><cite>The WebSocket Protocol</cite></a>. December 2011. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc6455">https://www.rfc-editor.org/rfc/rfc6455</a>
+   <dd>I. Fette; A. Melnikov. <a href="https://www.rfc-editor.org/info/rfc6455/"><cite>The WebSocket Protocol</cite></a>. December 2011. Proposed Standard. URL: <a href="https://www.rfc-editor.org/info/rfc6455/">https://www.rfc-editor.org/info/rfc6455/</a>
    <dt id="biblio-rfc8610">[RFC8610]
-   <dd>H. Birkholz; C. Vigano; C. Bormann. <a href="https://www.rfc-editor.org/rfc/rfc8610"><cite>Concise Data Definition Language (CDDL): A Notational Convention to Express Concise Binary Object Representation (CBOR) and JSON Data Structures</cite></a>. June 2019. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc8610">https://www.rfc-editor.org/rfc/rfc8610</a>
+   <dd>H. Birkholz; C. Vigano; C. Bormann. <a href="https://www.rfc-editor.org/info/rfc8610/"><cite>Concise Data Definition Language (CDDL): A Notational Convention to Express Concise Binary Object Representation (CBOR) and JSON Data Structures</cite></a>. June 2019. Proposed Standard. URL: <a href="https://www.rfc-editor.org/info/rfc8610/">https://www.rfc-editor.org/info/rfc8610/</a>
    <dt id="biblio-rfc9562">[RFC9562]
-   <dd>K. Davis; B. Peabody; P. Leach. <a href="https://www.rfc-editor.org/rfc/rfc9562"><cite>Universally Unique IDentifiers (UUIDs)</cite></a>. May 2024. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc9562">https://www.rfc-editor.org/rfc/rfc9562</a>
+   <dd>K. Davis; B. Peabody; P. Leach. <a href="https://www.rfc-editor.org/info/rfc9562/"><cite>Universally Unique IDentifiers (UUIDs)</cite></a>. May 2024. Proposed Standard. URL: <a href="https://www.rfc-editor.org/info/rfc9562/">https://www.rfc-editor.org/info/rfc9562/</a>
   </dl>
-  <h3 class="no-num no-ref heading settled" id="informative"><span class="content">Informative References</span><a class="self-link" href="#informative"></a></h3>
+  <h3 class="heading no-num no-ref settled" id="informative"><span class="content">Non-Normative References</span><a class="self-link" href="#informative"></a></h3>
   <dl>
    <dt id="biblio-rfc4632">[RFC4632]
-   <dd>V. Fuller; T. Li. <a href="https://www.rfc-editor.org/rfc/rfc4632"><cite>Classless Inter-domain Routing (CIDR): The Internet Address Assignment and Aggregation Plan</cite></a>. August 2006. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc4632">https://www.rfc-editor.org/rfc/rfc4632</a>
+   <dd>V. Fuller; T. Li. <a href="https://www.rfc-editor.org/info/rfc4632/"><cite>Classless Inter-domain Routing (CIDR): The Internet Address Assignment and Aggregation Plan</cite></a>. August 2006. Best Current Practice. URL: <a href="https://www.rfc-editor.org/info/rfc4632/">https://www.rfc-editor.org/info/rfc4632/</a>
    <dt id="biblio-webdriver">[WEBDRIVER]
    <dd>Simon Stewart; David Burns. <a href="https://w3c.github.io/webdriver/"><cite>WebDriver</cite></a>. URL: <a href="https://w3c.github.io/webdriver/">https://w3c.github.io/webdriver/</a>
   </dl>
-  <h2 class="no-num no-ref heading settled" id="cddl-index"><span class="content">CDDL Index</span><a class="self-link" href="#cddl-index"></a></h2>
-  <h3 class="no-num no-ref heading settled" id="cddl-index-cddl-module-remote-end-definition"><span class="content">Remote end definition</span><a class="self-link" href="#cddl-index-cddl-module-remote-end-definition"></a></h3>
-<pre class="cddl highlight def"><a href="#cddl-type-command"><code>Command</code></a> = {
-  <a href="#cddl-key-command-id"><code>id</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">uint</a>,
+  <h2 class="heading no-num no-ref settled" id="cddl-index"><span class="content">CDDL Index</span><a class="self-link" href="#cddl-index"></a></h2>
+  <h3 class="heading no-num no-ref settled" id="cddl-index-cddl-module-remote-end-definition"><span class="content">Remote end definition</span><a class="self-link" href="#cddl-index-cddl-module-remote-end-definition"></a></h3>
+<pre class="cddl def highlight"><a href="#cddl-type-command"><code>Command</code></a> = {
+  <a href="#cddl-key-command-id"><code>id</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D">uint</a>,
   <a data-link-type="cddl" href="#cddl-type-commanddata">CommandData</a>,
   <a data-link-type="cddl" href="#cddl-type-extensible">Extensible</a>,
 }
@@ -2583,15 +2614,15 @@ following Message:</p>
 <a href="#cddl-type-emptyparams"><code>EmptyParams</code></a> = { <a data-link-type="cddl" href="#cddl-type-extensible">Extensible</a> }
 
 <a href="#cddl-type-extensible"><code>Extensible</code></a> = {
-  *<a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a> => <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">any</a>
+  *<a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D">text</a> => <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D">any</a>
 }
 
 <a href="#cddl-type-sessioncommand"><code>SessionCommand</code></a> = (<a data-link-type="cddl" href="#cddl-type-sessionnewcommand">SessionNewCommand</a>)
 
 <a href="#cddl-type-capabilitiesrequest"><code>CapabilitiesRequest</code></a> = {
-  ?<a href="#cddl-key-capabilitiesrequest-atname"><code>atName</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a>,
-  ?<a href="#cddl-key-capabilitiesrequest-atversion"><code>atVersion</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a>,
-  ?<a href="#cddl-key-capabilitiesrequest-platformname"><code>platformName</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a>,
+  ?<a href="#cddl-key-capabilitiesrequest-atname"><code>atName</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D">text</a>,
+  ?<a href="#cddl-key-capabilitiesrequest-atversion"><code>atVersion</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D">text</a>,
+  ?<a href="#cddl-key-capabilitiesrequest-platformname"><code>platformName</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D">text</a>,
   <a data-link-type="cddl" href="#cddl-type-extensible">Extensible</a>,
 }
 
@@ -2620,8 +2651,8 @@ following Message:</p>
 }
 
 <a href="#cddl-type-settingssetsettingsparametersitem"><code>SettingsSetSettingsParametersItem</code></a> = {
-  <a href="#cddl-key-settingssetsettingsparametersitem-name"><code>name</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a>,
-  <a href="#cddl-key-settingssetsettingsparametersitem-value"><code>value</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">any</a>,
+  <a href="#cddl-key-settingssetsettingsparametersitem-name"><code>name</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D">text</a>,
+  <a href="#cddl-key-settingssetsettingsparametersitem-value"><code>value</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D">any</a>,
   <a data-link-type="cddl" href="#cddl-type-extensible">Extensible</a>,
 }
 
@@ -2635,7 +2666,7 @@ following Message:</p>
 }
 
 <a href="#cddl-type-settingsgetsettingsparametersitem"><code>SettingsGetSettingsParametersItem</code></a> = {
-  <a href="#cddl-key-settingsgetsettingsparametersitem-name"><code>name</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a>,
+  <a href="#cddl-key-settingsgetsettingsparametersitem-name"><code>name</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D">text</a>,
   <a data-link-type="cddl" href="#cddl-type-extensible">Extensible</a>,
 }
 
@@ -2662,33 +2693,33 @@ following Message:</p>
 }
 
 <a href="#cddl-type-keycombination"><code>KeyCombination</code></a> = [
-  1* <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a>
+  1* <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D">text</a>
 ]
 
 <a href="#cddl-type-extensionintentparameters"><code>ExtensionIntentParameters</code></a> = {
-  <a href="#cddl-key-extensionintentparameters-name"><code>"name"</code></a> => <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a>,
+  <a href="#cddl-key-extensionintentparameters-name"><code>"name"</code></a> => <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D">text</a>,
   <a data-link-type="cddl" href="#cddl-type-extensible">Extensible</a>,
 }
 
 </pre>
-  <h3 class="no-num no-ref heading settled" id="cddl-index-cddl-module-local-end-definition"><span class="content">Local end definition</span><a class="self-link" href="#cddl-index-cddl-module-local-end-definition"></a></h3>
-<pre class="cddl highlight def"><a href="#cddl-type-message"><code>Message</code></a> = (
+  <h3 class="heading no-num no-ref settled" id="cddl-index-cddl-module-local-end-definition"><span class="content">Local end definition</span><a class="self-link" href="#cddl-index-cddl-module-local-end-definition"></a></h3>
+<pre class="cddl def highlight"><a href="#cddl-type-message"><code>Message</code></a> = (
   <a data-link-type="cddl" href="#cddl-type-commandresponse">CommandResponse</a> //
   <a data-link-type="cddl" href="#cddl-type-errorresponse">ErrorResponse</a> //
   <a data-link-type="cddl" href="#cddl-type-event">Event</a>
 )
 
 <a href="#cddl-type-commandresponse"><code>CommandResponse</code></a> = {
-  <a href="#cddl-key-commandresponse-id"><code>id</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">uint</a>,
+  <a href="#cddl-key-commandresponse-id"><code>id</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D">uint</a>,
   <a href="#cddl-key-commandresponse-result"><code>result</code></a>: <a data-link-type="cddl" href="#cddl-type-resultdata">ResultData</a>,
   <a data-link-type="cddl" href="#cddl-type-extensible">Extensible</a>,
 }
 
 <a href="#cddl-type-errorresponse"><code>ErrorResponse</code></a> = {
-  <a href="#cddl-key-errorresponse-id"><code>id</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">uint</a> / <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">null</a>,
+  <a href="#cddl-key-errorresponse-id"><code>id</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D">uint</a> / <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D">null</a>,
   <a href="#cddl-key-errorresponse-error"><code>error</code></a>: <a href="#cddl-value-errorresponse-error-unknown-error"><code>"unknown error"</code></a> / <a href="#cddl-value-errorresponse-error-unknown-command"><code>"unknown command"</code></a> / <a href="#cddl-value-errorresponse-error-invalid-argument"><code>"invalid argument"</code></a> / <a href="#cddl-value-errorresponse-error-session-not-created"><code>"session not created"</code></a>,
-  <a href="#cddl-key-errorresponse-message"><code>message</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a>,
-  ?<a href="#cddl-key-errorresponse-stacktrace"><code>stacktrace</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a>,
+  <a href="#cddl-key-errorresponse-message"><code>message</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D">text</a>,
+  ?<a href="#cddl-key-errorresponse-stacktrace"><code>stacktrace</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D">text</a>,
   <a data-link-type="cddl" href="#cddl-type-extensible">Extensible</a>,
 }
 
@@ -2710,24 +2741,24 @@ following Message:</p>
 )
 
 <a href="#cddl-type-extensible"><code>Extensible</code></a> = {
-  *<a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a> => <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">any</a>
+  *<a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D">text</a> => <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D">any</a>
 }
 
 <a href="#cddl-type-sessionresult"><code>SessionResult</code></a> = (<a data-link-type="cddl" href="#cddl-type-sessionnewresult">SessionNewResult</a>)
 
 <a href="#cddl-type-capabilitiesrequest"><code>CapabilitiesRequest</code></a> = {
-  ?<a href="#cddl-key-capabilitiesrequest-atname"><code>atName</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a>,
-  ?<a href="#cddl-key-capabilitiesrequest-atversion"><code>atVersion</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a>,
-  ?<a href="#cddl-key-capabilitiesrequest-platformname"><code>platformName</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a>,
+  ?<a href="#cddl-key-capabilitiesrequest-atname"><code>atName</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D">text</a>,
+  ?<a href="#cddl-key-capabilitiesrequest-atversion"><code>atVersion</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D">text</a>,
+  ?<a href="#cddl-key-capabilitiesrequest-platformname"><code>platformName</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D">text</a>,
   <a data-link-type="cddl" href="#cddl-type-extensible">Extensible</a>,
 }
 
 <a href="#cddl-type-sessionnewresult"><code>SessionNewResult</code></a> = {
-  <a href="#cddl-key-sessionnewresult-sessionid"><code>sessionId</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a>,
+  <a href="#cddl-key-sessionnewresult-sessionid"><code>sessionId</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D">text</a>,
   <a href="#cddl-key-sessionnewresult-capabilities"><code>capabilities</code></a>: {
-    <a href="#cddl-key-sessionnewresult-capabilities-atname"><code>atName</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a>,
-    <a href="#cddl-key-sessionnewresult-capabilities-atversion"><code>atVersion</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a>,
-    <a href="#cddl-key-sessionnewresult-capabilities-platformname"><code>platformName</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a>,
+    <a href="#cddl-key-sessionnewresult-capabilities-atname"><code>atName</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D">text</a>,
+    <a href="#cddl-key-sessionnewresult-capabilities-atversion"><code>atVersion</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D">text</a>,
+    <a href="#cddl-key-sessionnewresult-capabilities-platformname"><code>platformName</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D">text</a>,
     <a data-link-type="cddl" href="#cddl-type-extensible">Extensible</a>,
   }
 }
@@ -2741,8 +2772,8 @@ following Message:</p>
 }
 
 <a href="#cddl-type-settingsgetsettingsresultitem"><code>SettingsGetSettingsResultItem</code></a> = {
-  <a href="#cddl-key-settingsgetsettingsresultitem-name"><code>name</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a>,
-  <a href="#cddl-key-settingsgetsettingsresultitem-value"><code>value</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">any</a>,
+  <a href="#cddl-key-settingsgetsettingsresultitem-name"><code>name</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D">text</a>,
+  <a href="#cddl-key-settingsgetsettingsresultitem-value"><code>value</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D">any</a>,
   <a data-link-type="cddl" href="#cddl-type-extensible">Extensible</a>,
 }
 
@@ -2750,7 +2781,7 @@ following Message:</p>
 
 
 <a href="#cddl-type-interactioncapturedoutputparameters"><code>InteractionCapturedOutputParameters</code></a> = {
-  <a href="#cddl-key-interactioncapturedoutputparameters-data"><code>data</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/rfc/rfc8610#appendix-D">text</a>,
+  <a href="#cddl-key-interactioncapturedoutputparameters-data"><code>data</code></a>: <a data-link-type="cddl-type" href="https://www.rfc-editor.org/info/rfc8610/#appendix-D">text</a>,
   <a data-link-type="cddl" href="#cddl-type-extensible">Extensible</a>,
 }
 
@@ -2760,7 +2791,7 @@ following Message:</p>
 }
 
 </pre>
-  <h2 class="no-num no-ref heading settled" id="issues-index"><span class="content">Issues Index</span><a class="self-link" href="#issues-index"></a></h2>
+  <h2 class="heading no-num no-ref settled" id="issues-index"><span class="content">Issues Index</span><a class="self-link" href="#issues-index"></a></h2>
   <div style="counter-reset:issue">
    <div class="issue"> Is the "OS focus" check a viable security restriction for "send keys"? <a href="https://github.com/w3c/at-driver/issues/77">[Issue #77]</a> <a class="issue-return" href="#issue-e10bf837" title="Jump to section">↵</a></div>
    <div class="issue"> Require implementations to maintain a static list of supported settings. <a class="issue-return" href="#issue-b4b3c071" title="Jump to section">↵</a></div>
@@ -2976,18 +3007,19 @@ function parseHTML(markup) {
 let dfnPanelData = {
 "03afaf9c": {"dfnID":"03afaf9c","dfnText":"empty","external":true,"refSections":[{"refs":[{"id":"ref-for-list-empty"}],"title":"6. Transport"}],"url":"https://infra.spec.whatwg.org/#list-empty"},
 "0698d556": {"dfnID":"0698d556","dfnText":"string","external":true,"refSections":[{"refs":[{"id":"ref-for-string"},{"id":"ref-for-string\u2460"},{"id":"ref-for-string\u2461"},{"id":"ref-for-string\u2462"},{"id":"ref-for-string\u2463"},{"id":"ref-for-string\u2464"}],"title":"5.2. Capabilities"}],"url":"https://infra.spec.whatwg.org/#string"},
+"0cc62772": {"dfnID":"0cc62772","dfnText":"text","external":true,"refSections":[{"refs":[{"id":"ref-for-appendix-D"},{"id":"ref-for-appendix-D\u2460"},{"id":"ref-for-appendix-D\u2461"},{"id":"ref-for-appendix-D\u2462"},{"id":"ref-for-appendix-D\u2463"},{"id":"ref-for-appendix-D\u2464"},{"id":"ref-for-appendix-D\u2465"},{"id":"ref-for-appendix-D\u2466"}],"title":"5.1. Definition"},{"refs":[{"id":"ref-for-appendix-D\u2467"},{"id":"ref-for-appendix-D\u2468"},{"id":"ref-for-appendix-D\u2460\u24ea"}],"title":"7.1.2.1. The session.CapabilitiesRequest Type"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2460"},{"id":"ref-for-appendix-D\u2460\u2461"},{"id":"ref-for-appendix-D\u2460\u2462"},{"id":"ref-for-appendix-D\u2460\u2463"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2464"},{"id":"ref-for-appendix-D\u2460\u2465"}],"title":"7.2.2.1. The SettingsGetSettingsResult type"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2466"},{"id":"ref-for-appendix-D\u2460\u2467"}],"title":"7.2.3.1. The settings.setSettings Command"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2468"}],"title":"7.2.3.2. The settings.getSettings Command"},{"refs":[{"id":"ref-for-appendix-D\u2461\u24ea"}],"title":"7.3.2. Types"},{"refs":[{"id":"ref-for-appendix-D\u2461\u2460"},{"id":"ref-for-appendix-D\u2461\u2461"}],"title":"7.3.3.1. The interaction.userIntent Command"}],"url":"https://www.rfc-editor.org/info/rfc8610/#appendix-D"},
 "0e6b2056": {"dfnID":"0e6b2056","dfnText":"set (for map)","external":true,"refSections":[{"refs":[{"id":"ref-for-map-set"}],"title":"5.2. Capabilities"}],"url":"https://infra.spec.whatwg.org/#map-set"},
 "1243a891": {"dfnID":"1243a891","dfnText":"exist","external":true,"refSections":[{"refs":[{"id":"ref-for-map-exists"},{"id":"ref-for-map-exists\u2460"}],"title":"5.2. Capabilities"},{"refs":[{"id":"ref-for-map-exists\u2461"},{"id":"ref-for-map-exists\u2462"},{"id":"ref-for-map-exists\u2463"},{"id":"ref-for-map-exists\u2464"}],"title":"6. Transport"}],"url":"https://infra.spec.whatwg.org/#map-exists"},
 "15e48c39": {"dfnID":"15e48c39","dfnText":"set","external":true,"refSections":[{"refs":[{"id":"ref-for-ordered-set"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-ordered-set\u2460"},{"id":"ref-for-ordered-set\u2461"},{"id":"ref-for-ordered-set\u2462"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-ordered-set\u2463"}],"title":"7.2. The settings Module"}],"url":"https://infra.spec.whatwg.org/#ordered-set"},
 "16d07e10": {"dfnID":"16d07e10","dfnText":"for each (for list)","external":true,"refSections":[{"refs":[{"id":"ref-for-list-iterate"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-list-iterate\u2460"}],"title":"7.2. The settings Module"},{"refs":[{"id":"ref-for-list-iterate\u2461"}],"title":"7.2.3.1. The settings.setSettings Command"},{"refs":[{"id":"ref-for-list-iterate\u2462"},{"id":"ref-for-list-iterate\u2463"}],"title":"7.3. The Interaction Module"},{"refs":[{"id":"ref-for-list-iterate\u2464"}],"title":"7.3.4.1. The interaction.capturedOutput Event"}],"url":"https://infra.spec.whatwg.org/#list-iterate"},
+"23690420": {"dfnID":"23690420","dfnText":"null","external":true,"refSections":[{"refs":[{"id":"ref-for-appendix-D"},{"id":"ref-for-appendix-D\u2460"},{"id":"ref-for-appendix-D\u2461"},{"id":"ref-for-appendix-D\u2462"},{"id":"ref-for-appendix-D\u2463"},{"id":"ref-for-appendix-D\u2464"},{"id":"ref-for-appendix-D\u2465"},{"id":"ref-for-appendix-D\u2466"}],"title":"5.1. Definition"},{"refs":[{"id":"ref-for-appendix-D\u2467"},{"id":"ref-for-appendix-D\u2468"},{"id":"ref-for-appendix-D\u2460\u24ea"}],"title":"7.1.2.1. The session.CapabilitiesRequest Type"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2460"},{"id":"ref-for-appendix-D\u2460\u2461"},{"id":"ref-for-appendix-D\u2460\u2462"},{"id":"ref-for-appendix-D\u2460\u2463"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2464"},{"id":"ref-for-appendix-D\u2460\u2465"}],"title":"7.2.2.1. The SettingsGetSettingsResult type"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2466"},{"id":"ref-for-appendix-D\u2460\u2467"}],"title":"7.2.3.1. The settings.setSettings Command"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2468"}],"title":"7.2.3.2. The settings.getSettings Command"},{"refs":[{"id":"ref-for-appendix-D\u2461\u24ea"}],"title":"7.3.2. Types"},{"refs":[{"id":"ref-for-appendix-D\u2461\u2460"},{"id":"ref-for-appendix-D\u2461\u2461"}],"title":"7.3.3.1. The interaction.userIntent Command"}],"url":"https://www.rfc-editor.org/info/rfc8610/#appendix-D"},
 "3fca5a9e": {"dfnID":"3fca5a9e","dfnText":"map","external":true,"refSections":[{"refs":[{"id":"ref-for-ordered-map"},{"id":"ref-for-ordered-map\u2460"}],"title":"5.2. Capabilities"},{"refs":[{"id":"ref-for-ordered-map\u2461"},{"id":"ref-for-ordered-map\u2462"},{"id":"ref-for-ordered-map\u2463"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-ordered-map\u2464"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-ordered-map\u2465"},{"id":"ref-for-ordered-map\u2466"}],"title":"7.2. The settings Module"},{"refs":[{"id":"ref-for-ordered-map\u2467"}],"title":"7.2.3.1. The settings.setSettings Command"},{"refs":[{"id":"ref-for-ordered-map\u2468"}],"title":"7.3. The Interaction Module"},{"refs":[{"id":"ref-for-ordered-map\u2460\u24ea"},{"id":"ref-for-ordered-map\u2460\u2460"}],"title":"7.3.4.1. The interaction.capturedOutput Event"}],"url":"https://infra.spec.whatwg.org/#ordered-map"},
+"43663ea8": {"dfnID":"43663ea8","dfnText":"uint","external":true,"refSections":[{"refs":[{"id":"ref-for-appendix-D"},{"id":"ref-for-appendix-D\u2460"},{"id":"ref-for-appendix-D\u2461"},{"id":"ref-for-appendix-D\u2462"},{"id":"ref-for-appendix-D\u2463"},{"id":"ref-for-appendix-D\u2464"},{"id":"ref-for-appendix-D\u2465"},{"id":"ref-for-appendix-D\u2466"}],"title":"5.1. Definition"},{"refs":[{"id":"ref-for-appendix-D\u2467"},{"id":"ref-for-appendix-D\u2468"},{"id":"ref-for-appendix-D\u2460\u24ea"}],"title":"7.1.2.1. The session.CapabilitiesRequest Type"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2460"},{"id":"ref-for-appendix-D\u2460\u2461"},{"id":"ref-for-appendix-D\u2460\u2462"},{"id":"ref-for-appendix-D\u2460\u2463"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2464"},{"id":"ref-for-appendix-D\u2460\u2465"}],"title":"7.2.2.1. The SettingsGetSettingsResult type"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2466"},{"id":"ref-for-appendix-D\u2460\u2467"}],"title":"7.2.3.1. The settings.setSettings Command"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2468"}],"title":"7.2.3.2. The settings.getSettings Command"},{"refs":[{"id":"ref-for-appendix-D\u2461\u24ea"}],"title":"7.3.2. Types"},{"refs":[{"id":"ref-for-appendix-D\u2461\u2460"},{"id":"ref-for-appendix-D\u2461\u2461"}],"title":"7.3.3.1. The interaction.userIntent Command"}],"url":"https://www.rfc-editor.org/info/rfc8610/#appendix-D"},
 "45209803": {"dfnID":"45209803","dfnText":"for each (for map)","external":true,"refSections":[{"refs":[{"id":"ref-for-map-iterate"}],"title":"5.2. Capabilities"}],"url":"https://infra.spec.whatwg.org/#map-iterate"},
 "4c07280e": {"dfnID":"4c07280e","dfnText":"serialize an Infra value to JSON bytes","external":true,"refSections":[{"refs":[{"id":"ref-for-serialize-an-infra-value-to-json-bytes"},{"id":"ref-for-serialize-an-infra-value-to-json-bytes\u2460"},{"id":"ref-for-serialize-an-infra-value-to-json-bytes\u2461"}],"title":"6. Transport"}],"url":"https://infra.spec.whatwg.org/#serialize-an-infra-value-to-json-bytes"},
-"523b9b71": {"dfnID":"523b9b71","dfnText":"null","external":true,"refSections":[{"refs":[{"id":"ref-for-appendix-D"},{"id":"ref-for-appendix-D\u2460"},{"id":"ref-for-appendix-D\u2461"},{"id":"ref-for-appendix-D\u2462"},{"id":"ref-for-appendix-D\u2463"},{"id":"ref-for-appendix-D\u2464"},{"id":"ref-for-appendix-D\u2465"},{"id":"ref-for-appendix-D\u2466"}],"title":"5.1. Definition"},{"refs":[{"id":"ref-for-appendix-D\u2467"},{"id":"ref-for-appendix-D\u2468"},{"id":"ref-for-appendix-D\u2460\u24ea"}],"title":"7.1.2.1. The session.CapabilitiesRequest Type"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2460"},{"id":"ref-for-appendix-D\u2460\u2461"},{"id":"ref-for-appendix-D\u2460\u2462"},{"id":"ref-for-appendix-D\u2460\u2463"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2464"},{"id":"ref-for-appendix-D\u2460\u2465"}],"title":"7.2.2.1. The SettingsGetSettingsResult type"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2466"},{"id":"ref-for-appendix-D\u2460\u2467"}],"title":"7.2.3.1. The settings.setSettings Command"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2468"}],"title":"7.2.3.2. The settings.getSettings Command"},{"refs":[{"id":"ref-for-appendix-D\u2461\u24ea"}],"title":"7.3.2. Types"},{"refs":[{"id":"ref-for-appendix-D\u2461\u2460"},{"id":"ref-for-appendix-D\u2461\u2461"}],"title":"7.3.3.1. The interaction.userIntent Command"}],"url":"https://www.rfc-editor.org/rfc/rfc8610#appendix-D"},
 "53275e46": {"dfnID":"53275e46","dfnText":"append (for list)","external":true,"refSections":[{"refs":[{"id":"ref-for-list-append"}],"title":"7.2. The settings Module"}],"url":"https://infra.spec.whatwg.org/#list-append"},
 "649608b9": {"dfnID":"649608b9","dfnText":"list","external":true,"refSections":[{"refs":[{"id":"ref-for-list"},{"id":"ref-for-list\u2460"}],"title":"7.2. The settings Module"},{"refs":[{"id":"ref-for-list\u2461"}],"title":"7.2.3.3. The settings.getSupportedSettings Command"},{"refs":[{"id":"ref-for-list\u2462"}],"title":"7.3. The Interaction Module"}],"url":"https://infra.spec.whatwg.org/#list"},
 "653d0848": {"dfnID":"653d0848","dfnText":"size","external":true,"refSections":[{"refs":[{"id":"ref-for-map-size"}],"title":"6. Transport"}],"url":"https://infra.spec.whatwg.org/#map-size"},
-"6a303638": {"dfnID":"6a303638","dfnText":"uint","external":true,"refSections":[{"refs":[{"id":"ref-for-appendix-D"},{"id":"ref-for-appendix-D\u2460"},{"id":"ref-for-appendix-D\u2461"},{"id":"ref-for-appendix-D\u2462"},{"id":"ref-for-appendix-D\u2463"},{"id":"ref-for-appendix-D\u2464"},{"id":"ref-for-appendix-D\u2465"},{"id":"ref-for-appendix-D\u2466"}],"title":"5.1. Definition"},{"refs":[{"id":"ref-for-appendix-D\u2467"},{"id":"ref-for-appendix-D\u2468"},{"id":"ref-for-appendix-D\u2460\u24ea"}],"title":"7.1.2.1. The session.CapabilitiesRequest Type"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2460"},{"id":"ref-for-appendix-D\u2460\u2461"},{"id":"ref-for-appendix-D\u2460\u2462"},{"id":"ref-for-appendix-D\u2460\u2463"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2464"},{"id":"ref-for-appendix-D\u2460\u2465"}],"title":"7.2.2.1. The SettingsGetSettingsResult type"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2466"},{"id":"ref-for-appendix-D\u2460\u2467"}],"title":"7.2.3.1. The settings.setSettings Command"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2468"}],"title":"7.2.3.2. The settings.getSettings Command"},{"refs":[{"id":"ref-for-appendix-D\u2461\u24ea"}],"title":"7.3.2. Types"},{"refs":[{"id":"ref-for-appendix-D\u2461\u2460"},{"id":"ref-for-appendix-D\u2461\u2461"}],"title":"7.3.3.1. The interaction.userIntent Command"}],"url":"https://www.rfc-editor.org/rfc/rfc8610#appendix-D"},
 "6f2dfa22": {"dfnID":"6f2dfa22","dfnText":"ASCII lowercase","external":true,"refSections":[{"refs":[{"id":"ref-for-ascii-lowercase"},{"id":"ref-for-ascii-lowercase\u2460"}],"title":"5.2. Capabilities"}],"url":"https://infra.spec.whatwg.org/#ascii-lowercase"},
 "762869d3": {"dfnID":"762869d3","dfnText":"scalar value string","external":true,"refSections":[{"refs":[{"id":"ref-for-scalar-value-string"}],"title":"6. Transport"}],"url":"https://infra.spec.whatwg.org/#scalar-value-string"},
 "77b4c09a": {"dfnID":"77b4c09a","dfnText":"assert","external":true,"refSections":[{"refs":[{"id":"ref-for-assert"},{"id":"ref-for-assert\u2460"},{"id":"ref-for-assert\u2461"},{"id":"ref-for-assert\u2462"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-assert\u2463"}],"title":"7.2.3.3. The settings.getSupportedSettings Command"}],"url":"https://infra.spec.whatwg.org/#assert"},
@@ -2997,7 +3029,6 @@ let dfnPanelData = {
 "a3b18719": {"dfnID":"a3b18719","dfnText":"append (for set)","external":true,"refSections":[{"refs":[{"id":"ref-for-set-append"},{"id":"ref-for-set-append\u2460"}],"title":"6. Transport"}],"url":"https://infra.spec.whatwg.org/#set-append"},
 "a72449dd": {"dfnID":"a72449dd","dfnText":"in parallel","external":true,"refSections":[{"refs":[{"id":"ref-for-in-parallel"}],"title":"6. Transport"}],"url":"https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel"},
 "ae8def21": {"dfnID":"ae8def21","dfnText":"contain (for list)","external":true,"refSections":[{"refs":[{"id":"ref-for-list-contain"}],"title":"7.2. The settings Module"}],"url":"https://infra.spec.whatwg.org/#list-contain"},
-"c3bd1df0": {"dfnID":"c3bd1df0","dfnText":"text","external":true,"refSections":[{"refs":[{"id":"ref-for-appendix-D"},{"id":"ref-for-appendix-D\u2460"},{"id":"ref-for-appendix-D\u2461"},{"id":"ref-for-appendix-D\u2462"},{"id":"ref-for-appendix-D\u2463"},{"id":"ref-for-appendix-D\u2464"},{"id":"ref-for-appendix-D\u2465"},{"id":"ref-for-appendix-D\u2466"}],"title":"5.1. Definition"},{"refs":[{"id":"ref-for-appendix-D\u2467"},{"id":"ref-for-appendix-D\u2468"},{"id":"ref-for-appendix-D\u2460\u24ea"}],"title":"7.1.2.1. The session.CapabilitiesRequest Type"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2460"},{"id":"ref-for-appendix-D\u2460\u2461"},{"id":"ref-for-appendix-D\u2460\u2462"},{"id":"ref-for-appendix-D\u2460\u2463"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2464"},{"id":"ref-for-appendix-D\u2460\u2465"}],"title":"7.2.2.1. The SettingsGetSettingsResult type"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2466"},{"id":"ref-for-appendix-D\u2460\u2467"}],"title":"7.2.3.1. The settings.setSettings Command"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2468"}],"title":"7.2.3.2. The settings.getSettings Command"},{"refs":[{"id":"ref-for-appendix-D\u2461\u24ea"}],"title":"7.3.2. Types"},{"refs":[{"id":"ref-for-appendix-D\u2461\u2460"},{"id":"ref-for-appendix-D\u2461\u2461"}],"title":"7.3.3.1. The interaction.userIntent Command"}],"url":"https://www.rfc-editor.org/rfc/rfc8610#appendix-D"},
 "capabilities": {"dfnID":"capabilities","dfnText":"Capabilities","external":false,"refSections":[],"url":"#capabilities"},
 "cddl-key-capabilitiesrequest-atname": {"dfnID":"cddl-key-capabilitiesrequest-atname","dfnText":"atName","external":false,"refSections":[],"url":"#cddl-key-capabilitiesrequest-atname"},
 "cddl-key-capabilitiesrequest-atversion": {"dfnID":"cddl-key-capabilitiesrequest-atversion","dfnText":"atVersion","external":false,"refSections":[],"url":"#cddl-key-capabilitiesrequest-atversion"},
@@ -3096,7 +3127,6 @@ let dfnPanelData = {
 "command-name": {"dfnID":"command-name","dfnText":"command name","external":false,"refSections":[{"refs":[{"id":"ref-for-command-name"}],"title":"5.4. Modules"},{"refs":[{"id":"ref-for-command-name\u2460"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-command-name\u2461"},{"id":"ref-for-command-name\u2462"}],"title":"6. Transport"}],"url":"#command-name"},
 "command-parameters": {"dfnID":"command-parameters","dfnText":"command parameters","external":false,"refSections":[{"refs":[{"id":"ref-for-command-parameters"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-command-parameters\u2460"}],"title":"6. Transport"}],"url":"#command-parameters"},
 "command-type": {"dfnID":"command-type","dfnText":"command type","external":false,"refSections":[{"refs":[{"id":"ref-for-command-type"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-command-type\u2460"}],"title":"7.2.3.1. The settings.setSettings Command"},{"refs":[{"id":"ref-for-command-type\u2461"}],"title":"7.2.3.2. The settings.getSettings Command"},{"refs":[{"id":"ref-for-command-type\u2462"}],"title":"7.2.3.3. The settings.getSupportedSettings Command"},{"refs":[{"id":"ref-for-command-type\u2463"}],"title":"7.3.3.1. The interaction.userIntent Command"}],"url":"#command-type"},
-"ef593226": {"dfnID":"ef593226","dfnText":"any","external":true,"refSections":[{"refs":[{"id":"ref-for-appendix-D"},{"id":"ref-for-appendix-D\u2460"},{"id":"ref-for-appendix-D\u2461"},{"id":"ref-for-appendix-D\u2462"},{"id":"ref-for-appendix-D\u2463"},{"id":"ref-for-appendix-D\u2464"},{"id":"ref-for-appendix-D\u2465"},{"id":"ref-for-appendix-D\u2466"}],"title":"5.1. Definition"},{"refs":[{"id":"ref-for-appendix-D\u2467"},{"id":"ref-for-appendix-D\u2468"},{"id":"ref-for-appendix-D\u2460\u24ea"}],"title":"7.1.2.1. The session.CapabilitiesRequest Type"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2460"},{"id":"ref-for-appendix-D\u2460\u2461"},{"id":"ref-for-appendix-D\u2460\u2462"},{"id":"ref-for-appendix-D\u2460\u2463"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2464"},{"id":"ref-for-appendix-D\u2460\u2465"}],"title":"7.2.2.1. The SettingsGetSettingsResult type"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2466"},{"id":"ref-for-appendix-D\u2460\u2467"}],"title":"7.2.3.1. The settings.setSettings Command"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2468"}],"title":"7.2.3.2. The settings.getSettings Command"},{"refs":[{"id":"ref-for-appendix-D\u2461\u24ea"}],"title":"7.3.2. Types"},{"refs":[{"id":"ref-for-appendix-D\u2461\u2460"},{"id":"ref-for-appendix-D\u2461\u2461"}],"title":"7.3.3.1. The interaction.userIntent Command"}],"url":"https://www.rfc-editor.org/rfc/rfc8610#appendix-D"},
 "emit-an-event": {"dfnID":"emit-an-event","dfnText":"emit an event","external":false,"refSections":[{"refs":[{"id":"ref-for-emit-an-event"}],"title":"7.3.4.1. The interaction.capturedOutput Event"}],"url":"#emit-an-event"},
 "error": {"dfnID":"error","dfnText":"error","external":false,"refSections":[{"refs":[{"id":"ref-for-error"},{"id":"ref-for-error\u2460"}],"title":"3. Infrastructure"},{"refs":[{"id":"ref-for-error\u2461"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-error\u2462"},{"id":"ref-for-error\u2463"}],"title":"5.8. Security checks"},{"refs":[{"id":"ref-for-error\u2464"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-error\u2465"},{"id":"ref-for-error\u2466"},{"id":"ref-for-error\u2467"},{"id":"ref-for-error\u2468"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-error\u2460\u24ea"},{"id":"ref-for-error\u2460\u2460"},{"id":"ref-for-error\u2460\u2461"}],"title":"7.2. The settings Module"},{"refs":[{"id":"ref-for-error\u2460\u2462"}],"title":"7.3.3.1. The interaction.userIntent Command"}],"url":"#error"},
 "error-code": {"dfnID":"error-code","dfnText":"error code","external":false,"refSections":[{"refs":[{"id":"ref-for-error-code"}],"title":"3. Infrastructure"},{"refs":[{"id":"ref-for-error-code\u2460"},{"id":"ref-for-error-code\u2461"}],"title":"5.8. Security checks"},{"refs":[{"id":"ref-for-error-code\u2462"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-error-code\u2463"},{"id":"ref-for-error-code\u2464"},{"id":"ref-for-error-code\u2465"}],"title":"7.2. The settings Module"},{"refs":[{"id":"ref-for-error-code\u2466"}],"title":"7.3.3.1. The interaction.userIntent Command"}],"url":"#error-code"},
@@ -3113,6 +3143,7 @@ let dfnPanelData = {
 "event-type": {"dfnID":"event-type","dfnText":"event type","external":false,"refSections":[{"refs":[{"id":"ref-for-event-type"}],"title":"5.6. Events"}],"url":"#event-type"},
 "extension-capabilities": {"dfnID":"extension-capabilities","dfnText":"extension capabilities","external":false,"refSections":[{"refs":[{"id":"ref-for-extension-capabilities"},{"id":"ref-for-extension-capabilities\u2460"}],"title":"5.2. Capabilities"}],"url":"#extension-capabilities"},
 "extension-modules": {"dfnID":"extension-modules","dfnText":"extension modules","external":false,"refSections":[{"refs":[{"id":"ref-for-extension-modules"}],"title":"5.5. Commands"}],"url":"#extension-modules"},
+"fdf94d96": {"dfnID":"fdf94d96","dfnText":"any","external":true,"refSections":[{"refs":[{"id":"ref-for-appendix-D"},{"id":"ref-for-appendix-D\u2460"},{"id":"ref-for-appendix-D\u2461"},{"id":"ref-for-appendix-D\u2462"},{"id":"ref-for-appendix-D\u2463"},{"id":"ref-for-appendix-D\u2464"},{"id":"ref-for-appendix-D\u2465"},{"id":"ref-for-appendix-D\u2466"}],"title":"5.1. Definition"},{"refs":[{"id":"ref-for-appendix-D\u2467"},{"id":"ref-for-appendix-D\u2468"},{"id":"ref-for-appendix-D\u2460\u24ea"}],"title":"7.1.2.1. The session.CapabilitiesRequest Type"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2460"},{"id":"ref-for-appendix-D\u2460\u2461"},{"id":"ref-for-appendix-D\u2460\u2462"},{"id":"ref-for-appendix-D\u2460\u2463"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2464"},{"id":"ref-for-appendix-D\u2460\u2465"}],"title":"7.2.2.1. The SettingsGetSettingsResult type"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2466"},{"id":"ref-for-appendix-D\u2460\u2467"}],"title":"7.2.3.1. The settings.setSettings Command"},{"refs":[{"id":"ref-for-appendix-D\u2460\u2468"}],"title":"7.2.3.2. The settings.getSettings Command"},{"refs":[{"id":"ref-for-appendix-D\u2461\u24ea"}],"title":"7.3.2. Types"},{"refs":[{"id":"ref-for-appendix-D\u2461\u2460"},{"id":"ref-for-appendix-D\u2461\u2461"}],"title":"7.3.3.1. The interaction.userIntent Command"}],"url":"https://www.rfc-editor.org/info/rfc8610/#appendix-D"},
 "generating-a-uuid": {"dfnID":"generating-a-uuid","dfnText":"Generating a UUID","external":false,"refSections":[{"refs":[{"id":"ref-for-generating-a-uuid"}],"title":"7.1.3.1. The session.new Command"}],"url":"#generating-a-uuid"},
 "get-settings": {"dfnID":"get-settings","dfnText":"get settings","external":false,"refSections":[{"refs":[{"id":"ref-for-get-settings"}],"title":"7.2.3.2. The settings.getSettings Command"},{"refs":[{"id":"ref-for-get-settings\u2460"}],"title":"7.2.3.3. The settings.getSupportedSettings Command"}],"url":"#get-settings"},
 "handle-a-connection-closing": {"dfnID":"handle-a-connection-closing","dfnText":"handle a connection closing","external":false,"refSections":[{"refs":[{"id":"ref-for-handle-a-connection-closing"}],"title":"6. Transport"}],"url":"#handle-a-connection-closing"},
@@ -3667,7 +3698,7 @@ let refsData = {
 "https://infra.spec.whatwg.org/#serialize-an-infra-value-to-json-bytes": {"displayText":"serialize an Infra value to JSON bytes","export":true,"for_":[],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"serialize an infra value to json bytes","type":"dfn","url":"https://infra.spec.whatwg.org/#serialize-an-infra-value-to-json-bytes"},
 "https://infra.spec.whatwg.org/#set-append": {"displayText":"append","export":true,"for_":["set"],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"append","type":"dfn","url":"https://infra.spec.whatwg.org/#set-append"},
 "https://infra.spec.whatwg.org/#string": {"displayText":"string","export":true,"for_":[],"level":"1","normative":true,"shortname":"infra","spec":"infra","status":"current","text":"string","type":"dfn","url":"https://infra.spec.whatwg.org/#string"},
-"https://www.rfc-editor.org/rfc/rfc8610#appendix-D": {"displayText":"uint","export":true,"for_":[],"level":"1","normative":true,"shortname":"rfc8610","spec":"rfc8610","status":"current","text":"uint","type":"cddl-type","url":"https://www.rfc-editor.org/rfc/rfc8610#appendix-D"},
+"https://www.rfc-editor.org/info/rfc8610/#appendix-D": {"displayText":"uint","export":true,"for_":[],"level":"1","normative":true,"shortname":"rfc8610","spec":"rfc8610","status":"current","text":"uint","type":"cddl-type","url":"https://www.rfc-editor.org/info/rfc8610/#appendix-D"},
 };
 
 function mkRefHint(link, ref) {
