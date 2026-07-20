@@ -367,7 +367,7 @@ The following table lists each <dfn>error code</dfn>, its associated JSON `error
   <tr>
     <td><dfn for="error code">no focused accessible object</dfn>
     <td>`no focused accessible object`
-    <td>The accessibility tree does not contain an accessible object which has focus.
+    <td>The [=accessibility tree=] does not contain an [=accessible object=] which has focus.
 </table>
 
 Security checks {#security-checks}
