@@ -1209,3 +1209,147 @@ The {^remote end definition^} and {^local end definition^} are available as non-
 - [at-driver-local.json](schemas/at-driver-local.json)
 
 Issue(23): The JSON Schema files are not yet generated from the CDDL and so might be out of date.
+
+Appendix B: Example Session {#example-session}
+==============================================
+
+<div class="example">
+A [=local end=] that wishes to create a new [=Session=] which is furnished with
+an assistive technology named `NVDA` might send a [=session.new|session.new
+command=] such as:
+
+```json
+{
+  "id": 24601,
+  "method": "session.new",
+  "params": {
+    "capabilities": {
+      "alwaysMatch": {
+        "atName": "NVDA"
+      }
+    }
+  }
+}
+```
+
+The value of the `id` field in this [=Command=] (and all subsequent
+[=Commands=]) is chosen with the sole discretion of the [=local end=]. It is
+used only to correlate each [=Command=] with the response {^Message^} it
+induces.
+
+And the [=remote end=] which receives that [=Command=] could respond with the
+following {^Message^}:
+
+```json
+{
+  "id": 24601,
+  "result": {
+    "sessionId": "eef9aca8-cb96-40cf-ae53-8483833c30f3",
+    "capabilities": {
+      "atName": "NVDA",
+      "atVersion": "2026.1.1",
+      "platformName": "Windows"
+    }
+  }
+}
+```
+
+To discover the settings available on the [=remote end=], the [=local end=]
+might send a [=settings.getSupportedSettings|setting.getSupportedSettings
+command=] such as:
+
+```json
+{
+  "id": 617
+  "method": "settings.getSupportedSettings",
+  "params": {}
+}
+```
+
+And the [=remote end=] could respond with the following {^Message^}:
+
+```json
+{
+  "id": 617,
+  "result": {
+    "settings": [
+      {
+        "name": "readEntirePage",
+        "value": true
+      }
+    ]
+  }
+}
+```
+
+Having thus discovered the availability of a setting named `readEntirePage` and
+its current value of `true`, the [=local end=] may choose to modify the value
+of that setting to `false` by sending the following [=settings.setSettings=]
+[=Command=]:
+
+```json
+{
+  "id": 1984,
+  "method": "settings.setSettings",
+  "params": {
+    "settings": [
+      {
+        "name": "readEntirePage",
+        "value": false
+      }
+    ]
+  }
+}
+```
+
+And the [=remote end=], having successfully modified the setting to the desired
+value, could respond with the following {^Message^} to communicate the
+operation's [=success=]:
+
+```json
+{
+  "id": 1984,
+  "result": {}
+}
+```
+
+The [=local end=] may then want to read the next heading in the document. That
+is currently an implementation-specific operation, so the [=local end=] must
+simulate the appropriate user intent for the assistive technology running on
+the [=remote end=]. In this example, that assistive technology is the NVDA
+screen reader, so the [=local end=] chooses to simulate pressing the
+<kbd>H</kbd> key by sending the following
+[=interaction.userIntent|interaction.userIntenet command=]:
+
+```json
+{
+  "id": 19821021,
+  "method": "interaction.userIntent",
+  "params": {
+    "name": "pressKeys",
+    "keys": ["H"]
+  }
+}
+```
+
+And the [=remote end=] could respond with the following {^Message^}:
+
+```json
+{
+  "id": 19821021,
+  "result": {}
+}
+```
+
+Shortly thereafter, the [=remote end=] may emit an `interaction.capturedOutput`
+[=event=] {^Message^} that describes the text enunciated by the screen reader:
+
+```json
+{
+  "method": "interaction.capturedOutput",
+  "params": {
+    "data": "DOJ memo stokes fear among disability advocates of a return to institutionalization"
+  }
+}
+```
+</div>
