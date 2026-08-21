@@ -824,7 +824,7 @@ following Message:
 
 #### The settings.getSettings Command #### {#command-settings-get-settings}
 
-The <dfn>settings.getSettings command</dfn> returns a list of the requested settings and their values.
+The <dfn>settings.getSettings</dfn> command returns a list of the requested settings and their values.
 
 <dl>
   <dt>[=Command Type=]</dt>
@@ -908,7 +908,7 @@ following Message:
 
 #### The settings.getSupportedSettings Command #### {#command-settings-get-supported-settings}
 
-The <dfn>settings.getSupportedSettings command</dfn> returns a list of all settings that the [=remote end=] supports, and their values.
+The <dfn>settings.getSupportedSettings</dfn> command returns a list of all settings that the [=remote end=] supports, and their values.
 
 <dl>
   <dt>[=Command Type=]</dt>
