@@ -1000,6 +1000,8 @@ A [=remote end=] has a <dfn for="remote end">table of extension user intents</df
 
 <div algorithm>
 
+To <dfn>press keys</dfn> given |command parameters|:
+
 Note: Each string in `KeyCombination` represents a "raw key" consisting of a
 single code point with the same meaning as in <a
 href="https://w3c.github.io/webdriver/#keyboard-actions">WebDriver's keyboard
@@ -1009,8 +1011,6 @@ and pressing "a", and then releasing the left shift key. [[WEBDRIVER]]
 Issue(34): This algorithm does not yet have a means for indicating a screen-reader specific modifier key (or keys).
 
 Issue(51): This algorithm only supports one specific kind of press/release sequence, and it is not clear if that is sufficient to express all keyboard commands in all implementations.
-
-To <dfn>press keys</dfn> given |command parameters|:
 
 1. [=Try=] to [=check that keyboard interaction can be simulated=].
 2. [=Try=] to [=check that one of the expected applications has focus=].
