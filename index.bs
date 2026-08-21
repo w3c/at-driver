@@ -1095,6 +1095,15 @@ The <dfn>interaction.userIntent</dfn> command simulates pressing a key combinati
 
 </dl>
 
+Note: Implementation constraints make it untenable for this protocol to
+correlate user intents and any AT responses that they induce. This is why the
+[=interaction.userIntent|the userIntent command=] produces only a generic
+`EmptyResult` to indicate success. Consumers expecting a particular response
+should subscribe to the appropriate event stream. (For example, if a consumer
+expects a screen reader to vocalize text in response to a [=press keys|a key
+press intent=], that user should listen for [=interaction.capturedOutput|the
+`interaction.capturedOutput` event=].)
+
 <div algorithm="remote end steps for interaction.userIntent">
 
 The [=remote end steps=] given <var ignore>session</var> and |command parameters| are:
@@ -1143,6 +1152,8 @@ following Message:
 ### Events ### {#module-interaction-events}
 
 #### The interaction.capturedOutput Event #### {#event-interaction-capturedOutput}
+
+The <dfn>interaction.capturedOutput</dfn> event occurs when an AT conveys new textual information to the end-user (e.g. an announcement from a braille display).
 
 <dl>
   <dt>Event Type
