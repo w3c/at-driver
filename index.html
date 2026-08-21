@@ -8,7 +8,7 @@
   <meta content="Bikeshed version d113b2e81, updated Tue Jun 9 14:57:55 2026 -0700" name="generator">
   <link href="https://w3c.github.io/at-driver/" rel="canonical">
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
-  <meta content="8bff9ce62a055add47dfbb7f174237555f22dc3e" name="revision">
+  <meta content="063e792124d334605ed1f944359a9818b7ebd1bd" name="revision">
   <meta content="dark light" name="color-scheme">
   <link href="https://www.w3.org/StyleSheets/TR/2021/dark.css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css">
 <style>
@@ -968,9 +968,9 @@ var[data-var-color="6"] { --var-vg: #FFBCF2; }
    <p>Specify a protocol using WebSocket that maximally reuses concepts and conventions from <a href="https://w3c.github.io/webdriver-bidi/">WebDriver BiDi</a>.</p>
    <p>A connection has two endpoints: remote and local. The remote end can control and read from the screen reader, which can either be implemented as a standalone application or be implemented as part of the AT software. The local end is what the test interfaces with, usually in the form of language-specific libraries providing an API.</p>
    <p>There should only be the WebSocket form of communication -- as in <a href="https://w3c.github.io/webdriver-bidi/#supports-bidi-only-sessions">BiDi-only sessions for WebDriver BiDi</a>.</p>
-   <p>A connection can have 0 or more <a data-link-type="dfn" href="#session" id="ref-for-session">sessions</a>. Each session corresponds to an instance of an AT. We may limit the maximum number of sessions per AT to 1 initially.</p>
+   <p>A connection can have 0 or more <a data-link-type="dfn" href="#session" id="ref-for-session">sessions</a>. Each session corresponds to an instance of an AT.</p>
    <p>When a remote end supports multiple sessions, it does not necessarily mean that there will be multiple ATs running at the same time in the same instance of an OS. Some ATs might not be able to function properly if there are other ATs running at the same time. The AT Driver <a data-link-type="dfn" href="#session" id="ref-for-session①">session</a> concept can still be used by having the remote end run in a separate environment and each AT is run in its own OS instance (for example in a virtual machine), and the remote end proxies messages in some fashion.</p>
-   <p>Commands are grouped into <a data-link-type="dfn" href="#module" id="ref-for-module">modules</a>. The modules could be: Sessions, Settings, Actions.</p>
+   <p>Commands are grouped into <a data-link-type="dfn" href="#module" id="ref-for-module">modules</a>.</p>
    <p>Message transport is provided using the WebSocket protocol.</p>
    <p>The protocol is defined using a Concise Data Definition Language (CDDL) definition. The serialization is JSON.</p>
    <h3 class="heading settled" data-level="2.1" id="explainer-example"><span class="secno">2.1. </span><span class="content">Example</span><a class="self-link" href="#explainer-example"></a></h3>
