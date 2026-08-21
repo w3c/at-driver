@@ -8,7 +8,7 @@
   <meta content="Bikeshed version d113b2e81, updated Tue Jun 9 14:57:55 2026 -0700" name="generator">
   <link href="https://w3c.github.io/at-driver/" rel="canonical">
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
-  <meta content="063e792124d334605ed1f944359a9818b7ebd1bd" name="revision">
+  <meta content="9d98a50754d9641dd8da7b27d9b7722e16f75c03" name="revision">
   <meta content="dark light" name="color-scheme">
   <link href="https://www.w3.org/StyleSheets/TR/2021/dark.css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css">
 <style>
@@ -1781,7 +1781,7 @@ following Message:</p>
 </pre>
    </div>
    <h5 class="heading settled" data-level="7.2.3.2" id="command-settings-get-settings"><span class="secno">7.2.3.2. </span><span class="content">The settings.getSettings Command</span><a class="self-link" href="#command-settings-get-settings"></a></h5>
-   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="settingsgetsettings-command">settings.getSettings command</dfn> returns a list of the requested settings and their values.</p>
+   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="settingsgetsettings">settings.getSettings</dfn> command returns a list of the requested settings and their values.</p>
    <dl>
     <dt><a data-link-type="dfn" href="#command-type" id="ref-for-command-type②">Command Type</a>
     <dd>
@@ -1857,7 +1857,7 @@ following Message:</p>
 </pre>
    </div>
    <h5 class="heading settled" data-level="7.2.3.3" id="command-settings-get-supported-settings"><span class="secno">7.2.3.3. </span><span class="content">The settings.getSupportedSettings Command</span><a class="self-link" href="#command-settings-get-supported-settings"></a></h5>
-   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="settingsgetsupportedsettings-command">settings.getSupportedSettings command</dfn> returns a list of all settings that the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②⑧">remote end</a> supports, and their values.</p>
+   <p>The <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="settingsgetsupportedsettings">settings.getSupportedSettings</dfn> command returns a list of all settings that the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end②⑧">remote end</a> supports, and their values.</p>
    <dl>
     <dt><a data-link-type="dfn" href="#command-type" id="ref-for-command-type③">Command Type</a>
     <dd>
@@ -2472,16 +2472,24 @@ following Message:</p>
     </ul>
    <li><a href="#cddl-type-settingscommand">SettingsCommand</a><span>, in § 7.2.1</span>
    <li><a href="#cddl-value-settingsgetsettingscommand-method-settingsgetsettings">"settings.getSettings"</a><span>, in § 7.2.3.2</span>
-   <li><a href="#cddl-value-settingsgetsettingscommand-method-settingsgetsettings">settings.getSettings</a><span>, in § 7.2.3.2</span>
-   <li><a href="#settingsgetsettings-command">settings.getSettings command</a><span>, in § 7.2.3.2</span>
+   <li>
+    settings.getSettings
+    <ul>
+     <li><a href="#cddl-value-settingsgetsettingscommand-method-settingsgetsettings">cddl-value for SettingsGetSettingsCommand/method</a><span>, in § 7.2.3.2</span>
+     <li><a href="#settingsgetsettings">definition of</a><span>, in § 7.2.3.2</span>
+    </ul>
    <li><a href="#cddl-type-settingsgetsettingscommand">SettingsGetSettingsCommand</a><span>, in § 7.2.3.2</span>
    <li><a href="#cddl-type-settingsgetsettingsparameters">SettingsGetSettingsParameters</a><span>, in § 7.2.3.2</span>
    <li><a href="#cddl-type-settingsgetsettingsparametersitem">SettingsGetSettingsParametersItem</a><span>, in § 7.2.3.2</span>
    <li><a href="#cddl-type-settingsgetsettingsresult">SettingsGetSettingsResult</a><span>, in § 7.2.2.1</span>
    <li><a href="#cddl-type-settingsgetsettingsresultitem">SettingsGetSettingsResultItem</a><span>, in § 7.2.2.1</span>
    <li><a href="#cddl-value-settingsgetsupportedsettingscommand-method-settingsgetsupportedsettings">"settings.getSupportedSettings"</a><span>, in § 7.2.3.3</span>
-   <li><a href="#cddl-value-settingsgetsupportedsettingscommand-method-settingsgetsupportedsettings">settings.getSupportedSettings</a><span>, in § 7.2.3.3</span>
-   <li><a href="#settingsgetsupportedsettings-command">settings.getSupportedSettings command</a><span>, in § 7.2.3.3</span>
+   <li>
+    settings.getSupportedSettings
+    <ul>
+     <li><a href="#cddl-value-settingsgetsupportedsettingscommand-method-settingsgetsupportedsettings">cddl-value for SettingsGetSupportedSettingsCommand/method</a><span>, in § 7.2.3.3</span>
+     <li><a href="#settingsgetsupportedsettings">definition of</a><span>, in § 7.2.3.3</span>
+    </ul>
    <li><a href="#cddl-type-settingsgetsupportedsettingscommand">SettingsGetSupportedSettingsCommand</a><span>, in § 7.2.3.3</span>
    <li><a href="#cddl-type-settingsresult">SettingsResult</a><span>, in § 7.2.1</span>
    <li><a href="#cddl-value-settingssetsettingscommand-method-settingssetsettings">"settings.setSettings"</a><span>, in § 7.2.3.1</span>
@@ -3172,8 +3180,8 @@ let dfnPanelData = {
 "session-session-websocket-connections": {"dfnID":"session-session-websocket-connections","dfnText":"session WebSocket connections","external":false,"refSections":[{"refs":[{"id":"ref-for-session-session-websocket-connections"},{"id":"ref-for-session-session-websocket-connections\u2460"},{"id":"ref-for-session-session-websocket-connections\u2461"},{"id":"ref-for-session-session-websocket-connections\u2462"},{"id":"ref-for-session-session-websocket-connections\u2463"}],"title":"6. Transport"}],"url":"#session-session-websocket-connections"},
 "sessionnew": {"dfnID":"sessionnew","dfnText":"session.new","external":false,"refSections":[],"url":"#sessionnew"},
 "set-of-all-command-names": {"dfnID":"set-of-all-command-names","dfnText":"set of all command names","external":false,"refSections":[{"refs":[{"id":"ref-for-set-of-all-command-names"}],"title":"6. Transport"}],"url":"#set-of-all-command-names"},
-"settingsgetsettings-command": {"dfnID":"settingsgetsettings-command","dfnText":"settings.getSettings command","external":false,"refSections":[],"url":"#settingsgetsettings-command"},
-"settingsgetsupportedsettings-command": {"dfnID":"settingsgetsupportedsettings-command","dfnText":"settings.getSupportedSettings command","external":false,"refSections":[],"url":"#settingsgetsupportedsettings-command"},
+"settingsgetsettings": {"dfnID":"settingsgetsettings","dfnText":"settings.getSettings","external":false,"refSections":[],"url":"#settingsgetsettings"},
+"settingsgetsupportedsettings": {"dfnID":"settingsgetsupportedsettings","dfnText":"settings.getSupportedSettings","external":false,"refSections":[],"url":"#settingsgetsupportedsettings"},
 "settingssetsettings": {"dfnID":"settingssetsettings","dfnText":"settings.setSettings","external":false,"refSections":[{"refs":[{"id":"ref-for-settingssetsettings"}],"title":"7.2.3.1. The settings.setSettings Command"}],"url":"#settingssetsettings"},
 "should-be-withheld": {"dfnID":"should-be-withheld","dfnText":"should be withheld","external":false,"refSections":[{"refs":[{"id":"ref-for-should-be-withheld"}],"title":"7.3.4.1. The interaction.capturedOutput Event"}],"url":"#should-be-withheld"},
 "standard-capabilities": {"dfnID":"standard-capabilities","dfnText":"standard capabilities","external":false,"refSections":[],"url":"#standard-capabilities"},
