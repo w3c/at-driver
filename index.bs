@@ -1095,14 +1095,20 @@ The <dfn>interaction.userIntent</dfn> command simulates pressing a key combinati
 
 </dl>
 
-Note: Implementation constraints make it untenable for this protocol to
-correlate user intents and any AT responses that they induce. This is why the
-[=interaction.userIntent|the userIntent command=] produces only a generic
-`EmptyResult` to indicate success. Consumers expecting a particular response
-should subscribe to the appropriate event stream. (For example, if a consumer
-expects a screen reader to vocalize text in response to a [=press keys|a key
-press intent=], that user should listen for [=interaction.capturedOutput|the
-`interaction.capturedOutput` event=].)
+Note: Although many use-cases involve a one-to-one correlation between user
+intent and AT response, such a correlation does not generally exist across all
+types of interactions and all contexts (refer to [this discussion
+thread](https://github.com/w3c/at-driver/issues/90) for more detail). This is
+why [=interaction.userIntent|the userIntent command=] produces only a generic
+{^EmptyResult^} to indicate success&mdash;the AT Driver protocol cannot
+correlate every user intent with any AT response(s) that it may induce.
+Consumers expecting a particular response should listen for the appropriate
+events, and due to the unpredictability of message delivery sequence, they
+should begin listening prior to sending the command. (For example, if a
+consumer expects a screen reader to vocalize text in response to [=press keys|a
+key press intent=], that consumer should begin listening for
+[=interaction.capturedOutput|the `interaction.capturedOutput` event=] and then
+send [=interaction.userIntent|the interaction.userIntent command=].)
 
 <div algorithm="remote end steps for interaction.userIntent">
 
@@ -1153,7 +1159,7 @@ following Message:
 
 #### The interaction.capturedOutput Event #### {#event-interaction-capturedOutput}
 
-The <dfn>interaction.capturedOutput</dfn> event occurs when an AT conveys new textual information to the end-user (e.g. an announcement from a braille display).
+The <dfn>interaction.capturedOutput</dfn> event occurs when an AT conveys new textual information to the end-user (e.g. text sent to a speech synthesizer or routed to a braille display).
 
 <dl>
   <dt>Event Type
