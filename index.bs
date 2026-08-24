@@ -1214,8 +1214,12 @@ Appendix B: Example Session {#example-session}
 ==============================================
 
 <div class="example">
-A [=local end=] that wishes to create a new [=Session=] which is furnished with
-an assistive technology named `NVDA` might send a [=session.new|session.new
+Consider a [=local end=] that wishes to automate some chosen [=remote end=].
+That [=local end=] would begin by opening a [=WebSocket connection=] to the
+[=remote end=].
+
+To create a new [=Session=] which is furnished with an assistive technology
+named `NVDA`, the [=local end=] might send a [=session.new|session.new
 command=] such as:
 
 ```json
@@ -1255,12 +1259,12 @@ following {^Message^}:
 ```
 
 To discover the settings available on the [=remote end=], the [=local end=]
-might send a [=settings.getSupportedSettings|setting.getSupportedSettings
+might send a [=settings.getSupportedSettings|settings.getSupportedSettings
 command=] such as:
 
 ```json
 {
-  "id": 617
+  "id": 617,
   "method": "settings.getSupportedSettings",
   "params": {}
 }
@@ -1284,8 +1288,8 @@ And the [=remote end=] could respond with the following {^Message^}:
 
 Having thus discovered the availability of a setting named `readEntirePage` and
 its current value of `true`, the [=local end=] may choose to modify the value
-of that setting to `false` by sending the following [=settings.setSettings=]
-[=Command=]:
+of that setting to `false` by sending the following
+[=settings.setSettings|settings.setSettings command=]:
 
 ```json
 {
@@ -1318,8 +1322,8 @@ is currently an implementation-specific operation, so the [=local end=] must
 simulate the appropriate user intent for the assistive technology running on
 the [=remote end=]. In this example, that assistive technology is the NVDA
 screen reader, so the [=local end=] chooses to simulate pressing the
-<kbd>H</kbd> key by sending the following
-[=interaction.userIntent|interaction.userIntenet command=]:
+<kbd>h</kbd> key by sending the following
+[=interaction.userIntent|interaction.userIntent command=]:
 
 ```json
 {
@@ -1327,7 +1331,7 @@ screen reader, so the [=local end=] chooses to simulate pressing the
   "method": "interaction.userIntent",
   "params": {
     "name": "pressKeys",
-    "keys": ["H"]
+    "keys": ["h"]
   }
 }
 ```
@@ -1348,8 +1352,11 @@ Shortly thereafter, the [=remote end=] may emit an `interaction.capturedOutput`
 {
   "method": "interaction.capturedOutput",
   "params": {
-    "data": "DOJ memo stokes fear among disability advocates of a return to institutionalization"
+    "data": "heading level one Introduction"
   }
 }
 ```
+
+Finally, the [=local end=] may end the session by closing its [=WebSocket
+connection=] to the [=remote end=].
 </div>
