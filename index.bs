@@ -77,7 +77,7 @@ First, the local end would establish a WebSocket connection.
 The local end then creates a session by sending
 
 ```json
-{"method":"session.new","params":{...}}
+{"method":"session.new","params":{}}
 ```
 
 The local end can then send commands to change settings or send key press actions for that session. The local end assigns a command id (which is included in the message). The remote end sends a message back with the result and the command id, so the local end knows which command the message applies to.
