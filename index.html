@@ -5,10 +5,10 @@
   <title>AT Driver</title>
   <meta content="ED" name="w3c-status">
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
-  <meta content="Bikeshed version d113b2e81, updated Tue Jun 9 14:57:55 2026 -0700" name="generator">
+  <meta content="Bikeshed version ac92c2f0d, updated Fri Aug 21 16:01:29 2026 -0700" name="generator">
   <link href="https://w3c.github.io/at-driver/" rel="canonical">
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
-  <meta content="9d98a50754d9641dd8da7b27d9b7722e16f75c03" name="revision">
+  <meta content="c7ba0c974627816f378fe021efffd2cfba583d59" name="revision">
   <meta content="dark light" name="color-scheme">
   <link href="https://www.w3.org/StyleSheets/TR/2021/dark.css" media="(prefers-color-scheme: dark)" rel="stylesheet" type="text/css">
 <style>
@@ -795,7 +795,7 @@ var[data-var-color="6"] { --var-vg: #FFBCF2; }
 </p>
    <h1 class="no-ref p-name" id="title">AT Driver</h1>
    <p id="w3c-state"><a href="https://www.w3.org/standards/types/#ED">Editor’s Draft</a>,
-    <time class="dt-updated" datetime="2026-08-21">21 August 2026</time></p>
+    <time class="dt-updated" datetime="2026-08-26">26 August 2026</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -934,6 +934,7 @@ var[data-var-color="6"] { --var-vg: #FFBCF2; }
     <li><a href="#privacy"><span class="secno">8</span> <span class="content">Privacy</span></a>
     <li><a href="#security"><span class="secno">9</span> <span class="content">Security</span></a>
     <li><a href="#schemas"><span class="secno"></span> <span class="content">Appendix A: Schemas</span></a>
+    <li><a href="#example-session"><span class="secno"></span> <span class="content">Appendix B: Example Session</span></a>
     <li>
      <a href="#w3c-conformance"><span class="secno"></span> <span class="content">Conformance</span></a>
      <ol class="toc">
@@ -2145,6 +2146,127 @@ following Message:</p>
      <p><a href="schemas/at-driver-local.json">at-driver-local.json</a></p>
    </ul>
    <p class="issue" id="issue-f906273a"><a class="self-link" href="#issue-f906273a"></a> The JSON Schema files are not yet generated from the CDDL and so might be out of date. <a href="https://github.com/w3c/at-driver/issues/23">[Issue #23]</a></p>
+   <h2 class="heading settled" id="example-session"><span class="content">Appendix B: Example Session</span><a class="self-link" href="#example-session"></a></h2>
+   <div class="example" id="example-131d425d">
+    <a class="self-link" href="#example-131d425d"></a>
+Consider a <a data-link-type="dfn" href="#local-end" id="ref-for-local-end①④">local end</a> that wishes to automate some chosen <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end③④">remote end</a>.
+That <a data-link-type="dfn" href="#local-end" id="ref-for-local-end①⑤">local end</a> would begin by opening a <a data-link-type="dfn" href="#websocket-connection" id="ref-for-websocket-connection⑦">WebSocket connection</a> to the
+<a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end③⑤">remote end</a>.
+
+
+    <p>To create a new <a data-link-type="dfn" href="#session" id="ref-for-session①⑧">Session</a> which is furnished with an assistive technology
+named <code>NVDA</code>, the <a data-link-type="dfn" href="#local-end" id="ref-for-local-end①⑥">local end</a> might send a <a data-link-type="dfn" href="#sessionnew" id="ref-for-sessionnew">session.new
+command</a> such as:</p>
+<pre class="highlight language-json"><c- p>{</c->
+  <c- f>"id"</c-><c- p>:</c-> <c- mi>24601</c-><c- p>,</c->
+  <c- f>"method"</c-><c- p>:</c-> <c- u>"session.new"</c-><c- p>,</c->
+  <c- f>"params"</c-><c- p>:</c-> <c- p>{</c->
+    <c- f>"capabilities"</c-><c- p>:</c-> <c- p>{</c->
+      <c- f>"alwaysMatch"</c-><c- p>:</c-> <c- p>{</c->
+        <c- f>"atName"</c-><c- p>:</c-> <c- u>"NVDA"</c->
+      <c- p>}</c->
+    <c- p>}</c->
+  <c- p>}</c->
+<c- p>}</c->
+</pre>
+    <p>The value of the <code>id</code> field in this <a data-link-type="dfn" href="#command" id="ref-for-command⑥">Command</a> (and all subsequent
+<a data-link-type="dfn" href="#command" id="ref-for-command⑦">Commands</a>) is chosen with the sole discretion of the <a data-link-type="dfn" href="#local-end" id="ref-for-local-end①⑦">local end</a>. It is
+used only to correlate each <a data-link-type="dfn" href="#command" id="ref-for-command⑧">Command</a> with the response <code class="cddl"><a data-link-type="cddl" href="#cddl-type-message" id="ref-for-cddl-type-message">Message</a></code> it
+induces.</p>
+    <p>And the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end③⑥">remote end</a> which receives that <a data-link-type="dfn" href="#command" id="ref-for-command⑨">Command</a> could respond with the
+following <code class="cddl"><a data-link-type="cddl" href="#cddl-type-message" id="ref-for-cddl-type-message①">Message</a></code>:</p>
+<pre class="highlight language-json"><c- p>{</c->
+  <c- f>"id"</c-><c- p>:</c-> <c- mi>24601</c-><c- p>,</c->
+  <c- f>"result"</c-><c- p>:</c-> <c- p>{</c->
+    <c- f>"sessionId"</c-><c- p>:</c-> <c- u>"eef9aca8-cb96-40cf-ae53-8483833c30f3"</c-><c- p>,</c->
+    <c- f>"capabilities"</c-><c- p>:</c-> <c- p>{</c->
+      <c- f>"atName"</c-><c- p>:</c-> <c- u>"NVDA"</c-><c- p>,</c->
+      <c- f>"atVersion"</c-><c- p>:</c-> <c- u>"2026.1.1"</c-><c- p>,</c->
+      <c- f>"platformName"</c-><c- p>:</c-> <c- u>"Windows"</c->
+    <c- p>}</c->
+  <c- p>}</c->
+<c- p>}</c->
+</pre>
+    <p>To discover the settings available on the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end③⑦">remote end</a>, the <a data-link-type="dfn" href="#local-end" id="ref-for-local-end①⑧">local end</a>
+might send a <a data-link-type="dfn" href="#settingsgetsupportedsettings" id="ref-for-settingsgetsupportedsettings">settings.getSupportedSettings
+command</a> such as:</p>
+<pre class="highlight language-json"><c- p>{</c->
+  <c- f>"id"</c-><c- p>:</c-> <c- mi>617</c-><c- p>,</c->
+  <c- f>"method"</c-><c- p>:</c-> <c- u>"settings.getSupportedSettings"</c-><c- p>,</c->
+  <c- f>"params"</c-><c- p>:</c-> <c- p>{}</c->
+<c- p>}</c->
+</pre>
+    <p>And the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end③⑧">remote end</a> could respond with the following <code class="cddl"><a data-link-type="cddl" href="#cddl-type-message" id="ref-for-cddl-type-message②">Message</a></code>:</p>
+<pre class="highlight language-json"><c- p>{</c->
+  <c- f>"id"</c-><c- p>:</c-> <c- mi>617</c-><c- p>,</c->
+  <c- f>"result"</c-><c- p>:</c-> <c- p>{</c->
+    <c- f>"settings"</c-><c- p>:</c-> <c- p>[</c->
+      <c- p>{</c->
+        <c- f>"name"</c-><c- p>:</c-> <c- u>"readEntirePage"</c-><c- p>,</c->
+        <c- f>"value"</c-><c- p>:</c-> <c- kc>true</c->
+      <c- p>}</c->
+    <c- p>]</c->
+  <c- p>}</c->
+<c- p>}</c->
+</pre>
+    <p>Having thus discovered the availability of a setting named <code>readEntirePage</code> and
+its current value of <code>true</code>, the <a data-link-type="dfn" href="#local-end" id="ref-for-local-end①⑨">local end</a> may choose to modify the value
+of that setting to <code>false</code> by sending the following
+<a data-link-type="dfn" href="#settingssetsettings" id="ref-for-settingssetsettings①">settings.setSettings command</a>:</p>
+<pre class="highlight language-json"><c- p>{</c->
+  <c- f>"id"</c-><c- p>:</c-> <c- mi>1984</c-><c- p>,</c->
+  <c- f>"method"</c-><c- p>:</c-> <c- u>"settings.setSettings"</c-><c- p>,</c->
+  <c- f>"params"</c-><c- p>:</c-> <c- p>{</c->
+    <c- f>"settings"</c-><c- p>:</c-> <c- p>[</c->
+      <c- p>{</c->
+        <c- f>"name"</c-><c- p>:</c-> <c- u>"readEntirePage"</c-><c- p>,</c->
+        <c- f>"value"</c-><c- p>:</c-> <c- kc>false</c->
+      <c- p>}</c->
+    <c- p>]</c->
+  <c- p>}</c->
+<c- p>}</c->
+</pre>
+    <p>And the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end③⑨">remote end</a>, having successfully modified the setting to the desired
+value, could respond with the following <code class="cddl"><a data-link-type="cddl" href="#cddl-type-message" id="ref-for-cddl-type-message③">Message</a></code> to communicate the
+operation’s <a data-link-type="dfn" href="#success" id="ref-for-success①⑤">success</a>:</p>
+<pre class="highlight language-json"><c- p>{</c->
+  <c- f>"id"</c-><c- p>:</c-> <c- mi>1984</c-><c- p>,</c->
+  <c- f>"result"</c-><c- p>:</c-> <c- p>{}</c->
+<c- p>}</c->
+</pre>
+    <p>The <a data-link-type="dfn" href="#local-end" id="ref-for-local-end②⓪">local end</a> may then want to read the next heading in the document. That
+is currently an implementation-specific operation, so the <a data-link-type="dfn" href="#local-end" id="ref-for-local-end②①">local end</a> must
+simulate the appropriate user intent for the assistive technology running on
+the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end④⓪">remote end</a>. In this example, that assistive technology is the NVDA
+screen reader, so the <a data-link-type="dfn" href="#local-end" id="ref-for-local-end②②">local end</a> chooses to simulate pressing the
+<kbd>h</kbd> key by sending the following
+<a data-link-type="dfn" href="#interactionuserintent" id="ref-for-interactionuserintent">interaction.userIntent command</a>:</p>
+<pre class="highlight language-json"><c- p>{</c->
+  <c- f>"id"</c-><c- p>:</c-> <c- mi>19821021</c-><c- p>,</c->
+  <c- f>"method"</c-><c- p>:</c-> <c- u>"interaction.userIntent"</c-><c- p>,</c->
+  <c- f>"params"</c-><c- p>:</c-> <c- p>{</c->
+    <c- f>"name"</c-><c- p>:</c-> <c- u>"pressKeys"</c-><c- p>,</c->
+    <c- f>"keys"</c-><c- p>:</c-> <c- p>[</c-><c- u>"h"</c-><c- p>]</c->
+  <c- p>}</c->
+<c- p>}</c->
+</pre>
+    <p>And the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end④①">remote end</a> could respond with the following <code class="cddl"><a data-link-type="cddl" href="#cddl-type-message" id="ref-for-cddl-type-message④">Message</a></code>:</p>
+<pre class="highlight language-json"><c- p>{</c->
+  <c- f>"id"</c-><c- p>:</c-> <c- mi>19821021</c-><c- p>,</c->
+  <c- f>"result"</c-><c- p>:</c-> <c- p>{}</c->
+<c- p>}</c->
+</pre>
+    <p>Shortly thereafter, the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end④②">remote end</a> may emit an <code>interaction.capturedOutput</code>
+<a data-link-type="dfn" href="#event" id="ref-for-event②">event</a> <code class="cddl"><a data-link-type="cddl" href="#cddl-type-message" id="ref-for-cddl-type-message⑤">Message</a></code> that describes the text enunciated by the screen reader:</p>
+<pre class="highlight language-json"><c- p>{</c->
+  <c- f>"method"</c-><c- p>:</c-> <c- u>"interaction.capturedOutput"</c-><c- p>,</c->
+  <c- f>"params"</c-><c- p>:</c-> <c- p>{</c->
+    <c- f>"data"</c-><c- p>:</c-> <c- u>"heading level one Introduction"</c->
+  <c- p>}</c->
+<c- p>}</c->
+</pre>
+    <p>Finally, the <a data-link-type="dfn" href="#local-end" id="ref-for-local-end②③">local end</a> may end the session by closing its <a data-link-type="dfn" href="#websocket-connection" id="ref-for-websocket-connection⑧">WebSocket connection</a> to the <a data-link-type="dfn" href="#remote-end" id="ref-for-remote-end④③">remote end</a>.</p>
+   </div>
   </main>
   <div data-fill-with="conformance">
    <h2 class="heading no-num no-ref settled" id="w3c-conformance"><span class="content">Conformance</span><a class="self-link" href="#w3c-conformance"></a></h2>
@@ -3100,7 +3222,7 @@ let dfnPanelData = {
 "cddl-type-interactionuserintentcommand": {"dfnID":"cddl-type-interactionuserintentcommand","dfnText":"InteractionUserIntentCommand","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-type-interactionuserintentcommand"}],"title":"7.3.1. Definition"}],"url":"#cddl-type-interactionuserintentcommand"},
 "cddl-type-interactionuserintentparameters": {"dfnID":"cddl-type-interactionuserintentparameters","dfnText":"InteractionUserIntentParameters","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-type-interactionuserintentparameters"}],"title":"7.3.3.1. The interaction.userIntent Command"}],"url":"#cddl-type-interactionuserintentparameters"},
 "cddl-type-keycombination": {"dfnID":"cddl-type-keycombination","dfnText":"KeyCombination","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-type-keycombination"}],"title":"7.3.3.1. The interaction.userIntent Command"}],"url":"#cddl-type-keycombination"},
-"cddl-type-message": {"dfnID":"cddl-type-message","dfnText":"Message","external":false,"refSections":[],"url":"#cddl-type-message"},
+"cddl-type-message": {"dfnID":"cddl-type-message","dfnText":"Message","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-type-message"},{"id":"ref-for-cddl-type-message\u2460"},{"id":"ref-for-cddl-type-message\u2461"},{"id":"ref-for-cddl-type-message\u2462"},{"id":"ref-for-cddl-type-message\u2463"},{"id":"ref-for-cddl-type-message\u2464"}],"title":"Appendix B: Example Session"}],"url":"#cddl-type-message"},
 "cddl-type-presskeysintentparameters": {"dfnID":"cddl-type-presskeysintentparameters","dfnText":"PressKeysIntentParameters","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-type-presskeysintentparameters"}],"title":"7.3.3.1. The interaction.userIntent Command"}],"url":"#cddl-type-presskeysintentparameters"},
 "cddl-type-resultdata": {"dfnID":"cddl-type-resultdata","dfnText":"ResultData","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-type-resultdata"}],"title":"5.1. Definition"}],"url":"#cddl-type-resultdata"},
 "cddl-type-sessioncommand": {"dfnID":"cddl-type-sessioncommand","dfnText":"SessionCommand","external":false,"refSections":[{"refs":[{"id":"ref-for-cddl-type-sessioncommand"}],"title":"5.1. Definition"}],"url":"#cddl-type-sessioncommand"},
@@ -3131,7 +3253,7 @@ let dfnPanelData = {
 "cddl-value-settingssetsettingscommand-method-settingssetsettings": {"dfnID":"cddl-value-settingssetsettingscommand-method-settingssetsettings","dfnText":"\"settings.setSettings\"","external":false,"refSections":[],"url":"#cddl-value-settingssetsettingscommand-method-settingssetsettings"},
 "check-that-keyboard-interaction-can-be-simulated": {"dfnID":"check-that-keyboard-interaction-can-be-simulated","dfnText":"check that keyboard interaction can be simulated","external":false,"refSections":[{"refs":[{"id":"ref-for-check-that-keyboard-interaction-can-be-simulated"}],"title":"7.3. The Interaction Module"}],"url":"#check-that-keyboard-interaction-can-be-simulated"},
 "check-that-one-of-the-expected-applications-has-focus": {"dfnID":"check-that-one-of-the-expected-applications-has-focus","dfnText":"check that one of the expected applications has focus","external":false,"refSections":[{"refs":[{"id":"ref-for-check-that-one-of-the-expected-applications-has-focus"}],"title":"7.3. The Interaction Module"}],"url":"#check-that-one-of-the-expected-applications-has-focus"},
-"command": {"dfnID":"command","dfnText":"command","external":false,"refSections":[{"refs":[{"id":"ref-for-command"},{"id":"ref-for-command\u2460"},{"id":"ref-for-command\u2461"}],"title":"5.4. Modules"},{"refs":[{"id":"ref-for-command\u2462"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-command\u2463"},{"id":"ref-for-command\u2464"}],"title":"5.7. Errors"}],"url":"#command"},
+"command": {"dfnID":"command","dfnText":"command","external":false,"refSections":[{"refs":[{"id":"ref-for-command"},{"id":"ref-for-command\u2460"},{"id":"ref-for-command\u2461"}],"title":"5.4. Modules"},{"refs":[{"id":"ref-for-command\u2462"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-command\u2463"},{"id":"ref-for-command\u2464"}],"title":"5.7. Errors"},{"refs":[{"id":"ref-for-command\u2465"},{"id":"ref-for-command\u2466"},{"id":"ref-for-command\u2467"},{"id":"ref-for-command\u2468"}],"title":"Appendix B: Example Session"}],"url":"#command"},
 "command-name": {"dfnID":"command-name","dfnText":"command name","external":false,"refSections":[{"refs":[{"id":"ref-for-command-name"}],"title":"5.4. Modules"},{"refs":[{"id":"ref-for-command-name\u2460"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-command-name\u2461"},{"id":"ref-for-command-name\u2462"}],"title":"6. Transport"}],"url":"#command-name"},
 "command-parameters": {"dfnID":"command-parameters","dfnText":"command parameters","external":false,"refSections":[{"refs":[{"id":"ref-for-command-parameters"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-command-parameters\u2460"}],"title":"6. Transport"}],"url":"#command-parameters"},
 "command-type": {"dfnID":"command-type","dfnText":"command type","external":false,"refSections":[{"refs":[{"id":"ref-for-command-type"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-command-type\u2460"}],"title":"7.2.3.1. The settings.setSettings Command"},{"refs":[{"id":"ref-for-command-type\u2461"}],"title":"7.2.3.2. The settings.getSettings Command"},{"refs":[{"id":"ref-for-command-type\u2462"}],"title":"7.2.3.3. The settings.getSupportedSettings Command"},{"refs":[{"id":"ref-for-command-type\u2463"}],"title":"7.3.3.1. The interaction.userIntent Command"}],"url":"#command-type"},
@@ -3145,7 +3267,7 @@ let dfnPanelData = {
 "error-code-session-not-created": {"dfnID":"error-code-session-not-created","dfnText":"session not created","external":false,"refSections":[{"refs":[{"id":"ref-for-error-code-session-not-created"},{"id":"ref-for-error-code-session-not-created\u2460"},{"id":"ref-for-error-code-session-not-created\u2461"},{"id":"ref-for-error-code-session-not-created\u2462"}],"title":"7.1.3.1. The session.new Command"}],"url":"#error-code-session-not-created"},
 "error-code-unknown-command": {"dfnID":"error-code-unknown-command","dfnText":"unknown command","external":false,"refSections":[{"refs":[{"id":"ref-for-error-code-unknown-command"}],"title":"6. Transport"}],"url":"#error-code-unknown-command"},
 "error-code-unknown-user-intent": {"dfnID":"error-code-unknown-user-intent","dfnText":"unknown user intent","external":false,"refSections":[{"refs":[{"id":"ref-for-error-code-unknown-user-intent"}],"title":"7.3.3.1. The interaction.userIntent Command"}],"url":"#error-code-unknown-user-intent"},
-"event": {"dfnID":"event","dfnText":"event","external":false,"refSections":[{"refs":[{"id":"ref-for-event"},{"id":"ref-for-event\u2460"}],"title":"5.4. Modules"}],"url":"#event"},
+"event": {"dfnID":"event","dfnText":"event","external":false,"refSections":[{"refs":[{"id":"ref-for-event"},{"id":"ref-for-event\u2460"}],"title":"5.4. Modules"},{"refs":[{"id":"ref-for-event\u2461"}],"title":"Appendix B: Example Session"}],"url":"#event"},
 "event-name": {"dfnID":"event-name","dfnText":"event name","external":false,"refSections":[{"refs":[{"id":"ref-for-event-name"}],"title":"5.4. Modules"}],"url":"#event-name"},
 "event-parameters": {"dfnID":"event-parameters","dfnText":"event parameters","external":false,"refSections":[],"url":"#event-parameters"},
 "event-type": {"dfnID":"event-type","dfnText":"event type","external":false,"refSections":[{"refs":[{"id":"ref-for-event-type"}],"title":"5.6. Events"}],"url":"#event-type"},
@@ -3156,15 +3278,15 @@ let dfnPanelData = {
 "get-settings": {"dfnID":"get-settings","dfnText":"get settings","external":false,"refSections":[{"refs":[{"id":"ref-for-get-settings"}],"title":"7.2.3.2. The settings.getSettings Command"},{"refs":[{"id":"ref-for-get-settings\u2460"}],"title":"7.2.3.3. The settings.getSupportedSettings Command"}],"url":"#get-settings"},
 "handle-a-connection-closing": {"dfnID":"handle-a-connection-closing","dfnText":"handle a connection closing","external":false,"refSections":[{"refs":[{"id":"ref-for-handle-a-connection-closing"}],"title":"6. Transport"}],"url":"#handle-a-connection-closing"},
 "handle-an-incoming-message": {"dfnID":"handle-an-incoming-message","dfnText":"handle an incoming message","external":false,"refSections":[{"refs":[{"id":"ref-for-handle-an-incoming-message"}],"title":"6. Transport"}],"url":"#handle-an-incoming-message"},
-"interactionuserintent": {"dfnID":"interactionuserintent","dfnText":"interaction.userIntent","external":false,"refSections":[],"url":"#interactionuserintent"},
-"local-end": {"dfnID":"local-end","dfnText":"local end","external":false,"refSections":[{"refs":[{"id":"ref-for-local-end"},{"id":"ref-for-local-end\u2460"}],"title":"5. Protocol"},{"refs":[{"id":"ref-for-local-end\u2461"}],"title":"5.2. Capabilities"},{"refs":[{"id":"ref-for-local-end\u2462"}],"title":"5.3. Session"},{"refs":[{"id":"ref-for-local-end\u2463"},{"id":"ref-for-local-end\u2464"},{"id":"ref-for-local-end\u2465"},{"id":"ref-for-local-end\u2466"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-local-end\u2467"}],"title":"5.6. Events"},{"refs":[{"id":"ref-for-local-end\u2468"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-local-end\u2460\u24ea"}],"title":"7.2.3.1. The settings.setSettings Command"},{"refs":[{"id":"ref-for-local-end\u2460\u2460"}],"title":"7.2.3.2. The settings.getSettings Command"},{"refs":[{"id":"ref-for-local-end\u2460\u2461"}],"title":"7.2.3.3. The settings.getSupportedSettings Command"},{"refs":[{"id":"ref-for-local-end\u2460\u2462"}],"title":"7.3.3.1. The interaction.userIntent Command"}],"url":"#local-end"},
+"interactionuserintent": {"dfnID":"interactionuserintent","dfnText":"interaction.userIntent","external":false,"refSections":[{"refs":[{"id":"ref-for-interactionuserintent"}],"title":"Appendix B: Example Session"}],"url":"#interactionuserintent"},
+"local-end": {"dfnID":"local-end","dfnText":"local end","external":false,"refSections":[{"refs":[{"id":"ref-for-local-end"},{"id":"ref-for-local-end\u2460"}],"title":"5. Protocol"},{"refs":[{"id":"ref-for-local-end\u2461"}],"title":"5.2. Capabilities"},{"refs":[{"id":"ref-for-local-end\u2462"}],"title":"5.3. Session"},{"refs":[{"id":"ref-for-local-end\u2463"},{"id":"ref-for-local-end\u2464"},{"id":"ref-for-local-end\u2465"},{"id":"ref-for-local-end\u2466"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-local-end\u2467"}],"title":"5.6. Events"},{"refs":[{"id":"ref-for-local-end\u2468"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-local-end\u2460\u24ea"}],"title":"7.2.3.1. The settings.setSettings Command"},{"refs":[{"id":"ref-for-local-end\u2460\u2460"}],"title":"7.2.3.2. The settings.getSettings Command"},{"refs":[{"id":"ref-for-local-end\u2460\u2461"}],"title":"7.2.3.3. The settings.getSupportedSettings Command"},{"refs":[{"id":"ref-for-local-end\u2460\u2462"}],"title":"7.3.3.1. The interaction.userIntent Command"},{"refs":[{"id":"ref-for-local-end\u2460\u2463"},{"id":"ref-for-local-end\u2460\u2464"},{"id":"ref-for-local-end\u2460\u2465"},{"id":"ref-for-local-end\u2460\u2466"},{"id":"ref-for-local-end\u2460\u2467"},{"id":"ref-for-local-end\u2460\u2468"},{"id":"ref-for-local-end\u2461\u24ea"},{"id":"ref-for-local-end\u2461\u2460"},{"id":"ref-for-local-end\u2461\u2461"},{"id":"ref-for-local-end\u2461\u2462"}],"title":"Appendix B: Example Session"}],"url":"#local-end"},
 "match-capabilities": {"dfnID":"match-capabilities","dfnText":"match capabilities","external":false,"refSections":[{"refs":[{"id":"ref-for-match-capabilities"}],"title":"5.2. Capabilities"}],"url":"#match-capabilities"},
 "modify-setting": {"dfnID":"modify-setting","dfnText":"modify setting","external":false,"refSections":[{"refs":[{"id":"ref-for-modify-setting"}],"title":"7.2.3.1. The settings.setSettings Command"}],"url":"#modify-setting"},
 "module": {"dfnID":"module","dfnText":"module","external":false,"refSections":[{"refs":[{"id":"ref-for-module"}],"title":"2. Explainer"},{"refs":[{"id":"ref-for-module\u2460"},{"id":"ref-for-module\u2461"}],"title":"7.2. The settings Module"}],"url":"#module"},
 "module-name": {"dfnID":"module-name","dfnText":"module name","external":false,"refSections":[{"refs":[{"id":"ref-for-module-name"}],"title":"5.4. Modules"}],"url":"#module-name"},
 "press-keys": {"dfnID":"press-keys","dfnText":"press keys","external":false,"refSections":[{"refs":[{"id":"ref-for-press-keys"}],"title":"7.3. The Interaction Module"}],"url":"#press-keys"},
 "process-capabilities": {"dfnID":"process-capabilities","dfnText":"process capabilities","external":false,"refSections":[{"refs":[{"id":"ref-for-process-capabilities"}],"title":"7.1.3.1. The session.new Command"}],"url":"#process-capabilities"},
-"remote-end": {"dfnID":"remote-end","dfnText":"remote end","external":false,"refSections":[{"refs":[{"id":"ref-for-remote-end"},{"id":"ref-for-remote-end\u2460"}],"title":"5. Protocol"},{"refs":[{"id":"ref-for-remote-end\u2461"},{"id":"ref-for-remote-end\u2462"},{"id":"ref-for-remote-end\u2463"},{"id":"ref-for-remote-end\u2464"},{"id":"ref-for-remote-end\u2465"},{"id":"ref-for-remote-end\u2466"}],"title":"5.2. Capabilities"},{"refs":[{"id":"ref-for-remote-end\u2467"},{"id":"ref-for-remote-end\u2468"}],"title":"5.3. Session"},{"refs":[{"id":"ref-for-remote-end\u2460\u24ea"},{"id":"ref-for-remote-end\u2460\u2460"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-remote-end\u2460\u2461"},{"id":"ref-for-remote-end\u2460\u2462"}],"title":"5.6. Events"},{"refs":[{"id":"ref-for-remote-end\u2460\u2463"},{"id":"ref-for-remote-end\u2460\u2464"}],"title":"5.7. Errors"},{"refs":[{"id":"ref-for-remote-end\u2460\u2465"}],"title":"5.8. Security checks"},{"refs":[{"id":"ref-for-remote-end\u2460\u2466"},{"id":"ref-for-remote-end\u2460\u2467"},{"id":"ref-for-remote-end\u2460\u2468"},{"id":"ref-for-remote-end\u2461\u24ea"},{"id":"ref-for-remote-end\u2461\u2460"},{"id":"ref-for-remote-end\u2461\u2461"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-remote-end\u2461\u2462"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-remote-end\u2461\u2463"},{"id":"ref-for-remote-end\u2461\u2464"}],"title":"7.2. The settings Module"},{"refs":[{"id":"ref-for-remote-end\u2461\u2465"}],"title":"7.2.3.1. The settings.setSettings Command"},{"refs":[{"id":"ref-for-remote-end\u2461\u2466"}],"title":"7.2.3.2. The settings.getSettings Command"},{"refs":[{"id":"ref-for-remote-end\u2461\u2467"},{"id":"ref-for-remote-end\u2461\u2468"},{"id":"ref-for-remote-end\u2462\u24ea"}],"title":"7.2.3.3. The settings.getSupportedSettings Command"},{"refs":[{"id":"ref-for-remote-end\u2462\u2460"}],"title":"7.3. The Interaction Module"},{"refs":[{"id":"ref-for-remote-end\u2462\u2461"}],"title":"7.3.3.1. The interaction.userIntent Command"},{"refs":[{"id":"ref-for-remote-end\u2462\u2462"}],"title":"8. Privacy"}],"url":"#remote-end"},
+"remote-end": {"dfnID":"remote-end","dfnText":"remote end","external":false,"refSections":[{"refs":[{"id":"ref-for-remote-end"},{"id":"ref-for-remote-end\u2460"}],"title":"5. Protocol"},{"refs":[{"id":"ref-for-remote-end\u2461"},{"id":"ref-for-remote-end\u2462"},{"id":"ref-for-remote-end\u2463"},{"id":"ref-for-remote-end\u2464"},{"id":"ref-for-remote-end\u2465"},{"id":"ref-for-remote-end\u2466"}],"title":"5.2. Capabilities"},{"refs":[{"id":"ref-for-remote-end\u2467"},{"id":"ref-for-remote-end\u2468"}],"title":"5.3. Session"},{"refs":[{"id":"ref-for-remote-end\u2460\u24ea"},{"id":"ref-for-remote-end\u2460\u2460"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-remote-end\u2460\u2461"},{"id":"ref-for-remote-end\u2460\u2462"}],"title":"5.6. Events"},{"refs":[{"id":"ref-for-remote-end\u2460\u2463"},{"id":"ref-for-remote-end\u2460\u2464"}],"title":"5.7. Errors"},{"refs":[{"id":"ref-for-remote-end\u2460\u2465"}],"title":"5.8. Security checks"},{"refs":[{"id":"ref-for-remote-end\u2460\u2466"},{"id":"ref-for-remote-end\u2460\u2467"},{"id":"ref-for-remote-end\u2460\u2468"},{"id":"ref-for-remote-end\u2461\u24ea"},{"id":"ref-for-remote-end\u2461\u2460"},{"id":"ref-for-remote-end\u2461\u2461"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-remote-end\u2461\u2462"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-remote-end\u2461\u2463"},{"id":"ref-for-remote-end\u2461\u2464"}],"title":"7.2. The settings Module"},{"refs":[{"id":"ref-for-remote-end\u2461\u2465"}],"title":"7.2.3.1. The settings.setSettings Command"},{"refs":[{"id":"ref-for-remote-end\u2461\u2466"}],"title":"7.2.3.2. The settings.getSettings Command"},{"refs":[{"id":"ref-for-remote-end\u2461\u2467"},{"id":"ref-for-remote-end\u2461\u2468"},{"id":"ref-for-remote-end\u2462\u24ea"}],"title":"7.2.3.3. The settings.getSupportedSettings Command"},{"refs":[{"id":"ref-for-remote-end\u2462\u2460"}],"title":"7.3. The Interaction Module"},{"refs":[{"id":"ref-for-remote-end\u2462\u2461"}],"title":"7.3.3.1. The interaction.userIntent Command"},{"refs":[{"id":"ref-for-remote-end\u2462\u2462"}],"title":"8. Privacy"},{"refs":[{"id":"ref-for-remote-end\u2462\u2463"},{"id":"ref-for-remote-end\u2462\u2464"},{"id":"ref-for-remote-end\u2462\u2465"},{"id":"ref-for-remote-end\u2462\u2466"},{"id":"ref-for-remote-end\u2462\u2467"},{"id":"ref-for-remote-end\u2462\u2468"},{"id":"ref-for-remote-end\u2463\u24ea"},{"id":"ref-for-remote-end\u2463\u2460"},{"id":"ref-for-remote-end\u2463\u2461"},{"id":"ref-for-remote-end\u2463\u2462"}],"title":"Appendix B: Example Session"}],"url":"#remote-end"},
 "remote-end-active-listeners": {"dfnID":"remote-end-active-listeners","dfnText":"active listeners","external":false,"refSections":[{"refs":[{"id":"ref-for-remote-end-active-listeners"},{"id":"ref-for-remote-end-active-listeners\u2460"}],"title":"6. Transport"}],"url":"#remote-end-active-listeners"},
 "remote-end-active-sessions": {"dfnID":"remote-end-active-sessions","dfnText":"active sessions","external":false,"refSections":[{"refs":[{"id":"ref-for-remote-end-active-sessions"}],"title":"5.3. Session"},{"refs":[{"id":"ref-for-remote-end-active-sessions\u2460"},{"id":"ref-for-remote-end-active-sessions\u2461"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-remote-end-active-sessions\u2462"},{"id":"ref-for-remote-end-active-sessions\u2463"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-remote-end-active-sessions\u2464"}],"title":"7.3.4.1. The interaction.capturedOutput Event"}],"url":"#remote-end-active-sessions"},
 "remote-end-event-trigger": {"dfnID":"remote-end-event-trigger","dfnText":"remote end event trigger","external":false,"refSections":[{"refs":[{"id":"ref-for-remote-end-event-trigger"}],"title":"7.3.4.1. The interaction.capturedOutput Event"}],"url":"#remote-end-event-trigger"},
@@ -3174,15 +3296,15 @@ let dfnPanelData = {
 "remote-end-websocket-connections-not-associated-with-a-session": {"dfnID":"remote-end-websocket-connections-not-associated-with-a-session","dfnText":"WebSocket connections not associated with a session","external":false,"refSections":[{"refs":[{"id":"ref-for-remote-end-websocket-connections-not-associated-with-a-session"},{"id":"ref-for-remote-end-websocket-connections-not-associated-with-a-session\u2460"},{"id":"ref-for-remote-end-websocket-connections-not-associated-with-a-session\u2461"},{"id":"ref-for-remote-end-websocket-connections-not-associated-with-a-session\u2462"}],"title":"6. Transport"}],"url":"#remote-end-websocket-connections-not-associated-with-a-session"},
 "result-type": {"dfnID":"result-type","dfnText":"result type","external":false,"refSections":[{"refs":[{"id":"ref-for-result-type"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-result-type\u2460"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-result-type\u2461"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-result-type\u2462"}],"title":"7.2.3.1. The settings.setSettings Command"},{"refs":[{"id":"ref-for-result-type\u2463"}],"title":"7.2.3.2. The settings.getSettings Command"},{"refs":[{"id":"ref-for-result-type\u2464"}],"title":"7.2.3.3. The settings.getSupportedSettings Command"}],"url":"#result-type"},
 "send-an-error-response": {"dfnID":"send-an-error-response","dfnText":"send an error response","external":false,"refSections":[{"refs":[{"id":"ref-for-send-an-error-response"},{"id":"ref-for-send-an-error-response\u2460"},{"id":"ref-for-send-an-error-response\u2461"},{"id":"ref-for-send-an-error-response\u2462"},{"id":"ref-for-send-an-error-response\u2463"}],"title":"6. Transport"}],"url":"#send-an-error-response"},
-"session": {"dfnID":"session","dfnText":"session","external":false,"refSections":[{"refs":[{"id":"ref-for-session"},{"id":"ref-for-session\u2460"}],"title":"2. Explainer"},{"refs":[{"id":"ref-for-session\u2461"},{"id":"ref-for-session\u2462"}],"title":"5.2. Capabilities"},{"refs":[{"id":"ref-for-session\u2463"},{"id":"ref-for-session\u2464"}],"title":"5.3. Session"},{"refs":[{"id":"ref-for-session\u2465"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-session\u2466"},{"id":"ref-for-session\u2467"}],"title":"5.7. Errors"},{"refs":[{"id":"ref-for-session\u2468"},{"id":"ref-for-session\u2460\u24ea"},{"id":"ref-for-session\u2460\u2460"},{"id":"ref-for-session\u2460\u2461"},{"id":"ref-for-session\u2460\u2462"},{"id":"ref-for-session\u2460\u2463"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-session\u2460\u2464"},{"id":"ref-for-session\u2460\u2465"},{"id":"ref-for-session\u2460\u2466"}],"title":"7.1.3.1. The session.new Command"}],"url":"#session"},
+"session": {"dfnID":"session","dfnText":"session","external":false,"refSections":[{"refs":[{"id":"ref-for-session"},{"id":"ref-for-session\u2460"}],"title":"2. Explainer"},{"refs":[{"id":"ref-for-session\u2461"},{"id":"ref-for-session\u2462"}],"title":"5.2. Capabilities"},{"refs":[{"id":"ref-for-session\u2463"},{"id":"ref-for-session\u2464"}],"title":"5.3. Session"},{"refs":[{"id":"ref-for-session\u2465"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-session\u2466"},{"id":"ref-for-session\u2467"}],"title":"5.7. Errors"},{"refs":[{"id":"ref-for-session\u2468"},{"id":"ref-for-session\u2460\u24ea"},{"id":"ref-for-session\u2460\u2460"},{"id":"ref-for-session\u2460\u2461"},{"id":"ref-for-session\u2460\u2462"},{"id":"ref-for-session\u2460\u2463"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-session\u2460\u2464"},{"id":"ref-for-session\u2460\u2465"},{"id":"ref-for-session\u2460\u2466"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-session\u2460\u2467"}],"title":"Appendix B: Example Session"}],"url":"#session"},
 "session-associated-with-connection": {"dfnID":"session-associated-with-connection","dfnText":"associated with connection","external":false,"refSections":[{"refs":[{"id":"ref-for-session-associated-with-connection"},{"id":"ref-for-session-associated-with-connection\u2460"},{"id":"ref-for-session-associated-with-connection\u2461"}],"title":"6. Transport"}],"url":"#session-associated-with-connection"},
 "session-session-id": {"dfnID":"session-session-id","dfnText":"session ID","external":false,"refSections":[{"refs":[{"id":"ref-for-session-session-id"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-session-session-id\u2460"},{"id":"ref-for-session-session-id\u2461"}],"title":"7.1.3.1. The session.new Command"}],"url":"#session-session-id"},
 "session-session-websocket-connections": {"dfnID":"session-session-websocket-connections","dfnText":"session WebSocket connections","external":false,"refSections":[{"refs":[{"id":"ref-for-session-session-websocket-connections"},{"id":"ref-for-session-session-websocket-connections\u2460"},{"id":"ref-for-session-session-websocket-connections\u2461"},{"id":"ref-for-session-session-websocket-connections\u2462"},{"id":"ref-for-session-session-websocket-connections\u2463"}],"title":"6. Transport"}],"url":"#session-session-websocket-connections"},
-"sessionnew": {"dfnID":"sessionnew","dfnText":"session.new","external":false,"refSections":[],"url":"#sessionnew"},
+"sessionnew": {"dfnID":"sessionnew","dfnText":"session.new","external":false,"refSections":[{"refs":[{"id":"ref-for-sessionnew"}],"title":"Appendix B: Example Session"}],"url":"#sessionnew"},
 "set-of-all-command-names": {"dfnID":"set-of-all-command-names","dfnText":"set of all command names","external":false,"refSections":[{"refs":[{"id":"ref-for-set-of-all-command-names"}],"title":"6. Transport"}],"url":"#set-of-all-command-names"},
 "settingsgetsettings": {"dfnID":"settingsgetsettings","dfnText":"settings.getSettings","external":false,"refSections":[],"url":"#settingsgetsettings"},
-"settingsgetsupportedsettings": {"dfnID":"settingsgetsupportedsettings","dfnText":"settings.getSupportedSettings","external":false,"refSections":[],"url":"#settingsgetsupportedsettings"},
-"settingssetsettings": {"dfnID":"settingssetsettings","dfnText":"settings.setSettings","external":false,"refSections":[{"refs":[{"id":"ref-for-settingssetsettings"}],"title":"7.2.3.1. The settings.setSettings Command"}],"url":"#settingssetsettings"},
+"settingsgetsupportedsettings": {"dfnID":"settingsgetsupportedsettings","dfnText":"settings.getSupportedSettings","external":false,"refSections":[{"refs":[{"id":"ref-for-settingsgetsupportedsettings"}],"title":"Appendix B: Example Session"}],"url":"#settingsgetsupportedsettings"},
+"settingssetsettings": {"dfnID":"settingssetsettings","dfnText":"settings.setSettings","external":false,"refSections":[{"refs":[{"id":"ref-for-settingssetsettings"}],"title":"7.2.3.1. The settings.setSettings Command"},{"refs":[{"id":"ref-for-settingssetsettings\u2460"}],"title":"Appendix B: Example Session"}],"url":"#settingssetsettings"},
 "should-be-withheld": {"dfnID":"should-be-withheld","dfnText":"should be withheld","external":false,"refSections":[{"refs":[{"id":"ref-for-should-be-withheld"}],"title":"7.3.4.1. The interaction.capturedOutput Event"}],"url":"#should-be-withheld"},
 "standard-capabilities": {"dfnID":"standard-capabilities","dfnText":"standard capabilities","external":false,"refSections":[],"url":"#standard-capabilities"},
 "standard-capabilities-at-name": {"dfnID":"standard-capabilities-at-name","dfnText":"AT name","external":false,"refSections":[],"url":"#standard-capabilities-at-name"},
@@ -3190,12 +3312,12 @@ let dfnPanelData = {
 "standard-capabilities-platform": {"dfnID":"standard-capabilities-platform","dfnText":"Platform","external":false,"refSections":[],"url":"#standard-capabilities-platform"},
 "start-listening-for-a-websocket-connection": {"dfnID":"start-listening-for-a-websocket-connection","dfnText":"start listening for a WebSocket connection","external":false,"refSections":[{"refs":[{"id":"ref-for-start-listening-for-a-websocket-connection"}],"title":"6.1. Establishing a Connection"}],"url":"#start-listening-for-a-websocket-connection"},
 "static-command": {"dfnID":"static-command","dfnText":"static command","external":false,"refSections":[{"refs":[{"id":"ref-for-static-command"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-static-command\u2460"}],"title":"7.1.3.1. The session.new Command"}],"url":"#static-command"},
-"success": {"dfnID":"success","dfnText":"success","external":false,"refSections":[{"refs":[{"id":"ref-for-success"}],"title":"3. Infrastructure"},{"refs":[{"id":"ref-for-success\u2460"},{"id":"ref-for-success\u2461"},{"id":"ref-for-success\u2462"},{"id":"ref-for-success\u2463"}],"title":"5.2. Capabilities"},{"refs":[{"id":"ref-for-success\u2464"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-success\u2465"},{"id":"ref-for-success\u2466"}],"title":"5.8. Security checks"},{"refs":[{"id":"ref-for-success\u2467"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-success\u2468"},{"id":"ref-for-success\u2460\u24ea"}],"title":"7.2. The settings Module"},{"refs":[{"id":"ref-for-success\u2460\u2460"},{"id":"ref-for-success\u2460\u2461"}],"title":"7.2.3.1. The settings.setSettings Command"},{"refs":[{"id":"ref-for-success\u2460\u2462"}],"title":"7.2.3.3. The settings.getSupportedSettings Command"},{"refs":[{"id":"ref-for-success\u2460\u2463"}],"title":"7.3. The Interaction Module"}],"url":"#success"},
+"success": {"dfnID":"success","dfnText":"success","external":false,"refSections":[{"refs":[{"id":"ref-for-success"}],"title":"3. Infrastructure"},{"refs":[{"id":"ref-for-success\u2460"},{"id":"ref-for-success\u2461"},{"id":"ref-for-success\u2462"},{"id":"ref-for-success\u2463"}],"title":"5.2. Capabilities"},{"refs":[{"id":"ref-for-success\u2464"}],"title":"5.5. Commands"},{"refs":[{"id":"ref-for-success\u2465"},{"id":"ref-for-success\u2466"}],"title":"5.8. Security checks"},{"refs":[{"id":"ref-for-success\u2467"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-success\u2468"},{"id":"ref-for-success\u2460\u24ea"}],"title":"7.2. The settings Module"},{"refs":[{"id":"ref-for-success\u2460\u2460"},{"id":"ref-for-success\u2460\u2461"}],"title":"7.2.3.1. The settings.setSettings Command"},{"refs":[{"id":"ref-for-success\u2460\u2462"}],"title":"7.2.3.3. The settings.getSupportedSettings Command"},{"refs":[{"id":"ref-for-success\u2460\u2463"}],"title":"7.3. The Interaction Module"},{"refs":[{"id":"ref-for-success\u2460\u2464"}],"title":"Appendix B: Example Session"}],"url":"#success"},
 "table-of-standard-user-intents": {"dfnID":"table-of-standard-user-intents","dfnText":"table of standard user intents","external":false,"refSections":[{"refs":[{"id":"ref-for-table-of-standard-user-intents"},{"id":"ref-for-table-of-standard-user-intents\u2460"}],"title":"7.3.3.1. The interaction.userIntent Command"}],"url":"#table-of-standard-user-intents"},
 "try": {"dfnID":"try","dfnText":"trying","external":false,"refSections":[{"refs":[{"id":"ref-for-try"}],"title":"5.2. Capabilities"},{"refs":[{"id":"ref-for-try\u2460"}],"title":"7.1.3.1. The session.new Command"},{"refs":[{"id":"ref-for-try\u2461"}],"title":"7.2.3.1. The settings.setSettings Command"},{"refs":[{"id":"ref-for-try\u2462"},{"id":"ref-for-try\u2463"}],"title":"7.3. The Interaction Module"}],"url":"#try"},
 "uuid": {"dfnID":"uuid","dfnText":"Universally Unique Identifier (UUID)","external":false,"refSections":[{"refs":[{"id":"ref-for-uuid"}],"title":"5.3. Session"}],"url":"#uuid"},
 "validate-setting-name": {"dfnID":"validate-setting-name","dfnText":"validate setting name","external":false,"refSections":[{"refs":[{"id":"ref-for-validate-setting-name"},{"id":"ref-for-validate-setting-name\u2460"}],"title":"7.2. The settings Module"}],"url":"#validate-setting-name"},
-"websocket-connection": {"dfnID":"websocket-connection","dfnText":"WebSocket connection","external":false,"refSections":[{"refs":[{"id":"ref-for-websocket-connection"},{"id":"ref-for-websocket-connection\u2460"},{"id":"ref-for-websocket-connection\u2461"},{"id":"ref-for-websocket-connection\u2462"},{"id":"ref-for-websocket-connection\u2463"},{"id":"ref-for-websocket-connection\u2464"},{"id":"ref-for-websocket-connection\u2465"}],"title":"6. Transport"}],"url":"#websocket-connection"},
+"websocket-connection": {"dfnID":"websocket-connection","dfnText":"WebSocket connection","external":false,"refSections":[{"refs":[{"id":"ref-for-websocket-connection"},{"id":"ref-for-websocket-connection\u2460"},{"id":"ref-for-websocket-connection\u2461"},{"id":"ref-for-websocket-connection\u2462"},{"id":"ref-for-websocket-connection\u2463"},{"id":"ref-for-websocket-connection\u2464"},{"id":"ref-for-websocket-connection\u2465"}],"title":"6. Transport"},{"refs":[{"id":"ref-for-websocket-connection\u2466"},{"id":"ref-for-websocket-connection\u2467"}],"title":"Appendix B: Example Session"}],"url":"#websocket-connection"},
 "websocket-listener": {"dfnID":"websocket-listener","dfnText":"WebSocket listener","external":false,"refSections":[{"refs":[{"id":"ref-for-websocket-listener"},{"id":"ref-for-websocket-listener\u2460"},{"id":"ref-for-websocket-listener\u2461"},{"id":"ref-for-websocket-listener\u2462"}],"title":"6. Transport"}],"url":"#websocket-listener"},
 "websocket-listener-host": {"dfnID":"websocket-listener-host","dfnText":"host","external":false,"refSections":[{"refs":[{"id":"ref-for-websocket-listener-host"}],"title":"6. Transport"}],"url":"#websocket-listener-host"},
 "websocket-listener-port": {"dfnID":"websocket-listener-port","dfnText":"port","external":false,"refSections":[{"refs":[{"id":"ref-for-websocket-listener-port"}],"title":"6. Transport"}],"url":"#websocket-listener-port"},
@@ -3608,6 +3730,7 @@ let refsData = {
 "#cddl-type-interactionuserintentcommand": {"displayText":"InteractionUserIntentCommand","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"InteractionUserIntentCommand","type":"cddl-type","url":"#cddl-type-interactionuserintentcommand"},
 "#cddl-type-interactionuserintentparameters": {"displayText":"InteractionUserIntentParameters","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"InteractionUserIntentParameters","type":"cddl-type","url":"#cddl-type-interactionuserintentparameters"},
 "#cddl-type-keycombination": {"displayText":"KeyCombination","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"KeyCombination","type":"cddl-type","url":"#cddl-type-keycombination"},
+"#cddl-type-message": {"displayText":"Message","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"Message","type":"cddl-type","url":"#cddl-type-message"},
 "#cddl-type-presskeysintentparameters": {"displayText":"PressKeysIntentParameters","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"PressKeysIntentParameters","type":"cddl-type","url":"#cddl-type-presskeysintentparameters"},
 "#cddl-type-resultdata": {"displayText":"ResultData","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"ResultData","type":"cddl-type","url":"#cddl-type-resultdata"},
 "#cddl-type-sessioncommand": {"displayText":"SessionCommand","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"SessionCommand","type":"cddl-type","url":"#cddl-type-sessioncommand"},
@@ -3650,6 +3773,7 @@ let refsData = {
 "#get-settings": {"displayText":"get settings","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"get settings","type":"dfn","url":"#get-settings"},
 "#handle-a-connection-closing": {"displayText":"handle a connection closing","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"handle a connection closing","type":"dfn","url":"#handle-a-connection-closing"},
 "#handle-an-incoming-message": {"displayText":"handle an incoming message","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"handle an incoming message","type":"dfn","url":"#handle-an-incoming-message"},
+"#interactionuserintent": {"displayText":"interaction.userintent","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"interaction.userintent","type":"dfn","url":"#interactionuserintent"},
 "#local-end": {"displayText":"local end","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"local end","type":"dfn","url":"#local-end"},
 "#match-capabilities": {"displayText":"match capabilities","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"match capabilities","type":"dfn","url":"#match-capabilities"},
 "#modify-setting": {"displayText":"modify setting","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"modify setting","type":"dfn","url":"#modify-setting"},
@@ -3671,7 +3795,9 @@ let refsData = {
 "#session-associated-with-connection": {"displayText":"associated with connection","export":true,"for_":["session"],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"associated with connection","type":"dfn","url":"#session-associated-with-connection"},
 "#session-session-id": {"displayText":"session id","export":true,"for_":["session"],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"session id","type":"dfn","url":"#session-session-id"},
 "#session-session-websocket-connections": {"displayText":"session websocket connections","export":true,"for_":["session"],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"session websocket connections","type":"dfn","url":"#session-session-websocket-connections"},
+"#sessionnew": {"displayText":"session.new","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"session.new","type":"dfn","url":"#sessionnew"},
 "#set-of-all-command-names": {"displayText":"set of all command names","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"set of all command names","type":"dfn","url":"#set-of-all-command-names"},
+"#settingsgetsupportedsettings": {"displayText":"settings.getsupportedsettings","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"settings.getsupportedsettings","type":"dfn","url":"#settingsgetsupportedsettings"},
 "#settingssetsettings": {"displayText":"settings.setsettings","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"settings.setsettings","type":"dfn","url":"#settingssetsettings"},
 "#should-be-withheld": {"displayText":"should be withheld","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"should be withheld","type":"dfn","url":"#should-be-withheld"},
 "#start-listening-for-a-websocket-connection": {"displayText":"start listening for a websocket connection","export":true,"for_":[],"level":"1","normative":true,"shortname":"at-driver","spec":"at-driver-1","status":"local","text":"start listening for a websocket connection","type":"dfn","url":"#start-listening-for-a-websocket-connection"},
