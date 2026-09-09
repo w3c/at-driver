@@ -62,3 +62,16 @@ jobs:
       - run: npm ci
       - name: Validate JSON Schema files
         run: ./scripts/validate-json-schema.js
+  check-json-example-validity:
+    name: Verify that the JSON examples are valid
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Bikeshed
+        run: pip3 install bikeshed
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - run: npm ci
+      - name: Validate JSON examples
+        run: ./scripts/validate-json-examples.js
