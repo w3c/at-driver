@@ -1054,7 +1054,7 @@ InteractionCapturedOutputParameters = {
 
 #### The interaction.userIntent Command #### {#module-interaction-userintent}
 
-The <dfn>interaction.userIntent</dfn> command simulates pressing a key combination on a keyboard.
+The <dfn>interaction.userIntent</dfn> command simulates an end-user interacting with an application that is running on the [=remote end=].
 
 <dl>
   <dt>[=Command Type=]
